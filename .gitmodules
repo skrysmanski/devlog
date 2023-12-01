@@ -1,0 +1,3 @@
+[submodule "themes/devlog-theme"]
+	path = themes/devlog-theme
+	url = https://github.com/skrysmanski/devlog-theme.git

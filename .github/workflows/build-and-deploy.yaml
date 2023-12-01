@@ -1,0 +1,99 @@
+#
+# GitHub Actions workflow: Builds the site and uploads it to the target server.
+#
+# For more details on workflows, see README.md.
+#
+# See also: https://gohugo.io/hosting-and-deployment/hosting-on-github/
+#
+
+name: Build and Deploy
+
+# When to run this workflow
+# See: https://docs.github.com/en/actions/reference/events-that-trigger-workflows
+# See: https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#on
+on:
+  # Trigger the workflow on push to the main branch (i.e. don't publish from pull requests or other branches).
+  push:
+    branches:
+      - main
+  # Allows you to run this workflow manually from the Actions tab.
+  workflow_dispatch:
+
+# Permissions for GITHUB_TOKEN for this workflow.
+#   See: https://docs.github.com/en/actions/reference/authentication-in-a-workflow#permissions-for-the-github_token
+permissions:
+  contents: read
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+# https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#concurrency
+concurrency:
+  # Makes this workflow part of the "deploy" concurrency group. (Note that this text can be chosen arbitrarily.)
+  group: deploy
+  cancel-in-progress: false
+
+# NOTE: Jobs run in parallel by default.
+# https://docs.github.com/en/actions/using-jobs/using-jobs-in-a-workflow
+jobs:
+  build-and-deploy:
+    # Name the job
+    name: Build & Deploy
+    # Set the type of machine to run on
+    # See: https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install Hugo CLI
+        run: sudo snap install hugo
+
+      # See: https://github.com/actions/setup-node
+      - name: Setup NodeJS environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'latest'
+
+      # See: https://github.com/actions/checkout
+      - name: Clone Git repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+          submodules: true
+          # IMPORTANT: Fetch the whole history. This is how Hugo determines the (publish) dates for the articles!!!
+          fetch-depth: 0
+
+      - name: Download node modules
+        run: npm install
+        working-directory: themes/devlog-theme/assets
+
+      - name: Build site
+        # NOTE: We don't use "--minify" here so that the output remains better readable.
+        run: hugo --gc --printPathWarnings --logLevel info -d ./public/
+
+      # See: https://github.com/marketplace/actions/ftp-deploy
+      - name: Deploy site
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          # See: https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions
+          server: ${{ secrets.ftp_server }}
+          username: ${{ secrets.ftp_username }}
+          password: ${{ secrets.ftp_password }}
+
+          # Use an encrypted FTP connection.
+          protocol: ftps
+
+          #log-level: verbose
+
+          # NOTE: This action actually compares file hashes to determine if a file needs to be uploaded.
+          local-dir: ./public/
+          server-dir: ./public_www/
+          state-name: ../sync-state.json
+
+          # NOTE: By default, "exclude" contains "node_modules". We have to remove this exclude rule because
+          #   we use this to ship fontawesome.
+          #   For default, see: https://github.com/marketplace/actions/ftp-deploy#exclude-files
+          # NOTE: Unfortunately, you don't seem to be able to clear the exclude options because it then will simply
+          #   use the default value again. So we keep some common sense value (even though we don't actually need to
+          #   exclude anything).
+          exclude: |
+            **/.git*
+            **/.git*/**

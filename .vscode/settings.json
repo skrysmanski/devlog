@@ -1,8 +1,12 @@
 {
 	"cSpell.language": "en",
 	"cSpell.words": [
+		"callout",
 		"editorconfig",
-		"markdownlint"
+		"fontawesome",
+		"Krysmanski",
+		"markdownlint",
+		"webfonts"
 	],
 
 	"markdownlint.config": {

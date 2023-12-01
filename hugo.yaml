@@ -1,0 +1,82 @@
+languageCode: en-us
+title: "Manski's Dev Log"
+theme: "devlog-theme"
+
+enableGitInfo: true
+
+# https://gohugo.io/getting-started/configuration/#disablekinds
+# We don't need static RSS files to be generated.
+disableKinds: [ 'RSS' ]
+
+params:
+  author: "Sebastian Krysmanski"
+  avatar: "/avatar.jpg"
+  # Date format to use for all dates.
+  dateFormat: "2 Jan 2006"
+  # Page types to list under "recent articles" on the start/home/index page.
+  mainSections:
+    - articles
+  # Number of "recent articles" on the start/home/index page.
+  indexPageCount: 6
+  # Links to various social sites.
+  social:
+    github: "skrysmanski"
+    mastodon: "https://hachyderm.io/@manski"
+  footer:
+    copyrightPrefix: 'Personal site.'
+    termsLinks: '/terms-and-privacy'
+
+# See:
+# * https://gohugo.io/content-management/urls/
+# * https://gohugo.io/templates/section-templates/#page-kinds
+permalinks:
+  page:
+    # Map all articles just to their filename (just like Wikipedia). This way we can
+    # structure the files in this repository however we want and can still keep the
+    # permalinks to each article stable.
+    # NOTE: To be able to better differentiate between articles and "site files" we
+    #   prefix all URLs with "/articles/".
+    articles: "/articles/:slugorfilename"
+
+taxonomies:
+  tag: tags
+
+frontmatter:
+  # Defines the date of each page.
+  # 1. Uses the front matter fields "publishDate" and "date" first (see: https://gohugo.io/content-management/front-matter/).
+  # 2. If they're not defined, uses the date of the last/latest Git commit for the file (see: https://gohugo.io/getting-started/configuration/#configure-dates).
+  # 3. Uses ":fileModTime" for new files (that don't have been commit yet and thus have not git date) - or else they'll have "1 Jan 0001" as date.
+  date: ['publishDate', 'date', ':git', ':fileModTime']
+  # Make "publishDate" behave the same way as "date" (there shouldn't be a difference between these two).
+  # NOTE: By default, "publishDate" does NOT inherit its value from "date". So this config must actually be present.
+  publishDate: ['publishDate', 'date', ':git', ':fileModTime']
+
+markup:
+  # Syntax highlighting
+  highlight:
+    # For an overview of all available styles, see: https://gohugo.io/getting-started/configuration-markup/#highlight
+    style: 'dracula'
+  # TOC: https://gohugo.io/getting-started/configuration-markup/#table-of-contents
+  tableOfContents:
+    startLevel: 2
+    endLevel: 4
+
+# For GDPR reasons, disable all external services by default.
+# See: https://gohugo.io/about/hugo-and-gdpr/
+privacy:
+  disqus:
+    disable: true
+  googleAnalytics:
+    disable: true
+  instagram:
+    disable: true
+  twitter:
+    disable: true
+  vimeo:
+    disable: true
+  youtube:
+    disable: true
+
+build:
+  # Prevents the creation of the "jsconfig.json" file in the theme's assets folder (which VSCode always reports an error in).
+  noJSConfigInAssets: true
