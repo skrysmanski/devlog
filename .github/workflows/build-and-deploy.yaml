@@ -74,6 +74,8 @@ jobs:
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           # See: https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions
+          # NOTE: Secrets are NOT available for pull requests from forked repositories!!!
+          #   See: https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#using-secrets-in-a-workflow
           server: ${{ secrets.ftp_server }}
           username: ${{ secrets.ftp_username }}
           password: ${{ secrets.ftp_password }}
