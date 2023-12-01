@@ -12,10 +12,10 @@ name: Build and Deploy
 # See: https://docs.github.com/en/actions/reference/events-that-trigger-workflows
 # See: https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#on
 on:
-  # Trigger the workflow on push to the main branch (i.e. don't publish from pull requests or other branches).
+  # Trigger the workflow on push to the main branch (deploy to production).
   push:
-    branches:
-      - main
+    branches: [ main ]
+  # Trigger the workflow for any pull requests (deploy to preview, if "local" PR; don't deploy if PR from fork).
   pull_request:
   # Allows you to run this workflow manually from the Actions tab.
   workflow_dispatch:
@@ -73,6 +73,12 @@ jobs:
       # See: https://github.com/marketplace/actions/ftp-deploy
       - name: Deploy site
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        env:
+          HAS_ACCESS_TO_SECRETS: ${{ secrets.ftp_username }}
+        # Only run this step if the workflow has access to the repository's secret. Only pull requests
+        # from within the repository itself have access. Pull requests from forks don't have access.
+        # See below.
+        if: ${{ env.HAS_ACCESS_TO_SECRETS }}
         with:
           # See: https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions
           # IMPORTANT: Secrets are NOT available for pull requests from forked repositories!!!
