@@ -69,12 +69,16 @@ jobs:
         run: npm install
         working-directory: themes/devlog-theme/assets
 
+      # See: https://gohugo.io/getting-started/configuration/#configure-with-environment-variables
+      - name: Set custom Hugo settings for preview
+        run: |
+          # Disable search engine crawling for the preview stage.
+          echo "HUGO_PARAMS_robots=noindex" >> $GITHUB_ENV
+        if: ${{ env.DEPLOY_STAGE == 'preview' }}
+
       - name: Build site
         # NOTE: We don't use "--minify" here so that the output remains better readable.
         run: hugo --gc --printPathWarnings --logLevel info -d ./public/
-        env:
-          # Disable search engine crawling for the preview stage.
-          HUGO_PARAMS_robots: ${{ env.DEPLOY_STAGE == 'preview' && 'noindex' || '' }}
 
       # See: https://github.com/marketplace/actions/ftp-deploy
       - name: Deploy site
