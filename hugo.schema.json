@@ -13,108 +13,108 @@
     },
     "outputFormats": {
       "type": "object",
-      "patternProperties": {
-        ".": {
-          "title": "output format options",
-          "description": "The output format options\nhttps://gohugo.io/templates/output-formats/#configure-output-formats",
-          "type": "object",
-          "properties": {
-            "name": {
-              "description": "The identifier\nhttps://gohugo.io/templates/output-formats/#configure-output-formats",
-              "type": "string",
-              "minLength": 1
-            },
-            "mediaType": {
-              "description": "The media type\nhttps://gohugo.io/templates/output-formats/#media-types",
-              "type": "string",
-              "enum": [
-                "application/javascript",
-                "application/json",
-                "application/manifest+json",
-                "application/octet-stream",
-                "application/pdf",
-                "application/rss+xml",
-                "application/toml",
-                "application/typescript",
-                "application/xml",
-                "application/yaml",
-                "font/otf",
-                "font/ttf",
-                "image/bmp",
-                "image/gif",
-                "image/jpeg",
-                "image/png",
-                "image/svg+xml",
-                "image/webp",
-                "text/calendar",
-                "text/css",
-                "text/csv",
-                "text/html",
-                "text/jsx",
-                "text/markdown",
-                "text/plain",
-                "text/tsx",
-                "text/x-sass",
-                "text/x-scss",
-                "video/3gpp",
-                "video/mp4",
-                "video/mpeg",
-                "video/ogg",
-                "video/webm",
-                "video/x-msvideo"
-              ]
-            },
-            "path": {
-              "description": "The path\nhttps://gohugo.io/templates/output-formats/#configure-output-formats",
-              "type": "string",
-              "minLength": 1
-            },
-            "baseName": {
-              "description": "The base filename for the list filenames\nhttps://gohugo.io/templates/output-formats/#configure-output-formats",
-              "type": "string",
-              "default": "index"
-            },
-            "rel": {
-              "description": "\nhttps://gohugo.io/templates/output-formats/#configure-output-formats",
-              "type": "string",
-              "default": "alternate"
-            },
-            "protocol": {
-              "description": "The replacement for `http://` or `https://` in `baseURL`\nhttps://gohugo.io/templates/output-formats/#configure-output-formats",
-              "type": "string"
-            },
-            "isPlainText": {
-              "description": "Enable/disable Go's plain text templates parser for the templates\nhttps://gohugo.io/templates/output-formats/#configure-output-formats",
-              "type": "boolean",
-              "default": false
-            },
-            "isHTML": {
-              "description": "\nhttps://gohugo.io/templates/output-formats/#configure-output-formats",
-              "type": "boolean",
-              "default": false
-            },
-            "noUgly": {
-              "description": "Enable/disable adding file extensions to urls\nhttps://gohugo.io/templates/output-formats/#configure-output-formats",
-              "type": "boolean",
-              "default": false
-            },
-            "notAlternative": {
-              "description": "Include/exclude this format in an AlternativeOutputFormats format listing\nhttps://gohugo.io/templates/output-formats/#configure-output-formats",
-              "type": "boolean",
-              "default": false
-            },
-            "permalinkable": {
-              "description": "Enable/disable .Permalink and .RelPermalink return the rendering output format\nhttps://gohugo.io/templates/output-formats/#configure-output-formats",
-              "type": "boolean",
-              "default": false
-            },
-            "weight": {
-              "description": "The weight\nhttps://gohugo.io/templates/output-formats/#configure-output-formats",
-              "type": "integer"
-            }
+      "additionalProperties": {
+        "title": "output format options",
+        "description": "The output format options\nhttps://gohugo.io/templates/output-formats/#configure-output-formats",
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "The identifier\nhttps://gohugo.io/templates/output-formats/#configure-output-formats",
+            "type": "string",
+            "minLength": 1
           },
-          "additionalProperties": false
-        }
+          "mediaType": {
+            "description": "The media type\nhttps://gohugo.io/templates/output-formats/#media-types",
+            "type": "string",
+            "enum": [
+              "application/json",
+              "application/manifest+json",
+              "application/octet-stream",
+              "application/pdf",
+              "application/rss+xml",
+              "application/toml",
+              "application/wasm",
+              "application/xml",
+              "application/yaml",
+              "font/otf",
+              "font/ttf",
+              "image/bmp",
+              "image/gif",
+              "image/jpeg",
+              "image/png",
+              "image/svg+xml",
+              "image/tiff",
+              "image/webp",
+              "text/calendar",
+              "text/css",
+              "text/csv",
+              "text/html",
+              "text/javascript",
+              "text/jsx",
+              "text/markdown",
+              "text/plain",
+              "text/tsx",
+              "text/typescript",
+              "text/x-sass",
+              "text/x-scss",
+              "video/3gpp",
+              "video/mp4",
+              "video/mpeg",
+              "video/ogg",
+              "video/webm",
+              "video/x-msvideo"
+            ]
+          },
+          "path": {
+            "description": "The path\nhttps://gohugo.io/templates/output-formats/#configure-output-formats",
+            "type": "string",
+            "minLength": 1
+          },
+          "baseName": {
+            "description": "The base filename for the list filenames\nhttps://gohugo.io/templates/output-formats/#configure-output-formats",
+            "type": "string",
+            "default": "index"
+          },
+          "rel": {
+            "description": "\nhttps://gohugo.io/templates/output-formats/#configure-output-formats",
+            "type": "string",
+            "default": "alternate"
+          },
+          "protocol": {
+            "description": "The replacement for `http://` or `https://` in `baseURL`\nhttps://gohugo.io/templates/output-formats/#configure-output-formats",
+            "type": "string"
+          },
+          "isPlainText": {
+            "description": "Enable/disable Go's plain text templates parser for the templates\nhttps://gohugo.io/templates/output-formats/#configure-output-formats",
+            "type": "boolean",
+            "default": false
+          },
+          "isHTML": {
+            "description": "\nhttps://gohugo.io/templates/output-formats/#configure-output-formats",
+            "type": "boolean",
+            "default": false
+          },
+          "noUgly": {
+            "description": "Enable/disable adding file extensions to urls\nhttps://gohugo.io/templates/output-formats/#configure-output-formats",
+            "type": "boolean",
+            "default": false
+          },
+          "notAlternative": {
+            "description": "Include/exclude this format in an AlternativeOutputFormats format listing\nhttps://gohugo.io/templates/output-formats/#configure-output-formats",
+            "type": "boolean",
+            "default": false
+          },
+          "permalinkable": {
+            "description": "Enable/disable .Permalink and .RelPermalink return the rendering output format\nhttps://gohugo.io/templates/output-formats/#configure-output-formats",
+            "type": "boolean",
+            "default": false
+          },
+          "weight": {
+            "description": "The weight\nhttps://gohugo.io/templates/output-formats/#configure-output-formats",
+            "type": "integer"
+          }
+        },
+        "additionalProperties": false
       }
     },
     "cascade": {
@@ -213,10 +213,8 @@
               "title": "param options",
               "description": "The param options\nhttps://gohugo.io/content-management/page-resources/#page-resources-metadata",
               "type": "object",
-              "patternProperties": {
-                ".": {
-                  "description": "The param\nhttps://gohugo.io/content-management/page-resources/#page-resources-metadata"
-                }
+              "additionalProperties": {
+                "description": "The param\nhttps://gohugo.io/content-management/page-resources/#page-resources-metadata"
               }
             }
           },
@@ -270,33 +268,41 @@
       "type": "string",
       "pattern": "^\\d+\\.\\d+\\.\\d+.*$"
     },
-    "permalinkDefinition": {
-      "type": "object",
-      "patternProperties": {
-        ".": {
-          "description": "The permalink",
-          "type": "string",
-          "examples": [
-            ":year",
-            ":month",
-            ":monthname",
-            ":day",
-            ":weekday",
-            ":weekdayname",
-            ":yearday",
-            ":section",
-            ":sections",
-            ":title",
-            ":slug",
-            ":filename"
-          ]
-        }
-      }
-    },
     "mergeType": {
       "description": "Merge configuration from themes\nhttps://gohugo.io/getting-started/configuration/#merge-configuration-from-themes",
       "type": "string",
       "enum": ["none", "shallow", "deep"]
+    },
+    "permalinkDefinition": {
+      "description": "A permalink",
+      "type": "string",
+      "examples": [
+        ":year",
+        ":month",
+        ":monthname",
+        ":day",
+        ":weekday",
+        ":weekdayname",
+        ":yearday",
+        ":section",
+        ":sections",
+        ":title",
+        ":slug",
+        ":filename"
+      ]
+    },
+    "permalinkConfiguration": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/permalinkDefinition"
+        },
+        {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/permalinkDefinition"
+          }
+        }
+      ]
     }
   },
   "properties": {
@@ -365,7 +371,7 @@
           "type": "boolean",
           "default": false
         },
-        "cacheBusters": {
+        "cachebusters": {
           "title": "Cache busters",
           "description": "Cache busters to support development using Tailwind 3.x's JIT compiler\nhttps://gohugo.io/getting-started/configuration/#configure-cache-busters",
           "type": "array",
@@ -435,42 +441,40 @@
           "$ref": "#/definitions/mergeType"
         }
       },
-      "patternProperties": {
-        ".": {
-          "description": "Cache entry",
-          "type": "object",
-          "properties": {
-            "maxAge": {
-              "description": "The duration before the cache entry will be evicted\nhttps://gohugo.io/getting-started/configuration/#the-keywords-explained",
-              "default": -1,
-              "examples": ["0", "10s", "10m", "10h"],
-              "oneOf": [
-                {
-                  "type": "integer",
-                  "minimum": -1
-                },
-                {
-                  "type": "string",
-                  "pattern": "^-?\\d+[smh]?$"
-                }
-              ]
-            },
-            "dir": {
-              "description": "The absolute path to store cache files\nhttps://gohugo.io/getting-started/configuration/#the-keywords-explained",
-              "type": "string",
-              "examples": [
-                ":cacheDir",
-                ":project",
-                ":resourceDir",
-                ":resourceDir/_gen",
-                ":cacheDir/:project",
-                ":cacheDir/modules"
-              ],
-              "minLength": 1
-            }
+      "additionalProperties": {
+        "description": "Cache entry",
+        "type": "object",
+        "properties": {
+          "maxAge": {
+            "description": "The duration before the cache entry will be evicted\nhttps://gohugo.io/getting-started/configuration/#the-keywords-explained",
+            "default": -1,
+            "examples": ["0", "10s", "10m", "10h"],
+            "oneOf": [
+              {
+                "type": "integer",
+                "minimum": -1
+              },
+              {
+                "type": "string",
+                "pattern": "^-?\\d+[smh]?$"
+              }
+            ]
           },
-          "additionalProperties": false
-        }
+          "dir": {
+            "description": "The absolute path to store cache files\nhttps://gohugo.io/getting-started/configuration/#the-keywords-explained",
+            "type": "string",
+            "examples": [
+              ":cacheDir",
+              ":project",
+              ":resourceDir",
+              ":resourceDir/_gen",
+              ":cacheDir/:project",
+              ":cacheDir/modules"
+            ],
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false
       }
     },
     "cascade": {
@@ -846,11 +850,9 @@
           "$ref": "#/definitions/mergeType"
         }
       },
-      "patternProperties": {
-        ".": {
-          "description": "The language options",
-          "type": "object"
-        }
+      "additionalProperties": {
+        "description": "The language options",
+        "type": "object"
       }
     },
     "disableLanguages": {
@@ -953,10 +955,8 @@
               "description": "The document attributes\nhttps://docs.asciidoctor.org/asciidoctor/latest/cli/man1/asciidoctor/#document-settings",
               "type": "object",
               "default": {},
-              "patternProperties": {
-                ".": {
-                  "type": "string"
-                }
+              "additionalProperties": {
+                "type": "string"
               }
             },
             "backend": {
@@ -1489,377 +1489,616 @@
         "_merge": {
           "$ref": "#/definitions/mergeType"
         },
-        "application/javascript": {
-          "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
-          "type": "array",
-          "default": ["js", "jsm", "mjs"],
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "examples": ["js", "jsm", "mjs"]
-          }
-        },
         "application/json": {
           "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
-          "type": "array",
-          "default": ["json"],
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "examples": ["json"]
+          "type": "object",
+          "properties": {
+            "suffixes": {
+              "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
+              "type": "array",
+              "default": ["json"],
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "examples": ["json"]
+              }
+            }
           }
         },
         "application/manifest+json": {
           "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
-          "type": "array",
-          "default": ["webmanifest"],
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "examples": ["webmanifest"]
+          "type": "object",
+          "properties": {
+            "suffixes": {
+              "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
+              "type": "array",
+              "default": ["webmanifest"],
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "examples": ["webmanifest"]
+              }
+            }
           }
         },
         "application/octet-stream": {
           "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
-          "type": "array",
-          "default": [],
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "minLength": 1
+          "type": "object",
+          "properties": {
+            "suffixes": {
+              "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
+              "type": "array",
+              "default": ["webmanifest"],
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "examples": ["webmanifest"]
+              }
+            }
           }
         },
         "application/pdf": {
           "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
-          "type": "array",
-          "default": ["pdf"],
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "examples": ["pdf"]
+          "type": "object",
+          "properties": {
+            "suffixes": {
+              "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
+              "type": "array",
+              "default": ["pdf"],
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "examples": ["pdf"]
+              }
+            }
           }
         },
         "application/rss+xml": {
           "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
-          "type": "array",
-          "default": ["xml", "rss"],
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "examples": ["xml", "rss"]
+          "type": "object",
+          "properties": {
+            "suffixes": {
+              "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
+              "type": "array",
+              "default": ["xml", "rss"],
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "examples": ["xml", "rss"]
+              }
+            }
           }
         },
         "application/toml": {
           "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
-          "type": "array",
-          "default": ["toml"],
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "examples": ["toml"]
+          "type": "object",
+          "properties": {
+            "suffixes": {
+              "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
+              "type": "array",
+              "default": ["toml"],
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "examples": ["toml"]
+              }
+            }
           }
         },
-        "application/typescript": {
+        "application/wasm": {
           "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
-          "type": "array",
-          "default": ["ts"],
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "examples": ["ts"]
+          "type": "object",
+          "properties": {
+            "suffix": {
+              "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
+              "type": "array",
+              "default": "wasm",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "examples": ["wasm"]
+              }
+            }
           }
         },
         "application/xml": {
           "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
-          "type": "array",
-          "default": ["xml"],
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "examples": ["xml"]
+          "type": "object",
+          "properties": {
+            "suffixes": {
+              "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
+              "type": "array",
+              "default": ["xml"],
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "examples": ["xml"]
+              }
+            }
           }
         },
         "application/yaml": {
           "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
-          "type": "array",
-          "default": ["yaml", "yml"],
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "examples": ["yaml", "yml"]
+          "type": "object",
+          "properties": {
+            "suffixes": {
+              "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
+              "type": "array",
+              "default": ["yaml", "yml"],
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "examples": ["yaml", "yml"]
+              }
+            }
           }
         },
         "font/otf": {
           "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
-          "type": "array",
-          "default": ["otf"],
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "examples": ["otf"]
+          "type": "object",
+          "properties": {
+            "suffixes": {
+              "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
+              "type": "array",
+              "default": ["otf"],
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "examples": ["otf"]
+              }
+            }
           }
         },
         "font/ttf": {
           "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
-          "type": "array",
-          "default": ["ttf"],
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "examples": ["ttf"]
+          "type": "object",
+          "properties": {
+            "suffixes": {
+              "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
+              "type": "array",
+              "default": ["ttf"],
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "examples": ["ttf"]
+              }
+            }
           }
         },
         "image/bmp": {
           "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
-          "type": "array",
-          "default": ["bmp"],
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "examples": ["bmp"]
+          "type": "object",
+          "properties": {
+            "suffixes": {
+              "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
+              "type": "array",
+              "default": ["bmp"],
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "examples": ["bmp"]
+              }
+            }
           }
         },
         "image/gif": {
           "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
-          "type": "array",
-          "default": ["gif"],
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "examples": ["gif"]
+          "type": "object",
+          "properties": {
+            "suffixes": {
+              "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
+              "type": "array",
+              "default": ["gif"],
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "examples": ["gif"]
+              }
+            }
           }
         },
         "image/jpeg": {
           "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
-          "type": "array",
-          "default": ["jpg", "jpeg", "gpe", "jif", "jfif"],
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "examples": ["jpg", "jpeg", "gpe", "jif", "jfif"]
+          "type": "object",
+          "properties": {
+            "suffixes": {
+              "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
+              "type": "array",
+              "default": ["jpg", "jpeg", "jpe", "jif", "jfif"],
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "examples": ["jpg", "jpeg", "jpe", "jif", "jfif"]
+              }
+            }
           }
         },
         "image/png": {
           "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
-          "type": "array",
-          "default": ["png"],
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "examples": ["png"]
+          "type": "object",
+          "properties": {
+            "suffixes": {
+              "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
+              "type": "array",
+              "default": ["png"],
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "examples": ["png"]
+              }
+            }
           }
         },
         "image/svg+xml": {
           "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
-          "type": "array",
-          "default": ["svg"],
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "examples": ["svg"]
+          "type": "object",
+          "properties": {
+            "suffixes": {
+              "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
+              "type": "array",
+              "default": ["svg"],
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "examples": ["svg"]
+              }
+            }
+          }
+        },
+        "image/tiff": {
+          "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
+          "type": "object",
+          "properties": {
+            "suffixes": {
+              "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
+              "type": "array",
+              "default": ["tif", "tiff"],
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "examples": ["tif", "tiff"]
+              }
+            }
           }
         },
         "image/webp": {
           "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
-          "type": "array",
-          "default": ["webp"],
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "examples": ["webp"]
+          "type": "object",
+          "properties": {
+            "suffixes": {
+              "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
+              "type": "array",
+              "default": ["webp"],
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "examples": ["webp"]
+              }
+            }
           }
         },
         "text/calendar": {
           "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
-          "type": "array",
-          "default": ["ics"],
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "examples": ["ics"]
+          "type": "object",
+          "properties": {
+            "suffixes": {
+              "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
+              "type": "array",
+              "default": ["ics"],
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "examples": ["ics"]
+              }
+            }
           }
         },
         "text/css": {
           "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
-          "type": "array",
-          "default": ["css"],
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "examples": ["css"]
+          "type": "object",
+          "properties": {
+            "suffixes": {
+              "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
+              "type": "array",
+              "default": ["css"],
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "examples": ["css"]
+              }
+            }
           }
         },
         "text/csv": {
           "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
-          "type": "array",
-          "default": ["csv"],
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "examples": ["csv"]
+          "type": "object",
+          "properties": {
+            "suffixes": {
+              "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
+              "type": "array",
+              "default": ["csv"],
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "examples": ["csv"]
+              }
+            }
           }
         },
         "text/html": {
           "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
-          "type": "array",
-          "default": ["html"],
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "examples": ["html"]
+          "type": "object",
+          "properties": {
+            "suffixes": {
+              "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
+              "type": "array",
+              "default": ["html"],
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "examples": ["html"]
+              }
+            }
+          }
+        },
+        "text/javascript": {
+          "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
+          "type": "object",
+          "properties": {
+            "suffixes": {
+              "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
+              "type": "array",
+              "default": ["js", "jsm", "mjs"],
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "examples": ["js", "jsm", "mjs"]
+              }
+            }
           }
         },
         "text/jsx": {
           "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
-          "type": "array",
-          "default": ["jsx"],
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "examples": ["jsx"]
+          "type": "object",
+          "properties": {
+            "suffixes": {
+              "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
+              "type": "array",
+              "default": ["jsx"],
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "examples": ["jsx"]
+              }
+            }
           }
         },
         "text/markdown": {
           "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
-          "type": "array",
-          "default": ["md", "markdown"],
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "examples": ["md"]
+          "type": "object",
+          "properties": {
+            "suffixes": {
+              "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
+              "type": "array",
+              "default": ["md", "markdown"],
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "examples": ["md"]
+              }
+            }
           }
         },
         "text/plain": {
           "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
-          "type": "array",
-          "default": ["txt"],
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "examples": ["txt"]
+          "type": "object",
+          "properties": {
+            "suffixes": {
+              "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
+              "type": "array",
+              "default": ["txt"],
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "examples": ["txt"]
+              }
+            }
           }
         },
         "text/tsx": {
           "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
-          "type": "array",
-          "default": ["tsx"],
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "examples": ["tsx"]
+          "type": "object",
+          "properties": {
+            "suffixes": {
+              "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
+              "type": "array",
+              "default": ["tsx"],
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "examples": ["tsx"]
+              }
+            }
+          }
+        },
+        "text/typescript": {
+          "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
+          "type": "object",
+          "properties": {
+            "suffixes": {
+              "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
+              "type": "array",
+              "default": ["ts"],
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "examples": ["ts"]
+              }
+            }
           }
         },
         "text/x-sass": {
           "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
-          "type": "array",
-          "default": ["sass"],
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "examples": ["sass"]
+          "type": "object",
+          "properties": {
+            "suffixes": {
+              "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
+              "type": "array",
+              "default": ["sass"],
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "examples": ["sass"]
+              }
+            }
           }
         },
         "text/x-scss": {
           "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
-          "type": "array",
-          "default": ["scss"],
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "examples": ["scss"]
+          "type": "object",
+          "properties": {
+            "suffixes": {
+              "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
+              "type": "array",
+              "default": ["scss"],
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "examples": ["scss"]
+              }
+            }
           }
         },
         "video/3gpp": {
           "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
-          "type": "array",
-          "default": ["3gpp", "3gp"],
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "examples": ["3gpp", "3gp"]
+          "type": "object",
+          "properties": {
+            "suffixes": {
+              "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
+              "type": "array",
+              "default": ["3gpp", "3gp"],
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "examples": ["3gpp", "3gp"]
+              }
+            }
           }
         },
         "video/mp4": {
           "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
-          "type": "array",
-          "default": ["mp4"],
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "examples": ["mp4"]
+          "type": "object",
+          "properties": {
+            "suffixes": {
+              "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
+              "type": "array",
+              "default": ["mp4"],
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "examples": ["mp4"]
+              }
+            }
           }
         },
         "video/mpeg": {
           "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
-          "type": "array",
-          "default": ["mpg", "mpeg"],
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "examples": ["mpg", "mpeg"]
+          "type": "object",
+          "properties": {
+            "suffixes": {
+              "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
+              "type": "array",
+              "default": ["mpg", "mpeg"],
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "examples": ["mpg", "mpeg"]
+              }
+            }
           }
         },
         "video/ogg": {
           "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
-          "type": "array",
-          "default": ["ogv"],
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "examples": ["ogv"]
+          "type": "object",
+          "properties": {
+            "suffixes": {
+              "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
+              "type": "array",
+              "default": ["ogv"],
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "examples": ["ogv"]
+              }
+            }
           }
         },
         "video/webm": {
           "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
-          "type": "array",
-          "default": ["webm"],
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "examples": ["webm"]
+          "type": "object",
+          "properties": {
+            "suffixes": {
+              "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
+              "type": "array",
+              "default": ["webm"],
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "examples": ["webm"]
+              }
+            }
           }
         },
         "video/x-msvideo": {
           "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
-          "type": "array",
-          "default": ["avi"],
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "examples": ["avi"]
+          "type": "object",
+          "properties": {
+            "suffixes": {
+              "description": "\nhttps://gohugo.io/templates/output-formats/#media-types",
+              "type": "array",
+              "default": ["avi"],
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "examples": ["avi"]
+              }
+            }
           }
         }
       },
@@ -1874,58 +2113,56 @@
           "$ref": "#/definitions/mergeType"
         }
       },
-      "patternProperties": {
-        ".": {
-          "description": "The menu\nhttps://gohugo.io/content-management/menus/#add-non-content-entries-to-a-menu",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "identifier": {
-                "description": "Required when two or more menu entries have the same name\nhttps://gohugo.io/content-management/menus/#properties-front-matter",
-                "type": "string",
-                "minLength": 1
-              },
-              "name": {
-                "description": "The text to display when rendering the menu entry.\nhttps://gohugo.io/content-management/menus/#properties-front-matter",
-                "type": "string",
-                "minLength": 1
-              },
-              "parent": {
-                "description": "Required for child entries in a nested menu.\nhttps://gohugo.io/content-management/menus/#properties-front-matter",
-                "type": "string"
-              },
-              "post": {
-                "description": "\nhttps://gohugo.io/content-management/menus/#add-non-content-entries-to-a-menu",
-                "type": "string"
-              },
-              "pre": {
-                "description": "\nhttps://gohugo.io/content-management/menus/#add-non-content-entries-to-a-menu",
-                "type": "string"
-              },
-              "title": {
-                "description": "\nhttps://gohugo.io/content-management/menus/#add-non-content-entries-to-a-menu",
-                "type": "string"
-              },
-              "weight": {
-                "description": "A non-zero integer indicating the entry's position relative the root of the menu, or to its parent for a child entry\nhttps://gohugo.io/content-management/menus/#properties-front-matter",
-                "type": "integer"
-              },
-              "pageRef": {
-                "description": "Required for internal links.\nhttps://gohugo.io/content-management/menus/#properties-site-configuration",
-                "type": "string"
-              },
-              "url": {
-                "description": "Required for external links.\nhttps://gohugo.io/content-management/menus/#properties-site-configuration",
-                "type": "string"
-              },
-              "params": {
-                "description": "User-defined properties for the menu entry.\nhttps://gohugo.io/content-management/menus/#properties-front-matter",
-                "type": "object"
-              }
+      "additionalProperties": {
+        "description": "The menu\nhttps://gohugo.io/content-management/menus/#add-non-content-entries-to-a-menu",
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "identifier": {
+              "description": "Required when two or more menu entries have the same name\nhttps://gohugo.io/content-management/menus/#properties-front-matter",
+              "type": "string",
+              "minLength": 1
             },
-            "additionalProperties": false
-          }
+            "name": {
+              "description": "The text to display when rendering the menu entry.\nhttps://gohugo.io/content-management/menus/#properties-front-matter",
+              "type": "string",
+              "minLength": 1
+            },
+            "parent": {
+              "description": "Required for child entries in a nested menu.\nhttps://gohugo.io/content-management/menus/#properties-front-matter",
+              "type": "string"
+            },
+            "post": {
+              "description": "\nhttps://gohugo.io/content-management/menus/#add-non-content-entries-to-a-menu",
+              "type": "string"
+            },
+            "pre": {
+              "description": "\nhttps://gohugo.io/content-management/menus/#add-non-content-entries-to-a-menu",
+              "type": "string"
+            },
+            "title": {
+              "description": "\nhttps://gohugo.io/content-management/menus/#add-non-content-entries-to-a-menu",
+              "type": "string"
+            },
+            "weight": {
+              "description": "A non-zero integer indicating the entry's position relative the root of the menu, or to its parent for a child entry\nhttps://gohugo.io/content-management/menus/#properties-front-matter",
+              "type": "integer"
+            },
+            "pageRef": {
+              "description": "Required for internal links.\nhttps://gohugo.io/content-management/menus/#properties-site-configuration",
+              "type": "string"
+            },
+            "url": {
+              "description": "Required for external links.\nhttps://gohugo.io/content-management/menus/#properties-site-configuration",
+              "type": "string"
+            },
+            "params": {
+              "description": "User-defined properties for the menu entry.\nhttps://gohugo.io/content-management/menus/#properties-front-matter",
+              "type": "object"
+            }
+          },
+          "additionalProperties": false
         }
       }
     },
@@ -2397,13 +2634,13 @@
           "$ref": "#/definitions/mergeType"
         },
         "page": {
-          "$ref": "#/definitions/permalinkDefinition"
+          "$ref": "#/definitions/permalinkConfiguration"
         },
         "section": {
-          "$ref": "#/definitions/permalinkDefinition"
+          "$ref": "#/definitions/permalinkConfiguration"
         },
         "term": {
-          "$ref": "#/definitions/permalinkDefinition"
+          "$ref": "#/definitions/permalinkConfiguration"
         }
       }
     },
