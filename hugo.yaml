@@ -31,6 +31,9 @@ params:
     copyrightPrefix: 'Personal site.'
     termsLinks: '/terms-and-privacy'
 
+  # Prevent greedy lawyers from using Google to find images to sue you.
+  robots: noimageindex
+
 # See:
 # * https://gohugo.io/content-management/urls/
 # * https://gohugo.io/templates/section-templates/#page-kinds
