@@ -21,7 +21,4 @@
 		// Inconsistent code blocks are sometimes nicer to write
 		"MD046": false,
 	},
-	"yaml.schemas": {
-		"./hugo.schema.json": "hugo.yaml"
-	},
 }
