@@ -34,6 +34,22 @@ params:
   # Prevent greedy lawyers from using Google to find images to sue you.
   robots: noimageindex
 
+# Make URLs to pages "../my-page.html" instead of "../my-page/".
+# I personally like this better because it better transports that you're
+# looking at a single page (rather than a directory). It also reduces
+# the complexity of the file layout when publishing the site.
+#
+# SIDE NOTE: I'd personally love "../my-page" (i.e. without trailing slash)
+#   but the Hugo dev's don't seem to be willing to make this work:
+#   https://github.com/gohugoio/hugo/issues/7458#issuecomment-699049286
+#
+# NOTE: I tried to make "../my-page" URLs working with .htaccess and URL rewrite.
+#   Unfortunately, I couldn't get this working properly - especially in cases where
+#   there is a folder ("/tags/") and a file ("/tags.html") with the same base name.
+#   Opening "/tags" would always resolve to "/tags/" instead of staying "/tags".
+#   In the end, it was just too much fuss.
+uglyURLs: true
+
 # See:
 # * https://gohugo.io/content-management/urls/
 # * https://gohugo.io/templates/section-templates/#page-kinds
