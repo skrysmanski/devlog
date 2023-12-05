@@ -80,6 +80,10 @@ jobs:
         # NOTE: We don't use "--minify" here so that the output remains better readable.
         run: hugo --gc --printPathWarnings --logLevel info -d ./public/
 
+      - name: Build search index
+        run: npx pagefind --site "../../../public"
+        working-directory: themes/devlog-theme/assets
+
       # See: https://github.com/marketplace/actions/ftp-deploy
       - name: Deploy site
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
