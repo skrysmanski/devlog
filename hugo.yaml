@@ -23,6 +23,8 @@ params:
   # Number of "recent articles" on the start/home/index page.
   indexPageCount: 6
 
+  discussions: github
+
   # Links to various social sites.
   social:
     github: "skrysmanski"
