@@ -21,7 +21,7 @@ params:
     - articles
 
   # Number of "recent articles" on the start/home/index page.
-  indexPageCount: 6
+  indexPageCount: 50
 
   discussions: github
 
