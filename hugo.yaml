@@ -13,6 +13,7 @@ params:
   avatar: "/avatar.jpg"
 
   # Date format to use for all dates.
+  # NOTE: The date/time must be exactly(!) "2006-01-02 03:04:05 PM (UTC-7)" (1 2 3 4 5 6 7) or it won't work properly.
   dateFormat: "2 Jan 2006"
 
   # Page types to list under "recent articles" on the start/home/index page.
