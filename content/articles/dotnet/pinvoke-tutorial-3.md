@@ -12,7 +12,8 @@ P/Invoke tries to make your life easier by automatically converting ("marshallin
 
 <!--more-->
 
-= Marshalling Primitive Data Types ===========
+## Marshalling Primitive Data Types
+
 Primitive data types (`bool`, `int`, `double`, ...) are the easiest to use. They map directly to their native counterparts.
 
 |= C# type |= C/C++ type                           |= Bytes    |= Range
@@ -29,7 +30,8 @@ Primitive data types (`bool`, `int`, `double`, ...) are the easiest to use. They
 |`float` |`float`                              | 4         | 7 significant decimal digits
 |`double`|`double`                             | 8         | 15 significant decimal digits
 
-= Marshalling Strings ====================
+## Marshalling Strings
+
 For passing strings, it's recommended that you pass them as Unicode strings (if possible). For this, you need to specify `Char.Unicode` like this:
 
 ```c#
@@ -45,7 +47,8 @@ void do_something(const wchar_t* str);
 
 For more details, see [[2559]].
 
-= Marshalling Arrays ====================
+## Marshalling Arrays
+
 Arrays of primitive types can be passed directly.
 
 ```c#
@@ -53,7 +56,8 @@ Arrays of primitive types can be passed directly.
 private static extern void do_something(byte[] data);
 ```
 
-= Marshalling Objects ====================
+## Marshalling Objects
+
 To be able to pass objects you need to make their memory layout sequential:
 
 ```c# highlight=1
@@ -84,7 +88,8 @@ void do_something(MyClass* data);
 
 *Note:* Obviously the order of the fields in the native struct and the managed class *must be exactly the same*.
 
-= Marshalling Structs ====================
+## Marshalling Structs
+
 Marshalling managed `struct`s is almost identical to marshalling objects with only one difference: `struct`s are passed by copy by default.
 
 So for `struct`s the C/C++ function signature reads:
@@ -96,7 +101,8 @@ void do_something(MyClass data);
 Of course, you can pass the `struct` also by reference. In this case, use `(MyClass* data)` or `(MyClass& data)` in C/C++ and `(ref MyClass data)` in C#.
 
 
-= Marshalling Delegates ====================
+## Marshalling Delegates
+
 Delegates are marshalled directly. The only thing you need to take care of is the "calling convention". The default calling convention is `Winapi` (which equals to `StdCall` on Windows). If your native library uses a different calling convention, you need to specify it like this:
 
 ```c#
@@ -104,7 +110,8 @@ Delegates are marshalled directly. The only thing you need to take care of is th
 public delegate void MyDelegate(IntPtr value);
 ```
 
-= Marshalling Arbitrary Pointers ====================
+## Marshalling Arbitrary Pointers
+
 Arbitrary pointers (like `void*`) are marshalled as `IntPtr` objects.
 
 So this C function:

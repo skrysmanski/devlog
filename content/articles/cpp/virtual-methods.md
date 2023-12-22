@@ -9,7 +9,8 @@ draft: true
 
 Last friday I stumbled over a seroius shortcomming of C++ (compared to C# or Java) I'd like to share here with you. It's about ##virtual## methods called from a class constructor.
 
-= The C&#35; Example =
+## The C&#35; Example
+
 Let me start with an example. Here's some C# code that simply calls a `virtual` method (named `test()`) from the class' constructor:
 
 ```"csharp"
@@ -57,7 +58,8 @@ This means that the sub class' implementation of `test()` was executed (and not 
 
 **Note:** In Java all methods are automatically `virtual`. In contrast to C# or C++ you can't create "non-virtual" methods in Java.
 
-= The C++ Problem =
+## The C++ Problem
+
 And exactly here is **the problem** in C++. Let's create a C++ version of the two classes above (compiled with Visual C++).
 
 Header file (`TestClass.h`):
@@ -124,7 +126,8 @@ The problem becomes even more severe with **pure virtual** (which is `abstract` 
 
 **For your interest:** A *C++/CLI* class will behave like a C# class (and not like a C++ class).
 
-= Example Visual Studio Solution =
+## Example Visual Studio Solution
+
 I've created a solution (for Visual Studio 2010) containing the source code above. In addition to a C# and a C++ project, I've also added a C++/CLI project. You can download it here:
 
 [[file:VirtualMethodTest.zip]]

@@ -16,7 +16,8 @@ Everyone who has ever created and managed a C++ project in Visual Studio knows t
 
 <!--more-->
 
-= The Property Manager =
+## The Property Manager
+
 While property sheets (file extension: `.props`) are simply XML files and therefore could be edited with a simple text editor, Visual Studio also provides an editor for property sheets. This editor is available through the so called Property Manager. To display the Property Manager pane, in the menu go to `View` --> `Other Windows` --> `Property Manager`.
 
 *Note:* Property sheet files share the same XML syntax as `.vcxproj` files.
@@ -41,7 +42,8 @@ Let's examine the property sheets a bit closer:
 
 *Note:* The property sheet `Microsoft.Cpp.Win32.user` is located somewhere in the current user's application settings. It's contents therefore will be different for each user. By keeping it *the top item* in every configuration you allow the user to override any option, if necessary, without needing to change the project file.
 
-= Creating a shared property sheet =
+## Creating a shared property sheet
+
 The first step is to create a new property sheet file. To do this, right-click on the project and choose `Add New Project Property Sheet`. This will add a new property sheet to all configurations of the project. In this article, we'll called the file `commons.props` and place it in a directory called `shared-properties` directly in the solution directory.
 
 *Note:* You can also right-click on a configuration and choose the same menu item. In this case the new property sheet will only be added to the selected configuration. You can, of course, add this property sheet later to the other configurations as well.
@@ -54,7 +56,8 @@ The result then should look like this:
 
 [[image:property-manager-result.png|center]]
 
-= Editing a property sheet =
+## Editing a property sheet
+
 To edit a property sheet (file), simply double-click on it in the Property Manager.
 
 *Note:* The same property sheet file can be listed multiple times in the Property Manager. Editing one "instance" of this file will, of course, update all other "instances" as well (since all "instances" share the same file).
@@ -83,7 +86,8 @@ That's the effect of the property sheet. You can define as many settings in a si
 
 *Note:* A value of a setting specified in a property sheet is only used in a project, when there isn't a custom value (printed in bold) assigned to this setting in the project settings. To take the value of the property sheet (instead of defining a value in the project file), select `<inherit from parent or project defaults>` from the drop-down menu of this setting.
 
-= Property Sheet Order =
+## Property Sheet Order
+
 As mentioned earlier, the property sheets are applied in a certain order - from bottom to top as shown in Property Manager. When editing a property sheet, each setting already displays the inherited value - unless the property sheet defines its own value.
 
 So, lets have a look at the property sheet `Microsoft.Cpp.Win32.user` (in one of the configurations). It still should be *the top item in the stack*. The value for `Warning Level` is already `Level3 (/W3)`. It's inherited from one of the property sheets below - our "common" sheet in this case.
@@ -94,11 +98,13 @@ Now lets swap the `common` sheet with the `Microsoft.Cpp.Win32.user` sheet. This
 
 [[image:user-sheet-below.png|center|medium|link=source]]
 
-= Custom Variables (a.k.a. Macros) =
+## Custom Variables (a.k.a. Macros)
+
 It's possible to define your own custom variables (like the pre-defined `$(OutDir)` or `$(SolutionDir)`). These variables are called "Macros" in Visual Studio. To define one, open the property sheet editor and go to `User Macros`. There, you can add new macros with the `Add Macro` button. These macros then appear in the `Macros` section that is available when editing free text properties (such as paths).
 
 
-= Inheriting From Other Property Sheets =
+## Inheriting From Other Property Sheets
+
 Property sheets can inherit their values from other property sheets. You can either specify this inheritance ...
 
 * in a *project file*: This is accomplished by adding the inherited property sheet to the Property Manager and move it below the inheriting property sheet.
@@ -115,7 +121,8 @@ The XML code for inheritance is:
 ```
 
 
-= Conditional Properties =================================
+## Conditional Properties
+
 Property sheets can also contain *conditional property values*. This means that the value of a property depends on some other value. Usually, this is used to place values for debug and release builds in the same property sheet file. Unfortunately, you can edit these conditions in Visual Studio's property editor. You need to use a text editor.
 
 *Note:* When you've modified a property sheet outside of Visual Studio, you need to close the solution(s) it belongs to and reopen them afterwards. Otherwise Visual Studio won't detect the changes to the property sheet.
@@ -141,7 +148,8 @@ On the other hand, if you want to group several properties for a certain configu
 
 You can find more information about conditions in the article ["MSBuild Conditions" on MSDN](http://msdn.microsoft.com/library/7szfhaft.aspx).
 
-= Property Sheet XML Structure =
+## Property Sheet XML Structure
+
 Property sheet files are XML files. The root element is called `<Project>` and in most cases you'll work with the child elements `<ItemDefinitionGroup>` and `<PropertyGroup>`. It's not always clear, in which kind of group to place a certain element. The easiest way to figure this out is to set the desired element in the project settings of a C++ project and then view the project file in a text editor. This is possible because property sheets and C++ project files (`.vcxproj`) use the same XML schema.
 
 Additionally, you can have a look at the [XML tag descriptions on MSDN](http://msdn.microsoft.com/library/5dy88c2e.aspx), although there aren't that descriptive.

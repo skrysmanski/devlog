@@ -20,7 +20,8 @@ Let's get started.
 
 <!--more-->
 
-== Preparation ======
+## Preparation
+
 For this tutorial, simply create a **console application** project.
 
 You need to target at least **.NET 3.5**.
@@ -39,7 +40,8 @@ using System.Threading;
 
 You can remove everything else in this file - except for the `namespace`.
 
-== The Service Interface =====
+## The Service Interface
+
 The first thing we need is a service interface (also called "service contract").
 
 Add the following code to your `Program.cs`:
@@ -55,7 +57,8 @@ public interface IService {
 
 This interface will be implemented on the server side and used on the client side. So usually you'll place it in a shared project.
 
-== The Service Implementation ======
+## The Service Implementation
+
 Next, we're going to implement this interface on the server side.
 
 Add the following code to your `Program.cs`:
@@ -74,7 +77,8 @@ class ServiceImplementation : IService {
 The setting `InstanceContextMode.PerCall` will create a new instance of `ServiceImplementation` for every call. Of course, other settings are possible as well.
 
 
-== The Server =======
+## The Server
+
 For the service to be able to respond to request, it needs to be executed in a so called **service host**.
 
 Add the following code to your `Program.cs`:
@@ -123,7 +127,8 @@ Next, we add an endpoint for the host (i.e. where the client will connect to). H
 
 Last, we start the service host with `Open()`.
 
-== The Client =======
+## The Client
+
 Only one thing remains: the client.
 
 Add the following code to your `Program.cs`:
@@ -170,7 +175,8 @@ Then, we open a channel to our service by using `ChannelFactory` and `CreateChan
 
 The instance returned by `CreateChannel()` can then be used to communicate with the server.
 
-== WCF HTTP Service ============
+## WCF HTTP Service
+
 It's also easy to accept HTTP requests with WCF.
 
 First, you need to add `[WebGet]` (GET) or `[WebInvoke]` (POST) to the methods of `IService` you want to be "web-callable".
@@ -213,7 +219,8 @@ After starting the app, you can call `Ping()` by going to:
 
   [[http://localhost:8080/Ping?name=Sebastian]]
 
-== Download The Code ======
+## Download The Code
+
 You can get the complete code here:
 
   [[file:Program.cs]]

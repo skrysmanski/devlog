@@ -26,10 +26,12 @@ So, the only way to influence the location of the boot manager is to change to b
 
 *Side note:* New devices are usually added to the end of the boot order list. So if you have multiple hard drives and replace one (e.g. because the old one was broken or too small), the new drive may end up at the *end* of the list - and not at the position where the replaced drive was before; thus messing up the boot order.
 
-== Determining the Boot Manager Partition ==
+## Determining the Boot Manager Partition
+
 So, how can one determine the location of where boot manager is installed?
 
-=== From Windows Setup ===
+### From Windows Setup
+
 Determining on which drive Windows Setup will install the boot manager onto is almost impossible from Windows Setup itself.
 
 The only *hint* you get, is if:
@@ -47,7 +49,8 @@ If this happens and you click on "OK", Windows Setup will automatically create a
 
 If this doesn't happen the boot manager may or may not be installed in the correct location. If this is the case, you can only check the location *after* Windows has been installed.
 
-=== From Windows ===
+### From Windows
+
 To determine the partition where the boot manager is installed, go to:
 
   **Control Panel** > **Administrative Tools** > **Computer Management** > **Disk Management**

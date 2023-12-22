@@ -20,12 +20,14 @@ Here at work I have a C++ project with about 50 `.cpp` files in it. The project 
 
 The procedure described here only applies to Visual C++ (if I'm correct since version 6.0). However, other C++ compilers may provide similar functionality.
 
-== The Problem ==
+## The Problem
+
 The problem precompiled headers solve is the long compile time when compiling a C++ project. (Note that other languages such as Java or C# don't have this problem.) The underlying problem is the `#include <...>` statement. This simply copies the whole content of the file included into the source file. While one header file may not be that big, it may also include other header files. When using a framework (such as Qt or even Win32), one include statement will import a huge amount of source code. And this huge amount is what takes so long when compiling a C++ project. Furthermore, if this huge amount gets included in every source code file, all of it has to be compiled again for every source file.
 
 So, the idea is to (pre)compile these huge amount of source code *once*, and then reuse it in every source code file of the project. This drastically reduces the compile time required.
 
-== Specifying the precompiled header (stdafx.h) ==
+## Specifying the precompiled header (stdafx.h)
+
 To be able to use a precompiled header in Visual C++, one first needs to specify which headers shall be precompiled. Visual C++ only allows one precompiled header file per project. By default, it's called **stdafx.h**. This name can be changed in the project settings under "C++" --> "Precompiled Headers" --> "Precompiled Header File".
 
 The limitation that only one precompiled header is allowed is no real limitation because you can include any header file from within the precompiled header. For example, a precompiled header may look like this (for using the Qt framework):
@@ -42,7 +44,8 @@ So when this header is precompiled, all included headers will be precompiled as 
 
 You may also note the `#pragma` statement on the first line. This is just "helper statement". With it, every time the precompiled header is compiled, the specified message will be printed to the build output. If you see this message twice or more while compiling a single project, something is wrong. (In most cases you won't see the message at all because the precompiled header is already compiled.)
 
-== Using the Precompiled Header ==
+## Using the Precompiled Header
+
 Whether to use a precompiled header or not can be specified per project as well as per file. When you want to use a precompiled header in a project, you usually say "Use" for the whole project and then exclude certain `.cpp` file that shall not use the precompiled header. Both options are in the same section - it just depends on whether you open the project settings or the file settings (both being available through their context menus).
 
 To enable precompiled headers in a project (or file), open the project settings (or file settings) and select "Use" under "C++" --> "Precompiled Headers" --> "Precompiled Header". Also make sure, that you've selected "All Configurations" from the "Configuration" dropdown field. (Note that the option "Create" will be used [[#compiling_the_header|below]].)
@@ -62,7 +65,8 @@ So the beginning of a `.cpp` file in your project may look like this:
 
 Note that the name of the precompiled header file is the one you specified above (or "stdafx.h" by default).
 
-== Compiling the Header == #compiling_the_header
+## Compiling the Header {#compiling_the_header}
+
 By now, we've specified which headers are to be compile and where these headers will be used. The last step is to actually compile the precompiled header. Without this you'll get a "Cannot open precompiled header file" error message when compiling the project.
 
 For this you need to add a new `.cpp` file to your project. By convention, it has the same name as the precompiled header but that's no strict requirement. This file only needs to contain one statement:

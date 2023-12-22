@@ -14,7 +14,8 @@ The [help page](http://msdn.microsoft.com/library/system.idisposable.aspx) for `
 
 <!--more-->
 
-= Summary - for the impatient =
+## Summary - for the impatient
+
 Here's the summary of this article for those who don't want to read the actual explanations.
 
 Rules:
@@ -77,7 +78,8 @@ private:
 };
 ```
 
-= The Root of all Evil =
+## The Root of all Evil
+
 In C#, all classes are managed by the garbage collector. However, some things just can't be expressed in pure managed code. In these cases you'll need to store *unmanaged* data in a managed class. Examples are file handles, sockets, or objects created by unmanaged functions/frameworks.
 
 So, here's an example of a C# class containing unmanaged data:
@@ -108,7 +110,8 @@ private:
 
 The question now is: **When gets the unmanaged data deleted?**
 
-= Finalizer =
+## Finalizer
+
 Since our class `DataContainer` is a managed class, it is managed by .NET's garbage collector. When the garbage collector determines that our instance of `DataContainer` is no longer needed, the object's *finalizer* is called. So, that's are good point to delete our unmanaged data.
 
 *Note:* Finalizers are also called *non-deterministic* destructors because the programmer has no influence over *when* the garbage collector will call the finalizer (once the object went out of scope). For *deterministic* destructors (explained in the next section), on the other hand, the programmer has full control when they are called.
@@ -150,7 +153,8 @@ private:
 *Note:* Although you can declare a finalizer public in C++/CLI, it won't be. So, don't bother with its visibility. (In C# you get a compiler error when specifying anything but private visibility for the finalizer.)
 
 
-= IDisposable =
+## IDisposable
+
 Since finalizers are non-deterministic, you have no control over when they will be called. When working with unmanaged data it may, however, be desirable to control the point of time when this unmanaged data will be deleted. The easiest way to do this: create a method for that.
 
 The .NET framework provides a standard name for this method: `Dispose()`, defined by the `IDisposable` interface. This method is also called a "*deterministic* destructor" (whereas finalizers are non-deterministic destructors). Here's the implementation in C#:
@@ -206,7 +210,8 @@ In C++/CLI a deterministic destructor (or the `Dispose()` method) is called auto
 
 This is identical with how you would "call" destructors in C++.
 
-= Combining Dispose and Finalizer =
+## Combining Dispose and Finalizer
+
 Since the programmer can forget to call `Dispose()`, it's important to free unmanaged data in the finalizer (as well) to avoid memory leaks. So, often you want to combine `Dispose()` and the finalizer. Here's how.
 
 In C#, simply call `Dispose()` from the finalizer. Note that the finalizer will be called in any case, so the unmanaged data is freed even if the programmer forgets to call `Dispose()`.
@@ -263,7 +268,8 @@ private:
 };
 ```
 
-= Managed Data ===================
+## Managed Data
+
 Beside *unmanaged* data, a managed class can also contain *managed* data, i.e. instances of managed classes implementing `IDisposable`. Managed data is different from unmanaged data in that it should be disposed in `Dispose()` but *not* in the finalizer. This is because instances of managed classes may already have been garbage collected when the finalizer runs.
 
 To avoid code duplication, `Dispose()` and the finalizer should be implemented like this (in pseudo-code):
@@ -340,7 +346,8 @@ class DataContainer : IDisposable {
 
 *Note:* The method `Dispose(bool)` is `virtual`. The idea behind this is that child classes can override this method to perform their own disposing. See below for more information. Note also that the C++/CLI compiler automatically creates this method when a class has a destructor. You can't, however, use this method directly. It's only visible from C# (or Visual Basic).
 
-= SuppressFinalize ===================================
+## SuppressFinalize
+
 The default dispose implementation pattern (as shown in [IDisposable's help page](http://msdn.microsoft.com/library/system.idisposable.aspx)) also adds the line `GC.SuppressFinalize(this);` to the `Dispose()` method. What does this method do and why do we need it?
 
 `GC.SuppressFinalize()` simply prevents the finalizer from being called. Since the finalizer's only task is to free unmanaged data, it doesn't need to be called if `Dispose()` was already called (and already freed all unmanaged data by calling the finalizer). Using `GC.SuppressFinalize()` give a small performance improvement but nothing more.
@@ -368,7 +375,8 @@ In C++/CLI the destructor doesn't change *at all*. That's because the C++/CLI co
   }
 ```
 
-= Inheritance ==========================
+## Inheritance
+
 The default dispose implementation pattern used in the previous sections create a method called `Dispose(bool)`. This method is `protected virtual` and is meant to be overridden by child classes - in case they need to dispose some data of their own.
 
 In C#, an implementation must
@@ -412,7 +420,8 @@ In C++/CLI, again, the destructor remains the same. This is because it mimics th
   }
 ```
 
-= When to Use IDisposable: 3 easy rules ===========
+## When to Use IDisposable: 3 easy rules
+
 At this point I'd like to cite three easy rules when to use `IDisposable`. These rules were created by [Stephen Cleary](http://nitoprograms.blogspot.com/2009/08/how-to-implement-idisposable-and.html) and I take no credit for them. I do, however, disagree with some statements (such as "No classes should be responsible for multiple unmanaged resources.") and have adopted the rules in this case (see the link for the original description).
 
 **Rule 1: Don't do it (unless you need to).**

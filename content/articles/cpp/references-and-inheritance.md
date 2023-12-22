@@ -15,7 +15,8 @@ Let me take you on my journey and you'll hopefully avoid this (very subtle) mist
 
 <!--more-->
 
-= The Basic Idea =
+## The Basic Idea
+
 Let's examine the basic (and partially constructed) idea. Say, you have two classes, `BaseClass` and its child `ChildClass`:
 
 ```c++
@@ -59,7 +60,8 @@ void main() {
 
 Executing this code will work as intended (but only tested with Visual C++ 2010 and g++ 4.6.1). `ref` in `main()` will "contain" the address to the `ChildClass` instance - the same as stored in `g_somePointer`.
 
-= Two Little Changes Turn the World Upside Down =================================
+## Two Little Changes Turn the World Upside Down
+
 Now, for some reason you want to change the variable type of `g_somePointer` from `BaseClass*` to `ChildClass*`:
 
 ```c++
@@ -114,7 +116,8 @@ const BaseClassPointer& getReferenceWrapper() {
 
 At this line, the content of `ref` suddenly has changed to some invalid garbage. "What's going on here?" you might ask.
 
-= The Cause =
+## The Cause
+
 It may have looked like nothing but the actual cause for the problem was changing the data type of `g_somePointer` to `ChildClass*`. Let's explore this.
 
 First, the current implementation of `getReference()` is hiding the problem from the compiler. That's why it can't issue a warning (and neither Visual C++ nor g++ will).
@@ -148,7 +151,8 @@ The compiler is telling you here that you're returning a reference to a local va
 
 <strong>Note:</strong> You won't get this warning if you change the data type of `g_somePointer` back to `BaseClass*`. So, under some conditions the current implementation of `getReference()` is actually valid.
 
-== Why is this a bad thing? (Stack Frames) ==
+### Why is this a bad thing? (Stack Frames)
+
 If you already know why returning a reference to a local variable is a bad thing (or if you just accept this fact), skip this section. If not, read on.
 
 The problem here is that local variables reside on the so called "stack" (or "call stack"). This is a continuous section of memory that grows with each function that is called (and also shrinks again once the function returns). The following image shows the call stack for a function (= subroutine) named `DrawLine()`, called from a function named `DrawSquare()`:
@@ -159,7 +163,8 @@ As you can see, there are two stack frames here (blue and green) - on for each f
 
 Now, if you have a reference (or a pointer for that matter) to a *local* variable of `DrawLine()`, this reference will "point" to some content that's no longer available. And that's bad. The values of these references will change just by calling a function that doesn't even know these references. On the other hand, if you don't call another function, your code *may* work (just like our example code above did before introducing the local variable `someString`) and hide the problem. Small code changes or turning on code optimizations (like when switching from debug to release build) may (or may not) surface the problem again. This kind of problem is a real pain, as you can imagine.
 
-== Where does the local variable or temporary (variable) come from? ==
+### Where does the local variable or temporary (variable) come from?
+
 Back to the warning. We're being told by the compiler that we're returning a temporary (i.e. a "variable" automatically created by the compiler). Where does this temporary come from?
 
 Remember that the warning doesn't appear when `g_somePointer` has the type `BaseClass*` (but it does appear if it has the data type `ChildClass*`). Here's what the compiler basically converts the new implementation of `getReference()` into (I've actually extended the code a little bit to better show the problem):
@@ -206,12 +211,14 @@ Because of this address change the compiler can't just use `g_somePointer` for `
 
 **Side note:** Adding the local variable `someString` to `getReferenceWrapper()` broke the code above because `std::string` is a class that has a destructor. The destructor is "just" a method (function) which is *automatically* called when the object (`someString`) goes out of scope. As I explained in the previous section, calling a function overwrites the call stack above the current function's stack frame (i.e. the green part in the image above), thereby overwriting the memory section containing the address to the base class of `g_somePointer` (to which our reference pointed).
 
-= Working Example =
+## Working Example
+
 I've attached the whole code of the example so that you can try it out for yourself.
 
 [[file:reference_problem.cpp_.txt]]
 
-= Summary =
+## Summary
+
 Returning a reference to a pointer will result in "unpredictable" (or at least undefined) behavior when the reference's type is a base type of the pointer's data type.
 
 The following code will work (although you might consider it fragile)...

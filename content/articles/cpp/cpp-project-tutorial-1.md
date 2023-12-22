@@ -16,7 +16,8 @@ When you write software, you often/sometimes divide your project into several su
 
 <!--more-->
 
-== Library Projects ==
+## Library Projects
+
 Library projects are projects that usually contain reusable functions or classes. They're a great way of structuring a big project. In Visual C++ (or in C++ in general) there are two types of libraries: static libraries and dynamic libraries.
 
 Static libraries (`.lib`) are "merged" into the final `.exe` file when the whole project is compiled. Therefore, for the outside user, this library type isn't visible.
@@ -25,7 +26,8 @@ Dynamic libraries (`.dll`) on the other hand remain separate from the final `.ex
 
 In this article we'll create a *dynamic* library.
 
-== Creating the Library Project ==
+## Creating the Library Project
+
 To create a library project in Visual C++ 2010 (that is a part of Visual Studio 2010) in an *existing* solution, choose `Add` --> `New Project...` from the solution's context menu in the "Solution Explorer" window.
 
 [[image:add-new-project.png|center|medium|link=source]]
@@ -40,7 +42,8 @@ After hitting "Ok", your new class library project will be created. By default, 
 
 You may also want to review the setting `Common Language Runtime Support`. If enabled (switch `/clr`), this will allow you to create .NET classes in this project. For a pure C++ project, however, you may want to disable CLR support (as shown in the screenshot above).
 
-== Writing a Reusable Class ==
+## Writing a Reusable Class
+
 The purpose of a library is to provide (potentially) reusable functions and/or classes. So, let's create a simple reusable class.
 
 The new class is called `PrintableInt`. It wraps an integer and provides a `toString()` method that will convert the integer into a string.
@@ -86,7 +89,8 @@ The library should now compile without problems.
 
 Note that the `.cpp` file include a file called `stdafx.h`. This is a so called "precompiled header file". This feature is explained in [[1747|another article]]. It should, however, work out-of-the-box in your project.
 
-== Exporting Classes ==
+## Exporting Classes
+
 By default, all classes and functions defined in a library project are "internal". That means that another project can't use them. To change this, classes (or function) that are to be used by other project must be "exported". In Visual C++ you do this with `__declspec(dllexport)`.
 
 Now, you could specify the export like this:
@@ -124,7 +128,8 @@ For this to work, you add the preprocessor definition `COMPILE_MYLIBRARY` to the
 
 Now, when you compile the library project, an additional `.lib` file will be created. This file is used to import the exported classes/functions in another project. (If you don't export anything, the file won't be created.) How to do this, is explained in [[1722|part two of this mini series]].
 
-== dllimport necessary? ==
+## dllimport necessary?
+
 The example above specifies that `__declspec(dllimport)` is to be used when using the library project. You may notice that this isn't necessary in the above example. However, it doesn't hurt either.
 
 This statement becomes important though when you export templated classes. To demonstrate this, change `PrintableInt` like this:

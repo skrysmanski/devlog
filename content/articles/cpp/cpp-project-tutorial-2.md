@@ -18,7 +18,8 @@ Referencing a library in C++ (or, more specific, with Visual C++) is somewhat cu
 
 <!--more-->
 
-== The setup ==
+## The setup
+
 For the discussion of this article assume we have two projects:
 
 * MyLibrary
@@ -26,7 +27,8 @@ For the discussion of this article assume we have two projects:
 
 The project "MyLibrary" compiles into a DLL library (although a static `.lib` might also work) and "MyProgram" is just a regular `.exe` project.
 
-=== The Code: MyLibrary ===
+### The Code: MyLibrary
+
 "MyLibrary" uses the code from the first part of this series. It provides a class called `PrintableInt` which wraps an integer and provides a method to convert it into a string.
 
 ```c++
@@ -71,7 +73,8 @@ std::string PrintableInt::toString() const {
 
 Again, this (and the project "MyProgram" as well) use a precompiled header file named "stdafx.h". Precompiled headers are explained in [[1747|another article]].
 
-=== The Code: MyProgram ===
+### The Code: MyProgram
+
 The project "MyProgram" is a "Win32 Console Application" project and just contains some test code in its main function:
 
 ```c++
@@ -88,31 +91,36 @@ int _tmain(int argc, _TCHAR* argv[]) {
 
 This simply prints a "5" on the console.
 
-== The old way ==
+## The old way
+
 In Visual C++ 2008 or earlier, to define a project dependency several steps needed to be executed (in no particular order). These steps are described below. Note that these steps still work in Visual C++ 2010.
 
-=== Step: Specify Build Order === #specify_build_order
+### Step: Specify Build Order {#specify_build_order}
+
 To determine the order in which the projects of the solution will be built, project dependencies need to be specified. This way dependencies will be built before the projects that use them.
 
 To specify a dependency, select "Project Dependencies..." from a project's context menu. Then check all projects the current project depends on.
 
 [[image:project-dependencies.png|center|medium|link=source]]
 
-=== Step: Specify Include Path === #specify_include_path
+### Step: Specify Include Path {#specify_include_path}
+
 You also need to specify to path where to find the header files of the library project you want to use. This makes it possible to specify a header file by just using `"PrintableInt.h"` instead of `"../MyLibrary/PrintableInt.h"`.
 
 To do this, open the settings of the project that wants to use the library and specify the path under "Additional Include Directories". You should also make sure that you've selected "All Configurations" from the "Configuration" dropdown field (see screenshot).
 
 [[image:specifying-include-path.png|center|medium|link=source]]
 
-=== Step: Specify Lib File ===
+### Step: Specify Lib File
+
 The last step is to specify the path to the `.lib` file of the library project. Note that even DLL projects will create a `.lib` file so that your project can link against the DLL automatically.
 
 To specify the `.lib` file, again go to the project settings, but this time go to `Linker` --> `Input` and specify the file under "Additional Dependencies". Note that you'll need (or probably want) to specify different `.lib` files for the "Debug" and the "Release" configuration. The screenshot below shows the value for the "Debug" configuration.
 
 [[image:specify-lib-file.png|center|medium|link=source]]
 
-== The New Way ==
+## The New Way
+
 Since Visual C++ 2010 there is a new, simpler way to specify a project dependency. With this way, unfortunately you still need to specify the include path to the library project (see [[#specify_include_path|above]]) but all other steps are simplified.
 
 To reference a dependency the new way, choose "References..." from the project's context menu. This will open up the project settings with the section "Framework and References" being selected. There click on "Add New Reference..." and then select the project you want to use in the current project.
@@ -129,7 +137,8 @@ Besides being easier to use, the new way has also another advantage: The informa
 
 [[image:automatic-linking-option.png|center|medium|link=source]]
 
-=== What's not working ===
+### What's not working
+
 Unfortunately, there's one details that make the new way a little more difficult to use again. *sigh* The problem: Visual Studio won't copy the DLL files of the referenced libraries to the output folder automatically. Here's what [the documentation](http://msdn.microsoft.com/en-us/library/ms235636%28v=vs.80%29.aspx) says about that:
 
 > Dynamic link libraries are not loaded by the executable until runtime. You must tell the system where to locate **MathFuncsDll.dll**. This is done using the **PATH** environment variable. To do this, from the **Property Pages** dialog, expand the **Configuration Properties** node and select **Debugging**. Next to **Environment**, type in the following: `PATH=<path to MathFuncsDll.dll file>`, where `<path to MathFuncsDll.dll file>` is replaced with the actual location of **MathFuncsDll.dll**. Press **OK** to save all the changes made.

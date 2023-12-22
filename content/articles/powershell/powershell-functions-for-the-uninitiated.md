@@ -43,7 +43,8 @@ Return type: System.Object[]
 
 The first problem (pit fall) is that PowerShell treats every non-captured object (i.e. one that isn't assigned to a variable) as return value.
 
-== Functions Return Everything That Isn't Captured =======
+## Functions Return Everything That Isn't Captured
+
 Let's have a look at a different script for a moment:
 
 ```powershell
@@ -100,7 +101,8 @@ function LongNumericString {
 
 **Note:** The keyword `return` is totally optional. The expression `return $strBld.ToString()` is equivalent to `$strBld.ToString()`, and even to `$strBld.ToString(); return`.
 
-== Function Return Values = Function Output ======
+## Function Return Values = Function Output
+
 Back to our initial script. Now that we know how PowerShell composes return values for functions, why didn't `PrintAndReturnSomething` return just `42`?
 
 One needs to understand that **PowerShell doesn't actually care about return value but rather about output of functions**. The return value is just considered to be *a part* of the output. This way, PowerShell doesn't just allow you to pipe text (like `ls -l | sort` in bash), but to [pipe actual objects](http://technet.microsoft.com/en-us/library/ee176927.aspx).
@@ -128,7 +130,8 @@ $result = PrintAndReturnSomething
 # Return is now a "System.Int32" with value 42.
 ```
 
-== Summary ======
+## Summary
+
 To sum things up:
 
 * PowerShell functions will always return (as `object[]`, if there's more than one return value):

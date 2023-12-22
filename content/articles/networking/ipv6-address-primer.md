@@ -9,7 +9,8 @@ draft: true
 
 Almost all developers know that IPv6 solves the problem that we're running out of (IPv4) IP addresses - by having "longer" IP addresses. But that's only a part of what IPv6 addresses really mean. So, in this article I'm going to shed some light onto these other parts.
 
-== Notation ==
+## Notation
+
 IPv6 addresses consist of **128 bits** (whereas IPv4 addresses are only 32 bits long).
 
 These 128 bits are written in hexadecimal notation as 8 blocks with 16 bits each. Blocks are separated by `:`.
@@ -34,7 +35,8 @@ Furthermore, consecutive blocks of zeros can be abbreviated **at most once** wit
 
 Note that `::` can be the start of an address. For example, the address for `localhost` is `::1`.
 
-=== Uniform Notation for Humans ===
+### Uniform Notation for Humans
+
 Unfortunately, the rules for writing IPv6 addresses as defined in RFC 4291 (see above) are not ideal for human consumption - as none of the two rules are required. Fortunately, there is also [[rfc:5952#section-4|RFC 5952]] which contains rules to make the textual representation of IPv6 addresses consistent and "easier" for humans to read and write.
 
 The rules are as follows:
@@ -58,13 +60,15 @@ The rules are as follows:
    (x) `2001:db8::1:80`
    (/) `[2001:db8::1]:80`
 
-== Special addresses ==
+## Special addresses
+
 There are two special addresses in IPv6:
 
 1. `::1` is the loopback address (equivalent to `127.0.0.1` in IPv4). However, unlike in IPv4, there's *only one* loopback address (whereas in IPv4 you have many - i.e. `127.0.0.1` to `127.255.255.254`).
 1. `::` is the unspecified address (i.e. all blocks are zero). This address must only be used under certain circumstance - mainly before a network adapter has gotten an IPv6 address.
 
-== Subnet Prefixes and Interface IDs ==
+## Subnet Prefixes and Interface IDs
+
 A **subnet prefix** (or just **prefix**) defines the size of a subnet in IPv6 (like in IPv4). Its length in bits is appended to an address with a `/`.
 
 ```
@@ -96,7 +100,8 @@ An exception to this minimum network size rule is the loopback address. The pref
 ::1/128
 ```
 
-== Scopes ==
+## Scopes
+
 Each IPv6 address has a scope. The scope says where the address is valid.
 
 The most important scopes are:
@@ -108,7 +113,8 @@ The most important scopes are:
 
 One important note on the **global** scope: In IPv4 you usually had one public IPv4 address (provided by your ISP) and the IP addresses of each device on a local network were "hidden" behind a NAT. To make a device reachable from the internet, you had to create a port forwarding. With IPv6, if a device has an address with scope *global*, this device is reachable from the internet under this address (unless the router has a firewall to prevent this - which it should have).
 
-== Automatic Address Configuration ==
+## Automatic Address Configuration
+
 With IPv4 you need a DHCP server to automatically assign IP addresses to devices (unless they have been configured with static IP addresses, of course).
 
 With IPv6 this is no longer necessary (although it's still possible).
@@ -123,7 +129,8 @@ For **global** addresses, SLAAC is used (see below).
 
 To make sure that the generated IP address is really unique (both for global and for link-local addresses), an IPv6 device will "ask" the network whether this address is already taken (via DAD - Duplicate Address Detection) before actually using it.
 
-== SLAAC ==
+## SLAAC
+
 To automatically generate an IPv6 address, a device needs to know the **subnet prefix** of the subnet for which it wants to generate the IP address. While the prefix for link-local addresses is fixed, it is not fixed for global addresses.
 
 To figure out the subnet prefix for a global address, an IPv6 device uses **SLAAC** (**S**tate**l**ess **A**ddress **A**uto**c**onfiguration).
@@ -132,7 +139,8 @@ Simply put, through SLAAC an IPv6 device can automatically determine the router 
 
 The **interface id** can then be generated the same way as for link-local addresses. Nowadays, however, the privacy extensions will be used instead.
 
-=== Privacy Extensions ===
+### Privacy Extensions
+
 As mentioned above, the **interface id** of a link-local as well as a global IPv6 address is calculated from the network adapter's MAC address.
 
 When opening a network connection (e.g. browsing a website), the server knows the IP address of the caller. This in combination with the "interface id from MAC address" has mainly two privacy concerns:
@@ -144,7 +152,8 @@ To counteract this, operating systems may use truly random interface ids. Furthe
 
 Microsoft Windows goes even one step further and uses privacy extensions even on link-local addresses.
 
-== Percent Notation for Link-Local Addresses ==
+## Percent Notation for Link-Local Addresses
+
 Trying to reach a device by its **link-local** address may fail (unexpectedly):
 
 ```
@@ -164,7 +173,8 @@ To solve this problem, you need to attach the network adapter to the address - s
 $ ping6 fe80::b4:f9f6:e5e9:727e%eth0
 ```
 
-== Unicast, Anycast, Multicast ==
+## Unicast, Anycast, Multicast
+
 IPv6 addresses can either be a unicast, anycast, or multicast address.
 
 |= Type                  |= <nobr>Receivers</nobr> |= Description
@@ -174,7 +184,8 @@ IPv6 addresses can either be a unicast, anycast, or multicast address.
 
 A **multicast** group has the additional benefit that the traffic for the sender is the same no matter how many receivers there are. This is useful, for example, for video streaming where all receivers get the same high-volume content.
 
-== Well-known Address Prefixes ==
+## Well-known Address Prefixes
+
 There's a number of well-known (read: predefined) address prefixes (or subnet prefixes) from which you can determine an address type:
 
 |= Address starts with |= Description

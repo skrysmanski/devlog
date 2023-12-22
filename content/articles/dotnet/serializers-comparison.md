@@ -27,7 +27,8 @@ The following serializers will be compared:
 | [DataContractJsonSerializer](http://msdn.microsoft.com/EN-US/library/bb908432.aspx)  | DCJS          | (.NET 4.5.1) | JSON              |
 | [JSON.NET](http://james.newtonking.com/json)                                         | JSON.Net      | 6.0.5        | JSON              |
 
-== Testing Framework ==
+## Testing Framework
+
 I wrote a small framework to do most of the tests in this article. You can get it here:
 
     https://bitbucket.org/skrysmanski/dotnetserializertests
@@ -35,7 +36,7 @@ I wrote a small framework to do most of the tests in this article. You can get i
 You may also want to have a look at it when some feature isn't clear to you.
 
 
-== General Capabilities ==
+## General Capabilities
 
 |= Feature                                                                |= BF    |= DCS  |= NDCS  |= XMLSer |= DCJS  |= JSON.Net |
 | Serialized size of 1 example object (bytes)                             | 322    | 253   | 456    | 273     | 54     | 57        |
@@ -61,7 +62,7 @@ You may also want to have a look at it when some feature isn't clear to you.
 ** `PreserveReferencesHandling = PreserveReferencesHandling.Objects` (without this, the serializer can't detect reference loops and creates stack overflows)
 
 
-== Class/Type Features ==
+## Class/Type Features
 
 |= Feature                                                            |= BF  |= DCS |= NDCS |= XMLSer |= DCJS |= JSON.Net |
 | Can serialize private class (unattributed)                          | -    | no   | no    | no      | no    | yes       |
@@ -81,7 +82,7 @@ You may also want to have a look at it when some feature isn't clear to you.
 * For how serializers can deserialize an object without calling the constructor, see [this Stack Overflow answer](http://stackoverflow.com/a/1076735/614177).
 
 
-== Fields and Properties ==
+## Fields and Properties
 
 |= Feature                                                               |= BF  |= DCS |= NDCS |= XMLSer |= DCJS |= JSON.Net |
 | Can serialize `private` fields (Unattributed)                        | -    | no   | no    | no      | no    | no        |
@@ -98,7 +99,7 @@ You may also want to have a look at it when some feature isn't clear to you.
 | Calls private setter when deserializing (`[DataContract]`)           | -    | yes  | yes   | -       | yes   | yes       |
 
 
-== Deserialization Type Restrictions ==
+## Deserialization Type Restrictions
 
 |= Feature                                                                |= BF  |= DCS |= NDCS |= XMLSer |= DCJS |= JSON.Net |
 | Can deserialize arbitrary types (unattributed)                          | -    | no   | yes   | no      | no    | no        |
@@ -124,7 +125,7 @@ You may also want to have a look at it when some feature isn't clear to you.
 * **`[DataContract]` w/ attrib** means that the attribute `Name` or `Namespace` is specified respectively. **`[DataContract]` w/o attrib** means that this attribute is not specified (i.e. their values are inherited from the type the data contract is defined on).
 
 
-== Reference Support ==
+## Reference Support
 
 |= Feature                                                              |= BF  |= DCS |= NDCS |= XMLSer |= DCJS |= JSON.Net |
 | Supports references (unattributed)                                    | -    | no   | yes   | no      | no    | yes       |
@@ -145,7 +146,7 @@ You may also want to have a look at it when some feature isn't clear to you.
 **Notes on serializers:**
 * JSON.NET serializer: If in the settings, `ReferenceLoopHandling` is set to `Serialize` but `PreserveReferencesHandling` remains `None` (which is the default), the serializer won't detect reference loops. Instead it'll cause a stack overflow.
 
-== Other ==
+## Other
 
 |= Feature                             |= BF  |= DCS |= NDCS |= XMLSer |= DCJS |= JSON.Net |
 | Can serialize readonly collections   | yes  | yes  | yes   | no      | yes   | yes       |
@@ -163,7 +164,8 @@ You may also want to have a look at it when some feature isn't clear to you.
 * The JSON.NET serializer does serialize static fields/properties attributed with `[DataMember]`. This phenomenon is tracked as [issue #399](https://github.com/JamesNK/Newtonsoft.Json/issues/399).
 
 
-== Conclusion ==
+## Conclusion
+
 The `BinaryFormatter` is the most versatile serializer because it has the least serialization restriction - except for two: 1. Both sides (i.e. serializing and deserializing side) need to use the same assembly. 2. You can't serialize unattributed types. When used for internal communication between software components the first limitation may not be a problem. The second limitation, however, may be a deal-breaker.
 
 The `DataContractSerializer` is more forgiving when deserializing types from a different assembly (version) and it can serialize unattributed types. The first advantage comes with a price though: You can't deserialize arbitrary types, i.e. you need to provide the serializer with a list of known types. It also doesn't allow you to deserialize unknown enum values (even though C# supports this). In our software project this is a constant source for problems because we get our enum values from an outside source (server).
@@ -176,6 +178,7 @@ The `DataContractJsonSerializer` is a JSON serializer that just serializes what'
 
 The **JSON.NET serializer** is the other JSON serializer but is vastly superior to the `DataContractJsonSerializer` as it supports more features - like references and type names. Unfortunately it can't deserialize arbitrary types if they're in a list (i.e. `List<object>`), even if type names are enabled. Also it can't deserialize classes that don't have public constructors and also no non-public parameterless constructor.
 
-== History ==
+## History
+
 * 2014-10-27 : Published
 * 2014-10-30 : Added results for classes with non-public constructors

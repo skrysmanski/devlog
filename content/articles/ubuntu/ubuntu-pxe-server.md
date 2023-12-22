@@ -13,14 +13,16 @@ There are a lot of articles out there that explain how to run a [[wiki:en|Preboo
 
 So, with article I'm trying to fill this gap.
 
-== The Goal ==
+## The Goal
+
 At the end of this article you'll have a working PXE server that lets you **boot [memtest86+](http://www.memtest.org/) over a network**.
 
 The goal is to have a **simple but working solution**. This is why I'm using memtest. It consists of just one file and thus is easy to use in a PXE setup. More complex scenarios (i.e. loading real operating systems) can be built on top of this simple setup.
 
 Everything described in the article can be done **inside a virtual machine**. The only requirement is that the VM is connected directly (i.e. no NAT) to the network where it's supposed to serve PXE (usually the host's network).
 
-== The Basics: PXE, DHCP, ProxyDHCP, TFTP, and dnsmasq ==
+## The Basics: PXE, DHCP, ProxyDHCP, TFTP, and dnsmasq
+
 **PXE** is an abbreviation for "**P**reboot E**x**ecution **E**nvironment". To put it simple: It's a standardized way to boot an operating system over network (rather than from hard disk).
 
 **DHCP** is usually used to assign IP addresses to computers/devices in a network. PXE is an extension to DHCP. To use PXE one needs a PXE-capable DHCP server.
@@ -31,7 +33,8 @@ When PXE was designed, the creators wanted to make it compatible with networks t
 
 **dnsmasq** is a "simple" Linux tool that combines a DNS server, a DHCP server, a TFTP server, and a PXE server. This is the tool you'll use in this article.
 
-== Prerequisites ==
+## Prerequisites
+
 The steps in this article are based on Ubuntu 16.04.
 
 You need the following packages:
@@ -53,7 +56,8 @@ The last thing you need is to know the network you're on. My network is `192.168
 
 **Warning:** During the course of this article your Ubuntu machine may temporarily lose the ability to do DNS lookups. This is caused by `dnsmasq`. If this happens to you and you need to download anything or access the web, just (temporarily) stop `dnsmasq`.
 
-== Step by Step: From Start to Finish ==
+## Step by Step: From Start to Finish
+
 Lets do it then. This section describes all steps need to get a working PXE server.
 
 First, lets stop dnsmasq for now.
@@ -146,10 +150,12 @@ Now, when starting a PXE-enabled machine, it should boot memtest.
 
 [[image:pxe-boot.gif|center]]
 
-== Troubleshooting ==
+## Troubleshooting
+
 While I was trying to get a PXE server working, I stumbled across some pitfalls that I like to add here.
 
-=== Starting dnsmasq fails because resource limit ===
+### Starting dnsmasq fails because resource limit
+
 When starting `dnsmasq` with:
 
 ```
@@ -164,12 +170,14 @@ and you get the error:
 
 The `dnsmasq` init script checks the existence of this file and this leads to this obscure error message (filed as [#819856](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=819856)).
 
-=== PXE Boot with VMWare Fusion ===
+### PXE Boot with VMWare Fusion
+
 VMWare Fusion's GUI is more designed for regular users than developers. If you want to use PXE boot in a VMWare Fusion VM, make sure you select "Bridged Networking" rather than "Share with my Mac" (which is NAT).
 
 [[image:vmware-network.png|center]]
 
-=== PXE Boot with Hyper-V ===
+### PXE Boot with Hyper-V
+
 To be able to PXE boot a Hyper-V VM, you need to **add a *Legacy* Network Adapter** to the VM. By default, only a non-legacy network adapter is added to VMs and it doesn't support PXE boot (for whatever reason).
 
 [[image:hyperv-pxe.png|center]]

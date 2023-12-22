@@ -13,7 +13,8 @@ This article describes the problem and shows solutions.
 
 <!--more-->
 
-= For the impatient =
+## For the impatient
+
 For those of you that don't want to read the whole article, here's the summary:
 
 * Library providing method with native type:
@@ -26,7 +27,8 @@ For those of you that don't want to read the whole article, here's the summary:
  ** Forward declaration *may* not be enough (gives linker warning)
  ** If the native type is defined *inside* a C++/CLI project, the project must be reference in the project settings via "Add Reference" *as well as* "Linker --> Input".
 
-= Preparation =
+## Preparation
+
 To illustrate the problem, we first create some projects that we can use as basis. Each project will only contain one or two classes, so nothing fancy here. I'll assume you know how to create projects and how to enable and disable the `/clr` compiler switch to create C++/CLI and pure C++ project respectivly.
 
 The first project (called "NativeLib") is a pure C++ (no C++/CLI) and DLL project which provides a native (unmanaged) class called `MyNativeClass`. This class is the type that will later be passed across assembly boundaries. Here's the source code (for the meaning of `NATIVE_LIB_EXPORT`, see [[1725#exporting_classes]]):
@@ -111,10 +113,12 @@ ManagedProviderLib (C++/CLI)
   +- ManagedProvider.cpp
 ```
 
-= The Problem =
+## The Problem
+
 After we've created our skeletan projects, let's explore the actual problem.
 
-== What does work ==
+### What does work
+
 First, let's create an example that does work. For this, we create a C++/CLI class called `InternalTestClass` and add it to the "ManagedProviderLib" project. This class will inherit `ManagedProvider` and have a method (`doSomething()`) that calls `ManagedProvider::getNativeClass()`. The project structure now is:
 
 ```
@@ -152,7 +156,8 @@ void InternalTestClass::doSomething() {
 
 `doSomething()` doesn't do anything useful, but the point is that the project *compiles*. So, this shows that we *can* return the pointer to a native class here.
 
-== What doesn't work a.k.a "The Problem" ==
+### What doesn't work a.k.a "The Problem"
+
 Now, after having a working example, we'll explore the actual problem. For this, we create a new C++/CLI project (called "ManagedExternalLib") and add a managed class called `ExternalTestClass`. This will have the *same code* as `InternalTestClass`. The only difference is that `ExternalTestClass` is in a different project than its base class `ManagedProvider`. Here's the project structure:
 
 ```
@@ -197,14 +202,16 @@ In a pure C++ class, this would compile - regardless of whether the "NativeLib" 
 
 But then this error doesn't indicate a missing include file nor is it a linker error. Instead the error suggests that the method we want to call isn't accessible (read: it's `private` or `internal`). However, that's not the case here.
 
-= The Solution =
+## The Solution
+
 The actual problem is not that the (C++/CLI) method is private but that `MyNativeClass` (pure C++) is private. That's even mentioned (very briefly though) in [C3767's description page](http://msdn.microsoft.com/library/19dh8yat(v=VS.100).aspx):
 
 > C3767 may also be caused by a breaking change: native types are now private by default in a /clr compilation;
 
 So, even if the native type was exported (via `__declspec(dllexport)`) in the native library, it can be made private by a managed library. (The reason behind this seems to be that the C++/CLI compiler generates thin (managed) wrappers around native types so that they can be called from managed code. See [here](http://blogs.microsoft.co.il/blogs/sasha/archive/2008/02/16/net-to-c-bridge.aspx) for more information.)
 
-== Native Types From Pure C++ Projects ==
+### Native Types From Pure C++ Projects
+
 If the native type is defined in a pure C++ project (or in a framework for which you only have the header files), use ` #pragma make_public(Type)`. You should place it in the `.h` after after including its header. So, our example code for `ManagedProvider.h` changes to this:
 
 ```c++/cli
@@ -240,7 +247,8 @@ Of course, this also allows you to actually do something (e.g. call methods) wit
 
 *Note:* If you only want to store a pointer to a native class (i.e. don't do anything with it), you don't need to link against the native type's `.lib` file.
 
-== Native Types From C++/CLI Projects ==
+### Native Types From C++/CLI Projects
+
 The pragma `make_public` is used for native types defined in header file you can't change. If, on the other hand, the native type is part of your C++/CLI project ("ManagedProviderLib" in this case), you can prefix the class definition with the keyword `public` (like you would for a managed type):
 
 ```c++
@@ -268,12 +276,13 @@ To use this type in another C++/CLI project, you need to reference the assembly'
 
 I'm not sure whether linking the same `.lib` file twice is a bug or working as intended, but surely it's not very intuitive.
 
-= Source Code =
+## Source Code
+
 I've created a small solution (for Visual Studios 2010) that contains the example source code described in this article.
 
 [[file:CLIAssemblyCrossBoundaryTest.zip]]
 
-= History =
+## History
 
 * 2012-01-09 : Fixed using a native type from a C++/CLI project
 * 2012-01-09 : No longer suggests forward declarations for public native types

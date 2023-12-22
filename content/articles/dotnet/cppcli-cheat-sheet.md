@@ -14,7 +14,8 @@ This article provides a quick comparison between C++/CLI and C#. It's meant for 
 
 <!--more-->
 
-= Introduction ================================
+## Introduction
+
 C++/CLI is - as the name suggest - an extension of C++ to allow it to use Microsoft's .NET framework including the CLR (common language runtime; i.e. garbage collection and such things).
 
 C++/CLI is the successor of "Managed C++", which felt unnatural to many programmers. However, both "languages" have the same goal: combine native code with managed code.
@@ -27,7 +28,8 @@ See also:
 * http://www.codeproject.com/KB/mcpp/cppcliarrays.aspx
 * [/clr compiler switch on MSDN](http://msdn.microsoft.com/library/k8d11d4s.aspx)
 
-= Handles ================================
+## Handles
+
 C++/CLI allows for two reference/pointer types:
 
 * **native pointers (*, &):** Pointers as they're known from C/C++. They are not garbage collected and must be managed manually in the code. Created with `malloc()` or `new`.
@@ -38,7 +40,8 @@ C++/CLI allows for two reference/pointer types:
 The members of *handles* are accessed with the "->" operator (and not with the "." operator).
 
 
-= CLR types ================================
+## CLR types
+
 A type (class, struct) becomes a CLR type when it's being prefixed with a specific keyword.
 
 * **Native types:** `class`, `struct`
@@ -54,7 +57,8 @@ A type (class, struct) becomes a CLR type when it's being prefixed with a specif
 * In C++/CLI a CLR type can be used as a handle or directly on the stack, i.e.: `MyCLRType^ myHandleVar` (handle on heap) vs. `MyCLRType myStackVar` (stack)
 
 
-== Native and managed types on stack and heap ================================
+### Native and managed types on stack and heap
+
 Handles can only "contain" managed types. Managed types can sit on the stack or in a handle, but not in a pointer.
 
 ```c++/cli
@@ -78,7 +82,8 @@ void test() {
 ```
 
 
-== Handles and Value Types (.Net Structs and Enums) ================================
+### Handles and Value Types (.Net Structs and Enums)
+
 Since value types (ie. `value struct` and `enum class`) are passed-by-copy, you usually don't use handles on them but use them directly. Instead you create them directly on the stack (ie. without `gcnew`) like this:
 
 ```c++/cli
@@ -114,7 +119,8 @@ public class MyTestClass {
 ```
 
 
-== Casting Handles ================================
+### Casting Handles
+
 There are several ways to cast a handle to another type:
 
 * **safe cast:** Casts the handle to the other type, if possible, and throws an exception if the cast isn't possible due to incompatible types. This is identical to a C# type cast. Examples:
@@ -127,7 +133,8 @@ There are several ways to cast a handle to another type:
 ** `static_cast<NewType^>(myHandle)`
 
 
-== Passing handles ================================
+### Passing handles
+
 Passing a handle to or from a method works in C++/CLI as expected. The handle inside the method identifies the same instance that it identified outside of the method (i.e. the object is passed as reference and not as copy).
 
 ```c++/cli
@@ -165,7 +172,8 @@ This again changes the string. Note the `%` in `ChangeString()`.
 * Handles are type-safe, i.e. you can't cast them to anything aren't.
 * Handles can't be cast to or from `void^`.
 
-== Mixing native and managed types ====================================
+### Mixing native and managed types
+
 This section gives a quick overview what is allowed with handles and what isn't.
 
 |=                                                          |= Native Classes              |= Managed Classes         |
@@ -195,7 +203,8 @@ int main() {
 ```
 
 
-== Type Of ==
+### Type Of
+
 To get the type of an object, simply use:
 
 ```c++/cli
@@ -209,7 +218,8 @@ To get a type of a class, use:
 MyClass::typeid
 ```
 
-== Forward declaration ======================
+### Forward declaration
+
 To use a CLR type before having declared it, use this:
 
 ```c++/cli
@@ -218,7 +228,8 @@ ref class MyClass;
 
 Note that no visibility modifier (like `public`) must be user here, even if the actual class has public visibility.
 
-= Modifiers: visibility ================================
+## Modifiers: visibility
+
 Visibility modifiers for class/struct members are used as in C++:
 
 ```c++/cli
@@ -250,7 +261,8 @@ Here's a list of supported modifiers:
 |Members         | `protected private` | not possible (i.e. you can't define this in C# although it's a valid CLR visibility)
 
 
-= Modifiers: abstract, sealed, static ===============================
+## Modifiers: abstract, sealed, static
+
 If the modifiers `abstract` and `sealed` needs to be specified after the class name but before the inheritance operator:
 
 ```c++/cli
@@ -271,7 +283,8 @@ virtual void Func() abstract;
 static int MyFunc();
 ```
 
-= Modifiers: const, readonly ================================
+## Modifiers: const, readonly
+
 To sum it up:
 
 |= C++/CLI     |= C#          |= Note                 |
@@ -301,7 +314,8 @@ public class MyClass {
 }
 ```
 
-= Inheritance ================================
+## Inheritance
+
 Inheritance for CLR types is like you know it from C#. Therefore just some notes:
 
 * *Only public inheritance* is allowed for CLR types. This doesn't work:
@@ -312,7 +326,8 @@ Inheritance for CLR types is like you know it from C#. Therefore just some notes
 * "value" types are automatically sealed.
 
 
-= Arrays ================================
+## Arrays
+
 Arrays are defined like this in C++/CLI:
 
 * `array<int>^ myArr1`
@@ -340,7 +355,8 @@ More information:
 * [General information on C++/CLI arrays](http://msdn.microsoft.com/de-de/library/ts4c4dw6(v=VS.100).aspx)
 * [System::Array members overview](http://msdn.microsoft.com/library/system.array(v=VS.100).aspx)
 
-= Properties ================================
+## Properties
+
 The easiest way to define a .NET property is like this:
 
 ```c++/cli
@@ -399,10 +415,12 @@ void MyClass::SomeValue::set(String^ value) {
 
 Read on: http://www.codeproject.com/KB/mcpp/CppCliProperties.aspx
 
-= Constructors =============================================
+## Constructors
+
 Constructors in C++/CLI have the same syntax as in C++. There's one limitation though: [Constructor chaining](http://www.csharp411.com/constructor-chaining/) is not supported in C++/CLI (although .NET supports it).
 
-=== Static Constructors ===
+### Static Constructors
+
 Static constructors are automatically called by the CLR when the class is "loaded". They're defined just as in C#, must be private though.
 
 ```c++/cli
@@ -414,7 +432,8 @@ public:
 };
 ```
 
-= Destructors and Finalizers =============================================
+## Destructors and Finalizers
+
 The terms and syntax for destructors and finalizer may be somewhat confusing between C++, C++/CLI and C#. Therefore here is an example:
 
 ```c++/cli
@@ -461,7 +480,8 @@ private:
 ```
 
 
-== Calling the Destructor ===============
+### Calling the Destructor
+
 There are two ways of calling the (deterministic) destructor (i.e. `~MyClass()`) in C++/CLI.
 
 When an object sits on the stack, its destructor is automatically called when the variable goes out of scope:
@@ -486,10 +506,12 @@ int main() {
 ```
 
 
-= Events and Delegates ==================
+## Events and Delegates
+
 Delegates are basically pointers (or "handles") to .NET methods. The can be called directly or be used as event handlers.
 
-== Delegates ============================
+### Delegates
+
 You create a delegate by passing `this` and a pointer to method to its constructor.
 
 ```c++/cli highlight=11
@@ -522,7 +544,8 @@ To define a custom delegate, use the `delegate` keyword:
 public delegate double Addition(double val1, double val2);
 ```
 
-== Events ===============================
+### Events
+
 To assign a delegate to an event, use the `+=` operator just as in C#:
 
 ```c++/cli
@@ -546,7 +569,8 @@ this->MyCustomEvent(this, EventArgs::Empty);
 
 *Note:* Checking the event against `nullptr` isn't required in C++/CLI (unlike C#). That's because the event's `raise()` method automatically checks whether there are actually any event handlers ([source](http://stackoverflow.com/a/2014752/614177)).
 
-= Templates and Generics ================
+## Templates and Generics
+
 C++/CLI classes can use C++ templates as well as .NET generics. Since templates aren't visible in .NET (but generics are), we'll skip them here. See the link below for more information.
 
 Generic class:
@@ -583,7 +607,8 @@ ref class ConstrainedToValueType { };
 
 See also: [Using generics in C++/CLI](http://www.codeproject.com/KB/mcpp/cppcligenerics.aspx)
 
-== nullptr for generic reference types ======
+### nullptr for generic reference types
+
 To return/pass `nullptr` for a generic parameter use `T()`. For example:
 
 ```c++/cli
@@ -599,7 +624,8 @@ T MyClass::ReturnNull() {
 *Note:* The syntax of `T()` may be misleading. It does **not** create an instance of `T` on the stack and call `T`'s default constructor (as the syntax would suggest). It indeed results in `nullptr`.
 
 
-= Referencing managed type from other file (in the same project) ======================================================
+## Referencing managed type from other file (in the same project)
+
 Using a managed type that comes with an assembly (dll) in a C++/CLI file is simple: Simply use it - either fully qualified or with `using`.
 
 ```c++/cli
@@ -624,7 +650,8 @@ void MyClass::MyMethod() {
 
 So, if you have separated the class into a `.h` and a `.cpp` file, include the `.h` file. If, on the other hand, you want to write your class in one file (like in C#), you need to create a `.h` file (and not a `.cpp` file) and include this file.
 
-= Preprocessor ==========================================
+## Preprocessor
+
 By enabling the common language runtime support for a project (i.e. making it a C++/CLI project rather than a pure C++ project), a preprocessor definition called `_MANAGED` will be defined (with value `1`):
 
 ```c++/cli
@@ -636,7 +663,8 @@ By enabling the common language runtime support for a project (i.e. making it a 
 
 Also defined are `__cplusplus_cli` and `__CLR_VER`. For more information, see [Predefined Macros](http://msdn.microsoft.com/library/b0084kay.aspx).
 
-= Glossary =
+## Glossary
+
 ; Garbage Collector (GC): reclaims garbage, or memory used by objects that will never be accessed or mutated again by the application.
 ; Common Language Infrastructure (CLI): It is an open specification that defines a runtime environment that allows multiple high-level languages to be used on different computer platforms without being rewritten for specific architectures.
 ; Common Type System (CTS): a standard that specifies how Type definitions and specific values of Types are represented in computer memory, so programs in different programming languages can easily share information.
@@ -644,7 +672,8 @@ Also defined are `__cplusplus_cli` and `__CLR_VER`. For more information, see [P
 ; Framework Class Library (FCL): a collection of thousands of reusable classes, interfaces and value types, within hundreds of namespaces. BCL is a part of FCL and provide the most fundamental functionality.
 ; Mono: Free .NET (CLI) alternative available on Linux, Mac OS X and Windows. The development is usually behind the development of Microsoft's .NET implementation (e.g. while Microsoft supports .NET 4.0, Mono only supports .NET 2.0).
 
-= History =
+## History
+
 What happened to this article:
 
 * **2013-07-31:** Added more information about generic constraints and `nullptr` with generics

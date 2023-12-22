@@ -14,7 +14,8 @@ P/Invoke is a way of calling C/C++ functions from a .NET program. It's very easy
 
 <!--more-->
 
-= Project Structure ===========
+## Project Structure
+
 For this tutorial, we need a small project structure containing two projects:
 
 * *NativeLib* : a C++ library project
@@ -36,7 +37,8 @@ For project *PInvokeTest*:
 * Specify *NativeLib* as dependency for *PInvokeTest*. Right click on *PInvokeTest* and choose `Project Dependencies...`. Then select *NativeLib* and hit `OK`.
 * Change the `Output path` (under project settings: `Build`) to `../Debug` and `../Release` for the different `Configuration`s respectively.
 
-= Simple P/Invoke ========
+## Simple P/Invoke
+
 First, let's create a native function called `print_line()`.
 
 Add a file called `NativeLib.h` to *NativeLib* (or replace it contents):
@@ -107,10 +109,12 @@ You can download the complete project here:
 
   [[file:PInvokeTest-Complete.zip]]
 
-= Troubleshooting ===============
+## Troubleshooting
+
 There are a couple of things that can go wrong with P/Invoke.
 
-== Unable to load DLL =============
+### Unable to load DLL
+
 You may get a `DllNotFoundException` with an error message like "The specified module could not be found."
 
 [[image:dll-not-found.png|center|medium|link=source]]
@@ -121,7 +125,8 @@ The problem here is that Visual Studio doesn't copy native DLLs to the output di
 
 Solution: Change the output directory of the .NET project (*PInvokeTest*) to match the output directory of the native project (*NativeLib*). In *PInvokeTest*'s project settings under `Build` choose `../Debug` and `../Release` for `Output path` in the respective configuration.
 
-== Stack Imbalance ==============
+### Stack Imbalance
+
 You may get an error saying that a `PInvokeStackImbalance was detected`.
 
 [[image:stack-imbalance.png|center|medium|link=source]]
@@ -136,19 +141,22 @@ Solution: Make sure the calling conventions match. Either:
 
 In most cases, it doesn't matter what calling convention you use. There are some differences, though. You can read more about these differences in the Code Project article [Calling Conventions Demystified](http://www.codeproject.com/Articles/1388/Calling-Conventions-Demystified) (Section: Conclusion).
 
-= Portability ===================
+## Portability
+
 On non-Windows systems you can use [Mono](http://www.mono-project.com) to execute .NET applications. If you're planning on supporting multiple platforms with your .NET code, I suggest you either:
 
 * Don't specify a file extension (`.dll`) in `[DllImport]`, like `[DllImport("NativeLib")]`. This way the appropriate file name will be chosen automatically. Note, however, that this only works as long as there is no dot in the file name (like in `System.Network.dll`).
 * Or: Always specify the full Windows file name (i.e. including file extension) and use [Mono's library mapping mechanism](http://www.mono-project.com/Interop_with_Native_Libraries#Library_Names) to map platform-dependent file names to Windows file names.
 
-= C++/CLI =======
+## C++/CLI
+
 Besides P/Invoke, the other way of integrating C/C++ functions is using C++/CLI. Although C++/CLI performs better than P/Invoke it also has several drawbacks:
 
 * You need to learn a new language (if you only know C#; even if you know C++ as well). See my [[cpp-cli-cheat-sheet|C++/CLI Cheat Sheet]] for an overview.
 * C++/CLI is not supported by Mono; so you can use C++/CLI assemblies *only on Windows*.
 
-= Read On =======
+## Read On
+
 You can find more information about P/Invoke here:
 
 * http://www.mono-project.com/Interop_with_Native_Libraries

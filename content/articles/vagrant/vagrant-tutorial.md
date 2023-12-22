@@ -16,14 +16,16 @@ This article is step by step tutorial for getting from nothing to a multi-VM set
 
 <!--more-->
 
-== The Goal ==
+## The Goal
+
 At the end of this tutorial, we'll have 3 virtual machines, one called "master" and two nodes, that can find each other via their hostnames. Except for Vagrant, no external software is required to achieve this.
 
 The setup we'll be creating is just a foundation you can expand on. It won't do anything meaningful. It's just to get you the infrastructure to do something meaningful.
 
 If you're just interested in the end result, skip ahead to [[#endresult]].
 
-== Notes Before We Start ==
+## Notes Before We Start
+
 To be able to follow this tutorial, it's helpful if you have a *basic* understanding of the following:
 
 * How to interact with the **command line** of your operating system - since Vagrant is controlled from the command line.
@@ -34,7 +36,8 @@ For Vagrant I recommend that you have a **fast internet connection**. The VMs cr
 
 As for software versions, this tutorial was tested against **Vagrant 1.8.5 and VirtualBox 5.1**.
 
-== Installation ==
+## Installation
+
 To be able to use Vagrant you need two things: **Vagrant itself and a hyper-visor.**
 
 On Windows you may also want to install a [[3837|command line replacement]].
@@ -58,7 +61,8 @@ To verify that Vagrant is installed, type on the command line:
 Vagrant 1.8.5
 ```
 
-== Starting and Interacting with Your First VM ==
+## Starting and Interacting with Your First VM
+
 To start your first VM, first **create an empty directory** somewhere and `cd` into it.
 
 Then execute the following two commands:
@@ -88,7 +92,8 @@ To stop and delete the whole VM, call:
 
 This will delete the VM and all of its resources (i.e. the virtual hard drive) from your computer.
 
-== The Vagrantfile ==
+## The Vagrantfile
+
 When you called `vagrant init hashicorp/precise64` earlier, Vagrant created a file called `Vagrantfile` in the current directory.
 
 This file is everything Vagrant needs to do its work.
@@ -109,7 +114,8 @@ This is the name of the base image (think: virtual hard disk) used for the VM to
 
 When Vagrant creates a VM from a box (base image), it actually creates a **copy** of this image. Thus, any changes done inside of the VM are lost when the VM is destroyed (via `vagrant destroy`). A VM can't modify its base image.
 
-== Choosing the Right Box (Base Image) ==
+## Choosing the Right Box (Base Image)
+
 Vagrant boxes are downloaded by default from HashiCorp's Atlas system. All available boxes can be searched here:
 
   https://atlas.hashicorp.com/boxes/search
@@ -135,7 +141,8 @@ During my (limited) tests they worked flawlessly and so they're my recommendatio
 
 **Note:** Unfortunately, the bento boxes don't work with Hyper-V. So if you're using Hyper-V with Vagrant, you have to find a different box.
 
-== Updating a VM after Vagrantfile Has Changed ==
+## Updating a VM after Vagrantfile Has Changed
+
 Modifying a `Vagrantfile` while its VM is running has no effect on the running VM.
 
 To "synchronize" the VM with its `Vagrantfile`, you can either:
@@ -147,7 +154,8 @@ To "synchronize" the VM with its `Vagrantfile`, you can either:
 
 To make things simpler, I recommend you're using **the second option for this tutorial**.
 
-== Multi-Machine: The Naive Way ==
+## Multi-Machine: The Naive Way
+
 So far we've always started a single VM.
 
 We can also start multiple VMs with a single `Vagrantfile`. This is called **Multi-Machine**.
@@ -186,7 +194,8 @@ To destroy all VMs, just call:
 
 This is exactly the same command as for a single VM.
 
-== Multi-Machine: The Clever Way ==
+## Multi-Machine: The Clever Way
+
 The previous multi-machine `Vagrantfile` had lots of copied code.
 
 The same setup can also be described in a more "programmer-like" manner:
@@ -212,7 +221,8 @@ Here we:
 * Moved the box name into a constant (`BOX_IMAGE`).
 * Converted the "nodeX" definitions into a for each loop where `NODE_COUNT` describes the number of nodes to create.
 
-== Connecting the VMs via Network ==
+## Connecting the VMs via Network
+
 The setup in the previous section created 3 VMs. However, up until now these VMs had no way of communicating with each other.
 
 **Important:** Before you do this section, please call `vagrant destory -f`. This makes things easier.
@@ -249,7 +259,8 @@ For each VM, we need to add a config like this (where each VM will have a differ
 subconfig.vm.network :private_network, ip: "10.0.0.10"
 ```
 
-== Putting everything together == #endresult
+## Putting everything together {#endresult}
+
 Putting everything mentioned in the previous section together results in a `Vagrantfile` like this:
 
 ```ruby
@@ -295,7 +306,8 @@ From there you can ping any other VM by using their hostname (plus `.local` at t
 > ping node2.local
 ```
 
-== Wrap Up ==
+## Wrap Up
+
 As you've seen, it just takes a `Vagrantfile` with 22 lines and a call to `vagrant up` to create multiple VMs in one step. Easy, isn't it?
 
 To continue from here, have a look at these resources:

@@ -16,7 +16,8 @@ People generally agree on what's the difference between *accuracy* and *precisio
 
 This article will be mainly about **resolution** (and precision and accuracy to some extend).
 
-== DateTime ==
+## DateTime
+
 C# provides the `DateTime` type ([MSDN](http://msdn.microsoft.com/EN-US/library/system.datetime.aspx)) that allows to:
 
 * store a certain point in time
@@ -54,7 +55,8 @@ According to [MSDN](http://msdn.microsoft.com/EN-US/library/system.datetime.utcn
 | Dev Box  | Windows 7 x64 | 1 ms        |
 | Laptop   | Windows 8 x64 | 16 ms       |
 
-== High Resolution Clock ==
+## High Resolution Clock
+
 On Windows 8 (or Windows Server 2012) or higher there's a new API that returns the current time with a much higher resolution:
 
   [GetSystemTimePreciseAsFileTime()](http://msdn.microsoft.com/en-us/library/windows/desktop/hh706895%28v=vs.85%29.aspx)
@@ -116,7 +118,8 @@ So, on my laptop the resolution increased by a factor of 40000.
 
 *Note:* The resolution can never be better/smaller than 0.0001 ms because this is the highest **precision** supported by `DateTime` (see above).
 
-== Accuracy ==
+## Accuracy
+
 To complete this article, lets also talk about **accuracy**.
 
 `DateTime.UtcNow` and `HighResolutionDateTime.UtcNow` are both very **accurate**. The first one has lower **resolution**, the second one has higher **resolution**.

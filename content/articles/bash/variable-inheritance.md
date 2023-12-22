@@ -9,7 +9,8 @@ draft: true
 
 Just a quick cheat sheet about how variables in Bash get inherited.
 
-== Result ==
+## Result
+
 Here's the result of a call to `outer.sh` (see below):
 
 ```
@@ -28,7 +29,7 @@ From Inner (export):    yes
 From Inner (no export): yes
 ```
 
-== Test ==
+## Test
 
 The test consists of two files: `outer.sh` and `inner.sh`.
 

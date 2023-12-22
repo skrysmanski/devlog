@@ -18,14 +18,16 @@ I also wrote some C# code to demonstrate how to use performance counters. You'll
 * I use the .NET names for performance counter types in this article.
 * Categorization of the counter types follows the [official documentation](http://msdn.microsoft.com/EN-US/library/4bcx21aa.aspx).
 
-== Terminology ==
+## Terminology
+
 ; Performance counter : A counter to monitor performance of a running system (e.g. CPU usage). Is basically just an `int`.
 ; Sampling, Measurement : Read the value of a performance counter (at a certain point in time)
 ; Sampling rate : How often a performance counter is sampled (e.g. every second)
 ; Time frame : Time between two samplings (usually one second)
 ; Monotonicity : Whether you can increase and/or decrease the value of a performance counter. (Some counters require you to always increase - but not decrease - their values.)
 
-== Composite Counters==
+## Composite Counters
+
 Before we begin, a word about (what I call) "composite counters".
 
 As the name suggests, these counters are composited of two counters - a parent counter and a base counter. Parent counters can be monitored, base counters cannot.
@@ -41,7 +43,8 @@ The following table lists which base counter type can be used with which parent 
 | `SampleBase`       | `SampleFraction`
 
 
-== Instantaneous Counters ==
+## Instantaneous Counters
+
 **Displays:** the most recent measurement
 
 |= Types        | `NumberOfItems32`, `NumberOfItems64`, `NumberOfItemsHEX32`, `NumberOfItemsHEX64`
@@ -59,7 +62,8 @@ The following table lists which base counter type can be used with which parent 
 |= Monotonicity | increasing, decreasing, remain static
 
 
-== Average Counters ==
+## Average Counters
+
 **Displays:** average of values during time frame
 
 |= Types        | `AverageCount64`
@@ -95,7 +99,8 @@ The following table lists which base counter type can be used with which parent 
 |= Monotonicity | increasing, ~~decreasing~~, remain static
 
 
-== Rate Counters ==
+## Rate Counters
+
 **Displays:** rate of item count growth
 
 |= Types        | `RateOfCountsPerSecond32`, `RateOfCountsPerSecond64`
@@ -106,7 +111,8 @@ The following table lists which base counter type can be used with which parent 
 |= Monotonicity | increasing, ~~decreasing~~, remain static
 
 
-== Percentage (of Time) Counters ==
+## Percentage (of Time) Counters
+
 **Displays:** calculated values as a percentage
 
 |= Types        | `CounterTimer`, `CounterTimerInverse`, `Timer100Ns`, `Timer100NsInverse`
@@ -137,7 +143,8 @@ The following table lists which base counter type can be used with which parent 
 |= Monotonicity | increasing, ~~decreasing~~, remain static
 
 
-== Difference Counters ==
+## Difference Counters
+
 **Displays:** difference between value at the beginning and the end of the time frame
 
 |= Types        | `CounterDelta32`, `CounterDelta64`
@@ -159,7 +166,8 @@ The following table lists which base counter type can be used with which parent 
 ; Note : I have no clue what start time is chosen for the counter. It's certainly not the time the counter was created. In my example, where I created the counter just a couple of seconds ago, it already had a value of about 27 hours (was even longer than my system up time).
 
 
-== Example Code ==
+## Example Code
+
 Here's an example project that demonstrates the various performance counters:
 
   [[file:PerformanceCounters.zip]] (15 KB)

@@ -29,7 +29,8 @@ However, there exists a hidden pitfall here:
 
 <!--more-->
 
-= ASCII and Unicode: A Historical Overview =========
+## ASCII and Unicode: A Historical Overview
+
 Historically there was ASCII which defined characters up to character number 127 (i.e. everything that fits into 7 bits). However, these 128 characters contained only letters used in English. Umlauts (like Ã¤, Ã¶, Ã¼) and other characters were not present. So, the 8th bit was used to map these characters, but the mapping was not standardized. Basically each country had its own mapping of the region 128 - 255. These different mapping were called *code pages*.
 
 For example, on code page 850 (MS-DOS Latin 1) the character number 154 is &#x00DC; (German Umlaut) while on code page 855 (MS-DOS Cyrillic) the very same character number represents &#x045F; (Cyrillic small letter DZHE).
@@ -42,7 +43,8 @@ Please note that *all* encodings can encode *all* Unicode code points. They just
 
 If you want to experiment a little bit with Unicode, there is a [Unicode Explorer](http://unicode.mayastudios.com) I've written. Go ahead and give it a try.
 
-= P/Invoke String Conversions ==============
+## P/Invoke String Conversions
+
 Back to the actual problem. With the parameter of `print_line()` defined as `const char*` (and `char` being 8 bit) it's not clear which code page to use for the strings passed to this function.
 
 Instead, let's change the parameter type to Unicode (also sometimes referred to as "wide characters"):
@@ -66,7 +68,8 @@ UTF-16 is, as said before, an encoding the converted Unicode code points into by
 
 **Important:** There is no ISO C way of how to print Unicode characters to the console. `wprintf()` won't work - at least on Windows.
 
-= Returning Strings =================
+## Returning Strings
+
 Returning strings is not as trivial as passing them as parameters.
 
 The following is a [quote from Stack Overflow](http://stackoverflow.com/a/370519/614177).

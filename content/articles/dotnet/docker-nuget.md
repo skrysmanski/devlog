@@ -12,14 +12,16 @@ Recently, I wanted to try out the new [.NET Core](https:*www.microsoft.com/net/c
 
 <!--more-->
 
-== The Goal ==
+## The Goal
+
 The goal is to have a .NET Core console application with some NuGet dependencies running in a Docker container.
 
 I'll be using Visual Studio 2015 ([Community Edition](https://www.visualstudio.com/)) for this article but you also use any other IDE that supports .NET Core projects. As such, I'll try to minimize the dependency on Visual Studio in this article.
 
 To better understand how a .NET Core application integrates with Docker, I will **not** use the [Docker Tools for Visual Studio](https://aka.ms/DockerToolsForVS). While they work, they add a lot of "magic" to the build process. And this magic makes it hard to understand what's going on.
 
-== Download the Example Code == #example-code
+## Download the Example Code {#example-code}
+
 To keep the article brief, I'll just explain the important parts.
 
 You can find the complete source code on my GitHub:
@@ -28,7 +30,8 @@ You can find the complete source code on my GitHub:
 
 Note that you can examine the [commits](https://github.com/skrysmanski/dotnetcore-docker/commits/master) to see how the example evolves like this article.
 
-== The Program ==
+## The Program
+
 The program I'm going to write is very simple:
 
 ```c#
@@ -51,7 +54,8 @@ namespace DockerCoreConsoleTest
 
 It just uses .NET Core and the `Newtonsoft.Json` NuGet package as dependency.
 
-== Building with Visual Studio ==
+## Building with Visual Studio
+
 Building the application in Visual Studio is pretty straight forward.
 
 1. Make sure you have installed the [.NET Core Visual Studio Tooling](https://www.microsoft.com/net/core#windows) installed.
@@ -68,7 +72,8 @@ Hello, Docker and Newtonsoft.Json.JsonConvert!
 
 If you run into any troubles, go and checkout the [[#example-code|example code]].
 
-== Running in Docker ==
+## Running in Docker
+
 So far, so good. Now lets execute this program in a Docker container.
 
 **Note:** If you haven't installed Docker yet, you can download it [here](https://www.docker.com/products/docker#/windows).
@@ -103,7 +108,8 @@ Error: assembly specified in the dependencies manifest was not found
 
 Not what one would expect.
 
-== The Problem(s) ==
+## The Problem(s)
+
 The problem here is that - unlike .NET projects for the regular *.NET Framework* - the build process for a *.NET Core* project (`dotnet build`) does **not** copy any dependencies into the output folder.
 
 If you look into `bin\Debug\netcoreapp1.0` you'll find no `Newtonsoft.Json.dll` file there.
@@ -116,7 +122,8 @@ COPY bin/Debug/netcoreapp1.0/ /app/
 
 This line depends on the build configuration that's being used. If you'd build a **Release** build, the `Dockerfile` wouldn't work anymore.
 
-== The Solution ==
+## The Solution
+
 In .NET Core projects you use the `dotnet publish` command to gather all dependencies in one directory (default is `bin/CONFIG/netcoreapp1.0/publish`).
 
 So, running this command fixes the first problem. But it can also fix the second problem.
@@ -156,7 +163,8 @@ Two notes one this:
 1. I have not found a [suitable](http://stackoverflow.com/a/36730997/614177) variable (like `%publish:OutputPath%`) yet that could be used for the docker label (`-t`). So, for the time being, the label has to be hard-coded here.
 1. Building a docker image as part of publish process may not be for everyone. I like the idea mainly because I haven't come across any (relevant) downsides of doing this.
 
-== Wrapping Things Up ==
+## Wrapping Things Up
+
 You can now run:
 
 ```
@@ -172,7 +180,8 @@ Hello, Docker and Newtonsoft.Json.JsonConvert!
 
 This is my first shot at Docker and .NET Core. If you find any error or have suggestions for improvements, please leave them in the comments below.
 
-== Alternative Solution: Using dotnet:latest as base image ==
+## Alternative Solution: Using dotnet:latest as base image
+
 There's another solution to the problem(s) described in this article. This solution is less "clean", in my opinion, but I thought I mention it anyways.
 
 In the `Dockerfile`, instead of using `microsoft/dotnet:1.0.0-core` as base image, one could use `microsoft/dotnet:latest`. This will give the Docker container access to <nobr>`dotnet build`</nobr> (whereas the `-core` base image just contains `dotnet someapplication.dll`).

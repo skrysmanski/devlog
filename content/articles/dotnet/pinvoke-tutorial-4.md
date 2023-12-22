@@ -14,7 +14,8 @@ That's what *pinning* is for. It prevents the garbage collector from deleting *a
 
 <!--more-->
 
-= Pinning an Object ================
+## Pinning an Object
+
 To pin a managed object, use `GCHandle.Alloc()`:
 
 ```c#
@@ -46,7 +47,8 @@ Note also that you don't need (and actually can't) pin **delegates**. You need, 
 >
 > However, the application **is** responsible for somehow extending the lifetime of the delegate until no more calls will occur from unmanaged code. The lifetime of the native code stub is directly related to the lifetime of the delegate.  Once the delegate is collected, subsequent calls via the unmanaged function pointer will crash or otherwise corrupt the process.
 
-= Passing a Pinned Object =============
+## Passing a Pinned Object
+
 Now that you've pinned your object you surely want to pass it to a C/C++ function.
 
 The easiest way to do this is to specify managed type directly on the P/Invoke method:
@@ -87,7 +89,8 @@ handle.Free();
 ```
 
 
-= Pinning and Passing Strings ======= #pinning-strings
+## Pinning and Passing Strings {#pinning-strings}
+
 Pinning strings is the same as pinning objects with one exception:
 
   **You must specify the `CharSet.Unicode`. when passing pinned strings!**
@@ -125,7 +128,8 @@ do_something1(text, handle.AddrOfPinnedObject());
 do_something2(text, handle.AddrOfPinnedObject());
 ```
 
-= Verifying the Pinned Object is passed =============
+## Verifying the Pinned Object is passed
+
 As mentioned in the previous section P/Invoke *may* create a copy of an object instead of passing it by reference directly.
 
 You can easily verify this by comparing the pointer adresses. In C# use `handle.AddrOfPinnedObject().ToString()` to obtain the address of the pinned object.

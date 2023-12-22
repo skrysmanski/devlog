@@ -33,7 +33,8 @@ Unfortunately this solution highly depends on a good router that
 
 Unfortunately, I recently was forced to switch to a less "superior" router that doesn't support these features. So an alternative had to be found.
 
-== Multicast DNS ==
+## Multicast DNS
+
 Fortunately, a solution exists and this solution is called **Multicast DNS** (short: mDNS).
 
 Multicast DNS lets you find computers on your *local* network by name. You just have to add `.local` to the computer's name.
@@ -44,7 +45,8 @@ So, to ping a computer called **marvin** you'd use:
 $ ping marvin.local
 ```
 
-== What Do I Need? ==
+## What Do I Need?
+
 There are two major mDNS implementations: Apple's **Bonjour** and Microsoft's **Link-local Multicast Name Resolution (LLMNR)**.
 
 Bonjour seems to have a wider adoption so I'm concentrating on this.
