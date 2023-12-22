@@ -24,9 +24,9 @@ $ ping mycomputer
 
 This mapping task is typically done by a **DNS server**.
 
-Sometime back I wrote an article about how to [[pingidentify-computers-by-computer-name-in-windows|ping/identify computers by name on Windows]].
+Sometime back I wrote an article about how to ping/identify computers by name on Windows.
 
-Unfortunately this solution highly depends on a good router that
+However, this solution highly depends on a good router that
 
 * lets you specify names for individual ip addresses (or determines them automatically)
 * provides a domain name for your local network (e.g. "fritz.box")
@@ -63,4 +63,4 @@ Here's what you need:
   * there will never be a "real" domain ending called ".local". So you don't run the risk of name conflicts with the internet.
   * good routers won't ask your ISP's DNS server for ".local" names. So connecting to a ".local" name, will always result in an ip address from the local network.
 * mDNS, of course, only works if no two computers on the local network share the same name.
-* With mDNS, you don't need to specify `.local` as "primary DNS suffix" on Windows - unlike the solution in the [[pingidentify-computers-by-computer-name-in-windows|aforementioned article]].
+* With mDNS, you don't need to specify `.local` as "primary DNS suffix" on Windows.

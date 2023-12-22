@@ -183,7 +183,7 @@ This section gives a quick overview what is allowed with handles and what isn't.
 | Fields with native type                                    | Yes (direct and pointer)     | Only pointer
 | Fields with managed type                                   | value types directly; handles via `gcroot` (see below) | Values types and handles
 
-*Important:* Passing pointers of native types across assembly (dll) boundaries requires some more work. See [[1832]] for more information.
+*Important:* Passing pointers of native types across assembly (dll) boundaries requires some more work. See [](cppcli-passing-native-pointers.md) for more information.
 
 To be able to store a handle as field in a native class, wrap it in a [gcroot](http://msdn.microsoft.com/library/481fa11f.aspx) instance, like so: `gcroot<String^> m_myMember`.
 
@@ -456,7 +456,7 @@ You only need destructor *and* finalizer when the class hosts some unmanaged dat
 
 *Note:* The destructor (`Dispose()`) will **not** be called automatically from the finalizer.
 
-Since freeing unmanaged resources should occur in the finalizer (see [[1886]]), the default implementation pattern for finalizer and destructor looks like this:
+Since freeing unmanaged resources should occur in the finalizer (see [](idisposable-and-co.md)), the default implementation pattern for finalizer and destructor looks like this:
 
 ```c++/cli
 ref class DataContainer {

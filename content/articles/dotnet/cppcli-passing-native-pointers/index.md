@@ -7,7 +7,7 @@ topics:
 draft: true
 ---
 
-[[1439|C++/CLI]] allows you to mix native C++ code with managed .NET code (which is extremly nice). Mixing such code also allows you to create methods in a .NET class that take or return pointers to native (C++) classes. Unfortunately, this doesn't work out of the box across assemblies (read: DLLs). If you define a .NET class in one assembly and this class has a method that returns a pointer, you may not be able to use this method from within *another* C++/CLI assembly.
+[C++/CLI](cppcli-cheat-sheet.md) allows you to mix native C++ code with managed .NET code (which is extremly nice). Mixing such code also allows you to create methods in a .NET class that take or return pointers to native (C++) classes. Unfortunately, this doesn't work out of the box across assemblies (read: DLLs). If you define a .NET class in one assembly and this class has a method that returns a pointer, you may not be able to use this method from within *another* C++/CLI assembly.
 
 This article describes the problem and shows solutions.
 
@@ -31,7 +31,7 @@ For those of you that don't want to read the whole article, here's the summary:
 
 To illustrate the problem, we first create some projects that we can use as basis. Each project will only contain one or two classes, so nothing fancy here. I'll assume you know how to create projects and how to enable and disable the `/clr` compiler switch to create C++/CLI and pure C++ project respectivly.
 
-The first project (called "NativeLib") is a pure C++ (no C++/CLI) and DLL project which provides a native (unmanaged) class called `MyNativeClass`. This class is the type that will later be passed across assembly boundaries. Here's the source code (for the meaning of `NATIVE_LIB_EXPORT`, see [[1725#exporting_classes]]):
+The first project (called "NativeLib") is a pure C++ (no C++/CLI) and DLL project which provides a native (unmanaged) class called `MyNativeClass`. This class is the type that will later be passed across assembly boundaries. Here's the source code (for the meaning of `NATIVE_LIB_EXPORT`, see [](/articles/cpp/project-tutorial-1--create-project.md#exporting-classes)):
 
 ```c++
 // MyNativeClass.h

@@ -217,7 +217,7 @@ Note that `svh` and `wsh` use different ports.
 
 After starting the app, you can call `Ping()` by going to:
 
-  [[http://localhost:8080/Ping?name=Sebastian]]
+<http://localhost:8080/Ping?name=Sebastian>
 
 ## Download The Code
 

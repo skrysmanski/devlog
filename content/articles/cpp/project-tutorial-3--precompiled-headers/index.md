@@ -13,8 +13,9 @@ In this part of the "Projects in Visual C++ 2010" mini series another important 
 Here at work I have a C++ project with about 50 `.cpp` files in it. The project uses the Qt library and all files only include the absolute minimum of header files required. Without precompiled headers, compiling the project takes about 56 seconds. *With* precompiled headers, the compile time goes down to about 7 seconds. That's eight times faster.
 
 **Related Articles:**
-* [[1725]]
-* [[1722]]
+
+* [](project-tutorial-1--create-project.md)
+* [](project-tutorial-2--project-dependencies.md)
 
 <!--more-->
 

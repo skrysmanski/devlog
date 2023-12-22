@@ -46,7 +46,7 @@ This requires the C/C++ parameter type be a `wchar_t*`:
 void do_something(const wchar_t* str);
 ```
 
-For more details, see [[2559]].
+For more details, see [](pinvoke-tutorial-2.md).
 
 ## Marshalling Arrays
 

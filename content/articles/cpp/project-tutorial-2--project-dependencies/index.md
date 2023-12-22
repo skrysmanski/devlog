@@ -8,13 +8,14 @@ topics:
 draft: true
 ---
 
-This article is the second part of the subprojects mini series. The first part was about [[1725|creating a DLL project]]. This part will show how to use a DLL library project in another project.
+This article is the second part of the subprojects mini series. This part will show how to use a DLL library project in another project.
 
 Referencing a library in C++ (or, more specific, with Visual C++) is somewhat cumbersome - or should I say, *used to be* somewhat cumbersome. Fortunately, with the release of [Visual C++ 2010](http://www.microsoft.com/visualstudio/en-us/products/2010-editions/visual-cpp-express) this has been greatly simplified. This article first shows the old way and then describes the new (simple) way.
 
 **Related Articles:**
-* [[1725]]
-* [[1747]]
+
+* [](project-tutorial-1--create-project.md)
+* [](project-tutorial-3--precompiled-headers.md)
 
 <!--more-->
 
@@ -71,7 +72,7 @@ std::string PrintableInt::toString() const {
 }
 ```
 
-Again, this (and the project "MyProgram" as well) use a precompiled header file named "stdafx.h". Precompiled headers are explained in [[1747|another article]].
+Again, this (and the project "MyProgram" as well) use a precompiled header file named "stdafx.h". Precompiled headers are explained in [another article](project-tutorial-3--precompiled-headers.md).
 
 ### The Code: MyProgram
 

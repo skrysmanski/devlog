@@ -40,8 +40,6 @@ As for software versions, this tutorial was tested against **Vagrant 1.8.5 and V
 
 To be able to use Vagrant you need two things: **Vagrant itself and a hyper-visor.**
 
-On Windows you may also want to install a [[3837|command line replacement]].
-
 You can download Vagrant here:
 
   https://www.vagrantup.com/downloads.html

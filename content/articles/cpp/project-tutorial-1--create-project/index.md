@@ -11,8 +11,9 @@ draft: true
 When you write software, you often/sometimes divide your project into several subprojects. This mini series describes how to do this with [Visual C++ 2010](http://www.microsoft.com/visualstudio/en-us/products/2010-editions/visual-cpp-express) (but this first part also applies to earlier versions). We start with creating a library project in form of a DLL.
 
 **Related articles:**
-* [[1722]]
-* [[1747]]
+
+* [](project-tutorial-2--project-dependencies.md)
+* [](project-tutorial-3--precompiled-headers.md)
 
 <!--more-->
 
@@ -87,7 +88,7 @@ std::string PrintableInt::toString() const
 
 The library should now compile without problems.
 
-Note that the `.cpp` file include a file called `stdafx.h`. This is a so called "precompiled header file". This feature is explained in [[1747|another article]]. It should, however, work out-of-the-box in your project.
+Note that the `.cpp` file include a file called `stdafx.h`. This is a so called "precompiled header file". This feature is explained in [another article](project-tutorial-3--precompiled-headers.md). It should, however, work out-of-the-box in your project.
 
 ## Exporting Classes
 
@@ -126,7 +127,7 @@ For this to work, you add the preprocessor definition `COMPILE_MYLIBRARY` to the
 
 *Note:* The keyword `__declspec(...)` is a Microsoft specific extension to C++ (see [here](http:*msdn.microsoft.com/en-us/library/3y1sfaz2.aspx)). So it only works in Visual C++. There is an alternative (more portable?) way to specify which classes/functions are to be exported. For this, a "Module-Definition File" (`.def`) needs to be created. However, creating such a file is more tedious than specifying the export statement directly in the code. For more information, see [this article](http:*www.codeguru.com/cpp/cpp/cpp_mfc/tutorials/article.php/c9855).
 
-Now, when you compile the library project, an additional `.lib` file will be created. This file is used to import the exported classes/functions in another project. (If you don't export anything, the file won't be created.) How to do this, is explained in [[1722|part two of this mini series]].
+Now, when you compile the library project, an additional `.lib` file will be created. This file is used to import the exported classes/functions in another project. (If you don't export anything, the file won't be created.) How to do this, is explained in [part two of this mini series](project-tutorial-2--project-dependencies.md).
 
 ## dllimport necessary?
 
