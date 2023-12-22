@@ -53,17 +53,21 @@ params:
 #   In the end, it was just too much fuss.
 uglyURLs: true
 
+#
+# Permalinks
+#
+# NOTE: I once tried to use a flat (i.e. Wikipedia like) URL structure but this turned
+#   out to be too much hassle as most programming concepts apply to multiple programming
+#   languages and thus most articles would need to be prefixed with the folder name anyway
+#   (e.g. "dotnet/dotnet-simple-mutex.md" instead of "dotnet/simple-mutex.md"). So I dropped
+#   this configuration and reverted to Hugo's default configuration.
+#
 # See:
 # * https://gohugo.io/content-management/urls/
 # * https://gohugo.io/templates/section-templates/#page-kinds
-permalinks:
-  page:
-    # Map all articles just to their filename (just like Wikipedia). This way we can
-    # structure the files in this repository however we want and can still keep the
-    # permalinks to each article stable.
-    # NOTE: To be able to better differentiate between articles and "site files" we
-    #   prefix all URLs with "/articles/".
-    articles: "/articles/:slugorfilename"
+#permalinks:
+#  page:
+#    articles: "/articles/:slugorfilename"
 
 taxonomies:
   tag: tags
