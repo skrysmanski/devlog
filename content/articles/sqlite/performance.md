@@ -11,8 +11,8 @@ I'm currently working on a [cross-platform SQLite .NET wrapper](https://bitbucke
 
 Basically, there are two ways to do this:
 
-# Share a single connection among all threads and use .NET locking mechanisms.
-# Let each thread have its own connection (thus no .NET locking would be required).
+1. Share a single connection among all threads and use .NET locking mechanisms.
+1. Let each thread have its own connection (thus no .NET locking would be required).
 
 To be able to make this decision, I did some performance tests and - assuming I did them right - got some interesting results you can read after the break.
 

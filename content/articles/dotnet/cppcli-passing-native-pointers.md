@@ -263,8 +263,8 @@ This keyword is only available in C++/CLI projects and has the same effect like 
 
 To use this type in another C++/CLI project, you need to reference the assembly's `.lib` (here "ManagedProviderLib.lib") *twice* in the project settings (here: of "ManagedExternalLib"):
 
- # Add a reference to the dependency project (here "ManagedProviderLib.lib") in "Common Properties" --> "Framework and References" via "Add Reference...".
- # Also Add a reference to the dependency project in "Linker" --> "Input" --> "Additional Dependencies".
+1. Add a reference to the dependency project (here "ManagedProviderLib.lib") in "Common Properties" --> "Framework and References" via "Add Reference...".
+1. Also Add a reference to the dependency project in "Linker" --> "Input" --> "Additional Dependencies".
 
 I'm not sure whether linking the same `.lib` file twice is a bug or working as intended, but surely it's not very intuitive.
 

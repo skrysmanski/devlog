@@ -54,11 +54,11 @@ It just uses .NET Core and the `Newtonsoft.Json` NuGet package as dependency.
 == Building with Visual Studio ==
 Building the application in Visual Studio is pretty straight forward.
 
-# Make sure you have installed the [.NET Core Visual Studio Tooling](https://www.microsoft.com/net/core#windows) installed.
-# Create a new **.NET Core Console Application** project/solution called <nobr>`DockerCoreConsoleTest`</nobr>.
-# Use NuGet to add `Newtonsoft.Json` to the project.
-# Copy the code from above into your `Program.cs`
-# Run the program
+1. Make sure you have installed the [.NET Core Visual Studio Tooling](https://www.microsoft.com/net/core#windows) installed.
+1. Create a new **.NET Core Console Application** project/solution called <nobr>`DockerCoreConsoleTest`</nobr>.
+1. Use NuGet to add `Newtonsoft.Json` to the project.
+1. Copy the code from above into your `Program.cs`
+1. Run the program
 
 You should see the following output:
 
@@ -152,8 +152,9 @@ We could go one step further and actually build the docker image as part of the 
 ```
 
 Two notes one this:
-# I have not found a [suitable](http://stackoverflow.com/a/36730997/614177) variable (like `%publish:OutputPath%`) yet that could be used for the docker label (`-t`). So, for the time being, the label has to be hard-coded here.
-# Building a docker image as part of publish process may not be for everyone. I like the idea mainly because I haven't come across any (relevant) downsides of doing this.
+
+1. I have not found a [suitable](http://stackoverflow.com/a/36730997/614177) variable (like `%publish:OutputPath%`) yet that could be used for the docker label (`-t`). So, for the time being, the label has to be hard-coded here.
+1. Building a docker image as part of publish process may not be for everyone. I like the idea mainly because I haven't come across any (relevant) downsides of doing this.
 
 == Wrapping Things Up ==
 You can now run:
@@ -190,8 +191,9 @@ ENTRYPOINT ["dotnet", "run"]
 ```
 
 This approach has some disadvantages:
-# The container in general will be bigger than the solution proposed in the rest of the article.
-# You need to copy all source code into the container (and it will stay there).
-#* Depending on how you execute `docker build`, this container may even contain the build output of configurations that you don't intend to run (e.g. `bin/Debug` when actually running a release build).
-#* Removing the source code after building the application (or having lots of `RUN` directives in general) may be inefficient in regard to Docker's container layering system and [Build Cache](https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/#build-cache).
-# Running `dotnet restore` will re-download all NuGet dependencies every time the container image is built. This will increase the build time and cause unnecessary network traffic - especially if the application is built often as part of some continuous integration process.
+
+1. The container in general will be bigger than the solution proposed in the rest of the article.
+1. You need to copy all source code into the container (and it will stay there).
+   * Depending on how you execute `docker build`, this container may even contain the build output of configurations that you don't intend to run (e.g. `bin/Debug` when actually running a release build).
+   * Removing the source code after building the application (or having lots of `RUN` directives in general) may be inefficient in regard to Docker's container layering system and [Build Cache](https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/#build-cache).
+1. Running `dotnet restore` will re-download all NuGet dependencies every time the container image is built. This will increase the build time and cause unnecessary network traffic - especially if the application is built often as part of some continuous integration process.

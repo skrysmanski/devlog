@@ -140,8 +140,8 @@ Modifying a `Vagrantfile` while its VM is running has no effect on the running V
 
 To "synchronize" the VM with its `Vagrantfile`, you can either:
 
-# call `vagrant reload` or
-# call `vagrant destroy -f` followed by `vagrant up`
+1. call `vagrant reload` or
+1. call `vagrant destroy -f` followed by `vagrant up`
 
 **Note:** If you're using provisioning (see below) and changed the provisioning data, you need to call `vagrant reload --provision` in the first case.
 

@@ -29,9 +29,9 @@ This will open the Property Manager pane. For just one project (here called `Mai
 
 Let's examine what you see here:
 
- # On the top (icon: [[image:project-icon.png]]) you see our project. If there were more projects in the solution, they'd listed here as well.
- # On the next level there are all configurations of the project on all supported platforms (icon: [[image:configuration-icon.png]]). There are usually the configurations "Debug" and "Release" on the platform "Win32". These are the same configurations you have available in the project settings in the `Configuration` drop-down field. To keep things simply, from now on in this article a configuration-platform combination will be called just "configuration".
- # On the inner-most level you have the actual *property sheets*.
+1. On the top (icon: [[image:project-icon.png]]) you see our project. If there were more projects in the solution, they'd listed here as well.
+1. On the next level there are all configurations of the project on all supported platforms (icon: [[image:configuration-icon.png]]). There are usually the configurations "Debug" and "Release" on the platform "Win32". These are the same configurations you have available in the project settings in the `Configuration` drop-down field. To keep things simply, from now on in this article a configuration-platform combination will be called just "configuration".
+1. On the inner-most level you have the actual *property sheets*.
 
 Let's examine the property sheets a bit closer:
 

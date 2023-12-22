@@ -373,9 +373,9 @@ The default dispose implementation pattern used in the previous sections create 
 
 In C#, an implementation must
 
- # first check whether it already has been disposed,
- # then dispose everything,
- # and then call the base method.
+1. first check whether it already has been disposed,
+1. then dispose everything,
+1. and then call the base method.
 
 The base method is called last to ensure that child classes are disposed before their parent classes. This is how destructors work in C++ and `Dispose()` mimics this behavior.
 

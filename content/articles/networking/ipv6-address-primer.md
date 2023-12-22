@@ -39,30 +39,30 @@ Unfortunately, the rules for writing IPv6 addresses as defined in RFC 4291 (see 
 
 The rules are as follows:
 
-# Leading zeros *must* be omitted.
-  (x) `2001:0db8::001`
-  (/) `2001:db8::1`
-# The `::` must always shorten *as much as possible*.
-  (x) `2001:db8:0:0:0:0:0:1` &rarr; `2001:db8::0:1`
-  (/) `2001:db8:0:0:0:0:0:1` &rarr; `2001:db8::1`
-# The `::` must not be used to shorten just **one zero block**.
-  (x) `2001:db8:0:1:1:1:1:1` &rarr; `2001:db8::1:1:1:1:1`
-  (/) `2001:db8:0:1:1:1:1:1` &rarr; `2001:db8:0:1:1:1:1:1`
-# If there are multiple abbreviations possible with `::` (all with the same length), then the **left-most** one must be used.
-  (x) `2001:db8:0:0:1:0:0:1` &rarr; `2001:db8:0:0:1::1`
-  (/) `2001:db8:0:0:1:0:0:1` &rarr; `2001:db8::1:0:0:1`
-# All letters must be **lower-case**.
-  (x) `2001:DB8::1`
-  (/) `2001:db8::1`
-# If a **port number** is attached to the address, the address must be enclosed in angular brackets.
-  (x) `2001:db8::1:80`
-  (/) `[2001:db8::1]:80`
+1. Leading zeros *must* be omitted.
+   (x) `2001:0db8::001`
+   (/) `2001:db8::1`
+1. The `::` must always shorten *as much as possible*.
+   (x) `2001:db8:0:0:0:0:0:1` &rarr; `2001:db8::0:1`
+   (/) `2001:db8:0:0:0:0:0:1` &rarr; `2001:db8::1`
+1. The `::` must not be used to shorten just **one zero block**.
+   (x) `2001:db8:0:1:1:1:1:1` &rarr; `2001:db8::1:1:1:1:1`
+   (/) `2001:db8:0:1:1:1:1:1` &rarr; `2001:db8:0:1:1:1:1:1`
+1. If there are multiple abbreviations possible with `::` (all with the same length), then the **left-most** one must be used.
+   (x) `2001:db8:0:0:1:0:0:1` &rarr; `2001:db8:0:0:1::1`
+   (/) `2001:db8:0:0:1:0:0:1` &rarr; `2001:db8::1:0:0:1`
+1. All letters must be **lower-case**.
+   (x) `2001:DB8::1`
+   (/) `2001:db8::1`
+1. If a **port number** is attached to the address, the address must be enclosed in angular brackets.
+   (x) `2001:db8::1:80`
+   (/) `[2001:db8::1]:80`
 
 == Special addresses ==
 There are two special addresses in IPv6:
 
-# `::1` is the loopback address (equivalent to `127.0.0.1` in IPv4). However, unlike in IPv4, there's *only one* loopback address (whereas in IPv4 you have many - i.e. `127.0.0.1` to `127.255.255.254`).
-# `::` is the unspecified address (i.e. all blocks are zero). This address must only be used under certain circumstance - mainly before a network adapter has gotten an IPv6 address.
+1. `::1` is the loopback address (equivalent to `127.0.0.1` in IPv4). However, unlike in IPv4, there's *only one* loopback address (whereas in IPv4 you have many - i.e. `127.0.0.1` to `127.255.255.254`).
+1. `::` is the unspecified address (i.e. all blocks are zero). This address must only be used under certain circumstance - mainly before a network adapter has gotten an IPv6 address.
 
 == Subnet Prefixes and Interface IDs ==
 A **subnet prefix** (or just **prefix**) defines the size of a subnet in IPv6 (like in IPv4). Its length in bits is appended to an address with a `/`.
