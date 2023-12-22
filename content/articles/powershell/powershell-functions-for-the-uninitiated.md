@@ -16,28 +16,28 @@ There's one very mean pit fall when it comes to **functions and their return val
 
 Assume this PowerShell code:
 
-{{{ lang=powershell
+```powershell
 function PrintAndReturnSomething {
   echo "Hello, World"
   return 42
 }
 
 $result = PrintAndReturnSomething
-}}}
+```
 
 What do you expect ##$result## to be? An integer with value ##42##, right? Let's check it out.
 
 We're adding the following line to the end of the script:
 
-{{{ lang=powershell
+```powershell
 echo ("Return type: " + $result.GetType().FullName)
-}}}
+```
 
 Now, when you run the script, you'll get:
 
-{{{
+```
 Return type: System.Object[]
-}}}
+```
 
 **Wait, what? Where's the "Hello, World"? And why the heck is ##$return## an object array?**
 
@@ -46,7 +46,7 @@ The first problem (pit fall) is that PowerShell treats every non-captured object
 == Functions Return Everything That Isn't Captured =======
 Let's have a look at a different script for a moment:
 
-{{{ lang=powershell
+```powershell
 function LongNumericString {
   $strBld = new-object System.Text.StringBuilder
   for ($i=0; $i -lt 20; $i++) {
@@ -54,11 +54,11 @@ function LongNumericString {
   }
   return $strBld.ToString()
 }
-}}}
+```
 
 One would expect that ##LongNumericString## returns just a string; but it doesn't. Instead it returns an ##object[]## with this contents:
 
-{{{
+```
 Capacity           MaxCapacity                        Length
 â€”â€”â€“                â€”â€”â€”â€“                               â€”â€”
 16                 2147483647                         1
@@ -82,13 +82,13 @@ Capacity           MaxCapacity                        Length
 32                 2147483647                        28
 32                 2147483647                        30
 012345678910111213141516171819
-}}}
+```
 
 The problem here is that ##$strBld.Append## returns a ##StringBuilder## object. And since this return value isn't assigned to a variable, PowerShell considers it part of the return value.
 
 To resolve this problem, prefix ##$strBld.Append## with ##[void]##:
 
-{{{ lang=powershell highlight=4
+```powershell highlight=4
 function LongNumericString {
   $strBld = new-object System.Text.StringBuilder
   for ($i=0; $i -lt 20; $i++) {
@@ -96,7 +96,7 @@ function LongNumericString {
   }
   return $strBld.ToString()
 }
-}}}
+```
 
 **Note:** The keyword ##return## is totally optional. The expression ##return $strBld.ToString()## is equivalent to ##$strBld.ToString()##, and even to ##$strBld.ToString(); return##.
 
@@ -107,10 +107,10 @@ One needs to understand that **PowerShell doesn't actually care about return val
 
 For example, ##Get-ChildItem C:\ | Format-Table Name, Length## is the same as:
 
-{{{ lang=powershell
+```powershell
 $child_items = Get-ChildItem C:\
 Format-Table -InputObject $child_items Name, Length
-}}}
+```
 
 `PrintAndReturnSomething` uses ##echo## (which is an alias for ##Write-Output##) to print "Hello, World". This is output and thus part of the function's return value.
 
@@ -118,7 +118,7 @@ To force PowerShell to write something to the console (rather than including it 
 
 The corrected code is:
 
-{{{ lang=powershell highlight=2
+```powershell highlight=2
 function PrintAndReturnSomething {
   Write-Host "Hello, World"
   return 42
@@ -126,7 +126,7 @@ function PrintAndReturnSomething {
 
 $result = PrintAndReturnSomething
 # Return is now a "System.Int32" with value 42.
-}}}
+```
 
 == Summary ======
 To sum things up:

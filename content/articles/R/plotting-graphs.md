@@ -19,9 +19,9 @@ To draw a function, use the built-in function ##curve()##.
 
 Let's start with something simple:
 
-{{{ lang=r
+```r
 curve(x^2)
-}}}
+```
 
 This will plot the function //x^^2^^// and will look like this:
 
@@ -31,9 +31,9 @@ Since we didn't specify any boundaries for the x and y axes, R used ##0..1## for
 
 Of course, we can manually specify the range for the values on the x axis:
 
-{{{ lang=r
+```r
 curve(x^2, -4, 3)
-}}}
+```
 
 This will plot //x^^2^^// with ##-4..3##:
 
@@ -45,9 +45,9 @@ Sometimes, however, this may not be desired. There are two ways to fix this.
 
 First, you can specify the aspect ratio to be 1 ([[http://xkcd.com/1162/|cause log scales are for quitters]]). In this case, the x and the y axes will use the same scale:
 
-{{{
+```
 curve(x^2, -4, 3, asp=1)
-}}}
+```
 
 will give us:
 
@@ -55,9 +55,9 @@ will give us:
 
 The other option is to explicitely specify the range for the y axis by using the ##ylim## parameter:
 
-{{{
+```
 curve(x^2, -4, 3, ylim=range(c(-1, 4)))
-}}}
+```
 
 will give us a y axis range of ##-1..4##:
 

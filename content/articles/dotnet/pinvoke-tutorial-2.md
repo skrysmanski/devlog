@@ -12,16 +12,16 @@ In the [[2525|previous tutorial]] we passed a single string to a native C/C++ fu
 
 This function was defined like this:
 
-{{{ lang=c++
+```c++
 // C++
 void print_line(const char* str);
-}}}
+```
 
-{{{ lang=c#
+```c#
 // C#
 [DllImport("NativeLib.dll")]
 private static extern void print_line(string str);
-}}}
+```
 
 However, there exists a hidden pitfall here:
 
@@ -46,16 +46,16 @@ Back to the actual problem. With the parameter of ##print_line()## defined as ##
 
 Instead, let's change the parameter type to Unicode (also sometimes referred to as "wide characters"):
 
-{{{ lang=c++
+```c++
 void print_line(const wchar_t* str);
-}}}
+```
 
 No, let's also adopt the C# mapping:
 
-{{{ lang=c#
+```c#
 [DllImport("NativeLib.dll", CharSet = CharSet.Unicode)]
 private static extern void print_line(string str);
-}}}
+```
 
 The only difference here it that we specified the ##CharSet## to be Unicode.
 

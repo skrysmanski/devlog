@@ -57,7 +57,7 @@ A type (class, struct) becomes a CLR type when it's being prefixed with a specif
 == Native and managed types on stack and heap ================================
 Handles can only "contain" managed types. Managed types can sit on the stack or in a handle, but not in a pointer.
 
-{{{ lang=c++/cli
+```c++/cli
 class MyNativeTestClass {
   ...
 };
@@ -75,13 +75,13 @@ void test() {
   MyManagedTestClass* managed2 = new MyManagedTestClass(); // ERROR
   MyManagedTestClass^ managed3 = gcnew MyManagedTestClass();
 }
-}}}
+```
 
 
 == Handles and Value Types (.Net Structs and Enums) ================================
 Since value types (ie. ##value struct## and ##enum class##) are passed-by-copy, you usually don't use handles on them but use them directly. Instead you create them directly on the stack (ie. without ##gcnew##) like this:
 
-{{{ lang=c++/cli
+```c++/cli
 Point Test() {
   Point pt(2, 5);
   return pt;
@@ -90,28 +90,28 @@ Point Test() {
 MyEnum Test2() {
   return MyEnum::MyEnumValue;
 }
-}}}
+```
 
 Using a handle on a value type essentially create a [[http://msdn.microsoft.com/en-us/library/yz2be5wk%28v=vs.80%29.aspx|boxed]] version of that value type. In managed code, all ##value struct##s will be converted into ##ValueType## types and all ##enum class##es will be converted into ##Enum## types.
 
 For example the following C++/CLI code (with ##Point## being a //value type// and ##MyEnum## being an //enum class//):
 
-{{{ lang=c++/cli
+```c++/cli
 public ref class MyTestClass {
 public:
   void Test1(Point pt, Point^ pt2) { }
   void Test2(MyEnum en, MyEnum^ en2) { }
 };
-}}}
+```
 
 From a C# project, this class definition will look like this:
 
-{{{ lang=c#
+```c#
 public class MyTestClass {
   public void Test1(Point pt, ValueType pt2);
   public void Test2(MyEnum en, Enum en2);
 }
-}}}
+```
 
 
 == Casting Handles ================================
@@ -130,7 +130,7 @@ There are several ways to cast a handle to another type:
 == Passing handles ================================
 Passing a handle to or from a method works in C++/CLI as expected. The handle inside the method identifies the same instance that it identified outside of the method (i.e. the object is passed as reference and not as copy).
 
-{{{ lang=c++/cli
+```c++/cli
 void ChangeString(MyClass^ str) {
   str.myInnerString = "New string";
 }
@@ -139,13 +139,13 @@ void ChangeString(MyClass^ str) {
 MyClass^ str = gcnew MyClass("Old string");
 ChangeString(str);
 Console::WriteLine(str.myInnerString);
-}}}
+```
 
 This code changes ##myInnerString## as expected.
 
 To pass the reference to the handle itself (C# keyword ##ref##), the ##%## operator must be used (like the ##&## operator in C++):
 
-{{{ lang=c++/cli
+```c++/cli
 void ChangeString(String^% str)
 {
   str = "New string";
@@ -155,7 +155,7 @@ void ChangeString(String^% str)
 String^ str = "Old string";
 ChangeString(str);
 Console::WriteLine(str);
-}}}
+```
 
 This again changes the string. Note the ##%## in ##ChangeString()##.
 
@@ -178,7 +178,7 @@ This section gives a quick overview what is allowed with handles and what isn't.
 
 To be able to store a handle as field in a native class, wrap it in a [[http://msdn.microsoft.com/library/481fa11f.aspx|gcroot]] instance, like so: ##gcroot<String^> m_myMember##.
 
-{{{ lang=c++/cli
+```c++/cli
 #include <vcclr.h>
 using namespace System;
 
@@ -192,47 +192,47 @@ int main() {
    c.str = gcnew String("hello");
    Console::WriteLine(c.str);   // no cast required
 }
-}}}
+```
 
 
 == Type Of ==
 To get the type of an object, simply use:
 
-{{{ lang=c++/cli
+```c++/cli
 obj->GetType()
-}}}
+```
 
 To get a type of a class, use:
 
-{{{ lang=c++/cli
+```c++/cli
 // identical to type(MyClass) in C#
 MyClass::typeid
-}}}
+```
 
 == Forward declaration ======================
 To use a CLR type before having declared it, use this:
 
-{{{ lang=c++/cli
+```c++/cli
 ref class MyClass;
-}}}
+```
 
 Note that no visibility modifier (like ##public##) must be user here, even if the actual class has public visibility.
 
 = Modifiers: visibility ================================
 Visibility modifiers for class/struct members are used as in C++:
 
-{{{ lang=c++/cli
+```c++/cli
   public:
     int my_public_var;
     String^ my_public_string;
-}}}
+```
 
 Visibility modifiers for classes/structs themself are prefixed before the CLR type keyword (i.e. like used as in C#):
 
-{{{ lang=c++/cli
+```c++/cli
 public ref class MyClass { };
 private value struct MyStruct { }; // internal struct
-}}}
+```
 
 Classes/structs without visibility modifier will be interpreted as ##internal## (which is ##private## in C++/CLI).
 
@@ -253,23 +253,23 @@ Here's a list of supported modifiers:
 = Modifiers: abstract, sealed, static ===============================
 If the modifiers ##abstract## and ##sealed## needs to be specified after the class name but before the inheritance operator:
 
-{{{ lang=c++/cli
+```c++/cli
 public ref class MyTestClass2 abstract : MyTestClass { };
-}}}
+```
 
 The meaning of these keywords translates directly into C#. //Combining both keywords// results in a ##static## C# class/struct.
 
 For members (methods and fields) the keywords ##abstract## and ##sealed## must be specified after the parameter list:
 
-{{{ lang=c++/cli
+```c++/cli
 virtual void Func() abstract;
-}}}
+```
 
 `static`, on the other hand, must be specified before the return type:
 
-{{{ lang=c++/cli
+```c++/cli
 static int MyFunc();
-}}}
+```
 
 = Modifiers: const, readonly ================================
 To sum it up:
@@ -280,7 +280,7 @@ To sum it up:
 
 So, for example, this C++/CLI code:
 
-{{{ lang=C++/CLI
+```C++/CLI
 class MyClass {
 public:
   literal String^ MY_LITERAL = "Hello World";
@@ -288,18 +288,18 @@ public:
   static initonly int MY_INITONLY = 5;
   initonly int myInitOnly;
 };
-}}}
+```
 
 will translate into this C# code:
 
-{{{ lang=C#
+```c#
 public class MyClass {
   public const string MY_LITERAL = "Hello World";
 
   public static readonly int MY_INITONLY;
   public readonly int myInitOnly;
 }
-}}}
+```
 
 = Inheritance ================================
 Inheritance for CLR types is like you know it from C#. Therefore just some notes:
@@ -330,9 +330,9 @@ Arrays (if they're a handle) are created using "gcnew":
 
 Accessing an element works like in C# or C++:
 
-{{{ lang=c++/cli
+```c++/cli
 myArray[5]  // retrieves or sets the 6th array element
-}}}
+```
 
 All C++/CLI arrays are direct subclasses of ##System::Array##. Thus, the //size of an array// can be obtained through the property ##Length##.
 
@@ -343,17 +343,17 @@ More information:
 = Properties ================================
 The easiest way to define a .NET property is like this:
 
-{{{ lang=c++/cli
+```c++/cli
 property String^ MyProperty;
-}}}
+```
 
-This is called a //trivial property// and the compiler will automatically generate a getter and a setter for this property. So, basically it's identical to {{{ lang=C# string MyProperty { get; set; } }}} in C#.
+This is called a //trivial property// and the compiler will automatically generate a getter and a setter for this property. So, basically it's identical to `string MyProperty { get; set; }` in C#.
 
-Note, however, that there is no way to make a trivial property where getter or setter has another visibility than the property - eg. {{{ lang=C# string MyProperty { get; private set; } }}} has no equivalent in C++/CLI. Also you can't make read-only or write-only trivial properties in C++/CLI.
+Note, however, that there is no way to make a trivial property where getter or setter has another visibility than the property - eg. `string MyProperty { get; private set; }` has no equivalent in C++/CLI. Also you can't make read-only or write-only trivial properties in C++/CLI.
 
 In most cases, however, you want to specify some code for your property. Here's how it's done.
 
-{{{ lang=C++/CLI
+```C++/CLI
 private:
   String^ field;
 public:
@@ -361,11 +361,11 @@ public:
     String^ get() { return field; }
     void set(String^ value) { field = value; }
   }
-}}}
+```
 
 You can also specify the visibility directly for one of the accessor methods and thereby turning the property read-only or write-only:
 
-{{{ lang=C++/CLI
+```C++/CLI
 private:
   String^ field;
 public:
@@ -373,11 +373,11 @@ public:
     String^ get() { return field; }
     private: void set(String^ value) { field = value; }
   }
-}}}
+```
 
 And if you want to separate definition (##.h## file) from implementation (##.cpp## file), you do it like this:
 
-{{{ lang=C++/CLI
+```C++/CLI
 // .h file - assume class is "MyClass"
 private:
   String^ field;
@@ -395,7 +395,7 @@ String^ MyClass::SomeValue::get() {
 void MyClass::SomeValue::set(String^ value) {
   field = value;
 }
-}}}
+```
 
 Read on: http://www.codeproject.com/KB/mcpp/CppCliProperties.aspx
 
@@ -405,19 +405,19 @@ Constructors in C++/CLI have the same syntax as in C++. There's one limitation t
 === Static Constructors ===
 Static constructors are automatically called by the CLR when the class is "loaded". They're defined just as in C#, must be private though.
 
-{{{ lang=c++/cli
+```c++/cli
 public ref class MyClass {
 private:
   static MyClass() { } // <- Static constructor
 public:
   MyClass() { } // <- Regular constructor
 };
-}}}
+```
 
 = Destructors and Finalizers =============================================
 The terms and syntax for destructors and finalizer may be somewhat confusing between C++, C++/CLI and C#. Therefore here is an example:
 
-{{{ lang=c++/cli
+```c++/cli
 ref class MyClass // : IDisposable (this is automatically added by the compiler)
 {
 public:
@@ -428,7 +428,7 @@ protected:
   !MyClass(); // finalizer (non-deterministic destructor)
               // (converted into "virtual void Finalize()" by the compiler)
 };
-}}}
+```
 
 You only need destructor //and// finalizer when the class hosts some unmanaged data (e.g. a pointer to a C++ class). If you don't have unmanaged data in your class, you neither need destructor nor finalizer (unless you have some members implementing ##IDisposable##).
 
@@ -436,7 +436,7 @@ You only need destructor //and// finalizer when the class hosts some unmanaged d
 
 Since freeing unmanaged resources should occur in the finalizer (see [[1886]]), the default implementation pattern for finalizer and destructor looks like this:
 
-{{{ lang=c++/cli
+```c++/cli
 ref class DataContainer {
 public:
   ~DataContainer() {
@@ -458,7 +458,7 @@ public:
 private:
   bool m_isDisposed; // must be set to false
 };
-}}}
+```
 
 
 == Calling the Destructor ===============
@@ -466,24 +466,24 @@ There are two ways of calling the (deterministic) destructor (i.e. ##~MyClass()#
 
 When an object sits on the stack, its destructor is automatically called when the variable goes out of scope:
 
-{{{ lang=c++/cli highlight=5
+```c++/cli highlight=5
 int main() {
   MyClass myClazz;
   myClazz.DoSomething();
   // Destructor gets called when the function returns
 }
-}}}
+```
 
 On the other hand, when an object is created on the GC heap, use ##delete## to call its destructor:
 
-{{{ lang=c++/cli highlight=5
+```c++/cli highlight=5
 int main() {
   MyClass^ myClazz;
   myClazz->DoSomething();
   // Call destructor
   delete myClazz;
 }
-}}}
+```
 
 
 = Events and Delegates ==================
@@ -492,7 +492,7 @@ Delegates are basically pointers (or "handles") to .NET methods. The can be call
 == Delegates ============================
 You create a delegate by passing ##this## and a pointer to method to its constructor.
 
-{{{ lang=c++/cli highlight=11
+```c++/cli highlight=11
 using namespace System;
 
 ref class CliClass {
@@ -505,44 +505,44 @@ int main() {
   // Create delegate instance
   EventHandler^ handler = gcnew EventHandler(clazz, &CliClass::MyHandler);
 }
-}}}
+```
 
 To call a delegate, simply call it like a regular function:
 
-{{{ lang=c++/cli highlight=3
+```c++/cli highlight=3
 int main() {
   EventHandler^ handler = gcnew EventHandler(clazz, &CliClass::MyHandler);
   handler(nullptr, EventArgs::Empty); // or use "Invoke()"
 }
-}}}
+```
 
 To define a custom delegate, use the ##delegate## keyword:
 
-{{{ lang=c++/cli
+```c++/cli
 public delegate double Addition(double val1, double val2);
-}}}
+```
 
 == Events ===============================
 To assign a delegate to an event, use the ##+=## operator just as in C#:
 
-{{{ lang=c++/cli
+```c++/cli
 dispatcherTimer->Tick += gcnew EventHandler(this, &MyClass::OnTick);
-}}}
+```
 
 Creating an event is pretty much the same as in C#. Just use the keyword ##event## together with the desired delegate type:
 
-{{{ lang=c++/cli highlight=3
+```c++/cli highlight=3
 public ref class CExercise {
 public:
   event EventHandler^ MyCustomEvent;
 };
-}}}
+```
 
 Calling an event is identical to calling a delegate:
 
-{{{ lang=c++/cli
+```c++/cli
 this->MyCustomEvent(this, EventArgs::Empty);
-}}}
+```
 
 //Note:// Checking the event against ##nullptr## isn't required in C++/CLI (unlike C#). That's because the event's ##raise()## method automatically checks whether there are actually any event handlers ([[http://stackoverflow.com/a/2014752/614177|source]]).
 
@@ -551,27 +551,27 @@ C++/CLI classes can use C++ templates as well as .NET generics. Since templates 
 
 Generic class:
 
-{{{ lang=c++/cli
+```c++/cli
 generic<typename T> where T : IDog
 ref class GenRef {
   void DoAll();
   T myDog;
 };
-}}}
+```
 
 Implementation of a method from a generic class:
 
-{{{ lang=c++/cli
+```c++/cli
 generic<typename T> where T : IDog
 void GenRef<T>::DoAll() {
   t->Bark(0);
   t->WagTail();
 }
-}}}
+```
 
 Constraining to class/struct:
 
-{{{ lang=c++/cli
+```c++/cli
 // T can only be a reference type
 generic<typename T> where T : ref class, Object
 ref class ConstrainedToClass { };
@@ -579,14 +579,14 @@ ref class ConstrainedToClass { };
 // T can only be a value type (struct, number type, enum)
 generic<typename T> where T : value class, ValueType
 ref class ConstrainedToValueType { };
-}}}
+```
 
 See also: [[http://www.codeproject.com/KB/mcpp/cppcligenerics.aspx|Using generics in C++/CLI]]
 
 == nullptr for generic reference types ======
 To return/pass ##nullptr## for a generic parameter use ##T()##. For example:
 
-{{{ lang=c++/cli
+```c++/cli
 generic<typename T> where T : ref class, Object
 T MyClass::ReturnNull() {
   // return nullptr; - doesn't work; you'll get
@@ -594,7 +594,7 @@ T MyClass::ReturnNull() {
 
   return T();
 }
-}}}
+```
 
 //Note:// The syntax of ##T()## may be misleading. It does **not** create an instance of ##T## on the stack and call ##T##'s default constructor (as the syntax would suggest). It indeed results in ##nullptr##.
 
@@ -602,17 +602,17 @@ T MyClass::ReturnNull() {
 = Referencing managed type from other file (in the same project) ======================================================
 Using a managed type that comes with an assembly (dll) in a C++/CLI file is simple: Simply use it - either fully qualified or with ##using##.
 
-{{{ lang=c++/cli
+```c++/cli
 void MyClass::MyMethod() {
   // Defined in .NET Assembly "System".
   System::Uri^ myUri = gcnew System::Uri("http://manski.net");
   ...
 }
-}}}
+```
 
 Using a managed type that comes //from another file in the same project// on the other hand requires you to include it in the file you want to use it. Or to be more precise: You need to include its method signatures (##.h## file( - not the actual implementation (##.cpp## file).
 
-{{{ lang=c++/cli
+```c++/cli
 #include "MyOtherClass.h"
 
 void MyClass::MyMethod() {
@@ -620,19 +620,19 @@ void MyClass::MyMethod() {
   MyOtherClass^ myClass = gcnew MyOtherClass();
   ...
 }
-}}}
+```
 
 So, if you have separated the class into a ##.h## and a ##.cpp## file, include the ##.h## file. If, on the other hand, you want to write your class in one file (like in C#), you need to create a ##.h## file (and not a ##.cpp## file) and include this file.
 
 = Preprocessor ==========================================
 By enabling the common language runtime support for a project (i.e. making it a C++/CLI project rather than a pure C++ project), a preprocessor definition called ##_MANAGED## will be defined (with value ##1##):
 
-{{{ lang=c++/cli
+```c++/cli
 #ifdef _MANAGED
   // This part is only included in C++/CLI projects.
   doSomething();
 #endif
-}}}
+```
 
 Also defined are ##__cplusplus_cli## and ##__CLR_VER##. For more information, see [[http://msdn.microsoft.com/library/b0084kay.aspx|Predefined Macros]].
 

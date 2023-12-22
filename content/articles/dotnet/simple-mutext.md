@@ -10,7 +10,7 @@ The [[https://msdn.microsoft.com/library/system.threading.mutex.aspx|Mutex]] cla
 
 Here's an example how I got it to do what I want:
 
-{{{ lang=c#
+```c#
 /// <summary>
 /// A simple, cross application mutex. Use <see cref="Acquire"/> to acquire it
 /// and release it via <see cref="Dispose"/> when you're finished.
@@ -64,11 +64,11 @@ public class SimpleMutex : IDisposable
         this.m_mutex.Dispose();
     }
 }
-}}}
+```
 
 You can use it like this:
 
-{{{ lang=c#
+```c#
 using (SimpleMutex.Acquire("MyTestMutex", Timeout.InfiniteTimeSpan))
 {
     Console.WriteLine("Acquired mutext");
@@ -76,7 +76,7 @@ using (SimpleMutex.Acquire("MyTestMutex", Timeout.InfiniteTimeSpan))
 }
 
 Console.WriteLine("Released mutext");
-}}}
+```
 
 If you run your program twice, one will acquire the mutex and the other one will wait - until you press a key in the first one.
 

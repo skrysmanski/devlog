@@ -39,7 +39,7 @@ Assume we have some kind of wikicode parser. The wikicode allows us to write doc
 
 So, we have classes for plain text, bold text, and hyperlinks:
 
-{{{ lang=c#
+```c#
 public abstract class DocumentPart {
   public string Text { get; private set; }
 }
@@ -51,15 +51,15 @@ public class BoldText : DocumentPart { }
 public class Hyperlink : DocumentPart {
   public string Url { get; private set; }
 }
-}}}
+```
 
 And we have a document class:
 
-{{{ lang=c#
+```c#
 public class Document {
   private List<DocumentPart> m_parts;
 }
-}}}
+```
 
 
 === Scenario 1: Converting Into HTML ===
@@ -67,7 +67,7 @@ Now let's assume we want to convert this document into HTML.
 
 The most straightforward way would be to add a ##virtual## method called ##ToHTML()## to ##DocumentPart##, like this:
 
-{{{ lang=c#
+```c#
 public abstract class DocumentPart {
   public string Text { get; private set; }
   public abstract string ToHTML();
@@ -92,11 +92,11 @@ public class Hyperlink : DocumentPart {
     return "<a href=\"" + this.Url + "\">" + this.Text + "</a>";
   }
 }
-}}}
+```
 
 And the ##Document## class would also get a ##ToHTML()## method:
 
-{{{ lang=c#
+```c#
 public class Document {
   private List<DocumentPart> m_parts;
 
@@ -108,7 +108,7 @@ public class Document {
     return output;
   }
 }
-}}}
+```
 
 Then, by calling ##Document.ToHTML()## one could convert the whole document into HTML.
 
@@ -117,7 +117,7 @@ Let's add some complexity. Additionally to the previous scenario, we now also wa
 
 A naive way would be to provide implementations for each output format:
 
-{{{ lang=c#
+```c#
 public abstract class DocumentPart {
   public string Text { get; private set; }
   public abstract string ToHTML();
@@ -190,7 +190,7 @@ public class Document {
     return output;
   }
 }
-}}}
+```
 
 This implementation suffers two major problems:
 
@@ -210,17 +210,17 @@ Let's start with the **visitor**. As example, we're going to implement the "conv
 
 For this, we need to define an interface called ##IVisitor##:
 
-{{{ lang=c#
+```c#
 public interface IVisitor {
   void Visit(PlainText docPart);
   void Visit(BoldText docPart);
   void Visit(Hyperlink docPart);
 }
-}}}
+```
 
 Then we implement to HTML conversion:
 
-{{{ lang=c#
+```c#
 public class HtmlVisitor : IVisitor {
   public string Output {
     get { return this.m_output; }
@@ -239,12 +239,12 @@ public class HtmlVisitor : IVisitor {
     this.m_output += "<a href=\"" + docPart.Url + "\">" + docPart.Text + "</a>";
   }
 }
-}}}
+```
 
 === Visitable: The Document Structure ===
 By applying the visitor pattern to our document classes, they change to this:
 
-{{{ lang=c# highlight=3,7,8,9,13,14,15,21,22,23,29,30,31,32,33
+```c# highlight=3,7,8,9,13,14,15,21,22,23,29,30,31,32,33
 public abstract class DocumentPart {
   public string Text { get; private set; }
   public abstract void Accept(IVisitor visitor);
@@ -279,23 +279,23 @@ public class Document {
     }
   }
 }
-}}}
+```
 
 //Note:// The implementations of ##Accept()## seem to be identical for all child classes of ##DocumentPart##. However, we can't move the code into the base class because ##IVisitor## doesn't have an method ##Visit(DocumentPart)## but only for the concrete implementations. (We could solve this through reflection, though, but would lose compile-time checking.)
 
 === Putting It All Together ===
 Now, to convert a document to HTML we can use this code:
 
-{{{ lang=c#
+```c#
 Document doc = ...;
 HtmlVisitor visitor = new HtmlVisitor();
 doc.Accept(visitor);
 Console.WriteLine("Html:\n" + visitor.Output);
-}}}
+```
 
 To convert the document into LaTeX, we'd need to implement a ##LatexVisitor##:
 
-{{{ lang=c#
+```c#
 public class LatexVisitor : IVisitor {
   public string Output {
     get { return this.m_output; }
@@ -314,7 +314,7 @@ public class LatexVisitor : IVisitor {
     this.m_output += "\\href{" + docPart.Url + "}{" + docPart.Text + "}";
   }
 }
-}}}
+```
 
 The implementation of the actual document classes remain unchanged.
 
@@ -329,7 +329,7 @@ Now, what's that?
 === Single Dispatch ===
 Most (all?) OOP programming languages support **single dispatch**, more commonly known as **virtual methods**. For example, consider the following code:
 
-{{{ lang=c#
+```c#
 public class SpaceShip {
   public virtual string GetShipType() {
     return "SpaceShip";
@@ -341,14 +341,14 @@ public class ApolloSpacecraft : SpaceShip {
     return "ApolloSpacecraft";
   }
 }
-}}}
+```
 
 Now, execute this code:
 
-{{{ lang=c#
+```c#
 SpaceShip ship = new ApolloSpacecraft();
 Console.WriteLine(ship.GetShipType());
-}}}
+```
 
 This will print "ApolloSpacecraft". The actual method implementation to be called is chosen **at runtime** based solely on the actual type of ##ship##. So, only the type of a //single// object is used to select the method, hence the name //single// dispatch.
 
@@ -357,7 +357,7 @@ This will print "ApolloSpacecraft". The actual method implementation to be calle
 === Double Dispatch ===
 Let's add some asteroids:
 
-{{{ lang=c#
+```c#
 public class Asteroid {
   public virtual void CollideWith(SpaceShip ship) {
     Console.WriteLine("Asteroid hit a SpaceShip");
@@ -375,43 +375,43 @@ public class ExplodingAsteroid : Asteroid {
     Console.WriteLine("ExplodingAsteroid hit an ApolloSpacecraft");
   }
 };
-}}}
+```
 
 With this, let's execute some more code. With:
 
-{{{ lang=c#
+```c#
 Asteroid theAsteroid = new Asteroid();
 ExplodingAsteroid theExplodingAsteroid = new ExplodingAsteroid();
 SpaceShip theSpaceShip = new SpaceShip();
 ApolloSpacecraft theApolloSpacecraft = new ApolloSpacecraft();
-}}}
+```
 
 this code:
 
-{{{ lang=c#
+```c#
 theAsteroid.CollideWith(theSpaceShip);
 theAsteroid.CollideWith(theApolloSpacecraft);
 theExplodingAsteroid.CollideWith(theSpaceShip);
 theExplodingAsteroid.CollideWith(theApolloSpacecraft);
-}}}
+```
 
 will print:
 
-{{{
+```
 Asteroid hit a SpaceShip
 Asteroid hit an ApolloSpacecraft
 ExplodingAsteroid hit a SpaceShip
 ExplodingAsteroid hit an ApolloSpacecraft
-}}}
+```
 
 Everything is as expected. Now, consider this code:
 
-{{{ lang=c#
+```c#
 // Note the different data types!
 Asteroid theExplodingAsteroidRef = new ExplodingAsteroid();
 SpaceShip theApolloSpacecraftRef = new ApolloSpacecraft();
 theExplodingAsteroidRef.CollideWith(theApolloSpacecraftRef);
-}}}
+```
 
 The desired result here would be "ExplodingAsteroid hit an //ApolloSpacecraft//" but instead we get "ExplodingAsteroid hit a //SpaceShip//".
 
@@ -426,20 +426,20 @@ The point here is: The main goal of the visitor pattern is to solve the double d
 
 Suppose you have this class:
 
-{{{ lang=c#
+```c#
 // List of ints
 public class MyList : IVisitable, IEnumerable {
   private List<int> m_list;
   public Enumerator GetEnumerator() { ... } // iterator pattern
   public void Accept(IVisitor visitor) { ... } // visitor pattern
 }
-}}}
+```
 
 Now, you want to calculate the sum of all integers in the list.
 
 You can do this either by using the **iterator pattern**:
 
-{{{ lang=c#
+```c#
 IEnumerable myList = new MyList(...);
 
 int sum = 0;
@@ -448,18 +448,18 @@ foreach (int value in myList) {
 }
 
 Console.WriteLine("Sum: " + sum);
-}}}
+```
 
 Or you can do this by using the **visitor pattern**:
 
-{{{ lang=c#
+```c#
 IVisitable myList = new MyList(...);
 
 IVisitor visitor = new SumVisitor();
 myList.Accept(visitor);
 
 Console.WriteLine("Sum: " + visitor.Sum);
-}}}
+```
 
 == Issues ==
 There are some issues (or problems) with the visitor pattern.
@@ -480,14 +480,14 @@ Let's take our document classes from [[#object_structure|above]]. We had the cla
 
 Now, let's say we want to add a class for underlined text. The interface ##IVisitor## would thus change to:
 
-{{{ lang=c#
+```c#
 public interface IVisitor {
   void Visit(PlainText docPart);
   void Visit(BoldText docPart);
   void Visit(Hyperlink docPart);
   void Visit(UnderlinedText docPart); // added
 }
-}}}
+```
 
 Due to this change we would also need to update all visitors we've already implemented. We could use reflection to solve (or just hide) the problem but in the end the visitor pattern **works best on data structures that don't change**.
 

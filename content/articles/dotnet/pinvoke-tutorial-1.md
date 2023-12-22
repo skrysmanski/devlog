@@ -41,7 +41,7 @@ First, let's create a native function called ##print_line()##.
 
 Add a file called ##NativeLib.h## to //NativeLib// (or replace it contents):
 
-{{{ lang=c
+```c
 #ifndef _NATIVELIB_H_
 #define _NATIVELIB_H_
 
@@ -60,22 +60,22 @@ MYAPI void print_line(const char* str);
 #endif
 
 #endif // _NATIVELIB_H_
-}}}
+```
 
 Then, add ##NativeLib.cpp##:
 
-{{{ lang=c
+```c
 #include "NativeLib.h"
 #include <stdio.h>
 
 MYAPI void print_line(const char* str) {
   printf("%s\n", str);
 }
-}}}
+```
 
 Now, let's call this function from the //PInvokeTest// project. To do this, add the highlighted lines to ##Program.cs##:
 
-{{{ lang=c# line=1 highlight=5,10,13,14
+```c# line=1 highlight=5,10,13,14
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -92,7 +92,7 @@ namespace PInvokeTest {
     private static extern void print_line(string str);
   }
 }
-}}}
+```
 
 The most important lines in this sections are //lines 13 and 14//. Here we're specifying the C/C++ function to import into our .NET class. There are a couple of things to note about this:
 

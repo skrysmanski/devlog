@@ -14,12 +14,12 @@ Fortunately, this turned out to be wrong, though.
 
 After reading the [[http://msdn.microsoft.com/en-us/library/vstudio/system.gc.keepalive%28v=vs.110%29.aspx|documentation of GC.KeepAlive()]] (couldn't really figure it out), I did some decompiling and found out that ##GC.KeepAlive()## looks like this:
 
-{{{ lang=c# line=1
+```c# line=1
 [MethodImpl(MethodImplOptions.NoInlining)]
 public static void KeepAlive(object obj)
 {
 }
-}}}
+```
 
 It just does nothing. So what's its purpose?
 
@@ -29,7 +29,7 @@ Why? The .NET garbage collector may collect a variable directly after its last u
 
 Consider this code:
 
-{{{ lang=c# line=1
+```c# line=1
 class SomeClass
 {
   // This field is initialized somewhere
@@ -48,7 +48,7 @@ void MyMethod()
   YetAnotherMethod();
   // obj still alive here? Possibly not.
 }
-}}}
+```
 
 The garbage collector //may// collect ##obj## just after the runtime has retrieved ##obj.Value## (line 15), i.e. before ##SomeOtherMethod()## is even called.
 
@@ -56,7 +56,7 @@ The garbage collector //may// collect ##obj## just after the runtime has retriev
 
 Usually this optimization not a problem. It becomes a problem, however, if ##SomeClass## has a finalizer:
 
-{{{ lang=c# line=1
+```c# line=1
 class SomeClass
 {
   public SomeOtherClass Value;
@@ -68,13 +68,13 @@ class SomeClass
      this.Value.Dispose();
   }
 }
-}}}
+```
 
 So, if ##obj##'s finalizer is executed before ##SomeOtherMethod()## is called, ##SomeOtherMethod()## won't be able to use ##obj.Value## anymore.
 
 To solve this problem, add ##GC.KeepAlive()## after the call to ##SomeOtherMethod()##, like this (line 5):
 
-{{{ lang=c# line=1
+```c# line=1
 void MyMethod()
 {
   SomeClass obj = new SomeClass();
@@ -82,7 +82,7 @@ void MyMethod()
   GC.KeepAlive(obj);
   YetAnotherMethod();
 }
-}}}
+```
 
 This way, the garbage collector won't collect ##obj## (and thus run its finalizer) before line 5 has been reached.
 

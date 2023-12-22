@@ -18,22 +18,22 @@ Let me take you on my journey and you'll hopefully avoid this (very subtle) mist
 = The Basic Idea =
 Let's examine the basic (and partially constructed) idea. Say, you have two classes, ##BaseClass## and its child ##ChildClass##:
 
-{{{ lang=c++
+```c++
 class BaseClass { };
 class ChildClass : public BaseClass { };
-}}}
+```
 
 Furthermore, say we have a pointer to an instance of ##ChildClass## called ##g_somePointer##.
 
-{{{ lang=c++
+```c++
 // Exists as long as the program runs.
 // NOTE: This is stored as a BaseClass pointer.
 BaseClass* g_somePointer = new ChildClass();
-}}}
+```
 
 Now imagine, you want to write a wrapper class around another class providing you with a //reference// to this pointer ##g_somePointer##. Let's reduce the code to the function returning the reference (called ##getReference()##) and the function wrapping it (called ##getReferenceWrapper()##):
 
-{{{ lang=c++
+```c++
 typedef BaseClass* BaseClassPointer;
 
 const BaseClassPointer& getReference() {
@@ -46,32 +46,32 @@ const BaseClassPointer& getReferenceWrapper() {
   const BaseClassPointer& ref = getReference();
   return ref;
 }
-}}}
+```
 
 The last thing is some testing code which simply calls the wrapper function and does something with the returned pointer:
 
-{{{ lang=c++
+```c++
 void main() {
   const BaseClassPointer& ref = getReferenceWrapper();
   ref->doSomething();
 }
-}}}
+```
 
 Executing this code will work as intended (but only tested with Visual C++ 2010 and g++ 4.6.1). ##ref## in ##main()## will "contain" the address to the ##ChildClass## instance - the same as stored in ##g_somePointer##.
 
 = Two Little Changes Turn the World Upside Down =================================
 Now, for some reason you want to change the variable type of ##g_somePointer## from ##BaseClass*## to ##ChildClass*##:
 
-{{{ lang=c++
+```c++
 // Exists as long as the program runs.
 ChildClass* g_somePointer = new ChildClass();
-}}}
+```
 
 The program will compile fine (even with the highest compiler warning level) and running the program will - at least with the compilers mentioned above - work as intended.
 
 Let's introduce a second - as it seems - totally unrelated change to the implementation of ##getReferenceWrapper()##, adding a new local variable:
 
-{{{ lang=c++
+```c++
 #include <string>
 
 ...
@@ -82,7 +82,7 @@ const BaseClassPointer& getReferenceWrapper() {
   const BaseClassPointer& ref = getReference();
   return ref;
 }
-}}}
+```
 
 This shouldn't have any impact on the program, should it?
 
@@ -92,25 +92,25 @@ With me asking this question you probably already know the answer. Executing the
 
 What has happened? This second change seemed totally unrelated. Let's debug the program. I'll only show the relevant code and mark the current execution position with an arrow:
 
-{{{ lang=c++
+```c++
 const BaseClassPointer& getReferenceWrapper() {
   std::string someString = "ignore me";
 
   const BaseClassPointer& ref = getReference();
   return ref; // <---
 }
-}}}
+```
 
 At this line (##return ref;##) ##ref## still contains the correct address.
 
-{{{ lang=c++
+```c++
 const BaseClassPointer& getReferenceWrapper() {
   std::string someString = "ignore me";
 
   const BaseClassPointer& ref = getReference();
   return ref;
 } // <---
-}}}
+```
 
 At this line, the content of ##ref## suddenly has changed to some invalid garbage. "What's going on here?" you might ask.
 
@@ -119,20 +119,20 @@ It may have looked like nothing but the actual cause for the problem was changin
 
 First, the current implementation of ##getReference()## is hiding the problem from the compiler. That's why it can't issue a warning (and neither Visual C++ nor g++ will).
 
-{{{ lang=c++
+```c++
 const BaseClassPointer& getReference() {
   const BaseClassPointer& ref = g_somePointer;
   return ref;
 }
-}}}
+```
 
 Let's change this implementation to an equivalent (and more simple) one:
 
-{{{ lang=c++
+```c++
 const BaseClassPointer& getReference() {
   return g_somePointer;
 }
-}}}
+```
 
 Now the compiler will give you a warning:
 
@@ -164,7 +164,7 @@ Back to the warning. We're being told by the compiler that we're returning a tem
 
 Remember that the warning doesn't appear when ##g_somePointer## has the type ##BaseClass*## (but it does appear if it has the data type ##ChildClass*##). Here's what the compiler basically converts the new implementation of ##getReference()## into (I've actually extended the code a little bit to better show the problem):
 
-{{{ lang=c++
+```c++
 BaseClass* g_somePointer;
 
 const BaseClassPointer& getReference() {
@@ -172,11 +172,11 @@ const BaseClassPointer& getReference() {
   BaseClassPointer& temporary = g_somePointer;
   return temporary;
 }
-}}}
+```
 
 Now, when you change ##g_somePointer##'s data type to ##ChildClass*##, the compiler will convert the implementation into something slightly different:
 
-{{{ lang=c++
+```c++
 ChildClass* g_somePointer;
 
 const BaseClassPointer& getReference() {
@@ -188,11 +188,11 @@ const BaseClassPointer& getReference() {
   BaseClassPointer& temporary = localPointer;
   return temporary;
 }
-}}}
+```
 
 Here the compiler creates a local variable containing the pointer to the base class of ##ChildClass##. This is required because in C++ the pointer to a base class doesn't necessarily have to have the same address as the pointer to a child class. This is especially true when the child class inherits from multiple base classes. See this example:
 
-{{{ lang=c++
+```c++
 class BaseClass1 { };
 class BaseClass2 { };
 class ChildClass : public BaseClass1, public BaseClass2 { };
@@ -200,7 +200,7 @@ class ChildClass : public BaseClass1, public BaseClass2 { };
 ChildClass* ptr = new ChildClass();
 BaseClass2* basePtr = ptr;
 // now possibly: "basePtr != ptr"
-}}}
+```
 
 Because of this address change the compiler can't just use ##g_somePointer## for ##temporary##. It needs to cast the instance first and then store it in some variable (here: ##localPointer##). It than creates the reference to this local variable, which is bad as explained in the previous section.
 
@@ -216,25 +216,25 @@ Returning a reference to a pointer will result in "unpredictable" (or at least u
 
 The following code will work (although you might consider it fragile)...
 
-{{{ lang=c++
+```c++
 BaseClass* g_somePointer = ...
 typedef BaseClass* BaseClassPointer;
 
 const BaseClassPointer& getRef() {
   return g_somePointer; // works
 }
-}}}
+```
 
 ... whereas the following code won't (i.e. results in unpredictable behavior). Note that just the data type of ##g_somePointer## changed to ##ChildClass*##:
 
-{{{ lang=c++
+```c++
 ChildClass* g_somePointer = ...  // <-- different
 typedef BaseClass* BaseClassPointer;
 
 const BaseClassPointer& getRef() {
   return g_somePointer; // illegal - introduces local variable
 }
-}}}
+```
 
 This code is illegal because the compiler needs introduce a temporary, local variable in ##getRef()## to store the resulting address of the (static) cast from ##ChildClass*## to ##BaseClass*##. And then the function returns a reference to this local variable instead of a reference to ##g_somePointer##.
 

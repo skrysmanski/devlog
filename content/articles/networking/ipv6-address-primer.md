@@ -14,23 +14,23 @@ IPv6 addresses consist of **128 bits** (whereas IPv4 addresses are only 32 bits 
 
 These 128 bits are written in hexadecimal notation as 8 blocks with 16 bits each. Blocks are separated by ##:##.
 
-{{{
+```
 2001:0db8:0000:0000:0000:0000:0000:0001
-}}}
+```
 
 This is the full notation of an IPv6 address. However, to make the addresses (potentially) easier to read or write for humans, [[rfc:4291|RFC 4291]] allows for some abbreviations.
 
 First, one can omit all leading zeros.
 
-{{{
+```
 2001:db8:0:0:0:0:0:1
-}}}
+```
 
 Furthermore, consecutive blocks of zeros can be abbreviated **at most once** with ##::##.
 
-{{{
+```
 2001:db8::1
-}}}
+```
 
 Note that ##::## can be the start of an address. For example, the address for ##localhost## is ##::1##.
 
@@ -67,22 +67,22 @@ There are two special addresses in IPv6:
 == Subnet Prefixes and Interface IDs ==
 A **subnet prefix** (or just **prefix**) defines the size of a subnet in IPv6 (like in IPv4). Its length in bits is appended to an address with a ##/##.
 
-{{{
+```
 2001:0db8:0000:0000:0000:0000:0000:0001/48
-}}}
+```
 
 In this example, the prefix length is 48 bits (the first 3 blocks). This means that the subnet "size" is 80 bits (##128 - 48##).
 
 As for the terminology, RFC 4291 calls the two parts of an IPv6 address **subnet prefix** and **interface ID**. For the address from the previous example, this means:
 
-{{{
+```
 |       subnet prefix           |        interface ID          |
 +-------------------------------+------------------------------+
 |          48 bits              |           80 bits            |
 +-------------------------------+------------------------------+
 |      2001:0db8:0000           |   0000:0000:0000:0000:0001   |
 +-------------------------------+------------------------------+
-}}}
+```
 
 The **interface ID** uniquely identifies a network adapter (NIC) within its subnet.
 
@@ -92,9 +92,9 @@ The prefix length for globally routable addresses (see next section) is controll
 
 An exception to this minimum network size rule is the loopback address. The prefix of the loopback address is 128, meaning the "subnet" consists only of one address.
 
-{{{
+```
 ::1/128
-}}}
+```
 
 == Scopes ==
 Each IPv6 address has a scope. The scope says where the address is valid.
@@ -147,10 +147,10 @@ Microsoft Windows goes even one step further and uses privacy extensions even on
 == Percent Notation for Link-Local Addresses ==
 Trying to reach a device by its **link-local** address may fail (unexpectedly):
 
-{{{
+```
 $ ping6 fe80::b4:f9f6:e5e9:727e
 connect: Invalid argument
-}}}
+```
 
 This happens if the current device has **more than one network adapter**.
 
@@ -160,9 +160,9 @@ If a device has, say, the network adapters ##eth0## and ##eth1## and you want to
 
 To solve this problem, you need to attach the network adapter to the address - separated by a ##%##.
 
-{{{
+```
 $ ping6 fe80::b4:f9f6:e5e9:727e%eth0
-}}}
+```
 
 == Unicast, Anycast, Multicast ==
 IPv6 addresses can either be a unicast, anycast, or multicast address.

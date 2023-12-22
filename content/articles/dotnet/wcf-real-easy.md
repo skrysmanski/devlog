@@ -29,13 +29,13 @@ You also need to add references to **System.ServiceModel** and (for later) **Sys
 
 In your ##Program.cs##, we will use the following usings:
 
-{{{ lang=c#
+```c#
 using System;
 using System.ServiceModel;
 using System.ServiceModel.Description;
 using System.ServiceModel.Web;
 using System.Threading;
-}}}
+```
 
 You can remove everything else in this file - except for the ##namespace##.
 
@@ -44,14 +44,14 @@ The first thing we need is a service interface (also called "service contract").
 
 Add the following code to your ##Program.cs##:
 
-{{{ lang=c#
+```c#
 [ServiceContract]
 public interface IService {
   // Returns "Hello, name" to the user.
   [OperationContract]
   string Ping(string name);
 }
-}}}
+```
 
 This interface will be implemented on the server side and used on the client side. So usually you'll place it in a shared project.
 
@@ -60,7 +60,7 @@ Next, we're going to implement this interface on the server side.
 
 Add the following code to your ##Program.cs##:
 
-{{{ lang=c#
+```c#
 // Implementation of IService
 [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall)]
 class ServiceImplementation : IService {
@@ -69,7 +69,7 @@ class ServiceImplementation : IService {
     return "Hello, " + name;
   }
 }
-}}}
+```
 
 The setting ##InstanceContextMode.PerCall## will create a new instance of ##ServiceImplementation## for every call. Of course, other settings are possible as well.
 
@@ -79,7 +79,7 @@ For the service to be able to respond to request, it needs to be executed in a s
 
 Add the following code to your ##Program.cs##:
 
-{{{ lang=c#
+```c#
 class Server {
   private readonly ManualResetEvent m_stopFlag = new ManualResetEvent(false);
   private readonly Thread m_serverThread;
@@ -113,7 +113,7 @@ class Server {
     Console.WriteLine("SERVER - Shut down!");
   }
 }
-}}}
+```
 
 The important code here is in ##Run()##.
 
@@ -128,7 +128,7 @@ Only one thing remains: the client.
 
 Add the following code to your ##Program.cs##:
 
-{{{ lang=c#
+```c#
 internal class Program {
   private static void Main() {
     Console.WriteLine("WCF Simple Demo");
@@ -160,7 +160,7 @@ internal class Program {
     server.Stop();
   }
 }
-}}}
+```
 
 A couple of things are happening here.
 
@@ -177,7 +177,7 @@ First, you need to add ##[WebGet]## (GET) or ##[WebInvoke]## (POST) to the metho
 
 For example, change the implementation of ##IService## to this:
 
-{{{ lang=c# highlight=4
+```c# highlight=4
 [ServiceContract]
 public interface IService {
   // Returns "Hello, name" to the user.
@@ -185,7 +185,7 @@ public interface IService {
   [OperationContract]
   string Ping(string name);
 }
-}}}
+```
 
 Note the added ##[WebGet]## attribute. We also specified that the return value will be converted to JSON. The default is to return it as XML.
 
@@ -193,7 +193,7 @@ We don't need to change ##ServiceImplementation## at all.
 
 So, next we'll modify ##Server.Run()##. Add the following code just after ##svh.Open();##
 
-{{{ lang=c#
+```c#
 var wsh = new WebServiceHost(typeof(ServiceImplementation), new Uri("http://localhost:8080"));
 wsh.AddServiceEndpoint(typeof(IService), new WebHttpBinding(), "");
 
@@ -203,7 +203,7 @@ sdb.HttpHelpPageEnabled = false;
 sdb.IncludeExceptionDetailInFaults = true;
 
 wsh.Open();
-}}}
+```
 
 You just need to create a ##WebServiceHost## - similar to how you created the ##ServiceHost## before.
 

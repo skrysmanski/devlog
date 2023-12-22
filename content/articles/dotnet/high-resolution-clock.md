@@ -28,7 +28,7 @@ Next, **resolution**. Basically, we're asking: "How long does it take for value 
 
 The following C# code measures the resolution of `DateTime.UtcNow`:
 
-{{{ lang=c#
+```c#
 Console.WriteLine("Running for 5 seconds...");
 
 var distinctValues = new HashSet<DateTime>();
@@ -44,7 +44,7 @@ sw.Stop();
 Console.WriteLine("Precision: {0:0.000000} ms ({1} samples)",
                   sw.Elapsed.TotalMilliseconds / distinctValues.Count,
                   distinctValues.Count);
-}}}
+```
 
 This program records all the different values `DateTime.UtcNow` returns over the course of 5 seconds. This way, we know how often this value changes per second (or millisecond in this example) and that's the resolution.
 
@@ -61,7 +61,7 @@ On Windows 8 (or Windows Server 2012) or higher there's a new API that returns t
 
 Here's how to use it in C#:
 
-{{{ lang=c#
+```c#
 using System;
 using System.Runtime.InteropServices;
 
@@ -104,7 +104,7 @@ public static class HighResolutionDateTime
         }
     }
 }
-}}}
+```
 
 Using the same test code as above but using `HighResolutionDateTime.UtcNow` as input (instead of `DateTime.UtcNow`) leads to:
 
@@ -131,7 +131,7 @@ However, `Stopwatch` is not very accurate. On my laptop it drifts by 0.2 ms per 
 
 Here's how to measure the drift/accuracy loss:
 
-{{{ lang=c#
+```c#
 var start = HighResolutionDateTime.UtcNow;
 var sw = Stopwatch.StartNew();
 
@@ -144,11 +144,11 @@ while (sw.Elapsed.TotalSeconds < 10)
 
     Thread.Sleep(1000);
 }
-}}}
+```
 
 This gives me an output like this:
 
-{{{
+```
 Diff: 0,075 ms
 Diff: 0,414 ms
 Diff: 0,754 ms
@@ -159,7 +159,7 @@ Diff: 1,409 ms
 Diff: 1,571 ms
 Diff: 1,734 ms
 Diff: 1,898 ms
-}}}
+```
 
 As you can see, the difference increases over time. Thus, `Stopwatch` becomes less accurate over time.
 

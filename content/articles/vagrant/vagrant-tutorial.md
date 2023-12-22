@@ -53,20 +53,20 @@ If you have **VMWare Fusion** installed on your Mac, please note that the VMWare
 
 To verify that Vagrant is installed, type on the command line:
 
-{{{
+```
 > vagrant -v
 Vagrant 1.8.5
-}}}
+```
 
 == Starting and Interacting with Your First VM ==
 To start your first VM, first **create an empty directory** somewhere and ##cd## into it.
 
 Then execute the following two commands:
 
-{{{
+```
 > vagrant init hashicorp/precise64
 > vagrant up
-}}}
+```
 
 This will start a virtual machine running Ubuntu 12.04 (Precise Pangolin).
 
@@ -74,17 +74,17 @@ This will start a virtual machine running Ubuntu 12.04 (Precise Pangolin).
 
 To ssh into the VM, call:
 
-{{{
+```
 > vagrant ssh
-}}}
+```
 
 To get out of the VM, hit ##Ctrl + D##.
 
 To stop and delete the whole VM, call:
 
-{{{
+```
 > vagrant destroy -f
-}}}
+```
 
 This will delete the VM and all of its resources (i.e. the virtual hard drive) from your computer.
 
@@ -97,11 +97,11 @@ The file created by ##vagrant init## contains lots of documentation and is a goo
 
 However, for the purpose of this tutorial, let's reduce the file to its bare minimum:
 
-{{{ lang=ruby
+```ruby
 Vagrant.configure("2") do |config|
   config.vm.box = "hashicorp/precise64"
 end
-}}}
+```
 
 In the second line you can see the value you passed to ##vagrant init## earlier: ##hashicorp/precise64##
 
@@ -154,7 +154,7 @@ We can also start multiple VMs with a single ##Vagrantfile##. This is called **M
 
 The easiest (or most naive) way to create a multi-machine is with a ##Vagrantfile## like this:
 
-{{{lang=ruby
+```lang=ruby
 Vagrant.configure("2") do |config|
   config.vm.define "master" do |subconfig|
     subconfig.vm.box = "bento/ubuntu-16.04"
@@ -168,21 +168,21 @@ Vagrant.configure("2") do |config|
     subconfig.vm.box = "bento/ubuntu-16.04"
   end
 end
-}}}
+```
 
 This will create 3 VMs (master, node1, node2).
 
 To ssh into any of the VMs, just specify its name. For example, to ssh into ##node1##, call:
 
-{{{
+```
 > vagrant ssh node1
-}}}
+```
 
 To destroy all VMs, just call:
 
-{{{
+```
 > vagrant destroy -f
-}}}
+```
 
 This is exactly the same command as for a single VM.
 
@@ -191,7 +191,7 @@ The previous multi-machine ##Vagrantfile## had lots of copied code.
 
 The same setup can also be described in a more "programmer-like" manner:
 
-{{{ lang=ruby
+```ruby
 BOX_IMAGE = "bento/ubuntu-16.04"
 NODE_COUNT = 2
 
@@ -206,7 +206,7 @@ Vagrant.configure("2") do |config|
     end
   end
 end
-}}}
+```
 
 Here we:
 * Moved the box name into a constant (##BOX_IMAGE##).
@@ -221,9 +221,9 @@ To fix this we need three things.
 
 First, each VM needs a unique hostname. By default, each of the VMs has the same hostname (##vagrant##). To change this, we need to add a configuration like the following to each VM definition in the ##Vagrantfile##:
 
-{{{ lang=ruby
+```ruby
 subconfig.vm.hostname = "a.host.name"
-}}}
+```
 
 Next, we need a way of getting the IP address for a hostname. For this, we'll use DNS - or mDNS to be more precise.
 
@@ -231,11 +231,11 @@ On Ubuntu, mDNS is provided by Avahi. To install Avahi on each node, we'll use V
 
 Before the last ##end## in the ##Vagrantfile##, we'll add this code block:
 
-{{{ lang=ruby
+```ruby
 config.vm.provision "shell", inline: <<-SHELL
   apt-get install -y avahi-daemon libnss-mdns
 SHELL
-}}}
+```
 
 This will call ##apt-get install -y avahi-daemon libnss-mdns## on every VM.
 
@@ -245,14 +245,14 @@ Last, we need to connect the VMs through a [[https://www.vagrantup.com/docs/netw
 
 For each VM, we need to add a config like this (where each VM will have a different ip address):
 
-{{{ lang=ruby
+```ruby
 subconfig.vm.network :private_network, ip: "10.0.0.10"
-}}}
+```
 
 == Putting everything together == #endresult
 Putting everything mentioned in the previous section together results in a ##Vagrantfile## like this:
 
-{{{ lang=ruby
+```ruby
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
@@ -281,19 +281,19 @@ Vagrant.configure("2") do |config|
     apt-get install -y avahi-daemon libnss-mdns
   SHELL
 end
-}}}
+```
 
 You can now call ##vagrant up## and then ssh into any of the VMs:
 
-{{{
+```
 > vagrant ssh node1
-}}}
+```
 
 From there you can ping any other VM by using their hostname (plus ##.local## at the end):
 
-{{{
+```
 > ping node2.local
-}}}
+```
 
 == Wrap Up ==
 As you've seen, it just takes a ##Vagrantfile## with 22 lines and a call to ##vagrant up## to create multiple VMs in one step. Easy, isn't it?

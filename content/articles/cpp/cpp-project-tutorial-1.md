@@ -45,7 +45,7 @@ The purpose of a library is to provide (potentially) reusable functions and/or c
 
 The new class is called ##PrintableInt##. It wraps an integer and provides a ##toString()## method that will convert the integer into a string.
 
-{{{ lang=c++
+```c++
 // PrintableInt.h
 #pragma once
 
@@ -61,9 +61,9 @@ public:
 private:
   int m_value;
 };
-}}}
+```
 
-{{{ lang=c++
+```c++
 // PrintableInt.cpp
 #include "stdafx.h"
 #include "PrintableInt.h"
@@ -80,7 +80,7 @@ std::string PrintableInt::toString() const
   builder << m_value;
   return builder.str();
 }
-}}}
+```
 
 The library should now compile without problems.
 
@@ -91,17 +91,17 @@ By default, all classes and functions defined in a library project are "internal
 
 Now, you could specify the export like this:
 
-{{{ lang=c++
+```c++
 // PrintableInt.h
 class __declspec(dllexport) PrintableInt
 {
   ...
 }
-}}}
+```
 
 However, since all projects using this library will most likely use the same header file (##PrintableInt.h##), this would mean that even the "using" projects would export the class as well. Of course, this is not what we want. Instead you create a macro and use it like this:
 
-{{{ lang=c++
+```c++
 // PrintableInt.h
 
 #ifdef COMPILE_MYLIBRARY
@@ -114,7 +114,7 @@ class MYLIBRARY_EXPORT PrintableInt
 {
   ...
 }
-}}}
+```
 
 For this to work, you add the preprocessor definition ##COMPILE_MYLIBRARY## to the library project (but //not// to the projects using the library). This way ##MYLIBRARY_EXPORT## will be replaced by ##__declspec(dllexport)## when compiling the library project and by ##__declspec(dllimport)## when using the project (from another project). To specify this preprocessor, go to the library project's settings and enter the name ##COMPILE_MYLIBRARY## in the field "Preprocessor Definitions". You should also make sure to select "All Configuration" from the "Configuration" dropdown field (see screenshot) so that this definition gets added to the Debug //and// Release configuration.
 
@@ -129,7 +129,7 @@ The example above specifies that ##__declspec(dllimport)## is to be used when us
 
 This statement becomes important though when you export templated classes. To demonstrate this, change ##PrintableInt## like this:
 
-{{{ lang=c++
+```c++
 // PrintableInt.h
 #pragma once
 
@@ -152,9 +152,9 @@ public:
 private:
   int m_value;
 };
-}}}
+```
 
-{{{ lang=c++
+```c++
 // PrintableInt.cpp
 #include "stdafx.h"
 #include "PrintableInt.h"
@@ -173,7 +173,7 @@ std::string PrintableInt<T>::toString() const
   builder << m_value;
   return builder.str();
 }
-}}}
+```
 
 This adds the type parameter ##T## to the class. Note that ##__declspec(dllimport)## has been commented out to demonstrate the problem.
 
@@ -181,7 +181,7 @@ This adds the type parameter ##T## to the class. Note that ##__declspec(dllimpor
 
 Now, assume another project using the library project like this:
 
-{{{ lang=c++
+```c++
 #include <iostream>
 #include "PrintableInt.h"
 
@@ -191,7 +191,7 @@ int _tmain(int argc, _TCHAR* argv[])
   std::cout << test.toString() << std::endl;
   return 0;
 }
-}}}
+```
 
 Without "dllimport" compiling this project will result in (rather cryptic) linker errors - namely "unresolved external symbol". Uncommenting ##__declspec(dllimport)## in ##PrintableInt.h## again solves this problem.
 

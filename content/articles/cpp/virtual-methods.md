@@ -12,7 +12,7 @@ Last friday I stumbled over a seroius shortcomming of C++ (compared to C# or Jav
 = The C&#35; Example =
 Let me start with an example. Here's some C# code that simply calls a ##virtual## method (named ##test()##) from the class' constructor:
 
-{{{ lang="csharp"
+```"csharp"
 class TestBaseClass {
   public TestBaseClass() {
     Console.Write("From base class: ");
@@ -23,17 +23,17 @@ class TestBaseClass {
     Console.WriteLine("in base class");
   }
 }
-}}}
+```
 
 Creating an instance of this class results in nothing special:
 
-{{{
+```
 From base class: in base class
-}}}
+```
 
 Now lets create a sub class of ##TestBaseClass## and override the ##virtual## method:
 
-{{{ lang="csharp"
+```"csharp"
 class TestSubClass : TestBaseClass {
   public TestSubClass() {
     Console.Write("From sub class: ");
@@ -44,14 +44,14 @@ class TestSubClass : TestBaseClass {
     Console.WriteLine("in sub class");
   }
 }
-}}}
+```
 
 Now, creating an instance of ##TestSubClass## will print this:
 
-{{{
+```
 From base class: in sub class
 From sub class: in sub class
-}}}
+```
 
 This means that the sub class' implementation of ##test()## was executed (and not ##TestBaseClass##' implementation) - just as expected.
 
@@ -61,7 +61,7 @@ This means that the sub class' implementation of ##test()## was executed (and no
 And exactly here is **the problem** in C++. Let's create a C++ version of the two classes above (compiled with Visual C++).
 
 Header file (##TestClass.h##):
-{{{ lang="cpp"
+```"cpp"
 #pragma once
 
 class TestBaseClass {
@@ -80,10 +80,10 @@ public:
 protected:
   virtual void test();
 };
-}}}
+```
 
 Source file (##TestClass.cpp##):
-{{{ lang="cpp"
+```"cpp"
 #include "TestClass.h"
 #include <stdio.h>
 
@@ -105,14 +105,14 @@ TestSubClass::TestSubClass() : TestBaseClass() {
 void TestSubClass::test() {
   printf("in sub class\n");
 }
-}}}
+```
 
 Now, creating an instance of ##TestSubClass## results in the following output:
 
-{{{
+```
 From base class: in base class
 From sub class: in sub class
-}}}
+```
 
 Note how the //base class' implementation// of ##test()## is used in the base class constructor while the //sub class' implementation// of ##test()## is used in the sub class constructor.
 

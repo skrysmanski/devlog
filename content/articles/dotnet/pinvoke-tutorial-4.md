@@ -17,17 +17,17 @@ That's what //pinning// is for. It prevents the garbage collector from deleting 
 = Pinning an Object ================
 To pin a managed object, use ##GCHandle.Alloc()##:
 
-{{{ lang=c#
+```c#
 // Pin "objectToBePinned"
 GCHandle handle = GCHandle.Alloc(objectToBePinned, GCHandleType.Pinned);
-}}}
+```
 
 The ##objectToBePinned## remains pinned until you call ##Free()## on the handle:
 
-{{{ lang=c#
+```c#
 // Unpin "objectToBePinned"
 handle.Free();
-}}}
+```
 
 After unpinning the object it can again be:
 
@@ -51,15 +51,15 @@ Now that you've pinned your object you surely want to pass it to a C/C++ functio
 
 The easiest way to do this is to specify managed type directly on the P/Invoke method:
 
-{{{ lang=c#
+```c#
 // Directly using "MyType" as parameter type
 [DllImport("NativeLib")]
 private static extern void do_something(MyType myType);
-}}}
+```
 
 Then call this method:
 
-{{{ lang=c#
+```c#
 GCHandle handle = GCHandle.Alloc(objectToBePinned, GCHandleType.Pinned);
 
 do_something(objectToBePinned);
@@ -67,11 +67,11 @@ do_something(objectToBePinned);
 // NOTE: Usually you wouldn't free the handle here if "do_something()"
 //   stored the pointer to "objectToBePinned".
 handle.Free();
-}}}
+```
 
 The alternative is to pass it as ##IntPtr## (although it's no different from the direct approach):
 
-{{{ lang=c# highlight=2,8
+```c# highlight=2,8
 [DllImport("NativeLib")]
 private static extern void do_something(IntPtr myType);
 
@@ -84,7 +84,7 @@ do_something(handle.AddrOfPinnedObject());
 // NOTE: Usually you wouldn't free the handle here if "do_something()"
 //   stored the pointer to "objectToBePinned".
 handle.Free();
-}}}
+```
 
 
 = Pinning and Passing Strings ======= #pinning-strings
@@ -96,16 +96,16 @@ Otherwise P/Invoke will convert the string into an ASCII string (thereby copying
 
 Assume this C function:
 
-{{{ lang=c++
+```c++
 void do_something(void* str1, void* str2) {
   // Check whether the pointers point to the same address
   printf("Equals: %s\n", (str1 == str2 ? "true" : "false"));
 }
-}}}
+```
 
 Then:
 
-{{{ lang=c#
+```c#
 // WRONG! Will print "false"
 [DllImport("NativeLib", EntryPoint="do_something")]
 private static extern void do_something1(string str1, IntPtr str2);
@@ -123,12 +123,12 @@ GCHandle handle = GCHandle.Alloc(text, GCHandleType.Pinned);
 do_something1(text, handle.AddrOfPinnedObject());
 // Will print "true"
 do_something2(text, handle.AddrOfPinnedObject());
-}}}
+```
 
 = Verifying the Pinned Object is passed =============
 As mentioned in the previous section P/Invoke //may// create a copy of an object instead of passing it by reference directly.
 
-You can easily verify this by comparing the pointer adresses. In C# use {{{lang=c# handle.AddrOfPinnedObject().ToString()}}} to obtain the address of the pinned object.
+You can easily verify this by comparing the pointer adresses. In C# use `handle.AddrOfPinnedObject().ToString()` to obtain the address of the pinned object.
 
 
 %% Article is to be imported by CodeProject

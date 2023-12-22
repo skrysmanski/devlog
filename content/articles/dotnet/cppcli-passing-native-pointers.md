@@ -31,7 +31,7 @@ To illustrate the problem, we first create some projects that we can use as basi
 
 The first project (called "NativeLib") is a pure C++ (no C++/CLI) and DLL project which provides a native (unmanaged) class called ##MyNativeClass##. This class is the type that will later be passed across assembly boundaries. Here's the source code (for the meaning of ##NATIVE_LIB_EXPORT##, see [[1725#exporting_classes]]):
 
-{{{ lang=c++
+```c++
 // MyNativeClass.h
 #pragma once
 
@@ -50,9 +50,9 @@ public:
 private:
   int m_value;
 };
-}}}
+```
 
-{{{ lang=c++
+```c++
 // MyNativeClass.cpp
 #include "MyNativeClass.h"
 
@@ -63,11 +63,11 @@ MyNativeClass::MyNativeClass(int val) {
 int MyNativeClass::getValue() const {
   return this->m_value;
 }
-}}}
+```
 
 That's it for the first project. The second project (named "ManagedProviderLib"; C++/CLI project) will provide the managed class ##ManagedProvider## with a method the returns a pointer ##MyNativeClass##. Here's the source code:
 
-{{{ lang=c++/cli
+```c++/cli
 // ManagedProvider.h
 #pragma once
 
@@ -82,9 +82,9 @@ public:
 private:
   MyNativeClass* m_nativeClass;
 };
-}}}
+```
 
-{{{ lang=c++/cli
+```c++/cli
 // ManagedProvider.cpp
 #include "ManagedProvider.h"
 #include <MyNativeClass.h>
@@ -96,20 +96,20 @@ ManagedProvider::ManagedProvider() {
 MyNativeClass* ManagedProvider::getNativeClass() {
   return this->m_nativeClass;
 }
-}}}
+```
 
 This should be pretty straight forward. Additionaly you need to add the project "NativeLib" to the include and library directories of "ManagedProviderLib".
 
 Here's the final project structure:
 
-{{{
+```
 NativeLib (pure C++)
   +- MyNativeClass.h
   +- MyNativeClass.cpp
 ManagedProviderLib (C++/CLI)
   +- ManagedProvider.h
   +- ManagedProvider.cpp
-}}}
+```
 
 = The Problem =
 After we've created our skeletan projects, let's explore the actual problem.
@@ -117,7 +117,7 @@ After we've created our skeletan projects, let's explore the actual problem.
 == What does work ==
 First, let's create an example that does work. For this, we create a C++/CLI class called ##InternalTestClass## and add it to the "ManagedProviderLib" project. This class will inherit ##ManagedProvider## and have a method (##doSomething()##) that calls ##ManagedProvider::getNativeClass()##. The project structure now is:
 
-{{{
+```
 NativeLib (pure C++)
   +- MyNativeClass.h
   +- MyNativeClass.cpp
@@ -126,11 +126,11 @@ ManagedProviderLib (C++/CLI)
   +- ManagedProvider.cpp
   +- InternalTestClass.h
   +- InternalTestClass.cpp
-}}}
+```
 
 And here's the source code for ##InternalTestClass##:
 
-{{{ lang=c++/cli
+```c++/cli
 // InternalTestClass.h
 #pragma once
 #include "ManagedProvider.h"
@@ -139,23 +139,23 @@ public ref class InternalTestClass : ManagedProvider {
 public:
   void doSomething();
 };
-}}}
+```
 
-{{{ lang=c++/cli
+```c++/cli
 // InternalTestClass.cpp
 #include "InternalTestClass.h"
 
 void InternalTestClass::doSomething() {
   MyNativeClass* nativeClass = getNativeClass();
 }
-}}}
+```
 
 ##doSomething()## doesn't do anything useful, but the point is that the project //compiles//. So, this shows that we //can// return the pointer to a native class here.
 
 == What doesn't work a.k.a "The Problem" ==
 Now, after having a working example, we'll explore the actual problem. For this, we create a new C++/CLI project (called "ManagedExternalLib") and add a managed class called ##ExternalTestClass##. This will have the //same code// as ##InternalTestClass##. The only difference is that ##ExternalTestClass## is in a different project than its base class ##ManagedProvider##. Here's the project structure:
 
-{{{
+```
 NativeLib (pure C++)
   +- MyNativeClass.h
   +- MyNativeClass.cpp
@@ -167,11 +167,11 @@ ManagedProviderLib (C++/CLI)
 ManagedExternalLib (C++/CLI)
   +- ExternalTestClass.h
   +- ExternalTestClass.cpp
-}}}
+```
 
 And here's the source code:
 
-{{{ lang=c++/cli
+```c++/cli
 // ExternalTestClass.h
 #pragma once
 
@@ -179,9 +179,9 @@ public ref class ExternalTestClass : ManagedProvider {
 public:
   void doSomething();
 };
-}}}
+```
 
-{{{ lang=c++/cli
+```c++/cli
 // ExternalTestClass.cpp
 #include "ExternalTestClass.h"
 
@@ -191,7 +191,7 @@ void ExternalTestClass::doSomething() {
   // Compiler error C3767 - candidate function(s) not accessible
   MyNativeClass* nativeClass = getNativeClass();
 }
-}}}
+```
 
 In a pure C++ class, this would compile - regardless of whether the "NativeLib" project is on the include and library path or not. We have a forward declaration of ##MyNativeClass## and since we only work with the pointer of this class, we don't need to know its size (which would be provided by including "MyNativeClass.h"). Also, since we don't call any methods of ##MyNativeClass## we don't need the import lib of "NativeLib".
 
@@ -207,7 +207,7 @@ So, even if the native type was exported (via ##__declspec(dllexport)##) in the 
 == Native Types From Pure C++ Projects ==
 If the native type is defined in a pure C++ project (or in a framework for which you only have the header files), use ## #pragma make_public(Type)##. You should place it in the ##.h## after after including its header. So, our example code for ##ManagedProvider.h## changes to this:
 
-{{{ lang=c++/cli
+```c++/cli
 // ManagedProvider.h
 #pragma once
 
@@ -217,7 +217,7 @@ If the native type is defined in a pure C++ project (or in a framework for which
 public ref class ManagedProvider {
   ...
 };
-}}}
+```
 
 //Notes://
 * Using ##make_public## in a ##.cpp## file instead of an ##.h## file may result in the linker error [[http://msdn.microsoft.com/de-de/library/zkf0dz41.aspx|LNK2022]] (metadata operation failed).
@@ -225,7 +225,7 @@ public ref class ManagedProvider {
 
 Compiling the whole solution now will give you a linker warning [[http://msdn.microsoft.com/de-de/library/h8027ys9.aspx|LNK4248]] (unresolved typeref token). To fix this, you need to include the type's ##.h## file instead of just creating a forward reference. So, our "ExternalTestClass.cpp" changes to this:
 
-{{{ lang=c++/cli
+```c++/cli
 // ExternalTestClass.cpp
 #include "ExternalTestClass.h"
 
@@ -234,7 +234,7 @@ Compiling the whole solution now will give you a linker warning [[http://msdn.mi
 void ExternalTestClass::doSomething() {
   MyNativeClass* nativeClass = getNativeClass();
 }
-}}}
+```
 
 Of course, this also allows you to actually do something (e.g. call methods) with the ##nativeClass## pointer.
 
@@ -243,7 +243,7 @@ Of course, this also allows you to actually do something (e.g. call methods) wit
 == Native Types From C++/CLI Projects ==
 The pragma ##make_public## is used for native types defined in header file you can't change. If, on the other hand, the native type is part of your C++/CLI project ("ManagedProviderLib" in this case), you can prefix the class definition with the keyword ##public## (like you would for a managed type):
 
-{{{ lang=c++
+```c++
 // MySecondNativeClass.h
 #pragma once
 
@@ -257,7 +257,7 @@ The pragma ##make_public## is used for native types defined in header file you c
 public class PRODUCER_LIB_EXPORT MySecondNativeClass {
   ...
 };
-}}}
+```
 
 This keyword is only available in C++/CLI projects and has the same effect like ##make_public##. ~~Unfortunately, I wasn't able to get this example working, because I couldn't figure out a way to //export// the methods of that type. I'll update this section if I find some new information on that topic. (I've raised [[http://stackoverflow.com/questions/8786491/export-native-type-from-c-cli-project|this question at stackoverflow.com]].)~~
 

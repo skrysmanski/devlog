@@ -12,15 +12,15 @@ In a local network (or any other network), it's desirable to be able to find com
 
 So, instead of using:
 
-{{{
+```
 $ ping 192.168.178.25
-}}}
+```
 
 one wants to use:
 
-{{{
+```
 $ ping mycomputer
-}}}
+```
 
 This mapping task is typically done by a **DNS server**.
 
@@ -40,9 +40,9 @@ Multicast DNS lets you find computers on your //local// network by name. You jus
 
 So, to ping a computer called **marvin** you'd use:
 
-{{{
+```
 $ ping marvin.local
-}}}
+```
 
 == What Do I Need? ==
 There are two major mDNS implementations: Apple's **Bonjour** and Microsoft's **Link-local Multicast Name Resolution (LLMNR)**.

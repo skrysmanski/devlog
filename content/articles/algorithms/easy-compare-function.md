@@ -17,7 +17,7 @@ Most programming languages (such as C#, Java, ...) allow you to sort lists. Most
 
 Usually you would do something like this (code in C#):
 
-{{{ lang=C#
+```c#
 int Compare(int a, int b) {
   if (a < b) {
     return -1;
@@ -29,15 +29,15 @@ int Compare(int a, int b) {
     return 0;
   }
 }
-}}}
+```
 
 However, when comparing ##int## values, there's a much quicker way to do this:
 
-{{{ lang=C#
+```c#
 int Compare(int a, int b) {
   return a - b;
 }
-}}}
+```
 
 That's it.
 

@@ -31,7 +31,7 @@ Note that you can examine the [[https://github.com/skrysmanski/dotnetcore-docker
 == The Program ==
 The program I'm going to write is very simple:
 
-{{{ lang=c#
+```c#
 using System;
 using Newtonsoft.Json;
 
@@ -47,7 +47,7 @@ namespace DockerCoreConsoleTest
         }
     }
 }
-}}}
+```
 
 It just uses .NET Core and the ##Newtonsoft.Json## NuGet package as dependency.
 
@@ -62,9 +62,9 @@ Building the application in Visual Studio is pretty straight forward.
 
 You should see the following output:
 
-{{{
+```
 Hello, Docker and Newtonsoft.Json.JsonConvert!
-}}}
+```
 
 If you run into any troubles, go and checkout the [[#example-code|example code]].
 
@@ -75,31 +75,31 @@ So far, so good. Now lets execute this program in a Docker container.
 
 For this, we'll use the following ##Dockerfile##:
 
-{{{
+```
 FROM microsoft/dotnet:1.0.0-core
 COPY bin/Debug/netcoreapp1.0/ /app/
 WORKDIR /app
 ENTRYPOINT ["dotnet", "DockerCoreConsoleTest.dll"]
-}}}
+```
 
 Then build the Docker image with:
 
-{{{
+```
 docker build -t dockercoreconsoletest .
-}}}
+```
 
 Then run the Docker image with:
 
-{{{
+```
 docker run dockercoreconsoletest
-}}}
+```
 
 This will give you this result:
 
-{{{
+```
 Error: assembly specified in the dependencies manifest was not found
 -- package: 'Newtonsoft.Json', version: '9.0.1', path: 'lib/netstandard1.0/Newtonsoft.Json.dll'
-}}}
+```
 
 Not what one would expect.
 
@@ -110,9 +110,9 @@ If you look into ##bin\Debug\netcoreapp1.0## you'll find no ##Newtonsoft.Json.dl
 
 There's a second problem (or more an inconvenience). The ##Dockerfile## contains the following line:
 
-{{{
+```
 COPY bin/Debug/netcoreapp1.0/ /app/
-}}}
+```
 
 This line depends on the build configuration that's being used. If you'd build a **Release** build, the ##Dockerfile## wouldn't work anymore.
 
@@ -123,33 +123,33 @@ So, running this command fixes the first problem. But it can also fix the second
 
 First, we can add the following lines to the project's ##project.json## file:
 
-{{{ lang=json
+```json
 "publishOptions": {
   "include": [
     "Dockerfile"
   ]
 }
-}}}
+```
 
 Now, when running ##dotnet publish##, the ##Dockerfile## will be copied to the publish directory as well.
 
 This also means that we can change the ##COPY## directive in the ##Dockerfile## to:
 
-{{{
+```
 COPY . /app/
-}}}
+```
 
 This way, the ##Dockerfile## independent of the build configuration.
 
 We could go one step further and actually build the docker image as part of the publish process. To do this, add the following lines to the project's ##project.json## file:
 
-{{{ lang=json
+```json
 "scripts": {
   "postpublish": [
     "docker build -t dockercoreconsoletest %publish:OutputPath%"
   ]
 }
-}}}
+```
 
 Two notes one this:
 # I have not found a [[http://stackoverflow.com/a/36730997/614177|suitable]] variable (like ##%publish:OutputPath%##) yet that could be used for the docker label (##-t##). So, for the time being, the label has to be hard-coded here.
@@ -158,16 +158,16 @@ Two notes one this:
 == Wrapping Things Up ==
 You can now run:
 
-{{{
+```
 # dotnet publish
 # docker run dockercoreconsoletest
-}}}
+```
 
 This will give you the expected output:
 
-{{{
+```
 Hello, Docker and Newtonsoft.Json.JsonConvert!
-}}}
+```
 
 This is my first shot at Docker and .NET Core. If you find any error or have suggestions for improvements, please leave them in the comments below.
 
@@ -178,7 +178,7 @@ In the ##Dockerfile##, instead of using ##microsoft/dotnet:1.0.0-core## as base 
 
 You may then build the .NET Core application from **within** the container with a ##Dockerfile## like this:
 
-{{{
+```
 FROM microsoft/dotnet:latest
 COPY . /app
 WORKDIR /app
@@ -187,7 +187,7 @@ RUN ["dotnet", "restore"]
 RUN ["dotnet", "build"]
 
 ENTRYPOINT ["dotnet", "run"]
-}}}
+```
 
 This approach has some disadvantages:
 # The container in general will be bigger than the solution proposed in the rest of the article.

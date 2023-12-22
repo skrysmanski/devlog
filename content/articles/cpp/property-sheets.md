@@ -108,11 +108,11 @@ Property sheets can inherit their values from other property sheets. You can eit
 
 The XML code for inheritance is:
 
-{{{ lang=xml
+```xml
 <ImportGroup Label="PropertySheets">
   <Import Project="commons.props" />
 </ImportGroup>
-}}}
+```
 
 
 = Conditional Properties =================================
@@ -122,13 +122,13 @@ Property sheets can also contain //conditional property values//. This means tha
 
 First, you can define conditions on single properties by using the ##Condition## attribute:
 
-{{{ lang=xml
+```xml
 <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-}}}
+```
 
 On the other hand, if you want to group several properties for a certain configuration, you can also add the ##Condition## attribute to container elements (here: ##<ItemDefinitionGroup>##):
 
-{{{ lang=xml
+```xml
 <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
   <ClCompile>
     <PreprocessorDefinitions>QT_NO_DEBUG;QT_NO_DEBUG_OUTPUT;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -137,7 +137,7 @@ On the other hand, if you want to group several properties for a certain configu
     <GenerateDebugInformation>false</GenerateDebugInformation>
   </Link>
 </ItemDefinitionGroup>
-}}}
+```
 
 You can find more information about conditions in the article [[http://msdn.microsoft.com/library/7szfhaft.aspx|"MSBuild Conditions" on MSDN]].
 

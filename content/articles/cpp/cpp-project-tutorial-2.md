@@ -29,7 +29,7 @@ The project "MyLibrary" compiles into a DLL library (although a static ##.lib## 
 === The Code: MyLibrary ===
 "MyLibrary" uses the code from the first part of this series. It provides a class called ##PrintableInt## which wraps an integer and provides a method to convert it into a string.
 
-{{{ lang=c++
+```c++
 // PrintableInt.h
 #pragma once
 
@@ -50,9 +50,9 @@ public:
 private:
   int m_value;
 };
-}}}
+```
 
-{{{ lang=c++
+```c++
 // PrintableInt.cpp
 #include "stdafx.h"
 #include "PrintableInt.h"
@@ -67,14 +67,14 @@ std::string PrintableInt::toString() const {
   builder << m_value;
   return builder.str();
 }
-}}}
+```
 
 Again, this (and the project "MyProgram" as well) use a precompiled header file named "stdafx.h". Precompiled headers are explained in [[1747|another article]].
 
 === The Code: MyProgram ===
 The project "MyProgram" is a "Win32 Console Application" project and just contains some test code in its main function:
 
-{{{ lang=c++
+```c++
 #include "stdafx.h"
 #include <iostream>
 #include "PrintableInt.h"
@@ -84,7 +84,7 @@ int _tmain(int argc, _TCHAR* argv[]) {
   std::cout << test.toString() << std::endl;
   return 0;
 }
-}}}
+```
 
 This simply prints a "5" on the console.
 

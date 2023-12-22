@@ -36,16 +36,16 @@ The steps in this article are based on Ubuntu 16.04.
 
 You need the following packages:
 
-{{{
+```
 $ apt-get install dnsmasq pxelinux syslinux-common
-}}}
+```
 
 You also need the precompiled memtest binary:
 
-{{{
+```
 $ wget http://www.memtest.org/download/5.01/memtest86+-5.01.bin.gz
 $ gzip -dk memtest86+-5.01.bin.gz
-}}}
+```
 
 Furthermore, you need a working DHCP server (e.g. one provided by a hard router).
 
@@ -58,36 +58,36 @@ Lets do it then. This section describes all steps need to get a working PXE serv
 
 First, lets stop dnsmasq for now.
 
-{{{
+```
 $ service dnsmasq stop
-}}}
+```
 
 Create the directory where all transferable operating system files will reside:
 
-{{{
+```
 $ mkdir -p /var/lib/tftpboot
-}}}
+```
 
 Inside of this directory, create a directory for the unzipped memtest binary file and copy it there:
 
-{{{
+```
 $ mkdir -p /var/lib/tftpboot/memtest
 $ cp ~/memtest86+-5.01.bin /var/lib/tftpboot/memtest/memtest86+-5.01
-}}}
+```
 
 **Important:** Note that the copy command removed the ##.bin## file extension. This is required.
 
 Now create the directory for the PXE configuration file:
 
-{{{
+```
 $ mkdir -p /var/lib/tftpboot/pxelinux.cfg
-}}}
+```
 
 **Important:** This directory must always be called ##pxelinux.cfg##.
 
 Inside of this directory, create a file called ##default## and put in the following content:
 
-{{{
+```
 default memtest86
 prompt 1
 timeout 15
@@ -95,18 +95,18 @@ timeout 15
 label memtest86
   menu label Memtest86+ 5.01
   kernel /memtest/memtest86+-5.01
-}}}
+```
 
 Next, you need to put the files ##pxelinux.0## (Ubuntu package ##pxelinux##) and ##ldlinux.c32## (Ubuntu package ##syslinux-common##) in ##/var/lib/tftpboot##. I'll use symlinks for that:
 
-{{{
+```
 $ ln -s /usr/lib/PXELINUX/pxelinux.0 /var/lib/tftpboot/
 $ ln -s /usr/lib/syslinux/modules/bios/ldlinux.c32 /var/lib/tftpboot/
-}}}
+```
 
 Now, clear all contents of ##/etc/dnsmasq.conf## and replace them with this:
 
-{{{ lang=ini line=1 highlight=9
+```ini line=1 highlight=9
 # Disable DNS Server
 port=0
 
@@ -124,23 +124,23 @@ pxe-service=x86PC,"Network Boot",pxelinux
 
 enable-tftp
 tftp-root=/var/lib/tftpboot
-}}}
+```
 
 **Important:** In line 9 you need to put in your network, if you're not on 192.168.178.XXX.
 
 Edit ##/etc/default/dnsmasq## and add the following line to the end:
 
-{{{
+```
 DNSMASQ_EXCEPT=lo
-}}}
+```
 
 This line is necessary because you disabled dnsmasq's DNS functionality above (with ##port=0##). Without it Ubuntu will still redirect all DNS queries to ##dnsmasq## - which doesn't answer them anymore and thus all DNS lookups would be broken. You can check ##/etc/resolv.conf## and verify that it contains the correct IP address for your network's DNS server.
 
 Last step - start ##dnsmasq## again:
 
-{{{
+```
 $ service dnsmasq start
-}}}
+```
 
 Now, when starting a PXE-enabled machine, it should boot memtest.
 
@@ -152,9 +152,9 @@ While I was trying to get a PXE server working, I stumbled across some pitfalls 
 === Starting dnsmasq fails because resource limit ===
 When starting ##dnsmasq## with:
 
-{{{
+```
 $ service dnsmasq start
-}}}
+```
 
 and you get the error:
 

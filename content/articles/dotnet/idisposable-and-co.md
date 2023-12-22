@@ -23,7 +23,7 @@ Rules:
 
 C# code:
 
-{{{ lang=c#
+```c#
 class DataContainer : IDisposable {
   public void Dispose() {
     Dipose(true);
@@ -49,11 +49,11 @@ class DataContainer : IDisposable {
 
   private bool m_disposed = false;
 }
-}}}
+```
 
 C++/CLI code:
 
-{{{ lang=c++/cli
+```c++/cli
 ref class DataContainer {
 public:
   ~DataContainer() {
@@ -75,14 +75,14 @@ public:
 private:
   bool m_isDisposed; // must be set to false
 };
-}}}
+```
 
 = The Root of all Evil =
 In C#, all classes are managed by the garbage collector. However, some things just can't be expressed in pure managed code. In these cases you'll need to store //unmanaged// data in a managed class. Examples are file handles, sockets, or objects created by unmanaged functions/frameworks.
 
 So, here's an example of a C# class containing unmanaged data:
 
-{{{ lang=c# highlight=3,6
+```c# highlight=3,6
 class DataContainer {
   public DataContainer() {
     m_unmanagedData = DataProvider.CreateUnmanagedData();
@@ -90,11 +90,11 @@ class DataContainer {
 
   private IntPtr m_unmanagedData;
 }
-}}}
+```
 
 The equivalent C++/CLI example would look like this:
 
-{{{ lang=c++/cli highlight=4,8
+```c++/cli highlight=4,8
 ref class DataContainer {
 public:
   DataContainer() {
@@ -104,7 +104,7 @@ public:
 private:
   IntPtr m_unmanagedData;
 };
-}}}
+```
 
 The question now is: **When gets the unmanaged data deleted?**
 
@@ -115,7 +115,7 @@ Since our class ##DataContainer## is a managed class, it is managed by .NET's ga
 
 In C# the finalizer method (internally named ##Finalize()##) is created by using C++'s destructor notation (##~DataContainer##):
 
-{{{ lang=c# highlight=6,7,8
+```c# highlight=6,7,8
 class DataContainer {
   public DataContainer() {
     m_unmanagedData = DataProvider.CreateUnmanagedData();
@@ -127,11 +127,11 @@ class DataContainer {
 
   private IntPtr m_unmanagedData;
 }
-}}}
+```
 
 In C++/CLI the notation ##~DataContainer()## is already reserved for deterministic destructors (because //all// destructors are deterministic in C++). So, here we must use the notation ##!DataContainer## instead:
 
-{{{ lang=c++/cli highlight=7,8,9
+```c++/cli highlight=7,8,9
 ref class DataContainer {
 public:
   DataContainer() {
@@ -145,7 +145,7 @@ public:
 private:
   IntPtr m_unmanagedData;
 };
-}}}
+```
 
 //Note:// Although you can declare a finalizer public in C++/CLI, it won't be. So, don't bother with its visibility. (In C# you get a compiler error when specifying anything but private visibility for the finalizer.)
 
@@ -155,7 +155,7 @@ Since finalizers are non-deterministic, you have no control over when they will 
 
 The .NET framework provides a standard name for this method: ##Dispose()##, defined by the ##IDisposable## interface. This method is also called a "//deterministic// destructor" (whereas finalizers are non-deterministic destructors). Here's the implementation in C#:
 
-{{{ lang=c# highlight=1,6,7,8,9,10,11,12
+```c# highlight=1,6,7,8,9,10,11,12
 class DataContainer : IDisposable {
   public DataContainer() {
     m_unmanagedData = DataProvider.CreateUnmanagedData();
@@ -172,13 +172,13 @@ class DataContainer : IDisposable {
   private bool m_sDisposed= false;
   private IntPtr m_unmanagedData;
 }
-}}}
+```
 
 In C# you can either call the ##Dispose()## method directly or use a ##using## block. Note that we've added ##m_isDisposed## to prevent the programmer from calling ##Dispose()## multiple times.
 
 In C++/CLI the ##Dispose()## method is automatically created (and ##IDisposable## is implemented) when creating a destructor (##~DataContainer##):
 
-{{{ lang=c++/cli highlight=7,8,9,10,11,12,13
+```c++/cli highlight=7,8,9,10,11,12,13
 ref class DataContainer {
 public:
   DataContainer() : m_isDisposed(false) {
@@ -197,7 +197,7 @@ private:
   bool m_isDisposed;
   IntPtr m_unmanagedData;
 };
-}}}
+```
 
 In C++/CLI a deterministic destructor (or the ##Dispose()## method) is called automatically when:
 
@@ -211,7 +211,7 @@ Since the programmer can forget to call ##Dispose()##, it's important to free un
 
 In C#, simply call ##Dispose()## from the finalizer. Note that the finalizer will be called in any case, so the unmanaged data is freed even if the programmer forgets to call ##Dispose()##.
 
-{{{ lang=c# highlight=15
+```c# highlight=15
 class DataContainer : IDisposable {
   public DataContainer() {
     m_unmanagedData = DataProvider.CreateUnmanagedData();
@@ -233,11 +233,11 @@ class DataContainer : IDisposable {
   private bool m_disposed = false;
   private IntPtr m_unmanagedData;
 }
-}}}
+```
 
 In C++/CLI we do the opposite: we call the finalizer (which isn't possible in C#). This way is the cleaner. I'll explain this a little later on.
 
-{{{ lang=c++/cli highlight=11
+```c++/cli highlight=11
 ref class DataContainer {
 public:
   DataContainer() : m_isDisposed(false) {
@@ -261,14 +261,14 @@ private:
   bool m_isDisposed;
   IntPtr m_unmanagedData;
 };
-}}}
+```
 
 = Managed Data ===================
 Beside //unmanaged// data, a managed class can also contain //managed// data, i.e. instances of managed classes implementing ##IDisposable##. Managed data is different from unmanaged data in that it should be disposed in ##Dispose()## but //not// in the finalizer. This is because instances of managed classes may already have been garbage collected when the finalizer runs.
 
 To avoid code duplication, ##Dispose()## and the finalizer should be implemented like this (in pseudo-code):
 
-{{{ lang=c++
+```c++
 void Dispose() {
   DisposeAllManagedData();
   Finalizer();
@@ -277,11 +277,11 @@ void Dispose() {
 void Finalizer() {
   FreeAllUnmanagedData();
 }
-}}}
+```
 
 This is why I called the C++/CLI way the "cleaner" way above. It implements the whole thing just like our pseudo-code:
 
-{{{ lang=c++/cli highlight=9,10
+```c++/cli highlight=9,10
 ref class DataContainer {
 public:
    ...
@@ -305,11 +305,11 @@ private:
   IntPtr m_unmanagedData;
   IDisposable^ m_managedData;
 };
-}}}
+```
 
 In C#, on the other hand, we can't call the finalizer. So, we need to add a helper method called ##Dispose(bool)##:
 
-{{{ lang=c# highlight=5,9,12
+```c# highlight=5,9,12
 class DataContainer : IDisposable {
   ...
 
@@ -336,7 +336,7 @@ class DataContainer : IDisposable {
   private IntPtr m_unmanagedData;
   private IDisposable m_managedData;
 }
-}}}
+```
 
 //Note:// The method ##Dispose(bool)## is ##virtual##. The idea behind this is that child classes can override this method to perform their own disposing. See below for more information. Note also that the C++/CLI compiler automatically creates this method when a class has a destructor. You can't, however, use this method directly. It's only visible from C# (or Visual Basic).
 
@@ -347,16 +347,16 @@ The default dispose implementation pattern (as shown in [[http://msdn.microsoft.
 
 In C# the ##Dispose()## method changes like this:
 
-{{{ lang=c# highlight=3
+```c# highlight=3
   public void Dispose() {
     Dipose(true);
     GC.SuppressFinalize(this);
   }
-}}}
+```
 
 In C++/CLI the destructor doesn't change //at all//. That's because the C++/CLI compiler automatically adds this code line to the destructor. (You can read about this and see a decompiled destructor [[http://www.codeproject.com/KB/mcpp/cppclidtors.aspx|here]]. Search for "SuppressFinalize".)
 
-{{{ lang=c++/cli highlight=8
+```c++/cli highlight=8
   ~DataContainer() {
     if (m_isDisposed)
        return;
@@ -366,7 +366,7 @@ In C++/CLI the destructor doesn't change //at all//. That's because the C++/CLI 
     m_isDisposed = true;
     // GC.SuppressFinalize(this) is automatically inserted here
   }
-}}}
+```
 
 = Inheritance ==========================
 The default dispose implementation pattern used in the previous sections create a method called ##Dispose(bool)##. This method is ##protected virtual## and is meant to be overridden by child classes - in case they need to dispose some data of their own.
@@ -379,7 +379,7 @@ In C#, an implementation must
 
 The base method is called last to ensure that child classes are disposed before their parent classes. This is how destructors work in C++ and ##Dispose()## mimics this behavior.
 
-{{{ lang=c# highlight=12
+```c# highlight=12
   protected virtual void Dispose(bool disposing) {
     if (m_isDisposed)
       return;
@@ -393,13 +393,13 @@ The base method is called last to ensure that child classes are disposed before 
     // Dispose parent classes after child classes
     base.Dispose(disposing);
   }
-}}}
+```
 
 //Note:// Each child class must manage its //own// ##m_isDisposed## field.
 
 In C++/CLI, again, the destructor remains the same. This is because it mimics the C++ destructor's behavior which automatically calls its parent destructor.
 
-{{{ lang=c++/cli highlight=9
+```c++/cli highlight=9
   ~DataContainer() {
     if (m_isDisposed)
        return;
@@ -410,7 +410,7 @@ In C++/CLI, again, the destructor remains the same. This is because it mimics th
     // GC.SuppressFinalize(this) is automatically inserted here
     // Base destructor is automatically called here
   }
-}}}
+```
 
 = When to Use IDisposable: 3 easy rules ===========
 At this point I'd like to cite three easy rules when to use ##IDisposable##. These rules were created by [[http://nitoprograms.blogspot.com/2009/08/how-to-implement-idisposable-and.html|Stephen Cleary]] and I take no credit for them. I do, however, disagree with some statements (such as "No classes should be responsible for multiple unmanaged resources.") and have adopted the rules in this case (see the link for the original description).

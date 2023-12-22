@@ -32,55 +32,55 @@ Primitive data types (##bool##, ##int##, ##double##, ...) are the easiest to use
 = Marshalling Strings ====================
 For passing strings, it's recommended that you pass them as Unicode strings (if possible). For this, you need to specify ##Char.Unicode## like this:
 
-{{{ lang=c#
+```c#
 [DllImport("NativeLib.dll", CharSet = CharSet.Unicode)]
 private static extern void do_something(string str);
-}}}
+```
 
 This requires the C/C++ parameter type be a ##wchar_t*##:
 
-{{{ lang=c++
+```c++
 void do_something(const wchar_t* str);
-}}}
+```
 
 For more details, see [[2559]].
 
 = Marshalling Arrays ====================
 Arrays of primitive types can be passed directly.
 
-{{{ lang=c#
+```c#
 [DllImport("NativeLib.dll")]
 private static extern void do_something(byte[] data);
-}}}
+```
 
 = Marshalling Objects ====================
 To be able to pass objects you need to make their memory layout sequential:
 
-{{{ lang=c# highlight=1
+```c# highlight=1
 [StructLayout(LayoutKind.Sequential)]
 class MyClass {
   ...
 }
-}}}
+```
 
 This ensures that the fields are stored in the same order they're written in code. (Without this attribute the C# compiler reorder fields around to optimize the data structure.)
 
 Then simply use the object's class directly:
 
-{{{ lang=c#
+```c#
 [DllImport("NativeLib.dll")]
 private static extern void do_something(MyClass data);
-}}}
+```
 
 The object will be passed by reference (either as ##struct*## or ##struct&##) to the C function:
 
-{{{ lang=c++
+```c++
 typedef struct {
   ...
 } MyClass;
 
 void do_something(MyClass* data);
-}}}
+```
 
 //Note:// Obviously the order of the fields in the native struct and the managed class //must be exactly the same//.
 
@@ -89,9 +89,9 @@ Marshalling managed ##struct##s is almost identical to marshalling objects with 
 
 So for ##struct##s the C/C++ function signature reads:
 
-{{{ lang=c++
+```c++
 void do_something(MyClass data);
-}}}
+```
 
 Of course, you can pass the ##struct## also by reference. In this case, use ##(MyClass* data)## or ##(MyClass& data)## in C/C++ and ##(ref MyClass data)## in C#.
 
@@ -99,26 +99,26 @@ Of course, you can pass the ##struct## also by reference. In this case, use ##(M
 = Marshalling Delegates ====================
 Delegates are marshalled directly. The only thing you need to take care of is the "calling convention". The default calling convention is ##Winapi## (which equals to ##StdCall## on Windows). If your native library uses a different calling convention, you need to specify it like this:
 
-{{{ lang=c#
+```c#
 [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 public delegate void MyDelegate(IntPtr value);
-}}}
+```
 
 = Marshalling Arbitrary Pointers ====================
 Arbitrary pointers (like ##void*##) are marshalled as ##IntPtr## objects.
 
 So this C function:
 
-{{{ lang=c++
+```c++
 void do_something(void* ptr);
-}}}
+```
 
 becomes:
 
-{{{ lang=c#
+```c#
 [DllImport("NativeLib.dll")]
 private static extern void do_something(IntPtr ptr);
-}}}
+```
 
 %% Article is to be imported by CodeProject
 <a href="http://www.codeproject.com/script/Articles/BlogFeedList.aspx?amid=274673" rel="tag" style="display:none">CodeProject</a>

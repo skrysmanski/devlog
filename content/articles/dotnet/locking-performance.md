@@ -11,13 +11,13 @@ Just a quick overview over the different lock types and their performance in .NE
 
 For this test, the following method was called as fast as possible for 4 seconds:
 
-{{{ lang=c#
+```c#
 private void TestMethod() {
   lock (this) { // this locking is replaced depending on the locking type
     counter++;
   }
 }
-}}}
+```
 
 Here are the results:
 

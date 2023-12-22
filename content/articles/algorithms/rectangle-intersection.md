@@ -19,7 +19,7 @@ I won't get into the details of this algorithm here - it's sufficiently good des
 
 Here's the implementation of the method testing where a single edge (represented by points ##x1## and ##x2##) is a separating axis:
 
-{{{ lang="csharp"
+```c#
 /// <summary>
 /// Does axis separation test for a convex quadrilateral.
 /// </summary>
@@ -50,7 +50,7 @@ bool DoAxisSeparationTest(Point x1, Point x2, Point x3, Point[] otherQuadPoints)
   // the quads don't intersect.
   return true;
 }
-}}}
+```
 
 This method is then called for each edge of each rectangle. If the method returns ##true##, the actual intersection test method can return "not intersecting". If the method returns ##false## for all edges, the rectangles intersect.
 
