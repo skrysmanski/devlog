@@ -5,6 +5,7 @@ topics:
 - networking
 - dns
 - mdns
+draft: true
 ---
 
 In a local network (or any other network), it's desirable to be able to find computers by //name// rather than by //ip address//.

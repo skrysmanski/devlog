@@ -3,6 +3,7 @@ title: Breaking .NET's Random class
 date: 2016-08-23T18:35:00+01:00
 topics:
 - dotnet
+draft: true
 ---
 
 Security is hard. In a current project I saw some code that created some access tokens based on a random number generator - .NET's ##Random## class. The code used an instance of ##Random## stored in ##static## field and I got curious:

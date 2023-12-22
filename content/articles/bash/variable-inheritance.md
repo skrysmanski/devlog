@@ -4,6 +4,7 @@ date: 2016-10-20T18:05:00+01:00
 topics:
 - bash
 - cheat-sheets
+draft: true
 ---
 
 Just a quick cheat sheet about how variables in Bash get inherited.

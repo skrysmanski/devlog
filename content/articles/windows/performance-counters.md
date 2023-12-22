@@ -4,6 +4,7 @@ date: 2013-11-20T19:35:00+01:00
 topics:
 - windows
 - dotnet
+draft: true
 ---
 
 There are several types of performance counters in Windows. However, I had a hard time of understanding all these types just from their documentation. So I decided to compile some examples for each counter type.

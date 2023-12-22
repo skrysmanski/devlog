@@ -3,6 +3,7 @@ title: C# and GC.KeepAlive()
 date: 2013-08-08T13:40:00+01:00
 topics:
 - dotnet
+draft: true
 ---
 
 Today, while browsing some C++/CLI code, I stumbled upon several calls to ##GC.KeepAlive(someObj)##.

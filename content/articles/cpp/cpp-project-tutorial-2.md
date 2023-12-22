@@ -5,6 +5,7 @@ topics:
 - cpp
 - visual-studio
 - tutorials
+draft: true
 ---
 
 This article is the second part of the subprojects mini series. The first part was about [[1725|creating a DLL project]]. This part will show how to use a DLL library project in another project.

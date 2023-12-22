@@ -4,6 +4,7 @@ date: 2011-05-11T13:44:00+01:00
 topics:
 - algorithms
 - dotnet
+draft: true
 ---
 
 For a software project I needed to check whether two rectangles intersect (or overlap). What made my problem complicated was that one of the rectangles could be rotated. While this problem seems to be trivial (to a human being), it's not that simple to implement. It took me a while to find [[http://stackoverflow.com/questions/115426/algorithm-to-detect-intersection-of-two-rectangles|the right answer]].

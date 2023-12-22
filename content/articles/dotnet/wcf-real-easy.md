@@ -5,6 +5,7 @@ topics:
 - dotnet
 - wcf
 - networking
+draft: true
 ---
 
 If you search for WCF tutorials, you'll find a lot of elaborate examples that involve editing several files.

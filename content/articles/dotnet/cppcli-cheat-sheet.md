@@ -5,6 +5,7 @@ topics:
 - cpp-cli
 - cheat-sheets
 - dotnet
+draft: true
 ---
 
 This article provides a quick comparison between C++/CLI and C#. It's meant for those who know C# (and possibly C++) and will explain which C++/CLI language construct correspond with which in C#. (I don't know Visual Basic so I can't add infos about this here.)

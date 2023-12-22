@@ -3,6 +3,7 @@ title: PowerShell functions for the uninitiated (C# developer)
 date: 2013-03-18T13:27:00+01:00
 topics:
 - powershell
+draft: true
 ---
 
 Being a C# developer, I recently found some use for Microsoft's PowerShell (the ##cmd## replacement). What's nice about PowerShell is that it has full access to the .NET framework.

@@ -5,6 +5,7 @@ topics:
 - cpp
 - cpp-cli
 - visual-studio
+draft: true
 ---
 
 Everyone who has ever created and managed a C++ project in Visual Studio knows that there are hundreds of compiler switches and options to choose from. While setting the desired values for one project may be ok, it's quite time-consuming and error-prone to do this for multiple projects. I'm currently working with a solution containing about 30 or so projects that share most of their project settings. I always wished there was a way to sync or share these common settings among the projects in the solution. Fortunately, there is: //property sheets//. They're a bit hidden though, so I'll explain how to use them in this article.

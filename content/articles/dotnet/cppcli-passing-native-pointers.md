@@ -4,6 +4,7 @@ date: 2012-01-09T10:21:00+01:00
 topics:
 - cpp-cli
 - dotnet
+draft: true
 ---
 
 [[1439|C++/CLI]] allows you to mix native C++ code with managed .NET code (which is extremly nice). Mixing such code also allows you to create methods in a .NET class that take or return pointers to native (C++) classes. Unfortunately, this doesn't work out of the box across assemblies (read: DLLs). If you define a .NET class in one assembly and this class has a method that returns a pointer, you may not be able to use this method from within //another// C++/CLI assembly.

@@ -4,6 +4,7 @@ date: 2011-04-18T10:53:00+01:00
 topics:
 - cpp
 - oop
+draft: true
 ---
 
 [[[TOC]]]

@@ -4,6 +4,7 @@ date: 2016-09-02T20:47:00+01:00
 topics:
 - ubuntu
 - pxe
+draft: true
 ---
 
 There are a lot of articles out there that explain how to run a [[wiki:en|Preboot_Execution_Environment|PXE server]]. However, I couldn't find a single one that contained //all// the information to setup a PXE server:

@@ -5,6 +5,7 @@ topics:
 - dotnet
 - cpp
 - pinvoke
+draft: true
 ---
 
 In the [[2525|previous tutorial]] we passed a single string to a native C/C++ function by using P/Invoke.

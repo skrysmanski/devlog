@@ -5,6 +5,7 @@ topics:
 - dotnet
 - csharp
 - cpp-cli
+draft: true
 ---
 
 The .NET framework features an interface called [[http://msdn.microsoft.com/library/system.idisposable.aspx|IDisposable]]. It basically exists to allow freeing unmanaged resources (think: C++ pointers). In most cases, you won't need ##IDisposable## when writing C# code. There are some exceptions though, and it becomes more important when writing C++/CLI code.

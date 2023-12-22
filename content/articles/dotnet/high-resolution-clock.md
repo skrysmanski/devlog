@@ -3,6 +3,7 @@ title: High Resolution Clock in C#
 date: 2014-07-02T11:47:00+01:00
 topics:
 - dotnet
+draft: true
 ---
 
 Clocks in computers have (among others) the following three properties: //accuracy//, //precision//, and //resolution//.

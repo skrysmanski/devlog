@@ -5,6 +5,7 @@ topics:
 - dotnet
 - cpp
 - pinvoke
+draft: true
 ---
 
 P/Invoke is a way of calling C/C++ functions from a .NET program. It's very easy to use. This article will cover the basics of using P/Invoke.

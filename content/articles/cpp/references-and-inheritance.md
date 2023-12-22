@@ -4,6 +4,7 @@ date: 2012-02-01T10:23:00+01:00
 topics:
 - cpp
 - oop
+draft: true
 ---
 
 The last few days I've been hunting a bug in a C++ project I've been working on. This hunt again showed me how easily you can break C++ programs by accident (something that isn't possibly in Java or C#). You need to completely understand the inner workings of C++ to avoid such pitfalls.

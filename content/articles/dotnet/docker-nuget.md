@@ -5,6 +5,7 @@ topics:
 - dotnet
 - nuget
 - docker
+draft: true
 ---
 
 Recently, I wanted to try out the new [[https://www.microsoft.com/net/core|.NET Core]] together with a [[https://www.docker.com/|Docker]] container. However, coming from programing .NET applications for the regular .NET Framework, there were some obstacles I encountered. This one is about NuGet packages.

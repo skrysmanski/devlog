@@ -5,6 +5,7 @@ topics:
 - cpp
 - visual-studio
 - tutorials
+draft: true
 ---
 
 When you write software, you often/sometimes divide your project into several subprojects. This mini series describes how to do this with [[http://www.microsoft.com/visualstudio/en-us/products/2010-editions/visual-cpp-express|Visual C++ 2010]] (but this first part also applies to earlier versions). We start with creating a library project in form of a DLL.

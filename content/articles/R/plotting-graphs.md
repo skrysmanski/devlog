@@ -4,6 +4,7 @@ date: 2013-01-18T11:13:00+01:00
 topics:
 - R
 - graphs
+draft: true
 ---
 
 I recently stumbled over [[http://www.r-project.org/|R]], a programming language for data analysis. R is open-source and available on all major platforms (Windows, Linux, Mac).

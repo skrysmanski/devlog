@@ -3,6 +3,7 @@ title: SimpleMutex in .NET
 date: 2015-02-05T18:23:00+01:00
 topics:
 - dotnet
+draft: true
 ---
 
 The [[https://msdn.microsoft.com/library/system.threading.mutex.aspx|Mutex]] class in .NET is a little bit tricky to use.

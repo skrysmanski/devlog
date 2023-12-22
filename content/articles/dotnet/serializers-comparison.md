@@ -4,6 +4,7 @@ date: 2014-10-30T21:15:00+01:00
 topics:
 - dotnet
 - serializers
+draft: true
 ---
 
 There are many object serializers in C#/.NET but their details are often not so obvious, for example:

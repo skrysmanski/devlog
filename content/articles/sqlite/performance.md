@@ -4,6 +4,7 @@ date: 2012-10-01T14:23:00+01:00
 topics:
 - sqlite
 - performance
+draft: true
 ---
 
 I'm currently working on a [[https://bitbucket.org/mayastudios/sqlite.net|cross-platform SQLite .NET wrapper]]. At the moment it's not really thread-safe. So, I was looking for ways of making it thread-safe.

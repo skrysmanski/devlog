@@ -5,6 +5,7 @@ topics:
 - algorithms
 - design-patterns
 - oop
+draft: true
 ---
 
 In my last job interview I got a (rather vague) question about traversing a tree and operating on the tree nodes. I think I've a lot of experience in programming but I couldn't figure out the answer on my own. The answer the guy wanted to hear was: **visitor pattern**.
