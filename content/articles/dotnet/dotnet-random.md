@@ -62,7 +62,7 @@ public class RandomBreaker
     inextp = INEXTP_START;
   }
 
-  // Implementation mirrors: http://referencesource.microsoft.com/#mscorlib/system/random.cs,100
+  * Implementation mirrors: http:*referencesource.microsoft.com/#mscorlib/system/random.cs,100
   private static int PredictNextRandomValue(int[] seedArray, ref int inext, ref int inextp)
   {
     const int MBIG =  int.MaxValue;

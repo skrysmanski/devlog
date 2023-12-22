@@ -6,9 +6,9 @@ topics:
 draft: true
 ---
 
-Clocks in computers have (among others) the following three properties: //accuracy//, //precision//, and //resolution//.
+Clocks in computers have (among others) the following three properties: *accuracy*, *precision*, and *resolution*.
 
-People generally agree on what's the difference between //accuracy// and //precision/resolution// but there seem to be lots of opinions on what's the difference between //precision// and //resolution// and which is which. So I'm going to shamelessly copy a [definition I found on Stack Overflow](http://stackoverflow.com/a/16740505/614177) that I'm agreeing with.
+People generally agree on what's the difference between *accuracy* and *precision/resolution* but there seem to be lots of opinions on what's the difference between *precision* and *resolution* and which is which. So I'm going to shamelessly copy a [definition I found on Stack Overflow](http://stackoverflow.com/a/16740505/614177) that I'm agreeing with.
 
  * **Precision:** the amount of information, i.e. the number of significant digits you report. (E.g. I'm 2m, 1.8m, 1.83m, 1.8322m tall. All those measurements are accurate, but increasingly precise.)
  * **Accuracy:** the relation between the reported information and the truth. (E.g. "I'm 1.70m tall" is more precise than "1.8m", but not actually accurate.)
@@ -114,7 +114,7 @@ Using the same test code as above but using `HighResolutionDateTime.UtcNow` as i
 
 So, on my laptop the resolution increased by a factor of 40000.
 
-//Note:// The resolution can never be better/smaller than 0.0001 ms because this is the highest **precision** supported by `DateTime` (see above).
+*Note:* The resolution can never be better/smaller than 0.0001 ms because this is the highest **precision** supported by `DateTime` (see above).
 
 == Accuracy ==
 To complete this article, lets also talk about **accuracy**.

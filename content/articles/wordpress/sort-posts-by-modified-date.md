@@ -6,7 +6,7 @@ topics:
 draft: true
 ---
 
-By default, Wordpress sorts blog posts by //creation date//. However, if you update your blog posts from time to time, you may want to sort them by //modification date// rather than creation date.
+By default, Wordpress sorts blog posts by *creation date*. However, if you update your blog posts from time to time, you may want to sort them by *modification date* rather than creation date.
 
 To achieve this, use this snippet:
 

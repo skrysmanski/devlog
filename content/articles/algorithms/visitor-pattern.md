@@ -25,15 +25,15 @@ But since I'm not a quitter I went on and tamed it. So, in this article I'm goin
 == Definition ==
 The main problem (in my opinion) with the visitor pattern is that it's often not really clear what it does. So, let's start with the following definition (based on [[wiki:en|Visitor pattern|Wikipedia]]):
 
-> The visitor design pattern is a way of //separating an operation from an object structure// on which it operates. [...] In essence, this pattern allows one to //add new virtual functions// to a family of classes without modifying the classes themselves;
+> The visitor design pattern is a way of *separating an operation from an object structure* on which it operates. [...] In essence, this pattern allows one to *add new virtual functions* to a family of classes without modifying the classes themselves;
 
 == Motivation ==
 Let's explore what this means. I'll provide some basic examples with increasing complexity to illustrate the motivation behind the visitor pattern.
 
-//Note:// All examples are in C#.
+*Note:* All examples are in C#.
 
 === The Object Structure === #object_structure
-The definition above states that the visitor pattern separates "an operation from an //object structure//". So, let's define this object structure.
+The definition above states that the visitor pattern separates "an operation from an *object structure*". So, let's define this object structure.
 
 Assume we have some kind of wikicode parser. The wikicode allows us to write documents in plain text but enrich them with some formatting (bold text) and hyperlinks.
 
@@ -281,7 +281,7 @@ public class Document {
 }
 ```
 
-//Note:// The implementations of `Accept()` seem to be identical for all child classes of `DocumentPart`. However, we can't move the code into the base class because `IVisitor` doesn't have an method `Visit(DocumentPart)` but only for the concrete implementations. (We could solve this through reflection, though, but would lose compile-time checking.)
+*Note:* The implementations of `Accept()` seem to be identical for all child classes of `DocumentPart`. However, we can't move the code into the base class because `IVisitor` doesn't have an method `Visit(DocumentPart)` but only for the concrete implementations. (We could solve this through reflection, though, but would lose compile-time checking.)
 
 === Putting It All Together ===
 Now, to convert a document to HTML we can use this code:
@@ -318,7 +318,7 @@ public class LatexVisitor : IVisitor {
 
 The implementation of the actual document classes remain unchanged.
 
-//Side note:// If you're wondering whether `Accept` is a good name or whether the method should be renamed (e.g. to `Convert`): Check whether operations other than conversions are possible. For example, one could implement a `BoldTextCountVisitor` or a `UrlExtractorVisitor`. If such operations are possible, you should stick with the name `Accept` - as this communicates that the visitor pattern is being used here.
+*Side note:* If you're wondering whether `Accept` is a good name or whether the method should be renamed (e.g. to `Convert`): Check whether operations other than conversions are possible. For example, one could implement a `BoldTextCountVisitor` or a `UrlExtractorVisitor`. If such operations are possible, you should stick with the name `Accept` - as this communicates that the visitor pattern is being used here.
 
 
 == The Actual Problem Being Solved ==
@@ -350,9 +350,9 @@ SpaceShip ship = new ApolloSpacecraft();
 Console.WriteLine(ship.GetShipType());
 ```
 
-This will print "ApolloSpacecraft". The actual method implementation to be called is chosen **at runtime** based solely on the actual type of `ship`. So, only the type of a //single// object is used to select the method, hence the name //single// dispatch.
+This will print "ApolloSpacecraft". The actual method implementation to be called is chosen **at runtime** based solely on the actual type of `ship`. So, only the type of a *single* object is used to select the method, hence the name *single* dispatch.
 
-//Note:// "Single dispatch" is one form of "dynamic dispatch", i.e. the method is chosen at runtime. If the method is chosen at compile time (true for all non-virtual methods), it's called "static dispatch".
+*Note:* "Single dispatch" is one form of "dynamic dispatch", i.e. the method is chosen at runtime. If the method is chosen at compile time (true for all non-virtual methods), it's called "static dispatch".
 
 === Double Dispatch ===
 Let's add some asteroids:
@@ -413,7 +413,7 @@ SpaceShip theApolloSpacecraftRef = new ApolloSpacecraft();
 theExplodingAsteroidRef.CollideWith(theApolloSpacecraftRef);
 ```
 
-The desired result here would be "ExplodingAsteroid hit an //ApolloSpacecraft//" but instead we get "ExplodingAsteroid hit a //SpaceShip//".
+The desired result here would be "ExplodingAsteroid hit an *ApolloSpacecraft*" but instead we get "ExplodingAsteroid hit a *SpaceShip*".
 
 The problem is that C# (and Java, C++, ...) only supports single dispatch, but not double dispatch. The method chosen is **only** based on `theExplodingAsteroidRef`, but not on `theExplodingAsteroidRef` **and** `theApolloSpacecraftRef` (which would be double dispatch).
 
@@ -469,7 +469,7 @@ One problem is the iteration order.
 
 For example, if you define a visitor pattern on a tree, the iteration may be depth-first or breadth-first.
 
-So, if you have some operation (visitor) that requires a certain iteration order, you //may// have a problem.
+So, if you have some operation (visitor) that requires a certain iteration order, you *may* have a problem.
 
 For example, you could implement the visitor pattern for saving a data structure to disk where each visitor represents a different file format. This would allow you to easily add new file formats later. However, this only works as long as all file formats store the data **in the same order**. If two formats require different orders, this pattern doesn't work anymore.
 

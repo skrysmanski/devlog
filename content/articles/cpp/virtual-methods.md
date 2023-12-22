@@ -114,15 +114,15 @@ From base class: in base class
 From sub class: in sub class
 ```
 
-Note how the //base class' implementation// of `test()` is used in the base class constructor while the //sub class' implementation// of `test()` is used in the sub class constructor.
+Note how the *base class' implementation* of `test()` is used in the base class constructor while the *sub class' implementation* of `test()` is used in the sub class constructor.
 
 The problem here (in constrast to C# or Java) is that the sub class constructor hasn't been executed yet and therefore the "redirection" from `TestBaseClass::test()` to `TestSubClass::test()` hasn't been established yet.
 
-  **Rule: There is //no way// to call a sub class' implementation of a virtual function in the base class constructor!**
+  **Rule: There is *no way* to call a sub class' implementation of a virtual function in the base class constructor!**
 
 The problem becomes even more severe with **pure virtual** (which is `abstract` in C# and Java) methods. These methods don't even have an implementation in the base class and therefore can't be executed at all.
 
-**For your interest:** A //C++/CLI// class will behave like a C# class (and not like a C++ class).
+**For your interest:** A *C++/CLI* class will behave like a C# class (and not like a C++ class).
 
 = Example Visual Studio Solution =
 I've created a solution (for Visual Studio 2010) containing the source code above. In addition to a C# and a C++ project, I've also added a C++/CLI project. You can download it here:

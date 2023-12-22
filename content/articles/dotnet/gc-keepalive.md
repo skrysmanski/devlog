@@ -50,9 +50,9 @@ void MyMethod()
 }
 ```
 
-The garbage collector //may// collect `obj` just after the runtime has retrieved `obj.Value` (line 15), i.e. before `SomeOtherMethod()` is even called.
+The garbage collector *may* collect `obj` just after the runtime has retrieved `obj.Value` (line 15), i.e. before `SomeOtherMethod()` is even called.
 
-//Note:// The exact line where `obj` will be marked for collection is up to the JIT compiler. The behavior describe above seems to be called "lookahead optimization".
+*Note:* The exact line where `obj` will be marked for collection is up to the JIT compiler. The behavior describe above seems to be called "lookahead optimization".
 
 Usually this optimization not a problem. It becomes a problem, however, if `SomeClass` has a finalizer:
 
@@ -86,9 +86,9 @@ void MyMethod()
 
 This way, the garbage collector won't collect `obj` (and thus run its finalizer) before line 5 has been reached.
 
-//Notes://
+*Notes:*
 * The implementation of the finalizer of `SomeClass` is flawed - as the examples in this article show. The user shouldn't need to worry about `Value` being disposed too early.
-** Rule of thumb: A finalizer should only dispose the resources of its //own// class, not resources of some member (by calling `Dispose()` on members).
+** Rule of thumb: A finalizer should only dispose the resources of its *own* class, not resources of some member (by calling `Dispose()` on members).
 ** The problem with the finalizer persists if `Value` is an unmanaged resource/pointer that's being passed to `SomeOtherMethod()`. This is always possible in C++/CLI. In C# `Value` could be of type `IntPtr`.
 ** In the examples above, consider implementing and using `IDisposable` for `SomeClass` instead of `GC.KeepAlive()`, if you need a finalizer.
 ** You still need to use `GC.KeepAlive()` if you can't change the implementation of `SomeClass`.

@@ -8,7 +8,7 @@ topics:
 draft: true
 ---
 
-In a local network (or any other network), it's desirable to be able to find computers by //name// rather than by //ip address//.
+In a local network (or any other network), it's desirable to be able to find computers by *name* rather than by *ip address*.
 
 So, instead of using:
 
@@ -36,7 +36,7 @@ Unfortunately, I recently was forced to switch to a less "superior" router that 
 == Multicast DNS ==
 Fortunately, a solution exists and this solution is called **Multicast DNS** (short: mDNS).
 
-Multicast DNS lets you find computers on your //local// network by name. You just have to add `.local` to the computer's name.
+Multicast DNS lets you find computers on your *local* network by name. You just have to add `.local` to the computer's name.
 
 So, to ping a computer called **marvin** you'd use:
 
@@ -52,7 +52,7 @@ Bonjour seems to have a wider adoption so I'm concentrating on this.
 Here's what you need:
 
  * **Windows:** If you have iTunes installed, you're ready to go. If you don't want to install iTunes, you'll need to install the [Bonjour Print Services for Windows](http://support.apple.com/kb/DL999). (Don't be bothered by the "printing" part in the name. The package is a fully functional mDNS solution and it's the only standalone Bonjour package available for Windows anyway.)
- * **Linux:** You need //Avahi// which is compatible with Bonjour. On Ubuntu/Debian, you need two packages: **avahi-daemon** (to be visible on the network) and **libnss-mdns** (to be able to find other computers)
+ * **Linux:** You need *Avahi* which is compatible with Bonjour. On Ubuntu/Debian, you need two packages: **avahi-daemon** (to be visible on the network) and **libnss-mdns** (to be able to find other computers)
  * **OS X:** Everything is pre-installed. You don't need anything else.
 
 **Notes:**

@@ -20,11 +20,11 @@ The BIOS usually lets you define this order. Either all devices are in one big l
 
 Now, when you install Windows, the setup asks the BIOS for this list. And no matter what you do, Windows Setup will **always install the boot manager on the first hard disk** in this boot order list.
 
-In particular, the disk on which you want to install Windows has //no influence// on where the boot manager is being installed.
+In particular, the disk on which you want to install Windows has *no influence* on where the boot manager is being installed.
 
 So, the only way to influence the location of the boot manager is to change to boot order in the BIOS.
 
-//Side note:// New devices are usually added to the end of the boot order list. So if you have multiple hard drives and replace one (e.g. because the old one was broken or too small), the new drive may end up at the //end// of the list - and not at the position where the replaced drive was before; thus messing up the boot order.
+*Side note:* New devices are usually added to the end of the boot order list. So if you have multiple hard drives and replace one (e.g. because the old one was broken or too small), the new drive may end up at the *end* of the list - and not at the position where the replaced drive was before; thus messing up the boot order.
 
 == Determining the Boot Manager Partition ==
 So, how can one determine the location of where boot manager is installed?
@@ -32,7 +32,7 @@ So, how can one determine the location of where boot manager is installed?
 === From Windows Setup ===
 Determining on which drive Windows Setup will install the boot manager onto is almost impossible from Windows Setup itself.
 
-The only //hint// you get, is if:
+The only *hint* you get, is if:
 
  * your installation disk has no partitions (i.e. is empty) ...
  * .. and then you can create a partition on this disk.
@@ -45,7 +45,7 @@ If this happens and you click on "OK", Windows Setup will automatically create a
 
 [[image:boot-manager-in-windows-setup.jpg|center|medium|link=source]]
 
-If this doesn't happen the boot manager may or may not be installed in the correct location. If this is the case, you can only check the location //after// Windows has been installed.
+If this doesn't happen the boot manager may or may not be installed in the correct location. If this is the case, you can only check the location *after* Windows has been installed.
 
 === From Windows ===
 To determine the partition where the boot manager is installed, go to:

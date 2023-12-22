@@ -11,7 +11,7 @@ I recently stumbled over [R](http://www.r-project.org/), a programming language 
 
 This post is about how to display (draw) a mathematical function with R.
 
-//Side note:// There's a very nice and interactive [tutorial for R](http://www.codeschool.com/courses/try-r) available over at [codeschool.com](http://www.codeschool.com/). It's free and takes about 3 - 4 hours to complete.
+*Side note:* There's a very nice and interactive [tutorial for R](http:*www.codeschool.com/courses/try-r) available over at [codeschool.com](http:*www.codeschool.com/). It's free and takes about 3 - 4 hours to complete.
 
 <!--more-->
 
@@ -23,7 +23,7 @@ Let's start with something simple:
 curve(x^2)
 ```
 
-This will plot the function //x^^2^^// and will look like this:
+This will plot the function *x^^2^^* and will look like this:
 
 [[image:curve1.png|center|medium|link=source]]
 
@@ -35,7 +35,7 @@ Of course, we can manually specify the range for the values on the x axis:
 curve(x^2, -4, 3)
 ```
 
-This will plot //x^^2^^// with `-4..3`:
+This will plot *x^^2^^* with `-4..3`:
 
 [[image:curve2.png|center|medium|link=source]]
 

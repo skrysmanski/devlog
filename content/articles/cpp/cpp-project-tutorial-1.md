@@ -23,10 +23,10 @@ Static libraries (`.lib`) are "merged" into the final `.exe` file when the whole
 
 Dynamic libraries (`.dll`) on the other hand remain separate from the final `.exe` file in their own files. (See more information [here](http://msdn.microsoft.com/en-us/library/1ez7dh12.aspx).)
 
-In this article we'll create a //dynamic// library.
+In this article we'll create a *dynamic* library.
 
 == Creating the Library Project ==
-To create a library project in Visual C++ 2010 (that is a part of Visual Studio 2010) in an //existing// solution, choose `Add` --> `New Project...` from the solution's context menu in the "Solution Explorer" window.
+To create a library project in Visual C++ 2010 (that is a part of Visual Studio 2010) in an *existing* solution, choose `Add` --> `New Project...` from the solution's context menu in the "Solution Explorer" window.
 
 [[image:add-new-project.png|center|medium|link=source]]
 
@@ -116,11 +116,11 @@ class MYLIBRARY_EXPORT PrintableInt
 }
 ```
 
-For this to work, you add the preprocessor definition `COMPILE_MYLIBRARY` to the library project (but //not// to the projects using the library). This way `MYLIBRARY_EXPORT` will be replaced by `__declspec(dllexport)` when compiling the library project and by `__declspec(dllimport)` when using the project (from another project). To specify this preprocessor, go to the library project's settings and enter the name `COMPILE_MYLIBRARY` in the field "Preprocessor Definitions". You should also make sure to select "All Configuration" from the "Configuration" dropdown field (see screenshot) so that this definition gets added to the Debug //and// Release configuration.
+For this to work, you add the preprocessor definition `COMPILE_MYLIBRARY` to the library project (but *not* to the projects using the library). This way `MYLIBRARY_EXPORT` will be replaced by `__declspec(dllexport)` when compiling the library project and by `__declspec(dllimport)` when using the project (from another project). To specify this preprocessor, go to the library project's settings and enter the name `COMPILE_MYLIBRARY` in the field "Preprocessor Definitions". You should also make sure to select "All Configuration" from the "Configuration" dropdown field (see screenshot) so that this definition gets added to the Debug *and* Release configuration.
 
 [[image:preprocessor-definition.png|center|medium|link=source]]
 
-//Note:// The keyword `__declspec(...)` is a Microsoft specific extension to C++ (see [here](http://msdn.microsoft.com/en-us/library/3y1sfaz2.aspx)). So it only works in Visual C++. There is an alternative (more portable?) way to specify which classes/functions are to be exported. For this, a "Module-Definition File" (`.def`) needs to be created. However, creating such a file is more tedious than specifying the export statement directly in the code. For more information, see [this article](http://www.codeguru.com/cpp/cpp/cpp_mfc/tutorials/article.php/c9855).
+*Note:* The keyword `__declspec(...)` is a Microsoft specific extension to C++ (see [here](http:*msdn.microsoft.com/en-us/library/3y1sfaz2.aspx)). So it only works in Visual C++. There is an alternative (more portable?) way to specify which classes/functions are to be exported. For this, a "Module-Definition File" (`.def`) needs to be created. However, creating such a file is more tedious than specifying the export statement directly in the code. For more information, see [this article](http:*www.codeguru.com/cpp/cpp/cpp_mfc/tutorials/article.php/c9855).
 
 Now, when you compile the library project, an additional `.lib` file will be created. This file is used to import the exported classes/functions in another project. (If you don't export anything, the file won't be created.) How to do this, is explained in [[1722|part two of this mini series]].
 
@@ -177,7 +177,7 @@ std::string PrintableInt<T>::toString() const
 
 This adds the type parameter `T` to the class. Note that `__declspec(dllimport)` has been commented out to demonstrate the problem.
 
-//Note:// The type parameter `T` serves no purpose in this implementation. It's just there to demonstrate the problem.
+*Note:* The type parameter `T` serves no purpose in this implementation. It's just there to demonstrate the problem.
 
 Now, assume another project using the library project like this:
 

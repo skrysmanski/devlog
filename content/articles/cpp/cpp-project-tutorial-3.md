@@ -8,9 +8,9 @@ topics:
 draft: true
 ---
 
-In this part of the "Projects in Visual C++ 2010" mini series another important aspect of C++ programming is explain: //precompiled headers//. Precompiled headers (or precompiled header files) in many cases significantly reduce the time needed to compile a project.
+In this part of the "Projects in Visual C++ 2010" mini series another important aspect of C++ programming is explain: *precompiled headers*. Precompiled headers (or precompiled header files) in many cases significantly reduce the time needed to compile a project.
 
-Here at work I have a C++ project with about 50 `.cpp` files in it. The project uses the Qt library and all files only include the absolute minimum of header files required. Without precompiled headers, compiling the project takes about 56 seconds. //With// precompiled headers, the compile time goes down to about 7 seconds. That's eight times faster.
+Here at work I have a C++ project with about 50 `.cpp` files in it. The project uses the Qt library and all files only include the absolute minimum of header files required. Without precompiled headers, compiling the project takes about 56 seconds. *With* precompiled headers, the compile time goes down to about 7 seconds. That's eight times faster.
 
 **Related Articles:**
 * [[1725]]
@@ -23,7 +23,7 @@ The procedure described here only applies to Visual C++ (if I'm correct since ve
 == The Problem ==
 The problem precompiled headers solve is the long compile time when compiling a C++ project. (Note that other languages such as Java or C# don't have this problem.) The underlying problem is the `#include <...>` statement. This simply copies the whole content of the file included into the source file. While one header file may not be that big, it may also include other header files. When using a framework (such as Qt or even Win32), one include statement will import a huge amount of source code. And this huge amount is what takes so long when compiling a C++ project. Furthermore, if this huge amount gets included in every source code file, all of it has to be compiled again for every source file.
 
-So, the idea is to (pre)compile these huge amount of source code //once//, and then reuse it in every source code file of the project. This drastically reduces the compile time required.
+So, the idea is to (pre)compile these huge amount of source code *once*, and then reuse it in every source code file of the project. This drastically reduces the compile time required.
 
 == Specifying the precompiled header (stdafx.h) ==
 To be able to use a precompiled header in Visual C++, one first needs to specify which headers shall be precompiled. Visual C++ only allows one precompiled header file per project. By default, it's called **stdafx.h**. This name can be changed in the project settings under "C++" --> "Precompiled Headers" --> "Precompiled Header File".
@@ -49,7 +49,7 @@ To enable precompiled headers in a project (or file), open the project settings 
 
 [[image:enable-precompiled-headers.png|center|medium|link=source]]
 
-The next thing you need to do is to `#include "..."` the precompiled header file in every source file (`.cpp`). You shouldn't (can't?) include it in the header files (`.h`) but only in the `.cpp` file. Also, the include statement must be //the first statement// in the file (only comments or whitespace is allowed above it). This is because Visual C++ assumes that everything before the include statement is already compiled.
+The next thing you need to do is to `#include "..."` the precompiled header file in every source file (`.cpp`). You shouldn't (can't?) include it in the header files (`.h`) but only in the `.cpp` file. Also, the include statement must be *the first statement* in the file (only comments or whitespace is allowed above it). This is because Visual C++ assumes that everything before the include statement is already compiled.
 
 So the beginning of a `.cpp` file in your project may look like this:
 
@@ -72,7 +72,7 @@ For this you need to add a new `.cpp` file to your project. By convention, it ha
 #include "stdafx.h"
 ```
 
-Next, you need to go to the //file's// settings (via context menu) and change the value of "Precompiled Header" from "Use" to "Create".
+Next, you need to go to the *file's* settings (via context menu) and change the value of "Precompiled Header" from "Use" to "Create".
 
 [[image:creating-precompiled-header.png|center|medium|link=source]]
 

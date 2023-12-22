@@ -8,7 +8,7 @@ topics:
 draft: true
 ---
 
-Recently, I wanted to try out the new [.NET Core](https://www.microsoft.com/net/core) together with a [Docker](https://www.docker.com/) container. However, coming from programing .NET applications for the regular .NET Framework, there were some obstacles I encountered. This one is about NuGet packages.
+Recently, I wanted to try out the new [.NET Core](https:*www.microsoft.com/net/core) together with a [Docker](https:*www.docker.com/) container. However, coming from programing .NET applications for the regular .NET Framework, there were some obstacles I encountered. This one is about NuGet packages.
 
 <!--more-->
 
@@ -104,7 +104,7 @@ Error: assembly specified in the dependencies manifest was not found
 Not what one would expect.
 
 == The Problem(s) ==
-The problem here is that - unlike .NET projects for the regular //.NET Framework// - the build process for a //.NET Core// project (`dotnet build`) does **not** copy any dependencies into the output folder.
+The problem here is that - unlike .NET projects for the regular *.NET Framework* - the build process for a *.NET Core* project (`dotnet build`) does **not** copy any dependencies into the output folder.
 
 If you look into `bin\Debug\netcoreapp1.0` you'll find no `Newtonsoft.Json.dll` file there.
 

@@ -103,7 +103,7 @@ function LongNumericString {
 == Function Return Values = Function Output ======
 Back to our initial script. Now that we know how PowerShell composes return values for functions, why didn't `PrintAndReturnSomething` return just `42`?
 
-One needs to understand that **PowerShell doesn't actually care about return value but rather about output of functions**. The return value is just considered to be //a part// of the output. This way, PowerShell doesn't just allow you to pipe text (like `ls -l | sort` in bash), but to [pipe actual objects](http://technet.microsoft.com/en-us/library/ee176927.aspx).
+One needs to understand that **PowerShell doesn't actually care about return value but rather about output of functions**. The return value is just considered to be *a part* of the output. This way, PowerShell doesn't just allow you to pipe text (like `ls -l | sort` in bash), but to [pipe actual objects](http://technet.microsoft.com/en-us/library/ee176927.aspx).
 
 For example, `Get-ChildItem C:\ | Format-Table Name, Length` is the same as:
 

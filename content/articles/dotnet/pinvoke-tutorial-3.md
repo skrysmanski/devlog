@@ -82,7 +82,7 @@ typedef struct {
 void do_something(MyClass* data);
 ```
 
-//Note:// Obviously the order of the fields in the native struct and the managed class //must be exactly the same//.
+*Note:* Obviously the order of the fields in the native struct and the managed class *must be exactly the same*.
 
 = Marshalling Structs ====================
 Marshalling managed `struct`s is almost identical to marshalling objects with only one difference: `struct`s are passed by copy by default.

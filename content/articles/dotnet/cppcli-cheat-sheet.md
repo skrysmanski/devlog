@@ -35,7 +35,7 @@ C++/CLI allows for two reference/pointer types:
 * **handles (^):** Handles are the references as they're used in C# (or all other .NET languages). Handles are garbage collected (meaning you don't need to free them manually) and are created by `gcnew` (instead of `new` with pointers).
   Example: `String^`, `array<String^>^`
 
-The members of //handles// are accessed with the "->" operator (and not with the "." operator).
+The members of *handles* are accessed with the "->" operator (and not with the "." operator).
 
 
 = CLR types ================================
@@ -48,7 +48,7 @@ A type (class, struct) becomes a CLR type when it's being prefixed with a specif
    ** **C# interface:** `interface class`, ~~`interface struct`~~
    ** **C# enum:** `enum class`, `enum struct`
 
-//Notes://
+*Notes:*
 * In C++ `struct` and `class` can be used interchangeably with the difference that all C++ `struct` members are public by default while all C++ `class` members are private by default. To avoid confusion `ref struct`, `value class`, and `interface struct` should not be used. There are therefore stroke-through in the list above. For an `interface class`, however, all members are public automatically.
 * Don't forget to terminate a type declaration (even `class`es and `struct`s) with a semicolon; i.e. use `ref class MyClass { };`. Otherwise you will get compiler errors. (Just mention this here as this is not necessary in C#.)
 * In C++/CLI a CLR type can be used as a handle or directly on the stack, i.e.: `MyCLRType^ myHandleVar` (handle on heap) vs. `MyCLRType myStackVar` (stack)
@@ -94,7 +94,7 @@ MyEnum Test2() {
 
 Using a handle on a value type essentially create a [boxed](http://msdn.microsoft.com/en-us/library/yz2be5wk%28v=vs.80%29.aspx) version of that value type. In managed code, all `value struct`s will be converted into `ValueType` types and all `enum class`es will be converted into `Enum` types.
 
-For example the following C++/CLI code (with `Point` being a //value type// and `MyEnum` being an //enum class//):
+For example the following C++/CLI code (with `Point` being a *value type* and `MyEnum` being an *enum class*):
 
 ```c++/cli
 public ref class MyTestClass {
@@ -174,7 +174,7 @@ This section gives a quick overview what is allowed with handles and what isn't.
 |Fields with native type                                    | Yes (direct and pointer)     | Only pointer             |
 |Fields with managed type                                   | value types directly; handles via `gcroot` (see below) | Values types and handles |
 
-//Important:// Passing pointers of native types across assembly (dll) boundaries requires some more work. See [[1832]] for more information.
+*Important:* Passing pointers of native types across assembly (dll) boundaries requires some more work. See [[1832]] for more information.
 
 To be able to store a handle as field in a native class, wrap it in a [gcroot](http://msdn.microsoft.com/library/481fa11f.aspx) instance, like so: `gcroot<String^> m_myMember`.
 
@@ -236,7 +236,7 @@ private value struct MyStruct { }; // internal struct
 
 Classes/structs without visibility modifier will be interpreted as `internal` (which is `private` in C++/CLI).
 
-Beside using a single visibility modifier, C++/CLI allows the programmer to specify //two modifiers//. The rule here is: The higher visibility is used inside the assembly and the lower visibility outside the assembly.
+Beside using a single visibility modifier, C++/CLI allows the programmer to specify *two modifiers*. The rule here is: The higher visibility is used inside the assembly and the lower visibility outside the assembly.
 
 Here's a list of supported modifiers:
 
@@ -257,7 +257,7 @@ If the modifiers `abstract` and `sealed` needs to be specified after the class n
 public ref class MyTestClass2 abstract : MyTestClass { };
 ```
 
-The meaning of these keywords translates directly into C#. //Combining both keywords// results in a `static` C# class/struct.
+The meaning of these keywords translates directly into C#. *Combining both keywords* results in a `static` C# class/struct.
 
 For members (methods and fields) the keywords `abstract` and `sealed` must be specified after the parameter list:
 
@@ -304,10 +304,10 @@ public class MyClass {
 = Inheritance ================================
 Inheritance for CLR types is like you know it from C#. Therefore just some notes:
 
- * //Only public inheritance// is allowed for CLR types. This doesn't work:
+ * *Only public inheritance* is allowed for CLR types. This doesn't work:
    `ref class Derived1 : private Base {}; // which would be allowed in C++`
    If no visibility is specified, `public` will be assumed automatically.
- * //Multiple inheritance// isn't supported by the CLR (although it is by C++).
+ * *Multiple inheritance* isn't supported by the CLR (although it is by C++).
  * "value" types can only inherit interfaces but not classes.
  * "value" types are automatically sealed.
 
@@ -334,7 +334,7 @@ Accessing an element works like in C# or C++:
 myArray[5]  // retrieves or sets the 6th array element
 ```
 
-All C++/CLI arrays are direct subclasses of `System::Array`. Thus, the //size of an array// can be obtained through the property `Length`.
+All C++/CLI arrays are direct subclasses of `System::Array`. Thus, the *size of an array* can be obtained through the property `Length`.
 
 More information:
  * [General information on C++/CLI arrays](http://msdn.microsoft.com/de-de/library/ts4c4dw6(v=VS.100).aspx)
@@ -347,7 +347,7 @@ The easiest way to define a .NET property is like this:
 property String^ MyProperty;
 ```
 
-This is called a //trivial property// and the compiler will automatically generate a getter and a setter for this property. So, basically it's identical to `string MyProperty { get; set; }` in C#.
+This is called a *trivial property* and the compiler will automatically generate a getter and a setter for this property. So, basically it's identical to `string MyProperty { get; set; }` in C#.
 
 Note, however, that there is no way to make a trivial property where getter or setter has another visibility than the property - eg. `string MyProperty { get; private set; }` has no equivalent in C++/CLI. Also you can't make read-only or write-only trivial properties in C++/CLI.
 
@@ -430,9 +430,9 @@ protected:
 };
 ```
 
-You only need destructor //and// finalizer when the class hosts some unmanaged data (e.g. a pointer to a C++ class). If you don't have unmanaged data in your class, you neither need destructor nor finalizer (unless you have some members implementing `IDisposable`).
+You only need destructor *and* finalizer when the class hosts some unmanaged data (e.g. a pointer to a C++ class). If you don't have unmanaged data in your class, you neither need destructor nor finalizer (unless you have some members implementing `IDisposable`).
 
-//Note:// The destructor (`Dispose()`) will **not** be called automatically from the finalizer.
+*Note:* The destructor (`Dispose()`) will **not** be called automatically from the finalizer.
 
 Since freeing unmanaged resources should occur in the finalizer (see [[1886]]), the default implementation pattern for finalizer and destructor looks like this:
 
@@ -544,7 +544,7 @@ Calling an event is identical to calling a delegate:
 this->MyCustomEvent(this, EventArgs::Empty);
 ```
 
-//Note:// Checking the event against `nullptr` isn't required in C++/CLI (unlike C#). That's because the event's `raise()` method automatically checks whether there are actually any event handlers ([source](http://stackoverflow.com/a/2014752/614177)).
+*Note:* Checking the event against `nullptr` isn't required in C++/CLI (unlike C#). That's because the event's `raise()` method automatically checks whether there are actually any event handlers ([source](http://stackoverflow.com/a/2014752/614177)).
 
 = Templates and Generics ================
 C++/CLI classes can use C++ templates as well as .NET generics. Since templates aren't visible in .NET (but generics are), we'll skip them here. See the link below for more information.
@@ -596,7 +596,7 @@ T MyClass::ReturnNull() {
 }
 ```
 
-//Note:// The syntax of `T()` may be misleading. It does **not** create an instance of `T` on the stack and call `T`'s default constructor (as the syntax would suggest). It indeed results in `nullptr`.
+*Note:* The syntax of `T()` may be misleading. It does **not** create an instance of `T` on the stack and call `T`'s default constructor (as the syntax would suggest). It indeed results in `nullptr`.
 
 
 = Referencing managed type from other file (in the same project) ======================================================
@@ -610,7 +610,7 @@ void MyClass::MyMethod() {
 }
 ```
 
-Using a managed type that comes //from another file in the same project// on the other hand requires you to include it in the file you want to use it. Or to be more precise: You need to include its method signatures (`.h` file( - not the actual implementation (`.cpp` file).
+Using a managed type that comes *from another file in the same project* on the other hand requires you to include it in the file you want to use it. Or to be more precise: You need to include its method signatures (`.h` file( - not the actual implementation (`.cpp` file).
 
 ```c++/cli
 #include "MyOtherClass.h"

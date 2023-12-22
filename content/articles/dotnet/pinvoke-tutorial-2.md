@@ -25,19 +25,20 @@ private static extern void print_line(string str);
 
 However, there exists a hidden pitfall here:
 
-  //What happens when the user passes a **non-ASCII** character to this function?//
+*What happens when the user passes a **non-ASCII** character to this function?*
+
 <!--more-->
 
 = ASCII and Unicode: A Historical Overview =========
-Historically there was ASCII which defined characters up to character number 127 (i.e. everything that fits into 7 bits). However, these 128 characters contained only letters used in English. Umlauts (like Ã¤, Ã¶, Ã¼) and other characters were not present. So, the 8th bit was used to map these characters, but the mapping was not standardized. Basically each country had its own mapping of the region 128 - 255. These different mapping were called //code pages//.
+Historically there was ASCII which defined characters up to character number 127 (i.e. everything that fits into 7 bits). However, these 128 characters contained only letters used in English. Umlauts (like Ã¤, Ã¶, Ã¼) and other characters were not present. So, the 8th bit was used to map these characters, but the mapping was not standardized. Basically each country had its own mapping of the region 128 - 255. These different mapping were called *code pages*.
 
 For example, on code page 850 (MS-DOS Latin 1) the character number 154 is &#x00DC; (German Umlaut) while on code page 855 (MS-DOS Cyrillic) the very same character number represents &#x045F; (Cyrillic small letter DZHE).
 
-To unify these different mapping the //Unicode standard// was established in 1991. The idea was (and is) to give each existing character a unique id. These ids are called //code points//. So basically the Unicode standard is "just" a much bigger version of the ASCII standard. The latest version as of writing is Unicode version 6.1 which covers over 110,000 characters.
+To unify these different mapping the *Unicode standard* was established in 1991. The idea was (and is) to give each existing character a unique id. These ids are called *code points*. So basically the Unicode standard is "just" a much bigger version of the ASCII standard. The latest version as of writing is Unicode version 6.1 which covers over 110,000 characters.
 
-Along with the Unicode standard several //encodings// were developed. Each encoding describes how to convert Unicode code points into bytes. The most famous ones are //UTF-8// and //UTF-16//.
+Along with the Unicode standard several *encodings* were developed. Each encoding describes how to convert Unicode code points into bytes. The most famous ones are *UTF-8* and *UTF-16*.
 
-Please note that //all// encodings can encode //all// Unicode code points. They just differ in the way they do this.
+Please note that *all* encodings can encode *all* Unicode code points. They just differ in the way they do this.
 
 If you want to experiment a little bit with Unicode, there is a [Unicode Explorer](http://unicode.mayastudios.com) I've written. Go ahead and give it a try.
 
@@ -61,7 +62,7 @@ The only difference here it that we specified the `CharSet` to be Unicode.
 
 With this, **C# will pass strings as UTF-16 encoded strings** to the C++ function.
 
-UTF-16 is, as said before, an encoding the converted Unicode code points into bytes and the other way around. In UTF-16 each code point is either encoded with one or with two `WORD`s (16 bit values). The most frequently used code points will fit into one `WORD`, the less frequently used code points fit into two `WORD`s (called a "//surrogate pair//").
+UTF-16 is, as said before, an encoding the converted Unicode code points into bytes and the other way around. In UTF-16 each code point is either encoded with one or with two `WORD`s (16 bit values). The most frequently used code points will fit into one `WORD`, the less frequently used code points fit into two `WORD`s (called a "*surrogate pair*").
 
 **Important:** There is no ISO C way of how to print Unicode characters to the console. `wprintf()` won't work - at least on Windows.
 

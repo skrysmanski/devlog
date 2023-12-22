@@ -117,9 +117,9 @@ class Server {
 
 The important code here is in `Run()`.
 
-First, we create an instance of [ServiceHost](http://msdn.microsoft.com/library/ms554652.aspx) and pass the service //implementation// to it.
+First, we create an instance of [ServiceHost](http:*msdn.microsoft.com/library/ms554652.aspx) and pass the service *implementation// to it.
 
-Next, we add an endpoint for the host (i.e. where the client will connect to). Here we specified the service //interface// because the service implementation could implement multiple services.
+Next, we add an endpoint for the host (i.e. where the client will connect to). Here we specified the service *interface* because the service implementation could implement multiple services.
 
 Last, we start the service host with `Open()`.
 

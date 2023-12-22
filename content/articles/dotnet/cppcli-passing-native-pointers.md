@@ -7,7 +7,7 @@ topics:
 draft: true
 ---
 
-[[1439|C++/CLI]] allows you to mix native C++ code with managed .NET code (which is extremly nice). Mixing such code also allows you to create methods in a .NET class that take or return pointers to native (C++) classes. Unfortunately, this doesn't work out of the box across assemblies (read: DLLs). If you define a .NET class in one assembly and this class has a method that returns a pointer, you may not be able to use this method from within //another// C++/CLI assembly.
+[[1439|C++/CLI]] allows you to mix native C++ code with managed .NET code (which is extremly nice). Mixing such code also allows you to create methods in a .NET class that take or return pointers to native (C++) classes. Unfortunately, this doesn't work out of the box across assemblies (read: DLLs). If you define a .NET class in one assembly and this class has a method that returns a pointer, you may not be able to use this method from within *another* C++/CLI assembly.
 
 This article describes the problem and shows solutions.
 
@@ -17,14 +17,14 @@ This article describes the problem and shows solutions.
 For those of you that don't want to read the whole article, here's the summary:
 
  * Library providing method with native type:
- ** Native types //outside// a C++/CLI project need to be made public in a C++/CLI project via ` #pragma make_public(Type)`
- ** Native types //inside// a C++/CLI project need to be made public via keyword `public`.
+ ** Native types *outside* a C++/CLI project need to be made public in a C++/CLI project via ` #pragma make_public(Type)`
+ ** Native types *inside* a C++/CLI project need to be made public via keyword `public`.
  ** This pragma has to be written in the `.h` file
  ** To prevent C3767, include the `.h` file before the pragma (i.e. don't just use a forward declaration).
  * Library using the method:
  ** Needs to include `.h` file of native type
- ** Forward declaration //may// not be enough (gives linker warning)
- ** If the native type is defined //inside// a C++/CLI project, the project must be reference in the project settings via "Add Reference" //as well as// "Linker --> Input".
+ ** Forward declaration *may* not be enough (gives linker warning)
+ ** If the native type is defined *inside* a C++/CLI project, the project must be reference in the project settings via "Add Reference" *as well as* "Linker --> Input".
 
 = Preparation =
 To illustrate the problem, we first create some projects that we can use as basis. Each project will only contain one or two classes, so nothing fancy here. I'll assume you know how to create projects and how to enable and disable the `/clr` compiler switch to create C++/CLI and pure C++ project respectivly.
@@ -150,10 +150,10 @@ void InternalTestClass::doSomething() {
 }
 ```
 
-`doSomething()` doesn't do anything useful, but the point is that the project //compiles//. So, this shows that we //can// return the pointer to a native class here.
+`doSomething()` doesn't do anything useful, but the point is that the project *compiles*. So, this shows that we *can* return the pointer to a native class here.
 
 == What doesn't work a.k.a "The Problem" ==
-Now, after having a working example, we'll explore the actual problem. For this, we create a new C++/CLI project (called "ManagedExternalLib") and add a managed class called `ExternalTestClass`. This will have the //same code// as `InternalTestClass`. The only difference is that `ExternalTestClass` is in a different project than its base class `ManagedProvider`. Here's the project structure:
+Now, after having a working example, we'll explore the actual problem. For this, we create a new C++/CLI project (called "ManagedExternalLib") and add a managed class called `ExternalTestClass`. This will have the *same code* as `InternalTestClass`. The only difference is that `ExternalTestClass` is in a different project than its base class `ManagedProvider`. Here's the project structure:
 
 ```
 NativeLib (pure C++)
@@ -219,7 +219,7 @@ public ref class ManagedProvider {
 };
 ```
 
-//Notes://
+*Notes:*
 * Using `make_public` in a `.cpp` file instead of an `.h` file may result in the linker error [LNK2022](http://msdn.microsoft.com/de-de/library/zkf0dz41.aspx) (metadata operation failed).
 * The code above swapped the forward declaration (`class MyNativeClass.h`) with the ` #include` statement. This is to be on the safe side. Forward declarations work in some cases, while they don't work in others (resulting again in C3767 compiler errors).
 
@@ -238,7 +238,7 @@ void ExternalTestClass::doSomething() {
 
 Of course, this also allows you to actually do something (e.g. call methods) with the `nativeClass` pointer.
 
-//Note:// If you only want to store a pointer to a native class (i.e. don't do anything with it), you don't need to link against the native type's `.lib` file.
+*Note:* If you only want to store a pointer to a native class (i.e. don't do anything with it), you don't need to link against the native type's `.lib` file.
 
 == Native Types From C++/CLI Projects ==
 The pragma `make_public` is used for native types defined in header file you can't change. If, on the other hand, the native type is part of your C++/CLI project ("ManagedProviderLib" in this case), you can prefix the class definition with the keyword `public` (like you would for a managed type):
@@ -259,9 +259,9 @@ public class PRODUCER_LIB_EXPORT MySecondNativeClass {
 };
 ```
 
-This keyword is only available in C++/CLI projects and has the same effect like `make_public`. ~~Unfortunately, I wasn't able to get this example working, because I couldn't figure out a way to //export// the methods of that type. I'll update this section if I find some new information on that topic. (I've raised [this question at stackoverflow.com](http://stackoverflow.com/questions/8786491/export-native-type-from-c-cli-project).)~~
+This keyword is only available in C++/CLI projects and has the same effect like `make_public`. ~~Unfortunately, I wasn't able to get this example working, because I couldn't figure out a way to *export* the methods of that type. I'll update this section if I find some new information on that topic. (I've raised [this question at stackoverflow.com](http://stackoverflow.com/questions/8786491/export-native-type-from-c-cli-project).)~~
 
-To use this type in another C++/CLI project, you need to reference the assembly's `.lib` (here "ManagedProviderLib.lib") //twice// in the project settings (here: of "ManagedExternalLib"):
+To use this type in another C++/CLI project, you need to reference the assembly's `.lib` (here "ManagedProviderLib.lib") *twice* in the project settings (here: of "ManagedExternalLib"):
 
  # Add a reference to the dependency project (here "ManagedProviderLib.lib") in "Common Properties" --> "Framework and References" via "Add Reference...".
  # Also Add a reference to the dependency project in "Linker" --> "Input" --> "Additional Dependencies".

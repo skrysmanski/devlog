@@ -60,4 +60,4 @@ I've created an C#/WPF example implementation (under FreeBSD license) that you c
 
   <big>[[file:RectangleIntersectionTest.zip|Rectangle Intersection Test Project]] (for Visual Studio 2010)</big>
 
-//Remarks:// The algorithm above works for every convex polygon. Instead of four times two edges you then have n times m edges. For concave polygons, however, this algorithm doesn't work because there may be no separating axis even though the polygons don't intersect.
+*Remarks:* The algorithm above works for every convex polygon. Instead of four times two edges you then have n times m edges. For concave polygons, however, this algorithm doesn't work because there may be no separating axis even though the polygons don't intersect.

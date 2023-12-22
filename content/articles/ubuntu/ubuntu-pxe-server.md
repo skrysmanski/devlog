@@ -7,7 +7,7 @@ topics:
 draft: true
 ---
 
-There are a lot of articles out there that explain how to run a [[wiki:en|Preboot_Execution_Environment|PXE server]]. However, I couldn't find a single one that contained //all// the information to setup a PXE server:
+There are a lot of articles out there that explain how to run a [[wiki:en|Preboot_Execution_Environment|PXE server]]. However, I couldn't find a single one that contained *all* the information to setup a PXE server:
 * on Ubuntu
 * without replacing the network's existing DHCP server (e.g. provided by a hardware router)
 
@@ -170,7 +170,7 @@ VMWare Fusion's GUI is more designed for regular users than developers. If you w
 [[image:vmware-network.png|center]]
 
 === PXE Boot with Hyper-V ===
-To be able to PXE boot a Hyper-V VM, you need to **add a //Legacy// Network Adapter** to the VM. By default, only a non-legacy network adapter is added to VMs and it doesn't support PXE boot (for whatever reason).
+To be able to PXE boot a Hyper-V VM, you need to **add a *Legacy* Network Adapter** to the VM. By default, only a non-legacy network adapter is added to VMs and it doesn't support PXE boot (for whatever reason).
 
 [[image:hyperv-pxe.png|center]]
 

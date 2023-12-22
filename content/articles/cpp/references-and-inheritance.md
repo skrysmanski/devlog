@@ -9,7 +9,7 @@ draft: true
 
 The last few days I've been hunting a bug in a C++ project I've been working on. This hunt again showed me how easily you can break C++ programs by accident (something that isn't possibly in Java or C#). You need to completely understand the inner workings of C++ to avoid such pitfalls.
 
-The whole problem was a result of me thinking that C++ references (`&`) are just pointers (`*`) that have some restrictions (e.g. they can't be `NULL`). Wrong! What's even worse: They're //sometimes// just pointers with some restriction. This makes them work in //some// cases but fail in others.
+The whole problem was a result of me thinking that C++ references (`&`) are just pointers (`*`) that have some restrictions (e.g. they can't be `NULL`). Wrong! What's even worse: They're *sometimes* just pointers with some restriction. This makes them work in *some* cases but fail in others.
 
 Let me take you on my journey and you'll hopefully avoid this (very subtle) mistake in your work.
 
@@ -31,7 +31,7 @@ Furthermore, say we have a pointer to an instance of `ChildClass` called `g_some
 BaseClass* g_somePointer = new ChildClass();
 ```
 
-Now imagine, you want to write a wrapper class around another class providing you with a //reference// to this pointer `g_somePointer`. Let's reduce the code to the function returning the reference (called `getReference()`) and the function wrapping it (called `getReferenceWrapper()`):
+Now imagine, you want to write a wrapper class around another class providing you with a *reference* to this pointer `g_somePointer`. Let's reduce the code to the function returning the reference (called `getReference()`) and the function wrapping it (called `getReferenceWrapper()`):
 
 ```c++
 typedef BaseClass* BaseClassPointer;
@@ -136,8 +136,8 @@ const BaseClassPointer& getReference() {
 
 Now the compiler will give you a warning:
 
- * Visual C++: //warning C4172: returning address of local variable or temporary//
- * g++: //warning: returning reference to temporary [enabled by default]//
+ * Visual C++: *warning C4172: returning address of local variable or temporary*
+ * g++: *warning: returning reference to temporary [enabled by default]*
 
 <strong>Important:</strong> Don't be as stupid as I was and try to "fix" the warning by using my initial implementation of `getReference()`. This warning is there for a reason and the reason is not that the compiler is too dumb to figure out what to do.
 
@@ -155,9 +155,9 @@ The problem here is that local variables reside on the so called "stack" (or "ca
 
 [[image:callstack.png|center|link=http://en.wikipedia.org/wiki/File:Call_stack_layout.svg]]
 
-As you can see, there are two stack frames here (blue and green) - on for each function. Each stack frame contains the "Locals" (i.e. the local variables, such as "ref") of the associated function. The stack frame (and with it the locals) of `DrawLine()` (the callee) is stored //above// the locals of `DrawSquare()` (the caller). Currently the function `DrawLine()` is being executed, indicated by the position of the "Stack Pointer". When `DrawLine()` returns, the stack pointer will move to the top of `DrawSquare()`'s stack frame (the blue section). When this happens the stack frame of `DrawLine()` (the green section) will become //invalid//. Invalid here means that the memory section previously occupied by the stack frame (green section) must not be used anymore. If `DrawSquare()` now calls another function, this new function's stack frame will replace the content in the green section with its own content.
+As you can see, there are two stack frames here (blue and green) - on for each function. Each stack frame contains the "Locals" (i.e. the local variables, such as "ref") of the associated function. The stack frame (and with it the locals) of `DrawLine()` (the callee) is stored *above* the locals of `DrawSquare()` (the caller). Currently the function `DrawLine()` is being executed, indicated by the position of the "Stack Pointer". When `DrawLine()` returns, the stack pointer will move to the top of `DrawSquare()`'s stack frame (the blue section). When this happens the stack frame of `DrawLine()` (the green section) will become *invalid*. Invalid here means that the memory section previously occupied by the stack frame (green section) must not be used anymore. If `DrawSquare()` now calls another function, this new function's stack frame will replace the content in the green section with its own content.
 
-Now, if you have a reference (or a pointer for that matter) to a //local// variable of `DrawLine()`, this reference will "point" to some content that's no longer available. And that's bad. The values of these references will change just by calling a function that doesn't even know these references. On the other hand, if you don't call another function, your code //may// work (just like our example code above did before introducing the local variable `someString`) and hide the problem. Small code changes or turning on code optimizations (like when switching from debug to release build) may (or may not) surface the problem again. This kind of problem is a real pain, as you can imagine.
+Now, if you have a reference (or a pointer for that matter) to a *local* variable of `DrawLine()`, this reference will "point" to some content that's no longer available. And that's bad. The values of these references will change just by calling a function that doesn't even know these references. On the other hand, if you don't call another function, your code *may* work (just like our example code above did before introducing the local variable `someString`) and hide the problem. Small code changes or turning on code optimizations (like when switching from debug to release build) may (or may not) surface the problem again. This kind of problem is a real pain, as you can imagine.
 
 == Where does the local variable or temporary (variable) come from? ==
 Back to the warning. We're being told by the compiler that we're returning a temporary (i.e. a "variable" automatically created by the compiler). Where does this temporary come from?
@@ -204,7 +204,7 @@ BaseClass2* basePtr = ptr;
 
 Because of this address change the compiler can't just use `g_somePointer` for `temporary`. It needs to cast the instance first and then store it in some variable (here: `localPointer`). It than creates the reference to this local variable, which is bad as explained in the previous section.
 
-**Side note:** Adding the local variable `someString` to `getReferenceWrapper()` broke the code above because `std::string` is a class that has a destructor. The destructor is "just" a method (function) which is //automatically// called when the object (`someString`) goes out of scope. As I explained in the previous section, calling a function overwrites the call stack above the current function's stack frame (i.e. the green part in the image above), thereby overwriting the memory section containing the address to the base class of `g_somePointer` (to which our reference pointed).
+**Side note:** Adding the local variable `someString` to `getReferenceWrapper()` broke the code above because `std::string` is a class that has a destructor. The destructor is "just" a method (function) which is *automatically* called when the object (`someString`) goes out of scope. As I explained in the previous section, calling a function overwrites the call stack above the current function's stack frame (i.e. the green part in the image above), thereby overwriting the memory section containing the address to the base class of `g_somePointer` (to which our reference pointed).
 
 = Working Example =
 I've attached the whole code of the example so that you can try it out for yourself.

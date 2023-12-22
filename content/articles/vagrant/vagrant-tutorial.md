@@ -24,7 +24,7 @@ The setup we'll be creating is just a foundation you can expand on. It won't do 
 If you're just interested in the end result, skip ahead to [[#endresult]].
 
 == Notes Before We Start ==
-To be able to follow this tutorial, it's helpful if you have a //basic// understanding of the following:
+To be able to follow this tutorial, it's helpful if you have a *basic* understanding of the following:
 
 * How to interact with the **command line** of your operating system - since Vagrant is controlled from the command line.
 * What SSH is for.
@@ -127,7 +127,7 @@ During my testing I found that the `ubuntu/...` boxes have very low quality (whi
 
 Also, HashiCorp (the company behind Vagrant) only provides boxes for Ubuntu 12.04. So they can't be selected as source of high quality boxes either. (During my testing, even the `hashicorp/precise64` box had its problems.)
 
-The [Vagrant documentation about official boxes](https://www.vagrantup.com/docs/boxes.html#official-boxes) recommends to use the boxes from the `bento` namespace (apparently created by the team at [Chef](https://www.chef.io/)).
+The [Vagrant documentation about official boxes](https:*www.vagrantup.com/docs/boxes.html#official-boxes) recommends to use the boxes from the `bento` namespace (apparently created by the team at [Chef](https:*www.chef.io/)).
 
 During my (limited) tests they worked flawlessly and so they're my recommendation, too. We'll use them for rest of the tutorial. You can find them here:
 

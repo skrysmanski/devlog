@@ -39,10 +39,10 @@ Unfortunately, the rules for writing IPv6 addresses as defined in RFC 4291 (see 
 
 The rules are as follows:
 
-# Leading zeros //must// be omitted.
+# Leading zeros *must* be omitted.
   (x) `2001:0db8::001`
   (/) `2001:db8::1`
-# The `::` must always shorten //as much as possible//.
+# The `::` must always shorten *as much as possible*.
   (x) `2001:db8:0:0:0:0:0:1` &rarr; `2001:db8::0:1`
   (/) `2001:db8:0:0:0:0:0:1` &rarr; `2001:db8::1`
 # The `::` must not be used to shorten just **one zero block**.
@@ -61,7 +61,7 @@ The rules are as follows:
 == Special addresses ==
 There are two special addresses in IPv6:
 
-# `::1` is the loopback address (equivalent to `127.0.0.1` in IPv4). However, unlike in IPv4, there's //only one// loopback address (whereas in IPv4 you have many - i.e. `127.0.0.1` to `127.255.255.254`).
+# `::1` is the loopback address (equivalent to `127.0.0.1` in IPv4). However, unlike in IPv4, there's *only one* loopback address (whereas in IPv4 you have many - i.e. `127.0.0.1` to `127.255.255.254`).
 # `::` is the unspecified address (i.e. all blocks are zero). This address must only be used under certain circumstance - mainly before a network adapter has gotten an IPv6 address.
 
 == Subnet Prefixes and Interface IDs ==
@@ -106,7 +106,7 @@ The most important scopes are:
 | Link-local | 64             | Only valid on the link (i.e. up to the next router)
 | Global     | 64 ([[rfc:4291#section-2.5.4|source]]) | Valid globally
 
-One important note on the **global** scope: In IPv4 you usually had one public IPv4 address (provided by your ISP) and the IP addresses of each device on a local network were "hidden" behind a NAT. To make a device reachable from the internet, you had to create a port forwarding. With IPv6, if a device has an address with scope //global//, this device is reachable from the internet under this address (unless the router has a firewall to prevent this - which it should have).
+One important note on the **global** scope: In IPv4 you usually had one public IPv4 address (provided by your ISP) and the IP addresses of each device on a local network were "hidden" behind a NAT. To make a device reachable from the internet, you had to create a port forwarding. With IPv6, if a device has an address with scope *global*, this device is reachable from the internet under this address (unless the router has a firewall to prevent this - which it should have).
 
 == Automatic Address Configuration ==
 With IPv4 you need a DHCP server to automatically assign IP addresses to devices (unless they have been configured with static IP addresses, of course).
@@ -115,9 +115,9 @@ With IPv6 this is no longer necessary (although it's still possible).
 
 As described before, an IPv6 address consists of a **subnet prefix** and an **interface id**. So you need to know both to construct an IPv6 address.
 
-For **link-local** addresses, the //subnet prefix// is always the same: `fe80::/64` (some documents say `fe80::/10` but the prefix length is [effectively 64 bits](https://tools.ietf.org/html/rfc4291#section-2.5.6)).
+For **link-local** addresses, the *subnet prefix* is always the same: `fe80::/64` (some documents say `fe80::/10` but the prefix length is [effectively 64 bits](https://tools.ietf.org/html/rfc4291#section-2.5.6)).
 
-So, an IPv6 device only needs to generate its //interface id//. The interface id is usually based on the network adapter's MAC address and is usually formed by a process called "Modified EUI-64" (see [RFC 2464](https://tools.ietf.org/html/rfc2464#section-4) for more details).
+So, an IPv6 device only needs to generate its *interface id*. The interface id is usually based on the network adapter's MAC address and is usually formed by a process called "Modified EUI-64" (see [RFC 2464](https://tools.ietf.org/html/rfc2464#section-4) for more details).
 
 For **global** addresses, SLAAC is used (see below).
 
@@ -170,7 +170,7 @@ IPv6 addresses can either be a unicast, anycast, or multicast address.
 |= Type                  |= <nobr>Receivers</nobr> |= Description
 | <nobr>Unicast</nobr>   | one        | Identifies a single network adapter; most IP addresses are of this type (and if you generally talk about an IP address, you mean a unicast IP address)
 | <nobr>Anycast</nobr>   | one        | Multiple devices share the same IP address; a network packet is routed to the "nearest" device; for a sender it's indistinguishable from a unicast addresses
-| <nobr>Multicast</nobr> | many       | Multiple devices share the same IP address (actually, they register themselves on this IP address which is called a //multicast group//); each device receives the packet
+| <nobr>Multicast</nobr> | many       | Multiple devices share the same IP address (actually, they register themselves on this IP address which is called a *multicast group*); each device receives the packet
 
 A **multicast** group has the additional benefit that the traffic for the sender is the same no matter how many receivers there are. This is useful, for example, for video streaming where all receivers get the same high-volume content.
 

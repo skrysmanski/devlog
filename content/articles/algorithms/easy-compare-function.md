@@ -8,7 +8,7 @@ topics:
 draft: true
 ---
 
-Most programming languages (such as C#, Java, ...) allow you to sort lists. Most of them also allow you to specify a //sorting function// so that you can customize the sort order. These functions usually take parameters `a` and `b` and define the return value as follows:
+Most programming languages (such as C#, Java, ...) allow you to sort lists. Most of them also allow you to specify a *sorting function* so that you can customize the sort order. These functions usually take parameters `a` and `b` and define the return value as follows:
 
 |=Return value     |=if                        |
 |less than zero    |`a` is less than `b`   |

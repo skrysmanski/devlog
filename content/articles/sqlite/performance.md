@@ -33,21 +33,21 @@ In each test scenario, the SQLite database contained only one table with four co
 
 There are two kinds of concurrent access:
 
- * //Read access:// Simulated by repeatedly selecting a random row from the table and reading all four values.
- * //Write access:// Simulated by inserting random values into the table.
+ * *Read access:* Simulated by repeatedly selecting a random row from the table and reading all four values.
+ * *Write access:* Simulated by inserting random values into the table.
 
 The first batch of tests simulated read access, the second batch simulated write access, and the third batch simulated both concurrently.
 
-//Note:// In all tests, the CPU was the limiting factor - not the hard drive.
+*Note:* In all tests, the CPU was the limiting factor - not the hard drive.
 
 = Test Parameters =======
 Each test comprises of a certain combination of the following test parameters:
 
- * //Shared connection vs. multi connection:// Whether all threads share the same database connection, or whether every thread has its own connection (to the same database though). Shared connections use `SQLITE_OPEN_FULLMUTEX` (serialized), multi connections use `SQLITE_OPEN_NOMUTEX` (multithread).
- * //Read-only:// Whether the connection is opened in read-only or read-write mode (`SQLITE_OPEN_READONLY`).
- * //Shared cache:// Whether all connections share the same cache (`SQLITE_OPEN_SHAREDCACHE`), or whether each connection has its own cache.
- * //WAL:// Whether the connection(s) use a database in [WAL (write-ahead logging) journal mode](http://www.sqlite.org/draft/wal.html).
- * //Filled table:// Whether the table to read from is empty or filled (not examined in this report due to missing data; I should mention though that trying to read from an empty table is significant slower than reading from a filled table).
+ * *Shared connection vs. multi connection:* Whether all threads share the same database connection, or whether every thread has its own connection (to the same database though). Shared connections use `SQLITE_OPEN_FULLMUTEX` (serialized), multi connections use `SQLITE_OPEN_NOMUTEX` (multithread).
+ * *Read-only:* Whether the connection is opened in read-only or read-write mode (`SQLITE_OPEN_READONLY`).
+ * *Shared cache:* Whether all connections share the same cache (`SQLITE_OPEN_SHAREDCACHE`), or whether each connection has its own cache.
+ * *WAL:* Whether the connection(s) use a database in [WAL (write-ahead logging) journal mode](http://www.sqlite.org/draft/wal.html).
+ * *Filled table:* Whether the table to read from is empty or filled (not examined in this report due to missing data; I should mention though that trying to read from an empty table is significant slower than reading from a filled table).
 
 = Batch 1: read tests ======
 Let's start with the tests only reading data (i.e. no data is written during these tests). Each thread randomly reads a data row and then obtains all four values stored in it. This is repeated for 30 seconds.
@@ -171,7 +171,7 @@ The previous tests clearly showed that enabling WAL improves read as well as wri
 
 Again, enabling WAL results in a significant performance boost.
 
-//Note:// Reading without WAL is extremely slow (under 1000 rows per second for 10 threads or less).
+*Note:* Reading without WAL is extremely slow (under 1000 rows per second for 10 threads or less).
 
 == Test: Shared or multiple connections  ====
 Next, check whether we should use a shared connection or multiple connections.
