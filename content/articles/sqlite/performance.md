@@ -18,8 +18,6 @@ To be able to make this decision, I did some performance tests and - assuming I 
 
 <!--more-->
 
-[[[TOC]]]
-
 = The Setup ======
 The tests ran on a Notebook featuring an Intel Core 2 Duo (2.53 GHz) and 8 GB memory. The OS was Windows 7 x64.
 

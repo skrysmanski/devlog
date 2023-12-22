@@ -16,8 +16,6 @@ People generally agree on what's the difference between //accuracy// and //preci
 
 This article will be mainly about **resolution** (and precision and accuracy to some extend).
 
-[[[TOC]]]
-
 == DateTime ==
 C# provides the `DateTime` type ([[http://msdn.microsoft.com/EN-US/library/system.datetime.aspx|MSDN]]) that allows to:
 

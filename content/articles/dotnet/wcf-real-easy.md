@@ -20,8 +20,6 @@ Let's get started.
 
 <!--more-->
 
-[[[TOC]]]
-
 == Preparation ======
 For this tutorial, simply create a **console application** project.
 

@@ -9,8 +9,6 @@ draft: true
 
 Almost all developers know that IPv6 solves the problem that we're running out of (IPv4) IP addresses - by having "longer" IP addresses. But that's only a part of what IPv6 addresses really mean. So, in this article I'm going to shed some light onto these other parts.
 
-[[[TOC]]]
-
 == Notation ==
 IPv6 addresses consist of **128 bits** (whereas IPv4 addresses are only 32 bits long).
 

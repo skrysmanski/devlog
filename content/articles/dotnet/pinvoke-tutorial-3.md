@@ -12,8 +12,6 @@ P/Invoke tries to make your life easier by automatically converting ("marshallin
 
 <!--more-->
 
-[[[TOC]]]
-
 = Marshalling Primitive Data Types ===========
 Primitive data types (##bool##, ##int##, ##double##, ...) are the easiest to use. They map directly to their native counterparts.
 

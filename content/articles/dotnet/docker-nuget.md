@@ -12,8 +12,6 @@ Recently, I wanted to try out the new [[https://www.microsoft.com/net/core|.NET 
 
 <!--more-->
 
-[[[TOC]]]
-
 == The Goal ==
 The goal is to have a .NET Core console application with some NuGet dependencies running in a Docker container.
 

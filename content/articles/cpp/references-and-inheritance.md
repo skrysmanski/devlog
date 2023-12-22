@@ -14,7 +14,6 @@ The whole problem was a result of me thinking that C++ references (##&##) are ju
 Let me take you on my journey and you'll hopefully avoid this (very subtle) mistake in your work.
 
 <!--more-->
-[[[TOC]]]
 
 = The Basic Idea =
 Let's examine the basic (and partially constructed) idea. Say, you have two classes, ##BaseClass## and its child ##ChildClass##:

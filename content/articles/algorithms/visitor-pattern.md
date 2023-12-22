@@ -22,8 +22,6 @@ But since I'm not a quitter I went on and tamed it. So, in this article I'm goin
 
 <!--more-->
 
-[[[TOC]]]
-
 == Definition ==
 The main problem (in my opinion) with the visitor pattern is that it's often not really clear what it does. So, let's start with the following definition (based on [[wiki:en|Visitor pattern|Wikipedia]]):
 

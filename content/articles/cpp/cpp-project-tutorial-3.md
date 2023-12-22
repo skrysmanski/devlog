@@ -18,7 +18,6 @@ Here at work I have a C++ project with about 50 ##.cpp## files in it. The projec
 
 <!--more-->
 
-[[[TOC]]]
 The procedure described here only applies to Visual C++ (if I'm correct since version 6.0). However, other C++ compilers may provide similar functionality.
 
 == The Problem ==

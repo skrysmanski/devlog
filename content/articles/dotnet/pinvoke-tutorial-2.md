@@ -28,8 +28,6 @@ However, there exists a hidden pitfall here:
   //What happens when the user passes a **non-ASCII** character to this function?//
 <!--more-->
 
-[[[TOC]]]
-
 = ASCII and Unicode: A Historical Overview =========
 Historically there was ASCII which defined characters up to character number 127 (i.e. everything that fits into 7 bits). However, these 128 characters contained only letters used in English. Umlauts (like Ã¤, Ã¶, Ã¼) and other characters were not present. So, the 8th bit was used to map these characters, but the mapping was not standardized. Basically each country had its own mapping of the region 128 - 255. These different mapping were called //code pages//.
 

@@ -18,8 +18,6 @@ Referencing a library in C++ (or, more specific, with Visual C++) is somewhat cu
 
 <!--more-->
 
-[[[TOC]]]
-
 == The setup ==
 For the discussion of this article assume we have two projects:
 

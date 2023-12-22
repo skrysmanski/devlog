@@ -12,7 +12,6 @@ draft: true
 This article describes the problem and shows solutions.
 
 <!--more-->
-[[[TOC]]]
 
 = For the impatient =
 For those of you that don't want to read the whole article, here's the summary:

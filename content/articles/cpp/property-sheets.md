@@ -16,8 +16,6 @@ Everyone who has ever created and managed a C++ project in Visual Studio knows t
 
 <!--more-->
 
-[[[TOC]]]
-
 = The Property Manager =
 While property sheets (file extension: ##.props##) are simply XML files and therefore could be edited with a simple text editor, Visual Studio also provides an editor for property sheets. This editor is available through the so called Property Manager. To display the Property Manager pane, in the menu go to ##View## --> ##Other Windows## --> ##Property Manager##.
 

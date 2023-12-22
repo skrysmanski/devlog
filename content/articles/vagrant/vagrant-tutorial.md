@@ -16,8 +16,6 @@ This article is step by step tutorial for getting from nothing to a multi-VM set
 
 <!--more-->
 
-[[[TOC]]]
-
 == The Goal ==
 At the end of this tutorial, we'll have 3 virtual machines, one called "master" and two nodes, that can find each other via their hostnames. Except for Vagrant, no external software is required to achieve this.
 

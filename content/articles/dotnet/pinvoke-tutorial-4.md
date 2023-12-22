@@ -14,8 +14,6 @@ That's what //pinning// is for. It prevents the garbage collector from deleting 
 
 <!--more-->
 
-[[[TOC]]]
-
 = Pinning an Object ================
 To pin a managed object, use ##GCHandle.Alloc()##:
 

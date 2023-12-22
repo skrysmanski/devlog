@@ -13,7 +13,6 @@ The .NET framework features an interface called [[http://msdn.microsoft.com/libr
 The [[http://msdn.microsoft.com/library/system.idisposable.aspx|help page]] for ##IDisposable## provides the code for ##IDisposable##'s default implementation pattern in C#. This article will explain each part of it step by step and also provide the equivalent C++/CLI code in each step.
 
 <!--more-->
-[[[TOC]]]
 
 = Summary - for the impatient =
 Here's the summary of this article for those who don't want to read the actual explanations.

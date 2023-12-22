@@ -14,8 +14,6 @@ This article provides a quick comparison between C++/CLI and C#. It's meant for 
 
 <!--more-->
 
-[[[TOC]]]
-
 = Introduction ================================
 C++/CLI is - as the name suggest - an extension of C++ to allow it to use Microsoft's .NET framework including the CLR (common language runtime; i.e. garbage collection and such things).
 

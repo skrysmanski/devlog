@@ -14,8 +14,6 @@ P/Invoke is a way of calling C/C++ functions from a .NET program. It's very easy
 
 <!--more-->
 
-[[[TOC]]]
-
 = Project Structure ===========
 For this tutorial, we need a small project structure containing two projects:
 

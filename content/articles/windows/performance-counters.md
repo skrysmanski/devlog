@@ -18,8 +18,6 @@ I also wrote some C# code to demonstrate how to use performance counters. You'll
 * I use the .NET names for performance counter types in this article.
 * Categorization of the counter types follows the [[http://msdn.microsoft.com/EN-US/library/4bcx21aa.aspx|official documentation]].
 
-[[[TOC]]]
-
 == Terminology ==
 ; Performance counter : A counter to monitor performance of a running system (e.g. CPU usage). Is basically just an ##int##.
 ; Sampling, Measurement : Read the value of a performance counter (at a certain point in time)

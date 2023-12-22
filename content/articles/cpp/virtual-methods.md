@@ -7,7 +7,6 @@ topics:
 draft: true
 ---
 
-[[[TOC]]]
 Last friday I stumbled over a seroius shortcomming of C++ (compared to C# or Java) I'd like to share here with you. It's about ##virtual## methods called from a class constructor.
 
 = The C&#35; Example =

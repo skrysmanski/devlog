@@ -17,8 +17,6 @@ So, I've compiled a comparison chart in this article that will compare the vario
 
 <!--more-->
 
-[[[TOC]]]
-
 The following serializers will be compared:
 
 |= Name                                                                                 |= Abbreviation |= Version     |= Output Format    |

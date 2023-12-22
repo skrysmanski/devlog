@@ -13,8 +13,6 @@ There are a lot of articles out there that explain how to run a [[wiki:en|Preboo
 
 So, with article I'm trying to fill this gap.
 
-[[[TOC]]]
-
 == The Goal ==
 At the end of this article you'll have a working PXE server that lets you **boot [[http://www.memtest.org/|memtest86+]] over a network**.
 

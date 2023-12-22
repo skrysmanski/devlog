@@ -16,8 +16,6 @@ When you write software, you often/sometimes divide your project into several su
 
 <!--more-->
 
-[[[TOC]]]
-
 == Library Projects ==
 Library projects are projects that usually contain reusable functions or classes. They're a great way of structuring a big project. In Visual C++ (or in C++ in general) there are two types of libraries: static libraries and dynamic libraries.
 
