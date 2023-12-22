@@ -6,7 +6,7 @@ topics:
 draft: true
 ---
 
-Being a C# developer, I recently found some use for Microsoft's PowerShell (the ##cmd## replacement). What's nice about PowerShell is that it has full access to the .NET framework.
+Being a C# developer, I recently found some use for Microsoft's PowerShell (the `cmd` replacement). What's nice about PowerShell is that it has full access to the .NET framework.
 
 However, there are also some very pit falls when coming from C# (or any related programming language).
 
@@ -25,7 +25,7 @@ function PrintAndReturnSomething {
 $result = PrintAndReturnSomething
 ```
 
-What do you expect ##$result## to be? An integer with value ##42##, right? Let's check it out.
+What do you expect `$result` to be? An integer with value `42`, right? Let's check it out.
 
 We're adding the following line to the end of the script:
 
@@ -39,7 +39,7 @@ Now, when you run the script, you'll get:
 Return type: System.Object[]
 ```
 
-**Wait, what? Where's the "Hello, World"? And why the heck is ##$return## an object array?**
+**Wait, what? Where's the "Hello, World"? And why the heck is `$return` an object array?**
 
 The first problem (pit fall) is that PowerShell treats every non-captured object (i.e. one that isn't assigned to a variable) as return value.
 
@@ -56,7 +56,7 @@ function LongNumericString {
 }
 ```
 
-One would expect that ##LongNumericString## returns just a string; but it doesn't. Instead it returns an ##object[]## with this contents:
+One would expect that `LongNumericString` returns just a string; but it doesn't. Instead it returns an `object[]` with this contents:
 
 ```
 Capacity           MaxCapacity                        Length
@@ -84,9 +84,9 @@ Capacity           MaxCapacity                        Length
 012345678910111213141516171819
 ```
 
-The problem here is that ##$strBld.Append## returns a ##StringBuilder## object. And since this return value isn't assigned to a variable, PowerShell considers it part of the return value.
+The problem here is that `$strBld.Append` returns a `StringBuilder` object. And since this return value isn't assigned to a variable, PowerShell considers it part of the return value.
 
-To resolve this problem, prefix ##$strBld.Append## with ##[void]##:
+To resolve this problem, prefix `$strBld.Append` with `[void]`:
 
 ```powershell highlight=4
 function LongNumericString {
@@ -98,23 +98,23 @@ function LongNumericString {
 }
 ```
 
-**Note:** The keyword ##return## is totally optional. The expression ##return $strBld.ToString()## is equivalent to ##$strBld.ToString()##, and even to ##$strBld.ToString(); return##.
+**Note:** The keyword `return` is totally optional. The expression `return $strBld.ToString()` is equivalent to `$strBld.ToString()`, and even to `$strBld.ToString(); return`.
 
 == Function Return Values = Function Output ======
-Back to our initial script. Now that we know how PowerShell composes return values for functions, why didn't ##PrintAndReturnSomething## return just ##42##?
+Back to our initial script. Now that we know how PowerShell composes return values for functions, why didn't `PrintAndReturnSomething` return just `42`?
 
-One needs to understand that **PowerShell doesn't actually care about return value but rather about output of functions**. The return value is just considered to be //a part// of the output. This way, PowerShell doesn't just allow you to pipe text (like ##ls -l | sort## in bash), but to [[http://technet.microsoft.com/en-us/library/ee176927.aspx|pipe actual objects]].
+One needs to understand that **PowerShell doesn't actually care about return value but rather about output of functions**. The return value is just considered to be //a part// of the output. This way, PowerShell doesn't just allow you to pipe text (like `ls -l | sort` in bash), but to [[http://technet.microsoft.com/en-us/library/ee176927.aspx|pipe actual objects]].
 
-For example, ##Get-ChildItem C:\ | Format-Table Name, Length## is the same as:
+For example, `Get-ChildItem C:\ | Format-Table Name, Length` is the same as:
 
 ```powershell
 $child_items = Get-ChildItem C:\
 Format-Table -InputObject $child_items Name, Length
 ```
 
-`PrintAndReturnSomething` uses ##echo## (which is an alias for ##Write-Output##) to print "Hello, World". This is output and thus part of the function's return value.
+`PrintAndReturnSomething` uses `echo` (which is an alias for `Write-Output`) to print "Hello, World". This is output and thus part of the function's return value.
 
-To force PowerShell to write something to the console (rather than including it in the return value), use ##Write-Host## instead of ##echo##.
+To force PowerShell to write something to the console (rather than including it in the return value), use `Write-Host` instead of `echo`.
 
 The corrected code is:
 
@@ -131,9 +131,9 @@ $result = PrintAndReturnSomething
 == Summary ======
 To sum things up:
 
- * PowerShell functions will always return (as ##object[]##, if there's more than one return value):
+ * PowerShell functions will always return (as `object[]`, if there's more than one return value):
  ** all uncaptured objects (i.e. objects that haven't been assigned to variables)
- ** as well as all output (from ##echo##/##Write-Output##)
+ ** as well as all output (from `echo`/`Write-Output`)
  * Exclude from return value:
- ** Uncaptured objects: prefix with ##[void]##
- ** Console output: use ##Write-Host## instead of ##echo##/##Write-Output##
+ ** Uncaptured objects: prefix with `[void]`
+ ** Console output: use `Write-Host` instead of `echo`/`Write-Output`

@@ -36,7 +36,7 @@ Unfortunately, I recently was forced to switch to a less "superior" router that 
 == Multicast DNS ==
 Fortunately, a solution exists and this solution is called **Multicast DNS** (short: mDNS).
 
-Multicast DNS lets you find computers on your //local// network by name. You just have to add ##.local## to the computer's name.
+Multicast DNS lets you find computers on your //local// network by name. You just have to add `.local` to the computer's name.
 
 So, to ping a computer called **marvin** you'd use:
 
@@ -60,4 +60,4 @@ Here's what you need:
  ** there will never be a "real" domain ending called ".local". So you don't run the risk of name conflicts with the internet.
  ** good routers won't ask your ISP's DNS server for ".local" names. So connecting to a ".local" name, will always result in an ip address from the local network.
  * mDNS, of course, only works if no two computers on the local network share the same name.
- * With mDNS, you don't need to specify ##.local## as "primary DNS suffix" on Windows - unlike the solution in the [[pingidentify-computers-by-computer-name-in-windows|aforementioned article]].
+ * With mDNS, you don't need to specify `.local` as "primary DNS suffix" on Windows - unlike the solution in the [[pingidentify-computers-by-computer-name-in-windows|aforementioned article]].

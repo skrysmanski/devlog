@@ -8,21 +8,21 @@ topics:
 draft: true
 ---
 
-Sometimes a C/C++ function needs to store data you pass to it for //later reference//. If such data is a managed object (like a ##string## or ##class##) you need to make sure that the garbage collector doesn't delete it while it's still used/stored in the native code.
+Sometimes a C/C++ function needs to store data you pass to it for //later reference//. If such data is a managed object (like a `string` or `class`) you need to make sure that the garbage collector doesn't delete it while it's still used/stored in the native code.
 
 That's what //pinning// is for. It prevents the garbage collector from deleting //and// moving the object.
 
 <!--more-->
 
 = Pinning an Object ================
-To pin a managed object, use ##GCHandle.Alloc()##:
+To pin a managed object, use `GCHandle.Alloc()`:
 
 ```c#
 // Pin "objectToBePinned"
 GCHandle handle = GCHandle.Alloc(objectToBePinned, GCHandleType.Pinned);
 ```
 
-The ##objectToBePinned## remains pinned until you call ##Free()## on the handle:
+The `objectToBePinned` remains pinned until you call `Free()` on the handle:
 
 ```c#
 // Unpin "objectToBePinned"
@@ -35,14 +35,14 @@ After unpinning the object it can again be:
  * deleted, if no more references exist to it
 
 //Notes://
- * ##Free()## will never be called automatically. If you don't call it manually, the memory of the pinned object will never be freed (i.e. you create a memory leak).
- * You only need to pin //objects// (including strings). You can't pin primitive types (like ##int##) and //structs//, as they reside on the stack and are passed by copy. If you try pin a ##struct##, a //copy// of the struct will be pinned.
- * Classes and structs must have the attribute ##[StructLayout(LayoutKind.Sequential)]## to control the layout of their fields. Otherwise ##GCHandle.Alloc()## will throw an ##ArgumentException## reading: "Object contains non-primitive or non-blittable data."
+ * `Free()` will never be called automatically. If you don't call it manually, the memory of the pinned object will never be freed (i.e. you create a memory leak).
+ * You only need to pin //objects// (including strings). You can't pin primitive types (like `int`) and //structs//, as they reside on the stack and are passed by copy. If you try pin a `struct`, a //copy// of the struct will be pinned.
+ * Classes and structs must have the attribute `[StructLayout(LayoutKind.Sequential)]` to control the layout of their fields. Otherwise `GCHandle.Alloc()` will throw an `ArgumentException` reading: "Object contains non-primitive or non-blittable data."
  * If the method you're calling doesn't store a reference to the passed object for later reference, you don't need to pin this object. P/Invoke automatically pins objects before the C/C++ function is called and unpins them after the function has returned. So, manually pinning an object is actually about the (time of) unpinning.
 
 Note also that you don't need (and actually can't) pin **delegates**. You need, however, to extend the lifetime of the delegate for as long as it can be called from unmanaged code. To cite an [[http://blogs.msdn.com/b/cbrumme/archive/2003/05/06/51385.aspx|MSDN blog entry]] on this:
 
->Along the same lines, managed Delegates can be marshaled to unmanaged code, where they are exposed as unmanaged function pointers. Calls on those pointers will perform an unmanaged to managed transition; a change in calling convention; entry into the correct ##AppDomain##; and any necessary argument marshaling.  Clearly the unmanaged function pointer must refer to a fixed address. It would be a disaster if the GC were relocating that!  This leads many applications to create a pinning handle for the delegate. This is completely unnecessary.  The unmanaged function pointer actually refers to a native code stub that we dynamically generate to perform the transition & marshaling.  This stub exists in fixed memory outside of the GC heap.
+>Along the same lines, managed Delegates can be marshaled to unmanaged code, where they are exposed as unmanaged function pointers. Calls on those pointers will perform an unmanaged to managed transition; a change in calling convention; entry into the correct `AppDomain`; and any necessary argument marshaling.  Clearly the unmanaged function pointer must refer to a fixed address. It would be a disaster if the GC were relocating that!  This leads many applications to create a pinning handle for the delegate. This is completely unnecessary.  The unmanaged function pointer actually refers to a native code stub that we dynamically generate to perform the transition & marshaling.  This stub exists in fixed memory outside of the GC heap.
 >
 > However, the application **is** responsible for somehow extending the lifetime of the delegate until no more calls will occur from unmanaged code. The lifetime of the native code stub is directly related to the lifetime of the delegate.  Once the delegate is collected, subsequent calls via the unmanaged function pointer will crash or otherwise corrupt the process.
 
@@ -69,7 +69,7 @@ do_something(objectToBePinned);
 handle.Free();
 ```
 
-The alternative is to pass it as ##IntPtr## (although it's no different from the direct approach):
+The alternative is to pass it as `IntPtr` (although it's no different from the direct approach):
 
 ```c# highlight=2,8
 [DllImport("NativeLib")]
@@ -90,7 +90,7 @@ handle.Free();
 = Pinning and Passing Strings ======= #pinning-strings
 Pinning strings is the same as pinning objects with one exception:
 
-  **You must specify the ##CharSet.Unicode##. when passing pinned strings!**
+  **You must specify the `CharSet.Unicode`. when passing pinned strings!**
 
 Otherwise P/Invoke will convert the string into an ASCII string (thereby copying it).
 

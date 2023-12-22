@@ -65,7 +65,7 @@ public class Document {
 === Scenario 1: Converting Into HTML ===
 Now let's assume we want to convert this document into HTML.
 
-The most straightforward way would be to add a ##virtual## method called ##ToHTML()## to ##DocumentPart##, like this:
+The most straightforward way would be to add a `virtual` method called `ToHTML()` to `DocumentPart`, like this:
 
 ```c#
 public abstract class DocumentPart {
@@ -94,7 +94,7 @@ public class Hyperlink : DocumentPart {
 }
 ```
 
-And the ##Document## class would also get a ##ToHTML()## method:
+And the `Document` class would also get a `ToHTML()` method:
 
 ```c#
 public class Document {
@@ -110,7 +110,7 @@ public class Document {
 }
 ```
 
-Then, by calling ##Document.ToHTML()## one could convert the whole document into HTML.
+Then, by calling `Document.ToHTML()` one could convert the whole document into HTML.
 
 === Scenario 2: Different Output Formats ===
 Let's add some complexity. Additionally to the previous scenario, we now also want to allow the conversion into plain text and LaTeX.
@@ -194,7 +194,7 @@ public class Document {
 
 This implementation suffers two major problems:
 
- * The code for the ##Document.To...()## methods is almost identical. This may lead to errors when changing one of the methods but forgetting to update the others.
+ * The code for the `Document.To...()` methods is almost identical. This may lead to errors when changing one of the methods but forgetting to update the others.
  * Each document part needs to know every possible output format.
 
 These problems can be solved with the **visitor pattern**.
@@ -202,13 +202,13 @@ These problems can be solved with the **visitor pattern**.
 == The Visitor Pattern ==
 The visitor pattern consists of two parts:
 
-* a method called ##Visit()## which is implemented by the **visitor** and is called for every element in the data structure
-* **visitable** classes providing ##Accept()## methods that accept a visitor
+* a method called `Visit()` which is implemented by the **visitor** and is called for every element in the data structure
+* **visitable** classes providing `Accept()` methods that accept a visitor
 
 === Visitor: Convert To HTML ===
 Let's start with the **visitor**. As example, we're going to implement the "convert to html" operation.
 
-For this, we need to define an interface called ##IVisitor##:
+For this, we need to define an interface called `IVisitor`:
 
 ```c#
 public interface IVisitor {
@@ -281,7 +281,7 @@ public class Document {
 }
 ```
 
-//Note:// The implementations of ##Accept()## seem to be identical for all child classes of ##DocumentPart##. However, we can't move the code into the base class because ##IVisitor## doesn't have an method ##Visit(DocumentPart)## but only for the concrete implementations. (We could solve this through reflection, though, but would lose compile-time checking.)
+//Note:// The implementations of `Accept()` seem to be identical for all child classes of `DocumentPart`. However, we can't move the code into the base class because `IVisitor` doesn't have an method `Visit(DocumentPart)` but only for the concrete implementations. (We could solve this through reflection, though, but would lose compile-time checking.)
 
 === Putting It All Together ===
 Now, to convert a document to HTML we can use this code:
@@ -293,7 +293,7 @@ doc.Accept(visitor);
 Console.WriteLine("Html:\n" + visitor.Output);
 ```
 
-To convert the document into LaTeX, we'd need to implement a ##LatexVisitor##:
+To convert the document into LaTeX, we'd need to implement a `LatexVisitor`:
 
 ```c#
 public class LatexVisitor : IVisitor {
@@ -318,7 +318,7 @@ public class LatexVisitor : IVisitor {
 
 The implementation of the actual document classes remain unchanged.
 
-//Side note:// If you're wondering whether ##Accept## is a good name or whether the method should be renamed (e.g. to ##Convert##): Check whether operations other than conversions are possible. For example, one could implement a ##BoldTextCountVisitor## or a ##UrlExtractorVisitor##. If such operations are possible, you should stick with the name ##Accept## - as this communicates that the visitor pattern is being used here.
+//Side note:// If you're wondering whether `Accept` is a good name or whether the method should be renamed (e.g. to `Convert`): Check whether operations other than conversions are possible. For example, one could implement a `BoldTextCountVisitor` or a `UrlExtractorVisitor`. If such operations are possible, you should stick with the name `Accept` - as this communicates that the visitor pattern is being used here.
 
 
 == The Actual Problem Being Solved ==
@@ -350,7 +350,7 @@ SpaceShip ship = new ApolloSpacecraft();
 Console.WriteLine(ship.GetShipType());
 ```
 
-This will print "ApolloSpacecraft". The actual method implementation to be called is chosen **at runtime** based solely on the actual type of ##ship##. So, only the type of a //single// object is used to select the method, hence the name //single// dispatch.
+This will print "ApolloSpacecraft". The actual method implementation to be called is chosen **at runtime** based solely on the actual type of `ship`. So, only the type of a //single// object is used to select the method, hence the name //single// dispatch.
 
 //Note:// "Single dispatch" is one form of "dynamic dispatch", i.e. the method is chosen at runtime. If the method is chosen at compile time (true for all non-virtual methods), it's called "static dispatch".
 
@@ -415,7 +415,7 @@ theExplodingAsteroidRef.CollideWith(theApolloSpacecraftRef);
 
 The desired result here would be "ExplodingAsteroid hit an //ApolloSpacecraft//" but instead we get "ExplodingAsteroid hit a //SpaceShip//".
 
-The problem is that C# (and Java, C++, ...) only supports single dispatch, but not double dispatch. The method chosen is **only** based on ##theExplodingAsteroidRef##, but not on ##theExplodingAsteroidRef## **and** ##theApolloSpacecraftRef## (which would be double dispatch).
+The problem is that C# (and Java, C++, ...) only supports single dispatch, but not double dispatch. The method chosen is **only** based on `theExplodingAsteroidRef`, but not on `theExplodingAsteroidRef` **and** `theApolloSpacecraftRef` (which would be double dispatch).
 
 == Not Actually Solved Problem: Iterators ==
 Many pages on the internet associate the visitor pattern with traversing some data structure, usually a tree or hierarchy.
@@ -476,9 +476,9 @@ For example, you could implement the visitor pattern for saving a data structure
 === New Visitables ===
 If you add new visitable, you need to update every visitor that's already implemented.
 
-Let's take our document classes from [[#object_structure|above]]. We had the classes ##PlainText##, ##BoldText##, and ##Hyperlink##.
+Let's take our document classes from [[#object_structure|above]]. We had the classes `PlainText`, `BoldText`, and `Hyperlink`.
 
-Now, let's say we want to add a class for underlined text. The interface ##IVisitor## would thus change to:
+Now, let's say we want to add a class for underlined text. The interface `IVisitor` would thus change to:
 
 ```c#
 public interface IVisitor {
@@ -502,8 +502,8 @@ The visitor pattern is a relatively complicated pattern.
 **Design goal:** Separate operations from the data structures they work on. As a nice side effect, this allows you to add operations to data structures that you can't change (maybe because you lost the source code for them).
 
 **You need:**
-* ##IVisitor## (the operation) providing a ##Visit()## method for each visitable class; needs to be implemented by every visitor.
-* ##IVisitable## providing an ##Accept(Visitor)## method; needs to be implemented by every visitable class.
+* `IVisitor` (the operation) providing a `Visit()` method for each visitable class; needs to be implemented by every visitor.
+* `IVisitable` providing an `Accept(Visitor)` method; needs to be implemented by every visitable class.
 
 **Issues:**
 * Difference to iterator pattern sometimes a little fuzzy.

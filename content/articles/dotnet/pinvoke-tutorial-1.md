@@ -28,18 +28,18 @@ If you're not using Visual Studio 2010 (or don't want to use the provided zip fi
 
 For project //NativeLib//, go to the project settings and (for all configurations):
 
- * under ##C/C++## --> ##Preprocessor## --> ##Preprocessor Definitions## add ##MYAPI=__declspec(dllexport)##
- * under ##C/C++## --> ##Advanced##: change ##Calling Convention## to ##__stdcall (/Gz)##
+ * under `C/C++` --> `Preprocessor` --> `Preprocessor Definitions` add `MYAPI=__declspec(dllexport)`
+ * under `C/C++` --> `Advanced`: change `Calling Convention` to `__stdcall (/Gz)`
 
 For project //PInvokeTest//:
 
- * Specify //NativeLib// as dependency for //PInvokeTest//. Right click on //PInvokeTest// and choose ##Project Dependencies...##. Then select //NativeLib// and hit ##OK##.
- * Change the ##Output path## (under project settings: ##Build##) to ##../Debug## and ##../Release## for the different ##Configuration##s respectively.
+ * Specify //NativeLib// as dependency for //PInvokeTest//. Right click on //PInvokeTest// and choose `Project Dependencies...`. Then select //NativeLib// and hit `OK`.
+ * Change the `Output path` (under project settings: `Build`) to `../Debug` and `../Release` for the different `Configuration`s respectively.
 
 = Simple P/Invoke ========
-First, let's create a native function called ##print_line()##.
+First, let's create a native function called `print_line()`.
 
-Add a file called ##NativeLib.h## to //NativeLib// (or replace it contents):
+Add a file called `NativeLib.h` to //NativeLib// (or replace it contents):
 
 ```c
 #ifndef _NATIVELIB_H_
@@ -62,7 +62,7 @@ MYAPI void print_line(const char* str);
 #endif // _NATIVELIB_H_
 ```
 
-Then, add ##NativeLib.cpp##:
+Then, add `NativeLib.cpp`:
 
 ```c
 #include "NativeLib.h"
@@ -73,7 +73,7 @@ MYAPI void print_line(const char* str) {
 }
 ```
 
-Now, let's call this function from the //PInvokeTest// project. To do this, add the highlighted lines to ##Program.cs##:
+Now, let's call this function from the //PInvokeTest// project. To do this, add the highlighted lines to `Program.cs`:
 
 ```c# line=1 highlight=5,10,13,14
 using System;
@@ -96,12 +96,12 @@ namespace PInvokeTest {
 
 The most important lines in this sections are //lines 13 and 14//. Here we're specifying the C/C++ function to import into our .NET class. There are a couple of things to note about this:
 
- * The modifier is ##static extern##. ##extern## means that the function is imported from C/C++. ##static## is necessary because the function has no knowledge about the class ##Program##.
+ * The modifier is `static extern`. `extern` means that the function is imported from C/C++. `static` is necessary because the function has no knowledge about the class `Program`.
  * The name of the function matches the name of C/C++ function.
- * The type of parameter ##str## is a .NET type (here: ##string##). P/Invoke automatically converts (also called: //marshals//) data types from .NET to C/C++ and the other way around.
- * The attribute ##[DllImport]## specifies the name of DLL file from which we import the function. //Note:// [[http://msdn.microsoft.com/en-us/library/system.runtime.interopservices.dllimportattribute.aspx|DllImport]] allows you to control almost every aspect of the import, like providing a different .NET method name or specifying the calling convention.
+ * The type of parameter `str` is a .NET type (here: `string`). P/Invoke automatically converts (also called: //marshals//) data types from .NET to C/C++ and the other way around.
+ * The attribute `[DllImport]` specifies the name of DLL file from which we import the function. //Note:// [[http://msdn.microsoft.com/en-us/library/system.runtime.interopservices.dllimportattribute.aspx|DllImport]] allows you to control almost every aspect of the import, like providing a different .NET method name or specifying the calling convention.
 
-Now compile the project and it should print ##Hello, PInvoke!## to the console.
+Now compile the project and it should print `Hello, PInvoke!` to the console.
 
 You can download the complete project here:
 
@@ -111,7 +111,7 @@ You can download the complete project here:
 There are a couple of things that can go wrong with P/Invoke.
 
 == Unable to load DLL =============
-You may get a ##DllNotFoundException## with an error message like "The specified module could not be found."
+You may get a `DllNotFoundException` with an error message like "The specified module could not be found."
 
 [[image:dll-not-found.png|center|medium|link=source]]
 
@@ -119,27 +119,27 @@ As the error message suggests the DLL "NativeLib.dll" could not be found.
 
 The problem here is that Visual Studio doesn't copy native DLLs to the output directory of .NET projects.
 
-Solution: Change the output directory of the .NET project (//PInvokeTest//) to match the output directory of the native project (//NativeLib//). In //PInvokeTest//'s project settings under ##Build## choose ##../Debug## and ##../Release## for ##Output path## in the respective configuration.
+Solution: Change the output directory of the .NET project (//PInvokeTest//) to match the output directory of the native project (//NativeLib//). In //PInvokeTest//'s project settings under `Build` choose `../Debug` and `../Release` for `Output path` in the respective configuration.
 
 == Stack Imbalance ==============
-You may get an error saying that a ##PInvokeStackImbalance was detected##.
+You may get an error saying that a `PInvokeStackImbalance was detected`.
 
 [[image:stack-imbalance.png|center|medium|link=source]]
 
-The reason is most likely that the native library uses another //calling convention// then the .NET project. By default, C/C++ projects use the ##__cdecl## calling convention, whereas ##[DllImport]## uses ##__stdcall## by default.
+The reason is most likely that the native library uses another //calling convention// then the .NET project. By default, C/C++ projects use the `__cdecl` calling convention, whereas `[DllImport]` uses `__stdcall` by default.
 
 Solution: Make sure the calling conventions match. Either:
 
- * Specify the correct calling convention in ##[DllImport]##, for example ##[DllImport("NativeLib.dll", CallingConvention=CallingConvention.Cdecl)]##
- * Change the default calling convention for the native project. This is done in the project settings under ##C/C++## --> ##Advanced## --> ##Calling Convention##.
- * Add the desired calling convention to the desired C/C++ functions, for example: ##void __stdcall print_line(const char* str)##. This will only change the calling convention for these functions.
+ * Specify the correct calling convention in `[DllImport]`, for example `[DllImport("NativeLib.dll", CallingConvention=CallingConvention.Cdecl)]`
+ * Change the default calling convention for the native project. This is done in the project settings under `C/C++` --> `Advanced` --> `Calling Convention`.
+ * Add the desired calling convention to the desired C/C++ functions, for example: `void __stdcall print_line(const char* str)`. This will only change the calling convention for these functions.
 
 In most cases, it doesn't matter what calling convention you use. There are some differences, though. You can read more about these differences in the Code Project article [[http://www.codeproject.com/Articles/1388/Calling-Conventions-Demystified|Calling Conventions Demystified]] (Section: Conclusion).
 
 = Portability ===================
 On non-Windows systems you can use [[http://www.mono-project.com|Mono]] to execute .NET applications. If you're planning on supporting multiple platforms with your .NET code, I suggest you either:
 
- * Don't specify a file extension (##.dll##) in ##[DllImport]##, like ##[DllImport("NativeLib")]##. This way the appropriate file name will be chosen automatically. Note, however, that this only works as long as there is no dot in the file name (like in ##System.Network.dll##).
+ * Don't specify a file extension (`.dll`) in `[DllImport]`, like `[DllImport("NativeLib")]`. This way the appropriate file name will be chosen automatically. Note, however, that this only works as long as there is no dot in the file name (like in `System.Network.dll`).
  * Or: Always specify the full Windows file name (i.e. including file extension) and use [[http://www.mono-project.com/Interop_with_Native_Libraries#Library_Names|Mono's library mapping mechanism]] to map platform-dependent file names to Windows file names.
 
 = C++/CLI =======

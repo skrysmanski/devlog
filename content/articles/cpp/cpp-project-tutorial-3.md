@@ -10,7 +10,7 @@ draft: true
 
 In this part of the "Projects in Visual C++ 2010" mini series another important aspect of C++ programming is explain: //precompiled headers//. Precompiled headers (or precompiled header files) in many cases significantly reduce the time needed to compile a project.
 
-Here at work I have a C++ project with about 50 ##.cpp## files in it. The project uses the Qt library and all files only include the absolute minimum of header files required. Without precompiled headers, compiling the project takes about 56 seconds. //With// precompiled headers, the compile time goes down to about 7 seconds. That's eight times faster.
+Here at work I have a C++ project with about 50 `.cpp` files in it. The project uses the Qt library and all files only include the absolute minimum of header files required. Without precompiled headers, compiling the project takes about 56 seconds. //With// precompiled headers, the compile time goes down to about 7 seconds. That's eight times faster.
 
 **Related Articles:**
 * [[1725]]
@@ -43,15 +43,15 @@ So when this header is precompiled, all included headers will be precompiled as 
 You may also note the `#pragma` statement on the first line. This is just "helper statement". With it, every time the precompiled header is compiled, the specified message will be printed to the build output. If you see this message twice or more while compiling a single project, something is wrong. (In most cases you won't see the message at all because the precompiled header is already compiled.)
 
 == Using the Precompiled Header ==
-Whether to use a precompiled header or not can be specified per project as well as per file. When you want to use a precompiled header in a project, you usually say "Use" for the whole project and then exclude certain ##.cpp## file that shall not use the precompiled header. Both options are in the same section - it just depends on whether you open the project settings or the file settings (both being available through their context menus).
+Whether to use a precompiled header or not can be specified per project as well as per file. When you want to use a precompiled header in a project, you usually say "Use" for the whole project and then exclude certain `.cpp` file that shall not use the precompiled header. Both options are in the same section - it just depends on whether you open the project settings or the file settings (both being available through their context menus).
 
 To enable precompiled headers in a project (or file), open the project settings (or file settings) and select "Use" under "C++" --> "Precompiled Headers" --> "Precompiled Header". Also make sure, that you've selected "All Configurations" from the "Configuration" dropdown field. (Note that the option "Create" will be used [[#compiling_the_header|below]].)
 
 [[image:enable-precompiled-headers.png|center|medium|link=source]]
 
-The next thing you need to do is to `#include "..."` the precompiled header file in every source file (##.cpp##). You shouldn't (can't?) include it in the header files (##.h##) but only in the ##.cpp## file. Also, the include statement must be //the first statement// in the file (only comments or whitespace is allowed above it). This is because Visual C++ assumes that everything before the include statement is already compiled.
+The next thing you need to do is to `#include "..."` the precompiled header file in every source file (`.cpp`). You shouldn't (can't?) include it in the header files (`.h`) but only in the `.cpp` file. Also, the include statement must be //the first statement// in the file (only comments or whitespace is allowed above it). This is because Visual C++ assumes that everything before the include statement is already compiled.
 
-So the beginning of a ##.cpp## file in your project may look like this:
+So the beginning of a `.cpp` file in your project may look like this:
 
 ```c++
 // File with some fancy functions.
@@ -65,7 +65,7 @@ Note that the name of the precompiled header file is the one you specified above
 == Compiling the Header == #compiling_the_header
 By now, we've specified which headers are to be compile and where these headers will be used. The last step is to actually compile the precompiled header. Without this you'll get a "Cannot open precompiled header file" error message when compiling the project.
 
-For this you need to add a new ##.cpp## file to your project. By convention, it has the same name as the precompiled header but that's no strict requirement. This file only needs to contain one statement:
+For this you need to add a new `.cpp` file to your project. By convention, it has the same name as the precompiled header but that's no strict requirement. This file only needs to contain one statement:
 
 ```c++
 // stdafx.cpp

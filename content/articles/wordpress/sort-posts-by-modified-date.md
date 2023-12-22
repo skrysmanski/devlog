@@ -22,4 +22,4 @@ function order_posts_by_mod_date($orderby) {
 add_filter('posts_orderby', 'order_posts_by_mod_date', 999);
 ```
 
-In your theme, just dump this snippet into ##functions.php##. (You may need to create this file in your theme's directory.)
+In your theme, just dump this snippet into `functions.php`. (You may need to create this file in your theme's directory.)

@@ -30,10 +30,10 @@ See also:
 = Handles ================================
 C++/CLI allows for two reference/pointer types:
 
-* **native pointers (*, &):** Pointers as they're known from C/C++. They are not garbage collected and must be managed manually in the code. Created with ##malloc()## or ##new##.
-  Example: ##char*##, ##MyClass&##
-* **handles (^):** Handles are the references as they're used in C# (or all other .NET languages). Handles are garbage collected (meaning you don't need to free them manually) and are created by ##gcnew## (instead of ##new## with pointers).
-  Example: ##String^##, ##array<String^>^##
+* **native pointers (*, &):** Pointers as they're known from C/C++. They are not garbage collected and must be managed manually in the code. Created with `malloc()` or `new`.
+  Example: `char*`, `MyClass&`
+* **handles (^):** Handles are the references as they're used in C# (or all other .NET languages). Handles are garbage collected (meaning you don't need to free them manually) and are created by `gcnew` (instead of `new` with pointers).
+  Example: `String^`, `array<String^>^`
 
 The members of //handles// are accessed with the "->" operator (and not with the "." operator).
 
@@ -41,17 +41,17 @@ The members of //handles// are accessed with the "->" operator (and not with the
 = CLR types ================================
 A type (class, struct) becomes a CLR type when it's being prefixed with a specific keyword.
 
- * **Native types:** ##class##, ##struct##
+ * **Native types:** `class`, `struct`
  * **Managed types:**
-   ** **C# class:** ##ref class##, ~~##ref struct##~~
-   ** **C# struct:** ~~##value class##~~, ##value struct##
-   ** **C# interface:** ##interface class##, ~~##interface struct##~~
-   ** **C# enum:** ##enum class##, ##enum struct##
+   ** **C# class:** `ref class`, ~~`ref struct`~~
+   ** **C# struct:** ~~`value class`~~, `value struct`
+   ** **C# interface:** `interface class`, ~~`interface struct`~~
+   ** **C# enum:** `enum class`, `enum struct`
 
 //Notes://
-* In C++ ##struct## and ##class## can be used interchangeably with the difference that all C++ ##struct## members are public by default while all C++ ##class## members are private by default. To avoid confusion ##ref struct##, ##value class##, and ##interface struct## should not be used. There are therefore stroke-through in the list above. For an ##interface class##, however, all members are public automatically.
-* Don't forget to terminate a type declaration (even ##class##es and ##struct##s) with a semicolon; i.e. use ##ref class MyClass { };##. Otherwise you will get compiler errors. (Just mention this here as this is not necessary in C#.)
-* In C++/CLI a CLR type can be used as a handle or directly on the stack, i.e.: ##MyCLRType^ myHandleVar## (handle on heap) vs. ##MyCLRType myStackVar## (stack)
+* In C++ `struct` and `class` can be used interchangeably with the difference that all C++ `struct` members are public by default while all C++ `class` members are private by default. To avoid confusion `ref struct`, `value class`, and `interface struct` should not be used. There are therefore stroke-through in the list above. For an `interface class`, however, all members are public automatically.
+* Don't forget to terminate a type declaration (even `class`es and `struct`s) with a semicolon; i.e. use `ref class MyClass { };`. Otherwise you will get compiler errors. (Just mention this here as this is not necessary in C#.)
+* In C++/CLI a CLR type can be used as a handle or directly on the stack, i.e.: `MyCLRType^ myHandleVar` (handle on heap) vs. `MyCLRType myStackVar` (stack)
 
 
 == Native and managed types on stack and heap ================================
@@ -79,7 +79,7 @@ void test() {
 
 
 == Handles and Value Types (.Net Structs and Enums) ================================
-Since value types (ie. ##value struct## and ##enum class##) are passed-by-copy, you usually don't use handles on them but use them directly. Instead you create them directly on the stack (ie. without ##gcnew##) like this:
+Since value types (ie. `value struct` and `enum class`) are passed-by-copy, you usually don't use handles on them but use them directly. Instead you create them directly on the stack (ie. without `gcnew`) like this:
 
 ```c++/cli
 Point Test() {
@@ -92,9 +92,9 @@ MyEnum Test2() {
 }
 ```
 
-Using a handle on a value type essentially create a [[http://msdn.microsoft.com/en-us/library/yz2be5wk%28v=vs.80%29.aspx|boxed]] version of that value type. In managed code, all ##value struct##s will be converted into ##ValueType## types and all ##enum class##es will be converted into ##Enum## types.
+Using a handle on a value type essentially create a [[http://msdn.microsoft.com/en-us/library/yz2be5wk%28v=vs.80%29.aspx|boxed]] version of that value type. In managed code, all `value struct`s will be converted into `ValueType` types and all `enum class`es will be converted into `Enum` types.
 
-For example the following C++/CLI code (with ##Point## being a //value type// and ##MyEnum## being an //enum class//):
+For example the following C++/CLI code (with `Point` being a //value type// and `MyEnum` being an //enum class//):
 
 ```c++/cli
 public ref class MyTestClass {
@@ -118,13 +118,13 @@ public class MyTestClass {
 There are several ways to cast a handle to another type:
 
 * **safe cast:** Casts the handle to the other type, if possible, and throws an exception if the cast isn't possible due to incompatible types. This is identical to a C# type cast. Examples:
-** ##(NewType^)myHandle##
-** ##safe_cast<NewType^>(myHandle)##
-* **dynamic cast:** Casts the handle to the other type, if possible, and returns ##nullptr## if the cast isn't possible due to incompatible types. This is identical to the C# keyword ##as## (or ##is##, if used in a condition). Examples:
-** ##dynamic_cast<NewType^>(myHandle)##
-** ##if (dynamic_cast<NewType^>(myHandle) != nullptr) { ... }##
+** `(NewType^)myHandle`
+** `safe_cast<NewType^>(myHandle)`
+* **dynamic cast:** Casts the handle to the other type, if possible, and returns `nullptr` if the cast isn't possible due to incompatible types. This is identical to the C# keyword `as` (or `is`, if used in a condition). Examples:
+** `dynamic_cast<NewType^>(myHandle)`
+** `if (dynamic_cast<NewType^>(myHandle) != nullptr) { ... }`
 * **static cast:** This is the equivalent of a C++ type cast; i.e. not type checking is done. Doing an invalid cast on a handle this way will result in undefined behaviour. Can't be used when the compiler option "/clr:safe" is enabled. Example:
-** ##static_cast<NewType^>(myHandle)##
+** `static_cast<NewType^>(myHandle)`
 
 
 == Passing handles ================================
@@ -141,9 +141,9 @@ ChangeString(str);
 Console::WriteLine(str.myInnerString);
 ```
 
-This code changes ##myInnerString## as expected.
+This code changes `myInnerString` as expected.
 
-To pass the reference to the handle itself (C# keyword ##ref##), the ##%## operator must be used (like the ##&## operator in C++):
+To pass the reference to the handle itself (C# keyword `ref`), the `%` operator must be used (like the `&` operator in C++):
 
 ```c++/cli
 void ChangeString(String^% str)
@@ -157,13 +157,13 @@ ChangeString(str);
 Console::WriteLine(str);
 ```
 
-This again changes the string. Note the ##%## in ##ChangeString()##.
+This again changes the string. Note the `%` in `ChangeString()`.
 
 **Notes:**
- * For the C# keyword ##out##, the parameter must also be prefixed with the ##[Out]## attribute (from ##System::Runtime::InteropServices##). For example: ##void ChangeString([Out] String^% str)##
- * Unlike in C# ##out## and ##ref## don't need to be specified when calling methods using the ##%## operator.
+ * For the C# keyword `out`, the parameter must also be prefixed with the `[Out]` attribute (from `System::Runtime::InteropServices`). For example: `void ChangeString([Out] String^% str)`
+ * Unlike in C# `out` and `ref` don't need to be specified when calling methods using the `%` operator.
  * Handles are type-safe, i.e. you can't cast them to anything aren't.
- * Handles can't be cast to or from ##void^##.
+ * Handles can't be cast to or from `void^`.
 
 == Mixing native and managed types ====================================
 This section gives a quick overview what is allowed with handles and what isn't.
@@ -172,11 +172,11 @@ This section gives a quick overview what is allowed with handles and what isn't.
 |Methods with native types (as parameters or return types)  | Yes (copy and reference)     | Yes (copy and reference); this method will only be callable from C++/CLI code (but not from C# code) |
 |Methods with managed types (as parameters or return types) | Yes (copy and handle)        | Yes (copy and handle)    |
 |Fields with native type                                    | Yes (direct and pointer)     | Only pointer             |
-|Fields with managed type                                   | value types directly; handles via ##gcroot## (see below) | Values types and handles |
+|Fields with managed type                                   | value types directly; handles via `gcroot` (see below) | Values types and handles |
 
 //Important:// Passing pointers of native types across assembly (dll) boundaries requires some more work. See [[1832]] for more information.
 
-To be able to store a handle as field in a native class, wrap it in a [[http://msdn.microsoft.com/library/481fa11f.aspx|gcroot]] instance, like so: ##gcroot<String^> m_myMember##.
+To be able to store a handle as field in a native class, wrap it in a [[http://msdn.microsoft.com/library/481fa11f.aspx|gcroot]] instance, like so: `gcroot<String^> m_myMember`.
 
 ```c++/cli
 #include <vcclr.h>
@@ -216,7 +216,7 @@ To use a CLR type before having declared it, use this:
 ref class MyClass;
 ```
 
-Note that no visibility modifier (like ##public##) must be user here, even if the actual class has public visibility.
+Note that no visibility modifier (like `public`) must be user here, even if the actual class has public visibility.
 
 = Modifiers: visibility ================================
 Visibility modifiers for class/struct members are used as in C++:
@@ -234,32 +234,32 @@ public ref class MyClass { };
 private value struct MyStruct { }; // internal struct
 ```
 
-Classes/structs without visibility modifier will be interpreted as ##internal## (which is ##private## in C++/CLI).
+Classes/structs without visibility modifier will be interpreted as `internal` (which is `private` in C++/CLI).
 
 Beside using a single visibility modifier, C++/CLI allows the programmer to specify //two modifiers//. The rule here is: The higher visibility is used inside the assembly and the lower visibility outside the assembly.
 
 Here's a list of supported modifiers:
 
 |= Scope         |= C++/CLI              |= C#
-|Classes/Members | ##public##            | ##public##
-|Members         | ##protected##         | ##protected##
-|Members         | ##private##           | ##private##
-|Classes         | ##private##           | ##internal##
-|Members         | ##internal##          | ##internal##
-|Members         | ##public protected##  | ##internal protected##
-|Members         | ##protected private## | not possible (i.e. you can't define this in C# although it's a valid CLR visibility)
+|Classes/Members | `public`            | `public`
+|Members         | `protected`         | `protected`
+|Members         | `private`           | `private`
+|Classes         | `private`           | `internal`
+|Members         | `internal`          | `internal`
+|Members         | `public protected`  | `internal protected`
+|Members         | `protected private` | not possible (i.e. you can't define this in C# although it's a valid CLR visibility)
 
 
 = Modifiers: abstract, sealed, static ===============================
-If the modifiers ##abstract## and ##sealed## needs to be specified after the class name but before the inheritance operator:
+If the modifiers `abstract` and `sealed` needs to be specified after the class name but before the inheritance operator:
 
 ```c++/cli
 public ref class MyTestClass2 abstract : MyTestClass { };
 ```
 
-The meaning of these keywords translates directly into C#. //Combining both keywords// results in a ##static## C# class/struct.
+The meaning of these keywords translates directly into C#. //Combining both keywords// results in a `static` C# class/struct.
 
-For members (methods and fields) the keywords ##abstract## and ##sealed## must be specified after the parameter list:
+For members (methods and fields) the keywords `abstract` and `sealed` must be specified after the parameter list:
 
 ```c++/cli
 virtual void Func() abstract;
@@ -275,8 +275,8 @@ static int MyFunc();
 To sum it up:
 
 |= C++/CLI     |= C#          |= Note                 |
-| ##literal##  | ##const##    | Compile-time constant |
-| ##initonly## | ##readonly## | Runtime constant      |
+| `literal`  | `const`    | Compile-time constant |
+| `initonly` | `readonly` | Runtime constant      |
 
 So, for example, this C++/CLI code:
 
@@ -305,8 +305,8 @@ public class MyClass {
 Inheritance for CLR types is like you know it from C#. Therefore just some notes:
 
  * //Only public inheritance// is allowed for CLR types. This doesn't work:
-   ##ref class Derived1 : private Base {}; // which would be allowed in C++##
-   If no visibility is specified, ##public## will be assumed automatically.
+   `ref class Derived1 : private Base {}; // which would be allowed in C++`
+   If no visibility is specified, `public` will be assumed automatically.
  * //Multiple inheritance// isn't supported by the CLR (although it is by C++).
  * "value" types can only inherit interfaces but not classes.
  * "value" types are automatically sealed.
@@ -315,18 +315,18 @@ Inheritance for CLR types is like you know it from C#. Therefore just some notes
 = Arrays ================================
 Arrays are defined like this in C++/CLI:
 
- * ##array<int>^ myArr1##
- * ##array<String^>^ myArr2##
- * ##array<String^> myArr3  // sits on the stack##
+ * `array<int>^ myArr1`
+ * `array<String^>^ myArr2`
+ * `array<String^> myArr3  // sits on the stack`
 
 Arrays (if they're a handle) are created using "gcnew":
 
  * Regular array:
-   ##array<int>^ strarray = gcnew array<int>(5); // 5 elements##
+   `array<int>^ strarray = gcnew array<int>(5); // 5 elements`
  * Multi-dimensional array:
-   ##array<String^,2>^ names = gcnew array<String^,2>(4,3); // 4x3 elements##
+   `array<String^,2>^ names = gcnew array<String^,2>(4,3); // 4x3 elements`
  * Jagged array (array of arrays):
-   ##array<array<int>^>^ arr = gcnew array<array<int>^>(5);##
+   `array<array<int>^>^ arr = gcnew array<array<int>^>(5);`
 
 Accessing an element works like in C# or C++:
 
@@ -334,7 +334,7 @@ Accessing an element works like in C# or C++:
 myArray[5]  // retrieves or sets the 6th array element
 ```
 
-All C++/CLI arrays are direct subclasses of ##System::Array##. Thus, the //size of an array// can be obtained through the property ##Length##.
+All C++/CLI arrays are direct subclasses of `System::Array`. Thus, the //size of an array// can be obtained through the property `Length`.
 
 More information:
  * [[http://msdn.microsoft.com/de-de/library/ts4c4dw6(v=VS.100).aspx|General information on C++/CLI arrays]]
@@ -375,7 +375,7 @@ public:
   }
 ```
 
-And if you want to separate definition (##.h## file) from implementation (##.cpp## file), you do it like this:
+And if you want to separate definition (`.h` file) from implementation (`.cpp` file), you do it like this:
 
 ```C++/CLI
 // .h file - assume class is "MyClass"
@@ -430,9 +430,9 @@ protected:
 };
 ```
 
-You only need destructor //and// finalizer when the class hosts some unmanaged data (e.g. a pointer to a C++ class). If you don't have unmanaged data in your class, you neither need destructor nor finalizer (unless you have some members implementing ##IDisposable##).
+You only need destructor //and// finalizer when the class hosts some unmanaged data (e.g. a pointer to a C++ class). If you don't have unmanaged data in your class, you neither need destructor nor finalizer (unless you have some members implementing `IDisposable`).
 
-//Note:// The destructor (##Dispose()##) will **not** be called automatically from the finalizer.
+//Note:// The destructor (`Dispose()`) will **not** be called automatically from the finalizer.
 
 Since freeing unmanaged resources should occur in the finalizer (see [[1886]]), the default implementation pattern for finalizer and destructor looks like this:
 
@@ -462,7 +462,7 @@ private:
 
 
 == Calling the Destructor ===============
-There are two ways of calling the (deterministic) destructor (i.e. ##~MyClass()##) in C++/CLI.
+There are two ways of calling the (deterministic) destructor (i.e. `~MyClass()`) in C++/CLI.
 
 When an object sits on the stack, its destructor is automatically called when the variable goes out of scope:
 
@@ -474,7 +474,7 @@ int main() {
 }
 ```
 
-On the other hand, when an object is created on the GC heap, use ##delete## to call its destructor:
+On the other hand, when an object is created on the GC heap, use `delete` to call its destructor:
 
 ```c++/cli highlight=5
 int main() {
@@ -490,7 +490,7 @@ int main() {
 Delegates are basically pointers (or "handles") to .NET methods. The can be called directly or be used as event handlers.
 
 == Delegates ============================
-You create a delegate by passing ##this## and a pointer to method to its constructor.
+You create a delegate by passing `this` and a pointer to method to its constructor.
 
 ```c++/cli highlight=11
 using namespace System;
@@ -516,20 +516,20 @@ int main() {
 }
 ```
 
-To define a custom delegate, use the ##delegate## keyword:
+To define a custom delegate, use the `delegate` keyword:
 
 ```c++/cli
 public delegate double Addition(double val1, double val2);
 ```
 
 == Events ===============================
-To assign a delegate to an event, use the ##+=## operator just as in C#:
+To assign a delegate to an event, use the `+=` operator just as in C#:
 
 ```c++/cli
 dispatcherTimer->Tick += gcnew EventHandler(this, &MyClass::OnTick);
 ```
 
-Creating an event is pretty much the same as in C#. Just use the keyword ##event## together with the desired delegate type:
+Creating an event is pretty much the same as in C#. Just use the keyword `event` together with the desired delegate type:
 
 ```c++/cli highlight=3
 public ref class CExercise {
@@ -544,7 +544,7 @@ Calling an event is identical to calling a delegate:
 this->MyCustomEvent(this, EventArgs::Empty);
 ```
 
-//Note:// Checking the event against ##nullptr## isn't required in C++/CLI (unlike C#). That's because the event's ##raise()## method automatically checks whether there are actually any event handlers ([[http://stackoverflow.com/a/2014752/614177|source]]).
+//Note:// Checking the event against `nullptr` isn't required in C++/CLI (unlike C#). That's because the event's `raise()` method automatically checks whether there are actually any event handlers ([[http://stackoverflow.com/a/2014752/614177|source]]).
 
 = Templates and Generics ================
 C++/CLI classes can use C++ templates as well as .NET generics. Since templates aren't visible in .NET (but generics are), we'll skip them here. See the link below for more information.
@@ -584,7 +584,7 @@ ref class ConstrainedToValueType { };
 See also: [[http://www.codeproject.com/KB/mcpp/cppcligenerics.aspx|Using generics in C++/CLI]]
 
 == nullptr for generic reference types ======
-To return/pass ##nullptr## for a generic parameter use ##T()##. For example:
+To return/pass `nullptr` for a generic parameter use `T()`. For example:
 
 ```c++/cli
 generic<typename T> where T : ref class, Object
@@ -596,11 +596,11 @@ T MyClass::ReturnNull() {
 }
 ```
 
-//Note:// The syntax of ##T()## may be misleading. It does **not** create an instance of ##T## on the stack and call ##T##'s default constructor (as the syntax would suggest). It indeed results in ##nullptr##.
+//Note:// The syntax of `T()` may be misleading. It does **not** create an instance of `T` on the stack and call `T`'s default constructor (as the syntax would suggest). It indeed results in `nullptr`.
 
 
 = Referencing managed type from other file (in the same project) ======================================================
-Using a managed type that comes with an assembly (dll) in a C++/CLI file is simple: Simply use it - either fully qualified or with ##using##.
+Using a managed type that comes with an assembly (dll) in a C++/CLI file is simple: Simply use it - either fully qualified or with `using`.
 
 ```c++/cli
 void MyClass::MyMethod() {
@@ -610,7 +610,7 @@ void MyClass::MyMethod() {
 }
 ```
 
-Using a managed type that comes //from another file in the same project// on the other hand requires you to include it in the file you want to use it. Or to be more precise: You need to include its method signatures (##.h## file( - not the actual implementation (##.cpp## file).
+Using a managed type that comes //from another file in the same project// on the other hand requires you to include it in the file you want to use it. Or to be more precise: You need to include its method signatures (`.h` file( - not the actual implementation (`.cpp` file).
 
 ```c++/cli
 #include "MyOtherClass.h"
@@ -622,10 +622,10 @@ void MyClass::MyMethod() {
 }
 ```
 
-So, if you have separated the class into a ##.h## and a ##.cpp## file, include the ##.h## file. If, on the other hand, you want to write your class in one file (like in C#), you need to create a ##.h## file (and not a ##.cpp## file) and include this file.
+So, if you have separated the class into a `.h` and a `.cpp` file, include the `.h` file. If, on the other hand, you want to write your class in one file (like in C#), you need to create a `.h` file (and not a `.cpp` file) and include this file.
 
 = Preprocessor ==========================================
-By enabling the common language runtime support for a project (i.e. making it a C++/CLI project rather than a pure C++ project), a preprocessor definition called ##_MANAGED## will be defined (with value ##1##):
+By enabling the common language runtime support for a project (i.e. making it a C++/CLI project rather than a pure C++ project), a preprocessor definition called `_MANAGED` will be defined (with value `1`):
 
 ```c++/cli
 #ifdef _MANAGED
@@ -634,7 +634,7 @@ By enabling the common language runtime support for a project (i.e. making it a 
 #endif
 ```
 
-Also defined are ##__cplusplus_cli## and ##__CLR_VER##. For more information, see [[http://msdn.microsoft.com/library/b0084kay.aspx|Predefined Macros]].
+Also defined are `__cplusplus_cli` and `__CLR_VER`. For more information, see [[http://msdn.microsoft.com/library/b0084kay.aspx|Predefined Macros]].
 
 = Glossary =
 ; Garbage Collector (GC): reclaims garbage, or memory used by objects that will never be accessed or mutated again by the application.
@@ -647,11 +647,11 @@ Also defined are ##__cplusplus_cli## and ##__CLR_VER##. For more information, se
 = History =
 What happened to this article:
 
- * **2013-07-31:** Added more information about generic constraints and ##nullptr## with generics
+ * **2013-07-31:** Added more information about generic constraints and `nullptr` with generics
  * **2013-07-05:** Added section about forward declarations
- * **2012-01-13:** Improved info about ##gcroot##, delegates and events, and improved destructors section
+ * **2012-01-13:** Improved info about `gcroot`, delegates and events, and improved destructors section
  * **2012-01-11:** Updated information about preprocessor defines and added history section
- * **2012-01-10:** Added section about C#'s ##typeof## equivalent in C++/CLI
+ * **2012-01-10:** Added section about C#'s `typeof` equivalent in C++/CLI
  * **2012-01-09:** Added note about passing native pointer across assembly boundaries
  * **2012-01-04:** Added section about constructors
  * **2011-12-20:** Added section about templates and generics
@@ -659,7 +659,7 @@ What happened to this article:
  * **2011-08-29:** Added section about handles and pointers as members of managed and native classes
  * **2011-08-26:** Added section about managed and native classes on the heap, stack, and GC heap
  * **2011-08-19:** Added section "Referencing managed type from other file (in the same project)"
- * **2011-08-09:** Added sections about .NET properties and the C# modifiers ##const## and ##readonly##
+ * **2011-08-09:** Added sections about .NET properties and the C# modifiers `const` and `readonly`
  * **2011-06-15:** Added information about value types and their relationship to handles
  * **2011-05-02:** Formatting and added scope to modifier table
  * **2011-04-19:** Published

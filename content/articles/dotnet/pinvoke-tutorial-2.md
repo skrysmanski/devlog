@@ -42,7 +42,7 @@ Please note that //all// encodings can encode //all// Unicode code points. They 
 If you want to experiment a little bit with Unicode, there is a [[http://unicode.mayastudios.com|Unicode Explorer]] I've written. Go ahead and give it a try.
 
 = P/Invoke String Conversions ==============
-Back to the actual problem. With the parameter of ##print_line()## defined as ##const char*## (and ##char## being 8 bit) it's not clear which code page to use for the strings passed to this function.
+Back to the actual problem. With the parameter of `print_line()` defined as `const char*` (and `char` being 8 bit) it's not clear which code page to use for the strings passed to this function.
 
 Instead, let's change the parameter type to Unicode (also sometimes referred to as "wide characters"):
 
@@ -57,27 +57,27 @@ No, let's also adopt the C# mapping:
 private static extern void print_line(string str);
 ```
 
-The only difference here it that we specified the ##CharSet## to be Unicode.
+The only difference here it that we specified the `CharSet` to be Unicode.
 
 With this, **C# will pass strings as UTF-16 encoded strings** to the C++ function.
 
-UTF-16 is, as said before, an encoding the converted Unicode code points into bytes and the other way around. In UTF-16 each code point is either encoded with one or with two ##WORD##s (16 bit values). The most frequently used code points will fit into one ##WORD##, the less frequently used code points fit into two ##WORD##s (called a "//surrogate pair//").
+UTF-16 is, as said before, an encoding the converted Unicode code points into bytes and the other way around. In UTF-16 each code point is either encoded with one or with two `WORD`s (16 bit values). The most frequently used code points will fit into one `WORD`, the less frequently used code points fit into two `WORD`s (called a "//surrogate pair//").
 
-**Important:** There is no ISO C way of how to print Unicode characters to the console. ##wprintf()## won't work - at least on Windows.
+**Important:** There is no ISO C way of how to print Unicode characters to the console. `wprintf()` won't work - at least on Windows.
 
 = Returning Strings =================
 Returning strings is not as trivial as passing them as parameters.
 
 The following is a [[http://stackoverflow.com/a/370519/614177|quote from Stack Overflow]].
 
-The problem though comes with what to do with the native memory that was returned from ##foo()##. The CLR assumes the following two items about a PInvoke function which directly returns the string type
+The problem though comes with what to do with the native memory that was returned from `foo()`. The CLR assumes the following two items about a PInvoke function which directly returns the string type
 
  * The native memory needs to be freed
- * The native memory was allocated with ##CoTaskMemAlloc##
+ * The native memory was allocated with `CoTaskMemAlloc`
 
-Therefore it will marshal the string and then call ##CoTaskMemFree## on the native memory blob. Unless you actually allocated this memory with ##CoTaskMemAlloc## this will at best cause a crash in your application.
+Therefore it will marshal the string and then call `CoTaskMemFree` on the native memory blob. Unless you actually allocated this memory with `CoTaskMemAlloc` this will at best cause a crash in your application.
 
-In order to get the correct semantics here you must return an ##IntPtr## directly. Then use ##Marshal.PtrToString## in order to get to a managed String value. You may still need to free the native memory but that will dependent upon the implementation of foo.
+In order to get the correct semantics here you must return an `IntPtr` directly. Then use `Marshal.PtrToString` in order to get to a managed String value. You may still need to free the native memory but that will dependent upon the implementation of foo.
 
 
 %% Article is to be imported by CodeProject

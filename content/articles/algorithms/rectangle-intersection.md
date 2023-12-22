@@ -17,7 +17,7 @@ Now, the solution to this problem is called a **separating axis test**. Basicall
 
 I won't get into the details of this algorithm here - it's sufficiently good described in the article mentioned above - but basically you check for each point on which side of the separating axis it is. If all points of the rectangle A are on one side and all of rectangle B are on the other side, then we've found a separating axis.
 
-Here's the implementation of the method testing where a single edge (represented by points ##x1## and ##x2##) is a separating axis:
+Here's the implementation of the method testing where a single edge (represented by points `x1` and `x2`) is a separating axis:
 
 ```c#
 /// <summary>
@@ -52,7 +52,7 @@ bool DoAxisSeparationTest(Point x1, Point x2, Point x3, Point[] otherQuadPoints)
 }
 ```
 
-This method is then called for each edge of each rectangle. If the method returns ##true##, the actual intersection test method can return "not intersecting". If the method returns ##false## for all edges, the rectangles intersect.
+This method is then called for each edge of each rectangle. If the method returns `true`, the actual intersection test method can return "not intersecting". If the method returns `false` for all edges, the rectangles intersect.
 
 [[image:test-app.png|center|medium|link=source]]
 

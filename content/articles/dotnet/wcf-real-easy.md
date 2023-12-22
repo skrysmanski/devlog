@@ -10,7 +10,7 @@ draft: true
 
 If you search for WCF tutorials, you'll find a lot of elaborate examples that involve editing several files.
 
-This tutorial is (supposed to be) different. It uses the simple most approach I could find for using WCF. It'll only involve one file and no XML descriptors (read: ##app.config##).
+This tutorial is (supposed to be) different. It uses the simple most approach I could find for using WCF. It'll only involve one file and no XML descriptors (read: `app.config`).
 
 I'll explain how to use WCF for **communicating between .NET processes** and how to use it for **HTTP requests**.
 
@@ -27,7 +27,7 @@ You need to target at least **.NET 3.5**.
 
 You also need to add references to **System.ServiceModel** and (for later) **System.ServiceModel.Web**.
 
-In your ##Program.cs##, we will use the following usings:
+In your `Program.cs`, we will use the following usings:
 
 ```c#
 using System;
@@ -37,12 +37,12 @@ using System.ServiceModel.Web;
 using System.Threading;
 ```
 
-You can remove everything else in this file - except for the ##namespace##.
+You can remove everything else in this file - except for the `namespace`.
 
 == The Service Interface =====
 The first thing we need is a service interface (also called "service contract").
 
-Add the following code to your ##Program.cs##:
+Add the following code to your `Program.cs`:
 
 ```c#
 [ServiceContract]
@@ -58,7 +58,7 @@ This interface will be implemented on the server side and used on the client sid
 == The Service Implementation ======
 Next, we're going to implement this interface on the server side.
 
-Add the following code to your ##Program.cs##:
+Add the following code to your `Program.cs`:
 
 ```c#
 // Implementation of IService
@@ -71,13 +71,13 @@ class ServiceImplementation : IService {
 }
 ```
 
-The setting ##InstanceContextMode.PerCall## will create a new instance of ##ServiceImplementation## for every call. Of course, other settings are possible as well.
+The setting `InstanceContextMode.PerCall` will create a new instance of `ServiceImplementation` for every call. Of course, other settings are possible as well.
 
 
 == The Server =======
 For the service to be able to respond to request, it needs to be executed in a so called **service host**.
 
-Add the following code to your ##Program.cs##:
+Add the following code to your `Program.cs`:
 
 ```c#
 class Server {
@@ -115,18 +115,18 @@ class Server {
 }
 ```
 
-The important code here is in ##Run()##.
+The important code here is in `Run()`.
 
 First, we create an instance of [[http://msdn.microsoft.com/library/ms554652.aspx|ServiceHost]] and pass the service //implementation// to it.
 
 Next, we add an endpoint for the host (i.e. where the client will connect to). Here we specified the service //interface// because the service implementation could implement multiple services.
 
-Last, we start the service host with ##Open()##.
+Last, we start the service host with `Open()`.
 
 == The Client =======
 Only one thing remains: the client.
 
-Add the following code to your ##Program.cs##:
+Add the following code to your `Program.cs`:
 
 ```c#
 internal class Program {
@@ -166,16 +166,16 @@ A couple of things are happening here.
 
 First, we create and start the server. It runs on a different thread.
 
-Then, we open a channel to our service by using ##ChannelFactory## and ##CreateChannel()##.
+Then, we open a channel to our service by using `ChannelFactory` and `CreateChannel()`.
 
-The instance returned by ##CreateChannel()## can then be used to communicate with the server.
+The instance returned by `CreateChannel()` can then be used to communicate with the server.
 
 == WCF HTTP Service ============
 It's also easy to accept HTTP requests with WCF.
 
-First, you need to add ##[WebGet]## (GET) or ##[WebInvoke]## (POST) to the methods of ##IService## you want to be "web-callable".
+First, you need to add `[WebGet]` (GET) or `[WebInvoke]` (POST) to the methods of `IService` you want to be "web-callable".
 
-For example, change the implementation of ##IService## to this:
+For example, change the implementation of `IService` to this:
 
 ```c# highlight=4
 [ServiceContract]
@@ -187,11 +187,11 @@ public interface IService {
 }
 ```
 
-Note the added ##[WebGet]## attribute. We also specified that the return value will be converted to JSON. The default is to return it as XML.
+Note the added `[WebGet]` attribute. We also specified that the return value will be converted to JSON. The default is to return it as XML.
 
-We don't need to change ##ServiceImplementation## at all.
+We don't need to change `ServiceImplementation` at all.
 
-So, next we'll modify ##Server.Run()##. Add the following code just after ##svh.Open();##
+So, next we'll modify `Server.Run()`. Add the following code just after `svh.Open();`
 
 ```c#
 var wsh = new WebServiceHost(typeof(ServiceImplementation), new Uri("http://localhost:8080"));
@@ -205,11 +205,11 @@ sdb.IncludeExceptionDetailInFaults = true;
 wsh.Open();
 ```
 
-You just need to create a ##WebServiceHost## - similar to how you created the ##ServiceHost## before.
+You just need to create a `WebServiceHost` - similar to how you created the `ServiceHost` before.
 
-Note that ##svh## and ##wsh## use different ports.
+Note that `svh` and `wsh` use different ports.
 
-After starting the app, you can call ##Ping()## by going to:
+After starting the app, you can call `Ping()` by going to:
 
   [[http://localhost:8080/Ping?name=Sebastian]]
 

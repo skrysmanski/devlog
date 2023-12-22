@@ -29,7 +29,7 @@ Each test for a certain thread count (1, 2, 3, ...) ran 30 seconds and was repea
 
 Thus, the overall test duration was about 2 days.
 
-In each test scenario, the SQLite database contained only one table with four columns. For ##SELECT## tests this table was filled with 50,000 rows of random data.
+In each test scenario, the SQLite database contained only one table with four columns. For `SELECT` tests this table was filled with 50,000 rows of random data.
 
 There are two kinds of concurrent access:
 
@@ -43,9 +43,9 @@ The first batch of tests simulated read access, the second batch simulated write
 = Test Parameters =======
 Each test comprises of a certain combination of the following test parameters:
 
- * //Shared connection vs. multi connection:// Whether all threads share the same database connection, or whether every thread has its own connection (to the same database though). Shared connections use ##SQLITE_OPEN_FULLMUTEX## (serialized), multi connections use ##SQLITE_OPEN_NOMUTEX## (multithread).
- * //Read-only:// Whether the connection is opened in read-only or read-write mode (##SQLITE_OPEN_READONLY##).
- * //Shared cache:// Whether all connections share the same cache (##SQLITE_OPEN_SHAREDCACHE##), or whether each connection has its own cache.
+ * //Shared connection vs. multi connection:// Whether all threads share the same database connection, or whether every thread has its own connection (to the same database though). Shared connections use `SQLITE_OPEN_FULLMUTEX` (serialized), multi connections use `SQLITE_OPEN_NOMUTEX` (multithread).
+ * //Read-only:// Whether the connection is opened in read-only or read-write mode (`SQLITE_OPEN_READONLY`).
+ * //Shared cache:// Whether all connections share the same cache (`SQLITE_OPEN_SHAREDCACHE`), or whether each connection has its own cache.
  * //WAL:// Whether the connection(s) use a database in [[http://www.sqlite.org/draft/wal.html|WAL (write-ahead logging) journal mode]].
  * //Filled table:// Whether the table to read from is empty or filled (not examined in this report due to missing data; I should mention though that trying to read from an empty table is significant slower than reading from a filled table).
 
@@ -55,7 +55,7 @@ Let's start with the tests only reading data (i.e. no data is written during the
 [[file:select-statements.csv]] (file containing data for charts in this section)
 
 == Test: read-only =======
-First test is about whether opening a database connection in read-only mode (##SQLITE_OPEN_READONLY##) does result in any performance benefit.
+First test is about whether opening a database connection in read-only mode (`SQLITE_OPEN_READONLY`) does result in any performance benefit.
 
 <div style="text-align:center;padding-bottom:1em">
 <span style="color:black">---</span> : read-write
@@ -67,7 +67,7 @@ First test is about whether opening a database connection in read-only mode (##S
 As you can see, there's no benefit from choosing a read-only connection over a read-write connection (but it doesn't hurt either).
 
 == Test: shared cache ======
-Next, let's check whether using a shared cache (##SQLITE_OPEN_SHAREDCACHE##) affects read performance.
+Next, let's check whether using a shared cache (`SQLITE_OPEN_SHAREDCACHE`) affects read performance.
 
 <div style="text-align:center;padding-bottom:1em">
 <span style="color:black">---</span>, <span style="color:gray">---</span> : no shared cache

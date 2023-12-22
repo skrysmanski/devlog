@@ -59,7 +59,7 @@ Vagrant 1.8.5
 ```
 
 == Starting and Interacting with Your First VM ==
-To start your first VM, first **create an empty directory** somewhere and ##cd## into it.
+To start your first VM, first **create an empty directory** somewhere and `cd` into it.
 
 Then execute the following two commands:
 
@@ -70,7 +70,7 @@ Then execute the following two commands:
 
 This will start a virtual machine running Ubuntu 12.04 (Precise Pangolin).
 
-**Note:** If you're using Hyper-V instead of VirtualBox, you have to call ##vagrant up --provider=hyperv## instead of just ##vagrant up##. Alternatively, you may want to configure Hyper-V as the default provider for Vagrant. See [[https://www.vagrantup.com/docs/providers/basic_usage.html|this article]] on how to do this.
+**Note:** If you're using Hyper-V instead of VirtualBox, you have to call `vagrant up --provider=hyperv` instead of just `vagrant up`. Alternatively, you may want to configure Hyper-V as the default provider for Vagrant. See [[https://www.vagrantup.com/docs/providers/basic_usage.html|this article]] on how to do this.
 
 To ssh into the VM, call:
 
@@ -78,7 +78,7 @@ To ssh into the VM, call:
 > vagrant ssh
 ```
 
-To get out of the VM, hit ##Ctrl + D##.
+To get out of the VM, hit `Ctrl + D`.
 
 To stop and delete the whole VM, call:
 
@@ -89,11 +89,11 @@ To stop and delete the whole VM, call:
 This will delete the VM and all of its resources (i.e. the virtual hard drive) from your computer.
 
 == The Vagrantfile ==
-When you called ##vagrant init hashicorp/precise64## earlier, Vagrant created a file called ##Vagrantfile## in the current directory.
+When you called `vagrant init hashicorp/precise64` earlier, Vagrant created a file called `Vagrantfile` in the current directory.
 
 This file is everything Vagrant needs to do its work.
 
-The file created by ##vagrant init## contains lots of documentation and is a good starting point for customizing the VM.
+The file created by `vagrant init` contains lots of documentation and is a good starting point for customizing the VM.
 
 However, for the purpose of this tutorial, let's reduce the file to its bare minimum:
 
@@ -103,11 +103,11 @@ Vagrant.configure("2") do |config|
 end
 ```
 
-In the second line you can see the value you passed to ##vagrant init## earlier: ##hashicorp/precise64##
+In the second line you can see the value you passed to `vagrant init` earlier: `hashicorp/precise64`
 
 This is the name of the base image (think: virtual hard disk) used for the VM to create. Such an image is called a **box** in Vagrant terminology.
 
-When Vagrant creates a VM from a box (base image), it actually creates a **copy** of this image. Thus, any changes done inside of the VM are lost when the VM is destroyed (via ##vagrant destroy##). A VM can't modify its base image.
+When Vagrant creates a VM from a box (base image), it actually creates a **copy** of this image. Thus, any changes done inside of the VM are lost when the VM is destroyed (via `vagrant destroy`). A VM can't modify its base image.
 
 == Choosing the Right Box (Base Image) ==
 Vagrant boxes are downloaded by default from HashiCorp's Atlas system. All available boxes can be searched here:
@@ -123,11 +123,11 @@ For a single, specific operating system there are usually many boxes to choose f
 
 Unfortunately, boxes on Atlas differ in quality since anyone can upload a box. A low quality box prevents you from using Vagrant features, such as setting the hostname of VM or creating a private network.
 
-During my testing I found that the ##ubuntu/...## boxes have very low quality (which is surprising given that they're are created by Canonical, the company behind Ubuntu).
+During my testing I found that the `ubuntu/...` boxes have very low quality (which is surprising given that they're are created by Canonical, the company behind Ubuntu).
 
-Also, HashiCorp (the company behind Vagrant) only provides boxes for Ubuntu 12.04. So they can't be selected as source of high quality boxes either. (During my testing, even the ##hashicorp/precise64## box had its problems.)
+Also, HashiCorp (the company behind Vagrant) only provides boxes for Ubuntu 12.04. So they can't be selected as source of high quality boxes either. (During my testing, even the `hashicorp/precise64` box had its problems.)
 
-The [[https://www.vagrantup.com/docs/boxes.html#official-boxes|Vagrant documentation about official boxes]] recommends to use the boxes from the ##bento## namespace (apparently created by the team at [[https://www.chef.io/|Chef]]).
+The [[https://www.vagrantup.com/docs/boxes.html#official-boxes|Vagrant documentation about official boxes]] recommends to use the boxes from the `bento` namespace (apparently created by the team at [[https://www.chef.io/|Chef]]).
 
 During my (limited) tests they worked flawlessly and so they're my recommendation, too. We'll use them for rest of the tutorial. You can find them here:
 
@@ -136,23 +136,23 @@ During my (limited) tests they worked flawlessly and so they're my recommendatio
 **Note:** Unfortunately, the bento boxes don't work with Hyper-V. So if you're using Hyper-V with Vagrant, you have to find a different box.
 
 == Updating a VM after Vagrantfile Has Changed ==
-Modifying a ##Vagrantfile## while its VM is running has no effect on the running VM.
+Modifying a `Vagrantfile` while its VM is running has no effect on the running VM.
 
-To "synchronize" the VM with its ##Vagrantfile##, you can either:
+To "synchronize" the VM with its `Vagrantfile`, you can either:
 
-# call ##vagrant reload## or
-# call ##vagrant destroy -f## followed by ##vagrant up##
+# call `vagrant reload` or
+# call `vagrant destroy -f` followed by `vagrant up`
 
-**Note:** If you're using provisioning (see below) and changed the provisioning data, you need to call ##vagrant reload --provision## in the first case.
+**Note:** If you're using provisioning (see below) and changed the provisioning data, you need to call `vagrant reload --provision` in the first case.
 
 To make things simpler, I recommend you're using **the second option for this tutorial**.
 
 == Multi-Machine: The Naive Way ==
 So far we've always started a single VM.
 
-We can also start multiple VMs with a single ##Vagrantfile##. This is called **Multi-Machine**.
+We can also start multiple VMs with a single `Vagrantfile`. This is called **Multi-Machine**.
 
-The easiest (or most naive) way to create a multi-machine is with a ##Vagrantfile## like this:
+The easiest (or most naive) way to create a multi-machine is with a `Vagrantfile` like this:
 
 ```lang=ruby
 Vagrant.configure("2") do |config|
@@ -172,7 +172,7 @@ end
 
 This will create 3 VMs (master, node1, node2).
 
-To ssh into any of the VMs, just specify its name. For example, to ssh into ##node1##, call:
+To ssh into any of the VMs, just specify its name. For example, to ssh into `node1`, call:
 
 ```
 > vagrant ssh node1
@@ -187,7 +187,7 @@ To destroy all VMs, just call:
 This is exactly the same command as for a single VM.
 
 == Multi-Machine: The Clever Way ==
-The previous multi-machine ##Vagrantfile## had lots of copied code.
+The previous multi-machine `Vagrantfile` had lots of copied code.
 
 The same setup can also be described in a more "programmer-like" manner:
 
@@ -209,17 +209,17 @@ end
 ```
 
 Here we:
-* Moved the box name into a constant (##BOX_IMAGE##).
-* Converted the "nodeX" definitions into a for each loop where ##NODE_COUNT## describes the number of nodes to create.
+* Moved the box name into a constant (`BOX_IMAGE`).
+* Converted the "nodeX" definitions into a for each loop where `NODE_COUNT` describes the number of nodes to create.
 
 == Connecting the VMs via Network ==
 The setup in the previous section created 3 VMs. However, up until now these VMs had no way of communicating with each other.
 
-**Important:** Before you do this section, please call ##vagrant destory -f##. This makes things easier.
+**Important:** Before you do this section, please call `vagrant destory -f`. This makes things easier.
 
 To fix this we need three things.
 
-First, each VM needs a unique hostname. By default, each of the VMs has the same hostname (##vagrant##). To change this, we need to add a configuration like the following to each VM definition in the ##Vagrantfile##:
+First, each VM needs a unique hostname. By default, each of the VMs has the same hostname (`vagrant`). To change this, we need to add a configuration like the following to each VM definition in the `Vagrantfile`:
 
 ```ruby
 subconfig.vm.hostname = "a.host.name"
@@ -229,7 +229,7 @@ Next, we need a way of getting the IP address for a hostname. For this, we'll us
 
 On Ubuntu, mDNS is provided by Avahi. To install Avahi on each node, we'll use Vagrant's [[https://www.vagrantup.com/docs/provisioning/|provisioning feature]].
 
-Before the last ##end## in the ##Vagrantfile##, we'll add this code block:
+Before the last `end` in the `Vagrantfile`, we'll add this code block:
 
 ```ruby
 config.vm.provision "shell", inline: <<-SHELL
@@ -237,9 +237,9 @@ config.vm.provision "shell", inline: <<-SHELL
 SHELL
 ```
 
-This will call ##apt-get install -y avahi-daemon libnss-mdns## on every VM.
+This will call `apt-get install -y avahi-daemon libnss-mdns` on every VM.
 
-**Note:** By default, provisioning is only done the first ##vagrant up##. See [[https://www.vagrantup.com/docs/provisioning/|here]] for more details.
+**Note:** By default, provisioning is only done the first `vagrant up`. See [[https://www.vagrantup.com/docs/provisioning/|here]] for more details.
 
 Last, we need to connect the VMs through a [[https://www.vagrantup.com/docs/networking/private_network.html|private network]].
 
@@ -250,7 +250,7 @@ subconfig.vm.network :private_network, ip: "10.0.0.10"
 ```
 
 == Putting everything together == #endresult
-Putting everything mentioned in the previous section together results in a ##Vagrantfile## like this:
+Putting everything mentioned in the previous section together results in a `Vagrantfile` like this:
 
 ```ruby
 # -*- mode: ruby -*-
@@ -283,20 +283,20 @@ Vagrant.configure("2") do |config|
 end
 ```
 
-You can now call ##vagrant up## and then ssh into any of the VMs:
+You can now call `vagrant up` and then ssh into any of the VMs:
 
 ```
 > vagrant ssh node1
 ```
 
-From there you can ping any other VM by using their hostname (plus ##.local## at the end):
+From there you can ping any other VM by using their hostname (plus `.local` at the end):
 
 ```
 > ping node2.local
 ```
 
 == Wrap Up ==
-As you've seen, it just takes a ##Vagrantfile## with 22 lines and a call to ##vagrant up## to create multiple VMs in one step. Easy, isn't it?
+As you've seen, it just takes a `Vagrantfile` with 22 lines and a call to `vagrant up` to create multiple VMs in one step. Easy, isn't it?
 
 To continue from here, have a look at these resources:
 

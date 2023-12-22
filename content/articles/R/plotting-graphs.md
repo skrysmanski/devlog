@@ -15,7 +15,7 @@ This post is about how to display (draw) a mathematical function with R.
 
 <!--more-->
 
-To draw a function, use the built-in function ##curve()##.
+To draw a function, use the built-in function `curve()`.
 
 Let's start with something simple:
 
@@ -27,7 +27,7 @@ This will plot the function //x^^2^^// and will look like this:
 
 [[image:curve1.png|center|medium|link=source]]
 
-Since we didn't specify any boundaries for the x and y axes, R used ##0..1## for the x axis and chose the y axis to fit.
+Since we didn't specify any boundaries for the x and y axes, R used `0..1` for the x axis and chose the y axis to fit.
 
 Of course, we can manually specify the range for the values on the x axis:
 
@@ -35,11 +35,11 @@ Of course, we can manually specify the range for the values on the x axis:
 curve(x^2, -4, 3)
 ```
 
-This will plot //x^^2^^// with ##-4..3##:
+This will plot //x^^2^^// with `-4..3`:
 
 [[image:curve2.png|center|medium|link=source]]
 
-As you can see in this plot, R makes the y axis match the required value range (here: ##0..15##).
+As you can see in this plot, R makes the y axis match the required value range (here: `0..15`).
 
 Sometimes, however, this may not be desired. There are two ways to fix this.
 
@@ -53,14 +53,14 @@ will give us:
 
 [[image:curve3.png|center|medium|link=source]]
 
-The other option is to explicitely specify the range for the y axis by using the ##ylim## parameter:
+The other option is to explicitely specify the range for the y axis by using the `ylim` parameter:
 
 ```
 curve(x^2, -4, 3, ylim=range(c(-1, 4)))
 ```
 
-will give us a y axis range of ##-1..4##:
+will give us a y axis range of `-1..4`:
 
 [[image:curve4.png|center|medium|link=source]]
 
-For more information on ##curve()##, just type ##?curve## in R's prompt.
+For more information on `curve()`, just type `?curve` in R's prompt.

@@ -10,7 +10,7 @@ draft: true
 Just a quick cheat sheet about how variables in Bash get inherited.
 
 == Result ==
-Here's the result of a call to ##outer.sh## (see below):
+Here's the result of a call to `outer.sh` (see below):
 
 ```
 Call
@@ -30,11 +30,11 @@ From Inner (no export): yes
 
 == Test ==
 
-The test consists of two files: ##outer.sh## and ##inner.sh##.
+The test consists of two files: `outer.sh` and `inner.sh`.
 
-`outer.sh` is called by the user and internally calls ##inner.sh## - once directly and once with ##source##.
+`outer.sh` is called by the user and internally calls `inner.sh` - once directly and once with `source`.
 
-Contents of ##outer.sh##:
+Contents of `outer.sh`:
 
 ```bash
 #!/bin/bash
@@ -56,7 +56,7 @@ echo "From Inner (export):    $FROM_INNER_EXPORT"
 echo "From Inner (no export): $FROM_INNER_NO_EXPORT"
 ```
 
-Contents of ##inner.sh##:
+Contents of `inner.sh`:
 
 ```bash
 #!/bin/bash

@@ -80,4 +80,4 @@ Console.WriteLine("Released mutext");
 
 If you run your program twice, one will acquire the mutex and the other one will wait - until you press a key in the first one.
 
-**Note:** If you forget to call ##Dispose()## on this mutex, the operating system will make sure that the mutex is released when the program terminates. However, the next process trying to acquire this mutex will then get an ##AbandonedMutexException## (which is handled properly in ##Acquire()## though).
+**Note:** If you forget to call `Dispose()` on this mutex, the operating system will make sure that the mutex is released when the program terminates. However, the next process trying to acquire this mutex will then get an `AbandonedMutexException` (which is handled properly in `Acquire()` though).
