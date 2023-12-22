@@ -14,7 +14,7 @@ There are a lot of articles out there that explain how to run a [[wiki:en|Preboo
 So, with article I'm trying to fill this gap.
 
 == The Goal ==
-At the end of this article you'll have a working PXE server that lets you **boot [[http://www.memtest.org/|memtest86+]] over a network**.
+At the end of this article you'll have a working PXE server that lets you **boot [memtest86+](http://www.memtest.org/) over a network**.
 
 The goal is to have a **simple but working solution**. This is why I'm using memtest. It consists of just one file and thus is easy to use in a PXE setup. More complex scenarios (i.e. loading real operating systems) can be built on top of this simple setup.
 
@@ -162,7 +162,7 @@ and you get the error:
 
 ... then you (accidentally) deleted `/etc/dnsmasq.d/README`.
 
-The `dnsmasq` init script checks the existence of this file and this leads to this obscure error message (filed as [[https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=819856|#819856]]).
+The `dnsmasq` init script checks the existence of this file and this leads to this obscure error message (filed as [#819856](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=819856)).
 
 === PXE Boot with VMWare Fusion ===
 VMWare Fusion's GUI is more designed for regular users than developers. If you want to use PXE boot in a VMWare Fusion VM, make sure you select "Bridged Networking" rather than "Share with my Mac" (which is NAT).

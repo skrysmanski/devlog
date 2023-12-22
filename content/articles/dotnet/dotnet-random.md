@@ -90,5 +90,5 @@ public class RandomBreaker
 ```
 
 **Notes:**
-* To be able to predict the values, one needs to know exactly [[http://referencesource.microsoft.com/#mscorlib/system/random.cs|how `Random` internally works]]. This code was run against .NET Framework 4.5.2. If Microsoft ever decides to change the implementation, the prediction won't work anymore.
+* To be able to predict the values, one needs to know exactly [how `Random` internally works](http://referencesource.microsoft.com/#mscorlib/system/random.cs). This code was run against .NET Framework 4.5.2. If Microsoft ever decides to change the implementation, the prediction won't work anymore.
 * If `Next(maxValue)` was used instead of `Next()`, the prediction would become much harder as `Next(maxValue)` basically divides the range 0 to `int.MaxValue` into `maxValue` buckets. It then calls `Next()` and checks in which bucket the returned value resides. The number of this bucket is then returned. The "worst" case here is `Next(1)` which will return either 0 or 1. In this case, each value is based on any of 1,000,000,000 numbers - which makes it very hard (but probably not impossible) to find the original value.

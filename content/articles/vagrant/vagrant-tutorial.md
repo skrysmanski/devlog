@@ -8,7 +8,7 @@ draft: true
 
 As developers, we sometimes want to quickly test some software. Instead of installing it directly on our developer machine, it's better to install it in a virtual machine (VM). But if you don't have a VM ready, setting one up usally takes a lot of time - and there goes your productivity.
 
-Fortunately, there is a solution: [[https://www.vagrantup.com|Vagrant]]
+Fortunately, there is a solution: [Vagrant](https://www.vagrantup.com)
 
 Vagrant is a free tool that lets you quickly spin-up fresh VMs out of thin air. It can even spin-up multiple VMs at the same time.
 
@@ -45,11 +45,11 @@ You can download Vagrant here:
 
 As **hyper-visor**, you can choose between VirtualBox, VMWare (Fusion), and Hyper-V.
 
-The easiest option is **[[https://www.virtualbox.org/|VirtualBox]]**. It's free and available on every platform.
+The easiest option is **[VirtualBox](https://www.virtualbox.org/)**. It's free and available on every platform.
 
-If you have **Hyper-V** installed, don't install VirtualBox. Hyper-V is incompatible with other hyper-visors. (See [[https://www.vagrantup.com/docs/hyperv/|here]] for more information.)
+If you have **Hyper-V** installed, don't install VirtualBox. Hyper-V is incompatible with other hyper-visors. (See [here](https://www.vagrantup.com/docs/hyperv/) for more information.)
 
-If you have **VMWare Fusion** installed on your Mac, please note that the VMWare provider for Vagrant [[https://www.vagrantup.com/vmware/#buy-now|costs money]] - even if you already have a VMWare Fusion license. If you don't want to spend money, just use VirtualBox. It can be installed alongside VMWare Fusion.
+If you have **VMWare Fusion** installed on your Mac, please note that the VMWare provider for Vagrant [costs money](https://www.vagrantup.com/vmware/#buy-now) - even if you already have a VMWare Fusion license. If you don't want to spend money, just use VirtualBox. It can be installed alongside VMWare Fusion.
 
 To verify that Vagrant is installed, type on the command line:
 
@@ -70,7 +70,7 @@ Then execute the following two commands:
 
 This will start a virtual machine running Ubuntu 12.04 (Precise Pangolin).
 
-**Note:** If you're using Hyper-V instead of VirtualBox, you have to call `vagrant up --provider=hyperv` instead of just `vagrant up`. Alternatively, you may want to configure Hyper-V as the default provider for Vagrant. See [[https://www.vagrantup.com/docs/providers/basic_usage.html|this article]] on how to do this.
+**Note:** If you're using Hyper-V instead of VirtualBox, you have to call `vagrant up --provider=hyperv` instead of just `vagrant up`. Alternatively, you may want to configure Hyper-V as the default provider for Vagrant. See [this article](https://www.vagrantup.com/docs/providers/basic_usage.html) on how to do this.
 
 To ssh into the VM, call:
 
@@ -127,7 +127,7 @@ During my testing I found that the `ubuntu/...` boxes have very low quality (whi
 
 Also, HashiCorp (the company behind Vagrant) only provides boxes for Ubuntu 12.04. So they can't be selected as source of high quality boxes either. (During my testing, even the `hashicorp/precise64` box had its problems.)
 
-The [[https://www.vagrantup.com/docs/boxes.html#official-boxes|Vagrant documentation about official boxes]] recommends to use the boxes from the `bento` namespace (apparently created by the team at [[https://www.chef.io/|Chef]]).
+The [Vagrant documentation about official boxes](https://www.vagrantup.com/docs/boxes.html#official-boxes) recommends to use the boxes from the `bento` namespace (apparently created by the team at [Chef](https://www.chef.io/)).
 
 During my (limited) tests they worked flawlessly and so they're my recommendation, too. We'll use them for rest of the tutorial. You can find them here:
 
@@ -227,7 +227,7 @@ subconfig.vm.hostname = "a.host.name"
 
 Next, we need a way of getting the IP address for a hostname. For this, we'll use DNS - or mDNS to be more precise.
 
-On Ubuntu, mDNS is provided by Avahi. To install Avahi on each node, we'll use Vagrant's [[https://www.vagrantup.com/docs/provisioning/|provisioning feature]].
+On Ubuntu, mDNS is provided by Avahi. To install Avahi on each node, we'll use Vagrant's [provisioning feature](https://www.vagrantup.com/docs/provisioning/).
 
 Before the last `end` in the `Vagrantfile`, we'll add this code block:
 
@@ -239,9 +239,9 @@ SHELL
 
 This will call `apt-get install -y avahi-daemon libnss-mdns` on every VM.
 
-**Note:** By default, provisioning is only done the first `vagrant up`. See [[https://www.vagrantup.com/docs/provisioning/|here]] for more details.
+**Note:** By default, provisioning is only done the first `vagrant up`. See [here](https://www.vagrantup.com/docs/provisioning/) for more details.
 
-Last, we need to connect the VMs through a [[https://www.vagrantup.com/docs/networking/private_network.html|private network]].
+Last, we need to connect the VMs through a [private network](https://www.vagrantup.com/docs/networking/private_network.html).
 
 For each VM, we need to add a config like this (where each VM will have a different ip address):
 

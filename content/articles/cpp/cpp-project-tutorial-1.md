@@ -8,7 +8,7 @@ topics:
 draft: true
 ---
 
-When you write software, you often/sometimes divide your project into several subprojects. This mini series describes how to do this with [[http://www.microsoft.com/visualstudio/en-us/products/2010-editions/visual-cpp-express|Visual C++ 2010]] (but this first part also applies to earlier versions). We start with creating a library project in form of a DLL.
+When you write software, you often/sometimes divide your project into several subprojects. This mini series describes how to do this with [Visual C++ 2010](http://www.microsoft.com/visualstudio/en-us/products/2010-editions/visual-cpp-express) (but this first part also applies to earlier versions). We start with creating a library project in form of a DLL.
 
 **Related articles:**
  * [[1722]]
@@ -21,7 +21,7 @@ Library projects are projects that usually contain reusable functions or classes
 
 Static libraries (`.lib`) are "merged" into the final `.exe` file when the whole project is compiled. Therefore, for the outside user, this library type isn't visible.
 
-Dynamic libraries (`.dll`) on the other hand remain separate from the final `.exe` file in their own files. (See more information [[http://msdn.microsoft.com/en-us/library/1ez7dh12.aspx|here]].)
+Dynamic libraries (`.dll`) on the other hand remain separate from the final `.exe` file in their own files. (See more information [here](http://msdn.microsoft.com/en-us/library/1ez7dh12.aspx).)
 
 In this article we'll create a //dynamic// library.
 
@@ -120,7 +120,7 @@ For this to work, you add the preprocessor definition `COMPILE_MYLIBRARY` to the
 
 [[image:preprocessor-definition.png|center|medium|link=source]]
 
-//Note:// The keyword `__declspec(...)` is a Microsoft specific extension to C++ (see [[http://msdn.microsoft.com/en-us/library/3y1sfaz2.aspx|here]]). So it only works in Visual C++. There is an alternative (more portable?) way to specify which classes/functions are to be exported. For this, a "Module-Definition File" (`.def`) needs to be created. However, creating such a file is more tedious than specifying the export statement directly in the code. For more information, see [[http://www.codeguru.com/cpp/cpp/cpp_mfc/tutorials/article.php/c9855|this article]].
+//Note:// The keyword `__declspec(...)` is a Microsoft specific extension to C++ (see [here](http://msdn.microsoft.com/en-us/library/3y1sfaz2.aspx)). So it only works in Visual C++. There is an alternative (more portable?) way to specify which classes/functions are to be exported. For this, a "Module-Definition File" (`.def`) needs to be created. However, creating such a file is more tedious than specifying the export statement directly in the code. For more information, see [this article](http://www.codeguru.com/cpp/cpp/cpp_mfc/tutorials/article.php/c9855).
 
 Now, when you compile the library project, an additional `.lib` file will be created. This file is used to import the exported classes/functions in another project. (If you don't export anything, the file won't be created.) How to do this, is explained in [[1722|part two of this mini series]].
 

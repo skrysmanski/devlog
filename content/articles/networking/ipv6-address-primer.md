@@ -115,9 +115,9 @@ With IPv6 this is no longer necessary (although it's still possible).
 
 As described before, an IPv6 address consists of a **subnet prefix** and an **interface id**. So you need to know both to construct an IPv6 address.
 
-For **link-local** addresses, the //subnet prefix// is always the same: `fe80::/64` (some documents say `fe80::/10` but the prefix length is [[https://tools.ietf.org/html/rfc4291#section-2.5.6|effectively 64 bits]]).
+For **link-local** addresses, the //subnet prefix// is always the same: `fe80::/64` (some documents say `fe80::/10` but the prefix length is [effectively 64 bits](https://tools.ietf.org/html/rfc4291#section-2.5.6)).
 
-So, an IPv6 device only needs to generate its //interface id//. The interface id is usually based on the network adapter's MAC address and is usually formed by a process called "Modified EUI-64" (see [[https://tools.ietf.org/html/rfc2464#section-4|RFC 2464]] for more details).
+So, an IPv6 device only needs to generate its //interface id//. The interface id is usually based on the network adapter's MAC address and is usually formed by a process called "Modified EUI-64" (see [RFC 2464](https://tools.ietf.org/html/rfc2464#section-4) for more details).
 
 For **global** addresses, SLAAC is used (see below).
 

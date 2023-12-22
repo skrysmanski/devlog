@@ -25,7 +25,7 @@ See also:
 * http://www.codeproject.com/KB/mcpp/cppcliintro01.aspx
 * http://www.codeproject.com/KB/books/CppCliInActionCh1Ex1.aspx
 * http://www.codeproject.com/KB/mcpp/cppcliarrays.aspx
-* [[http://msdn.microsoft.com/library/k8d11d4s.aspx|/clr compiler switch on MSDN]]
+* [/clr compiler switch on MSDN](http://msdn.microsoft.com/library/k8d11d4s.aspx)
 
 = Handles ================================
 C++/CLI allows for two reference/pointer types:
@@ -92,7 +92,7 @@ MyEnum Test2() {
 }
 ```
 
-Using a handle on a value type essentially create a [[http://msdn.microsoft.com/en-us/library/yz2be5wk%28v=vs.80%29.aspx|boxed]] version of that value type. In managed code, all `value struct`s will be converted into `ValueType` types and all `enum class`es will be converted into `Enum` types.
+Using a handle on a value type essentially create a [boxed](http://msdn.microsoft.com/en-us/library/yz2be5wk%28v=vs.80%29.aspx) version of that value type. In managed code, all `value struct`s will be converted into `ValueType` types and all `enum class`es will be converted into `Enum` types.
 
 For example the following C++/CLI code (with `Point` being a //value type// and `MyEnum` being an //enum class//):
 
@@ -176,7 +176,7 @@ This section gives a quick overview what is allowed with handles and what isn't.
 
 //Important:// Passing pointers of native types across assembly (dll) boundaries requires some more work. See [[1832]] for more information.
 
-To be able to store a handle as field in a native class, wrap it in a [[http://msdn.microsoft.com/library/481fa11f.aspx|gcroot]] instance, like so: `gcroot<String^> m_myMember`.
+To be able to store a handle as field in a native class, wrap it in a [gcroot](http://msdn.microsoft.com/library/481fa11f.aspx) instance, like so: `gcroot<String^> m_myMember`.
 
 ```c++/cli
 #include <vcclr.h>
@@ -337,8 +337,8 @@ myArray[5]  // retrieves or sets the 6th array element
 All C++/CLI arrays are direct subclasses of `System::Array`. Thus, the //size of an array// can be obtained through the property `Length`.
 
 More information:
- * [[http://msdn.microsoft.com/de-de/library/ts4c4dw6(v=VS.100).aspx|General information on C++/CLI arrays]]
- * [[http://msdn.microsoft.com/library/system.array(v=VS.100).aspx|System::Array members overview]]
+ * [General information on C++/CLI arrays](http://msdn.microsoft.com/de-de/library/ts4c4dw6(v=VS.100).aspx)
+ * [System::Array members overview](http://msdn.microsoft.com/library/system.array(v=VS.100).aspx)
 
 = Properties ================================
 The easiest way to define a .NET property is like this:
@@ -400,7 +400,7 @@ void MyClass::SomeValue::set(String^ value) {
 Read on: http://www.codeproject.com/KB/mcpp/CppCliProperties.aspx
 
 = Constructors =============================================
-Constructors in C++/CLI have the same syntax as in C++. There's one limitation though: [[http://www.csharp411.com/constructor-chaining/|Constructor chaining]] is not supported in C++/CLI (although .NET supports it).
+Constructors in C++/CLI have the same syntax as in C++. There's one limitation though: [Constructor chaining](http://www.csharp411.com/constructor-chaining/) is not supported in C++/CLI (although .NET supports it).
 
 === Static Constructors ===
 Static constructors are automatically called by the CLR when the class is "loaded". They're defined just as in C#, must be private though.
@@ -544,7 +544,7 @@ Calling an event is identical to calling a delegate:
 this->MyCustomEvent(this, EventArgs::Empty);
 ```
 
-//Note:// Checking the event against `nullptr` isn't required in C++/CLI (unlike C#). That's because the event's `raise()` method automatically checks whether there are actually any event handlers ([[http://stackoverflow.com/a/2014752/614177|source]]).
+//Note:// Checking the event against `nullptr` isn't required in C++/CLI (unlike C#). That's because the event's `raise()` method automatically checks whether there are actually any event handlers ([source](http://stackoverflow.com/a/2014752/614177)).
 
 = Templates and Generics ================
 C++/CLI classes can use C++ templates as well as .NET generics. Since templates aren't visible in .NET (but generics are), we'll skip them here. See the link below for more information.
@@ -581,7 +581,7 @@ generic<typename T> where T : value class, ValueType
 ref class ConstrainedToValueType { };
 ```
 
-See also: [[http://www.codeproject.com/KB/mcpp/cppcligenerics.aspx|Using generics in C++/CLI]]
+See also: [Using generics in C++/CLI](http://www.codeproject.com/KB/mcpp/cppcligenerics.aspx)
 
 == nullptr for generic reference types ======
 To return/pass `nullptr` for a generic parameter use `T()`. For example:
@@ -634,7 +634,7 @@ By enabling the common language runtime support for a project (i.e. making it a 
 #endif
 ```
 
-Also defined are `__cplusplus_cli` and `__CLR_VER`. For more information, see [[http://msdn.microsoft.com/library/b0084kay.aspx|Predefined Macros]].
+Also defined are `__cplusplus_cli` and `__CLR_VER`. For more information, see [Predefined Macros](http://msdn.microsoft.com/library/b0084kay.aspx).
 
 = Glossary =
 ; Garbage Collector (GC): reclaims garbage, or memory used by objects that will never be accessed or mutated again by the application.

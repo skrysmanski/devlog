@@ -8,7 +8,7 @@ draft: true
 
 Clocks in computers have (among others) the following three properties: //accuracy//, //precision//, and //resolution//.
 
-People generally agree on what's the difference between //accuracy// and //precision/resolution// but there seem to be lots of opinions on what's the difference between //precision// and //resolution// and which is which. So I'm going to shamelessly copy a [[http://stackoverflow.com/a/16740505/614177|definition I found on Stack Overflow]] that I'm agreeing with.
+People generally agree on what's the difference between //accuracy// and //precision/resolution// but there seem to be lots of opinions on what's the difference between //precision// and //resolution// and which is which. So I'm going to shamelessly copy a [definition I found on Stack Overflow](http://stackoverflow.com/a/16740505/614177) that I'm agreeing with.
 
  * **Precision:** the amount of information, i.e. the number of significant digits you report. (E.g. I'm 2m, 1.8m, 1.83m, 1.8322m tall. All those measurements are accurate, but increasingly precise.)
  * **Accuracy:** the relation between the reported information and the truth. (E.g. "I'm 1.70m tall" is more precise than "1.8m", but not actually accurate.)
@@ -17,12 +17,12 @@ People generally agree on what's the difference between //accuracy// and //preci
 This article will be mainly about **resolution** (and precision and accuracy to some extend).
 
 == DateTime ==
-C# provides the `DateTime` type ([[http://msdn.microsoft.com/EN-US/library/system.datetime.aspx|MSDN]]) that allows to:
+C# provides the `DateTime` type ([MSDN](http://msdn.microsoft.com/EN-US/library/system.datetime.aspx)) that allows to:
 
  * store a certain point in time
  * get the current date and time (via `Now` or `UtcNow`)
 
-First, lets take a look at **precision**: The `DateTime` type is basically just a 64 bit integer that counts "ticks". One tick is 100 nanoseconds (or 0.0001 milliseconds) long ([[http://msdn.microsoft.com/EN-US/library/system.datetime.ticks.aspx|MSDN]]). So `DateTime`'s precision can be up to 0.0001 milliseconds.
+First, lets take a look at **precision**: The `DateTime` type is basically just a 64 bit integer that counts "ticks". One tick is 100 nanoseconds (or 0.0001 milliseconds) long ([MSDN](http://msdn.microsoft.com/EN-US/library/system.datetime.ticks.aspx)). So `DateTime`'s precision can be up to 0.0001 milliseconds.
 
 Next, **resolution**. Basically, we're asking: "How long does it take for value of `DateTime.UtcNow` to change?" Lets find out.
 
@@ -48,7 +48,7 @@ Console.WriteLine("Precision: {0:0.000000} ms ({1} samples)",
 
 This program records all the different values `DateTime.UtcNow` returns over the course of 5 seconds. This way, we know how often this value changes per second (or millisecond in this example) and that's the resolution.
 
-According to [[http://msdn.microsoft.com/EN-US/library/system.datetime.utcnow.aspx|MSDN]] the resolution depends on the operating system but in my tests I found out that the resolution also seems to depend on the hardware (unless newer OS versions have a worse resolution).
+According to [MSDN](http://msdn.microsoft.com/EN-US/library/system.datetime.utcnow.aspx) the resolution depends on the operating system but in my tests I found out that the resolution also seems to depend on the hardware (unless newer OS versions have a worse resolution).
 
 |= Machine |= OS           |= Resolution |
 | Dev Box  | Windows 7 x64 | 1 ms        |
@@ -57,7 +57,7 @@ According to [[http://msdn.microsoft.com/EN-US/library/system.datetime.utcnow.as
 == High Resolution Clock ==
 On Windows 8 (or Windows Server 2012) or higher there's a new API that returns the current time with a much higher resolution:
 
-  [[http://msdn.microsoft.com/en-us/library/windows/desktop/hh706895%28v=vs.85%29.aspx|GetSystemTimePreciseAsFileTime()]]
+  [GetSystemTimePreciseAsFileTime()](http://msdn.microsoft.com/en-us/library/windows/desktop/hh706895%28v=vs.85%29.aspx)
 
 Here's how to use it in C#:
 

@@ -14,7 +14,7 @@ This tutorial is (supposed to be) different. It uses the simple most approach I 
 
 I'll explain how to use WCF for **communicating between .NET processes** and how to use it for **HTTP requests**.
 
-The initial code is based primarily on [[http://weblogs.asp.net/ralfw/archive/2007/04/14/a-truely-simple-example-to-get-started-with-wcf.aspx|this nice tutorial]].
+The initial code is based primarily on [this nice tutorial](http://weblogs.asp.net/ralfw/archive/2007/04/14/a-truely-simple-example-to-get-started-with-wcf.aspx).
 
 Let's get started.
 
@@ -117,7 +117,7 @@ class Server {
 
 The important code here is in `Run()`.
 
-First, we create an instance of [[http://msdn.microsoft.com/library/ms554652.aspx|ServiceHost]] and pass the service //implementation// to it.
+First, we create an instance of [ServiceHost](http://msdn.microsoft.com/library/ms554652.aspx) and pass the service //implementation// to it.
 
 Next, we add an endpoint for the host (i.e. where the client will connect to). Here we specified the service //interface// because the service implementation could implement multiple services.
 

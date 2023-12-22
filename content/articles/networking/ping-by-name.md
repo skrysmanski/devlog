@@ -51,7 +51,7 @@ Bonjour seems to have a wider adoption so I'm concentrating on this.
 
 Here's what you need:
 
- * **Windows:** If you have iTunes installed, you're ready to go. If you don't want to install iTunes, you'll need to install the [[http://support.apple.com/kb/DL999|Bonjour Print Services for Windows]]. (Don't be bothered by the "printing" part in the name. The package is a fully functional mDNS solution and it's the only standalone Bonjour package available for Windows anyway.)
+ * **Windows:** If you have iTunes installed, you're ready to go. If you don't want to install iTunes, you'll need to install the [Bonjour Print Services for Windows](http://support.apple.com/kb/DL999). (Don't be bothered by the "printing" part in the name. The package is a fully functional mDNS solution and it's the only standalone Bonjour package available for Windows anyway.)
  * **Linux:** You need //Avahi// which is compatible with Bonjour. On Ubuntu/Debian, you need two packages: **avahi-daemon** (to be visible on the network) and **libnss-mdns** (to be able to find other computers)
  * **OS X:** Everything is pre-installed. You don't need anything else.
 

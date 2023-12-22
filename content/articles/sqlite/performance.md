@@ -7,7 +7,7 @@ topics:
 draft: true
 ---
 
-I'm currently working on a [[https://bitbucket.org/mayastudios/sqlite.net|cross-platform SQLite .NET wrapper]]. At the moment it's not really thread-safe. So, I was looking for ways of making it thread-safe.
+I'm currently working on a [cross-platform SQLite .NET wrapper](https://bitbucket.org/mayastudios/sqlite.net). At the moment it's not really thread-safe. So, I was looking for ways of making it thread-safe.
 
 Basically, there are two ways to do this:
 
@@ -46,7 +46,7 @@ Each test comprises of a certain combination of the following test parameters:
  * //Shared connection vs. multi connection:// Whether all threads share the same database connection, or whether every thread has its own connection (to the same database though). Shared connections use `SQLITE_OPEN_FULLMUTEX` (serialized), multi connections use `SQLITE_OPEN_NOMUTEX` (multithread).
  * //Read-only:// Whether the connection is opened in read-only or read-write mode (`SQLITE_OPEN_READONLY`).
  * //Shared cache:// Whether all connections share the same cache (`SQLITE_OPEN_SHAREDCACHE`), or whether each connection has its own cache.
- * //WAL:// Whether the connection(s) use a database in [[http://www.sqlite.org/draft/wal.html|WAL (write-ahead logging) journal mode]].
+ * //WAL:// Whether the connection(s) use a database in [WAL (write-ahead logging) journal mode](http://www.sqlite.org/draft/wal.html).
  * //Filled table:// Whether the table to read from is empty or filled (not examined in this report due to missing data; I should mention though that trying to read from an empty table is significant slower than reading from a filled table).
 
 = Batch 1: read tests ======

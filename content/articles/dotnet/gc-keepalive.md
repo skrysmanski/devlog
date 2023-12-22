@@ -12,7 +12,7 @@ Immediately I thought **memory leak** - because I thought `KeepAlive()` would ke
 
 Fortunately, this turned out to be wrong, though.
 
-After reading the [[http://msdn.microsoft.com/en-us/library/vstudio/system.gc.keepalive%28v=vs.110%29.aspx|documentation of GC.KeepAlive()]] (couldn't really figure it out), I did some decompiling and found out that `GC.KeepAlive()` looks like this:
+After reading the [documentation of GC.KeepAlive()](http://msdn.microsoft.com/en-us/library/vstudio/system.gc.keepalive%28v=vs.110%29.aspx) (couldn't really figure it out), I did some decompiling and found out that `GC.KeepAlive()` looks like this:
 
 ```c# line=1
 [MethodImpl(MethodImplOptions.NoInlining)]
@@ -92,7 +92,7 @@ This way, the garbage collector won't collect `obj` (and thus run its finalizer)
 ** The problem with the finalizer persists if `Value` is an unmanaged resource/pointer that's being passed to `SomeOtherMethod()`. This is always possible in C++/CLI. In C# `Value` could be of type `IntPtr`.
 ** In the examples above, consider implementing and using `IDisposable` for `SomeClass` instead of `GC.KeepAlive()`, if you need a finalizer.
 ** You still need to use `GC.KeepAlive()` if you can't change the implementation of `SomeClass`.
-* Using `GC.KeepAlive()` is like using [[http://msdn.microsoft.com/library/system.runtime.interopservices.gchandle(v=vs.110).aspx|GCHandle]], just more light-weight and faster.
+* Using `GC.KeepAlive()` is like using [GCHandle](http://msdn.microsoft.com/library/system.runtime.interopservices.gchandle(v=vs.110).aspx), just more light-weight and faster.
 * `GC.KeepAlive()` only works because it can't be inlined by the compiler (`MethodImplOptions.NoInlining`).
 
 

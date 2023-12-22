@@ -198,11 +198,11 @@ In a pure C++ class, this would compile - regardless of whether the "NativeLib" 
 But then this error doesn't indicate a missing include file nor is it a linker error. Instead the error suggests that the method we want to call isn't accessible (read: it's `private` or `internal`). However, that's not the case here.
 
 = The Solution =
-The actual problem is not that the (C++/CLI) method is private but that `MyNativeClass` (pure C++) is private. That's even mentioned (very briefly though) in [[http://msdn.microsoft.com/library/19dh8yat(v=VS.100).aspx|C3767's description page]]:
+The actual problem is not that the (C++/CLI) method is private but that `MyNativeClass` (pure C++) is private. That's even mentioned (very briefly though) in [C3767's description page](http://msdn.microsoft.com/library/19dh8yat(v=VS.100).aspx):
 
 > C3767 may also be caused by a breaking change: native types are now private by default in a /clr compilation;
 
-So, even if the native type was exported (via `__declspec(dllexport)`) in the native library, it can be made private by a managed library. (The reason behind this seems to be that the C++/CLI compiler generates thin (managed) wrappers around native types so that they can be called from managed code. See [[http://blogs.microsoft.co.il/blogs/sasha/archive/2008/02/16/net-to-c-bridge.aspx|here]] for more information.)
+So, even if the native type was exported (via `__declspec(dllexport)`) in the native library, it can be made private by a managed library. (The reason behind this seems to be that the C++/CLI compiler generates thin (managed) wrappers around native types so that they can be called from managed code. See [here](http://blogs.microsoft.co.il/blogs/sasha/archive/2008/02/16/net-to-c-bridge.aspx) for more information.)
 
 == Native Types From Pure C++ Projects ==
 If the native type is defined in a pure C++ project (or in a framework for which you only have the header files), use ` #pragma make_public(Type)`. You should place it in the `.h` after after including its header. So, our example code for `ManagedProvider.h` changes to this:
@@ -220,10 +220,10 @@ public ref class ManagedProvider {
 ```
 
 //Notes://
-* Using `make_public` in a `.cpp` file instead of an `.h` file may result in the linker error [[http://msdn.microsoft.com/de-de/library/zkf0dz41.aspx|LNK2022]] (metadata operation failed).
+* Using `make_public` in a `.cpp` file instead of an `.h` file may result in the linker error [LNK2022](http://msdn.microsoft.com/de-de/library/zkf0dz41.aspx) (metadata operation failed).
 * The code above swapped the forward declaration (`class MyNativeClass.h`) with the ` #include` statement. This is to be on the safe side. Forward declarations work in some cases, while they don't work in others (resulting again in C3767 compiler errors).
 
-Compiling the whole solution now will give you a linker warning [[http://msdn.microsoft.com/de-de/library/h8027ys9.aspx|LNK4248]] (unresolved typeref token). To fix this, you need to include the type's `.h` file instead of just creating a forward reference. So, our "ExternalTestClass.cpp" changes to this:
+Compiling the whole solution now will give you a linker warning [LNK4248](http://msdn.microsoft.com/de-de/library/h8027ys9.aspx) (unresolved typeref token). To fix this, you need to include the type's `.h` file instead of just creating a forward reference. So, our "ExternalTestClass.cpp" changes to this:
 
 ```c++/cli
 // ExternalTestClass.cpp
@@ -259,7 +259,7 @@ public class PRODUCER_LIB_EXPORT MySecondNativeClass {
 };
 ```
 
-This keyword is only available in C++/CLI projects and has the same effect like `make_public`. ~~Unfortunately, I wasn't able to get this example working, because I couldn't figure out a way to //export// the methods of that type. I'll update this section if I find some new information on that topic. (I've raised [[http://stackoverflow.com/questions/8786491/export-native-type-from-c-cli-project|this question at stackoverflow.com]].)~~
+This keyword is only available in C++/CLI projects and has the same effect like `make_public`. ~~Unfortunately, I wasn't able to get this example working, because I couldn't figure out a way to //export// the methods of that type. I'll update this section if I find some new information on that topic. (I've raised [this question at stackoverflow.com](http://stackoverflow.com/questions/8786491/export-native-type-from-c-cli-project).)~~
 
 To use this type in another C++/CLI project, you need to reference the assembly's `.lib` (here "ManagedProviderLib.lib") //twice// in the project settings (here: of "ManagedExternalLib"):
 

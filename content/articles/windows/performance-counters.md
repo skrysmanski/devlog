@@ -16,7 +16,7 @@ I also wrote some C# code to demonstrate how to use performance counters. You'll
 **Notes:**
 * You can watch performance counters with the **Performance Monitor** (`perfmon`) that comes with Windows. However, it can't display negative values so some counters can't be monitored properly.
 * I use the .NET names for performance counter types in this article.
-* Categorization of the counter types follows the [[http://msdn.microsoft.com/EN-US/library/4bcx21aa.aspx|official documentation]].
+* Categorization of the counter types follows the [official documentation](http://msdn.microsoft.com/EN-US/library/4bcx21aa.aspx).
 
 == Terminology ==
 ; Performance counter : A counter to monitor performance of a running system (e.g. CPU usage). Is basically just an `int`.
@@ -30,7 +30,7 @@ Before we begin, a word about (what I call) "composite counters".
 
 As the name suggests, these counters are composited of two counters - a parent counter and a base counter. Parent counters can be monitored, base counters cannot.
 
-To register (new/custom) performance counters in Windows, you need to pass a list of performance counter creation data to [[http://msdn.microsoft.com/EN-US/library/440b32x1%28v=VS.110,d=hv.2%29.aspx|PerformanceCounterCategory.Create()]]. In this list the base counter data must come immediately after the parent counter data.
+To register (new/custom) performance counters in Windows, you need to pass a list of performance counter creation data to [PerformanceCounterCategory.Create()](http://msdn.microsoft.com/EN-US/library/440b32x1%28v=VS.110,d=hv.2%29.aspx). In this list the base counter data must come immediately after the parent counter data.
 
 The following table lists which base counter type can be used with which parent counter type:
 
@@ -118,7 +118,7 @@ The following table lists which base counter type can be used with which parent 
 
 **Notes:**
 * `CounterTimerInverse` is like `CounterTimer` but measures how long the component is inactive. So, you'd measure the time from when the component became inactive to the next time it becomes active and increase the counter's value by this amount.
-* For `CounterTimer` and `CounterTimerInverse`, use `Stopwatch.ElapsedTicks` as counter value. For `Timer100Ns` and `Timer100NsInverse`, use `DateTime.Ticks` instead. (Note that these ticks have different lengths, as stated [[http://msdn.microsoft.com/EN-US/library/2d0zc00w.aspx|here]].)
+* For `CounterTimer` and `CounterTimerInverse`, use `Stopwatch.ElapsedTicks` as counter value. For `Timer100Ns` and `Timer100NsInverse`, use `DateTime.Ticks` instead. (Note that these ticks have different lengths, as stated [here](http://msdn.microsoft.com/EN-US/library/2d0zc00w.aspx).)
 
 |= Types        | `CounterMultiTimer`, `CounterMultiTimerInverse`, `CounterMultiTimer100Ns`, `CounterMultiTimer100NsInverse`
 |= Description  | Work exactly as their non-multi counterparts (e.g. `CounterTimer` for `CounterMultiTimer`), except that the result is divided by `CounterMultiBase`

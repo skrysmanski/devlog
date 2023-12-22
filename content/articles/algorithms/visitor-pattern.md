@@ -14,7 +14,7 @@ I had never heard of it before. So, in preparation for my next job interview, I 
 
 While trying to figure it out, I stumbled over this quote:
 
->The Visitor pattern is possibly the most complicated design pattern you will face. ([[http://www.jquantlib.org/index.php/A_better_implementation_of_Visitor_pattern|Source]])
+>The Visitor pattern is possibly the most complicated design pattern you will face. ([Source](http://www.jquantlib.org/index.php/A_better_implementation_of_Visitor_pattern))
 
 I totally agree. (And this is probably why I've never heard or used it before.)
 

@@ -6,7 +6,7 @@ topics:
 draft: true
 ---
 
-The [[https://msdn.microsoft.com/library/system.threading.mutex.aspx|Mutex]] class in .NET is a little bit tricky to use.
+The [Mutex](https://msdn.microsoft.com/library/system.threading.mutex.aspx) class in .NET is a little bit tricky to use.
 
 Here's an example how I got it to do what I want:
 

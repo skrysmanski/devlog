@@ -7,7 +7,7 @@ topics:
 draft: true
 ---
 
-For a software project I needed to check whether two rectangles intersect (or overlap). What made my problem complicated was that one of the rectangles could be rotated. While this problem seems to be trivial (to a human being), it's not that simple to implement. It took me a while to find [[http://stackoverflow.com/questions/115426/algorithm-to-detect-intersection-of-two-rectangles|the right answer]].
+For a software project I needed to check whether two rectangles intersect (or overlap). What made my problem complicated was that one of the rectangles could be rotated. While this problem seems to be trivial (to a human being), it's not that simple to implement. It took me a while to find [the right answer](http://stackoverflow.com/questions/115426/algorithm-to-detect-intersection-of-two-rectangles).
 
 [[image:intersecting-rectangles.png|center]]
 

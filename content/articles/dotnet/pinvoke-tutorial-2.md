@@ -39,7 +39,7 @@ Along with the Unicode standard several //encodings// were developed. Each encod
 
 Please note that //all// encodings can encode //all// Unicode code points. They just differ in the way they do this.
 
-If you want to experiment a little bit with Unicode, there is a [[http://unicode.mayastudios.com|Unicode Explorer]] I've written. Go ahead and give it a try.
+If you want to experiment a little bit with Unicode, there is a [Unicode Explorer](http://unicode.mayastudios.com) I've written. Go ahead and give it a try.
 
 = P/Invoke String Conversions ==============
 Back to the actual problem. With the parameter of `print_line()` defined as `const char*` (and `char` being 8 bit) it's not clear which code page to use for the strings passed to this function.
@@ -68,7 +68,7 @@ UTF-16 is, as said before, an encoding the converted Unicode code points into by
 = Returning Strings =================
 Returning strings is not as trivial as passing them as parameters.
 
-The following is a [[http://stackoverflow.com/a/370519/614177|quote from Stack Overflow]].
+The following is a [quote from Stack Overflow](http://stackoverflow.com/a/370519/614177).
 
 The problem though comes with what to do with the native memory that was returned from `foo()`. The CLR assumes the following two items about a PInvoke function which directly returns the string type
 

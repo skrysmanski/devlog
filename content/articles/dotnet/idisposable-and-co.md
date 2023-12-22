@@ -8,9 +8,9 @@ topics:
 draft: true
 ---
 
-The .NET framework features an interface called [[http://msdn.microsoft.com/library/system.idisposable.aspx|IDisposable]]. It basically exists to allow freeing unmanaged resources (think: C++ pointers). In most cases, you won't need `IDisposable` when writing C# code. There are some exceptions though, and it becomes more important when writing C++/CLI code.
+The .NET framework features an interface called [IDisposable](http://msdn.microsoft.com/library/system.idisposable.aspx). It basically exists to allow freeing unmanaged resources (think: C++ pointers). In most cases, you won't need `IDisposable` when writing C# code. There are some exceptions though, and it becomes more important when writing C++/CLI code.
 
-The [[http://msdn.microsoft.com/library/system.idisposable.aspx|help page]] for `IDisposable` provides the code for `IDisposable`'s default implementation pattern in C#. This article will explain each part of it step by step and also provide the equivalent C++/CLI code in each step.
+The [help page](http://msdn.microsoft.com/library/system.idisposable.aspx) for `IDisposable` provides the code for `IDisposable`'s default implementation pattern in C#. This article will explain each part of it step by step and also provide the equivalent C++/CLI code in each step.
 
 <!--more-->
 
@@ -341,7 +341,7 @@ class DataContainer : IDisposable {
 //Note:// The method `Dispose(bool)` is `virtual`. The idea behind this is that child classes can override this method to perform their own disposing. See below for more information. Note also that the C++/CLI compiler automatically creates this method when a class has a destructor. You can't, however, use this method directly. It's only visible from C# (or Visual Basic).
 
 = SuppressFinalize ===================================
-The default dispose implementation pattern (as shown in [[http://msdn.microsoft.com/library/system.idisposable.aspx|IDisposable's help page]]) also adds the line `GC.SuppressFinalize(this);` to the `Dispose()` method. What does this method do and why do we need it?
+The default dispose implementation pattern (as shown in [IDisposable's help page](http://msdn.microsoft.com/library/system.idisposable.aspx)) also adds the line `GC.SuppressFinalize(this);` to the `Dispose()` method. What does this method do and why do we need it?
 
 `GC.SuppressFinalize()` simply prevents the finalizer from being called. Since the finalizer's only task is to free unmanaged data, it doesn't need to be called if `Dispose()` was already called (and already freed all unmanaged data by calling the finalizer). Using `GC.SuppressFinalize()` give a small performance improvement but nothing more.
 
@@ -354,7 +354,7 @@ In C# the `Dispose()` method changes like this:
   }
 ```
 
-In C++/CLI the destructor doesn't change //at all//. That's because the C++/CLI compiler automatically adds this code line to the destructor. (You can read about this and see a decompiled destructor [[http://www.codeproject.com/KB/mcpp/cppclidtors.aspx|here]]. Search for "SuppressFinalize".)
+In C++/CLI the destructor doesn't change //at all//. That's because the C++/CLI compiler automatically adds this code line to the destructor. (You can read about this and see a decompiled destructor [here](http://www.codeproject.com/KB/mcpp/cppclidtors.aspx). Search for "SuppressFinalize".)
 
 ```c++/cli highlight=8
   ~DataContainer() {
@@ -413,7 +413,7 @@ In C++/CLI, again, the destructor remains the same. This is because it mimics th
 ```
 
 = When to Use IDisposable: 3 easy rules ===========
-At this point I'd like to cite three easy rules when to use `IDisposable`. These rules were created by [[http://nitoprograms.blogspot.com/2009/08/how-to-implement-idisposable-and.html|Stephen Cleary]] and I take no credit for them. I do, however, disagree with some statements (such as "No classes should be responsible for multiple unmanaged resources.") and have adopted the rules in this case (see the link for the original description).
+At this point I'd like to cite three easy rules when to use `IDisposable`. These rules were created by [Stephen Cleary](http://nitoprograms.blogspot.com/2009/08/how-to-implement-idisposable-and.html) and I take no credit for them. I do, however, disagree with some statements (such as "No classes should be responsible for multiple unmanaged resources.") and have adopted the rules in this case (see the link for the original description).
 
 **Rule 1: Don't do it (unless you need to).**
 

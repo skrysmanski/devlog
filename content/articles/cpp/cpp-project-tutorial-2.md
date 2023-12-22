@@ -10,7 +10,7 @@ draft: true
 
 This article is the second part of the subprojects mini series. The first part was about [[1725|creating a DLL project]]. This part will show how to use a DLL library project in another project.
 
-Referencing a library in C++ (or, more specific, with Visual C++) is somewhat cumbersome - or should I say, //used to be// somewhat cumbersome. Fortunately, with the release of [[http://www.microsoft.com/visualstudio/en-us/products/2010-editions/visual-cpp-express|Visual C++ 2010]] this has been greatly simplified. This article first shows the old way and then describes the new (simple) way.
+Referencing a library in C++ (or, more specific, with Visual C++) is somewhat cumbersome - or should I say, //used to be// somewhat cumbersome. Fortunately, with the release of [Visual C++ 2010](http://www.microsoft.com/visualstudio/en-us/products/2010-editions/visual-cpp-express) this has been greatly simplified. This article first shows the old way and then describes the new (simple) way.
 
 **Related Articles:**
 * [[1725]]
@@ -130,7 +130,7 @@ Besides being easier to use, the new way has also another advantage: The informa
 [[image:automatic-linking-option.png|center|medium|link=source]]
 
 === What's not working ===
-Unfortunately, there's one details that make the new way a little more difficult to use again. *sigh* The problem: Visual Studio won't copy the DLL files of the referenced libraries to the output folder automatically. Here's what [[http://msdn.microsoft.com/en-us/library/ms235636%28v=vs.80%29.aspx|the documentation]] says about that:
+Unfortunately, there's one details that make the new way a little more difficult to use again. *sigh* The problem: Visual Studio won't copy the DLL files of the referenced libraries to the output folder automatically. Here's what [the documentation](http://msdn.microsoft.com/en-us/library/ms235636%28v=vs.80%29.aspx) says about that:
 
 > Dynamic link libraries are not loaded by the executable until runtime. You must tell the system where to locate **MathFuncsDll.dll**. This is done using the **PATH** environment variable. To do this, from the **Property Pages** dialog, expand the **Configuration Properties** node and select **Debugging**. Next to **Environment**, type in the following: `PATH=<path to MathFuncsDll.dll file>`, where `<path to MathFuncsDll.dll file>` is replaced with the actual location of **MathFuncsDll.dll**. Press **OK** to save all the changes made.
 

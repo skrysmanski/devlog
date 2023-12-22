@@ -7,11 +7,11 @@ topics:
 draft: true
 ---
 
-I recently stumbled over [[http://www.r-project.org/|R]], a programming language for data analysis. R is open-source and available on all major platforms (Windows, Linux, Mac).
+I recently stumbled over [R](http://www.r-project.org/), a programming language for data analysis. R is open-source and available on all major platforms (Windows, Linux, Mac).
 
 This post is about how to display (draw) a mathematical function with R.
 
-//Side note:// There's a very nice and interactive [[http://www.codeschool.com/courses/try-r|tutorial for R]] available over at [[http://www.codeschool.com/|codeschool.com]]. It's free and takes about 3 - 4 hours to complete.
+//Side note:// There's a very nice and interactive [tutorial for R](http://www.codeschool.com/courses/try-r) available over at [codeschool.com](http://www.codeschool.com/). It's free and takes about 3 - 4 hours to complete.
 
 <!--more-->
 
@@ -43,7 +43,7 @@ As you can see in this plot, R makes the y axis match the required value range (
 
 Sometimes, however, this may not be desired. There are two ways to fix this.
 
-First, you can specify the aspect ratio to be 1 ([[http://xkcd.com/1162/|cause log scales are for quitters]]). In this case, the x and the y axes will use the same scale:
+First, you can specify the aspect ratio to be 1 ([cause log scales are for quitters](http://xkcd.com/1162/)). In this case, the x and the y axes will use the same scale:
 
 ```
 curve(x^2, -4, 3, asp=1)

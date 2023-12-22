@@ -139,12 +139,12 @@ On the other hand, if you want to group several properties for a certain configu
 </ItemDefinitionGroup>
 ```
 
-You can find more information about conditions in the article [[http://msdn.microsoft.com/library/7szfhaft.aspx|"MSBuild Conditions" on MSDN]].
+You can find more information about conditions in the article ["MSBuild Conditions" on MSDN](http://msdn.microsoft.com/library/7szfhaft.aspx).
 
 = Property Sheet XML Structure =
 Property sheet files are XML files. The root element is called `<Project>` and in most cases you'll work with the child elements `<ItemDefinitionGroup>` and `<PropertyGroup>`. It's not always clear, in which kind of group to place a certain element. The easiest way to figure this out is to set the desired element in the project settings of a C++ project and then view the project file in a text editor. This is possible because property sheets and C++ project files (`.vcxproj`) use the same XML schema.
 
-Additionally, you can have a look at the [[http://msdn.microsoft.com/library/5dy88c2e.aspx|XML tag descriptions on MSDN]], although there aren't that descriptive.
+Additionally, you can have a look at the [XML tag descriptions on MSDN](http://msdn.microsoft.com/library/5dy88c2e.aspx), although there aren't that descriptive.
 
 %% Article is to be imported by CodeProject
 <a href="http://www.codeproject.com/script/Articles/BlogFeedList.aspx?amid=274673" rel="tag" style="display:none">CodeProject</a>

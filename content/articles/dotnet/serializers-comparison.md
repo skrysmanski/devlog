@@ -20,12 +20,12 @@ So, I've compiled a comparison chart in this article that will compare the vario
 The following serializers will be compared:
 
 |= Name                                                                                 |= Abbreviation |= Version     |= Output Format    |
-| [[http://msdn.microsoft.com/EN-US/library/y50tb888.aspx|BinaryFormatter]]             | BF            | (.NET 4.5.1) | Binary            |
-| [[http://msdn.microsoft.com/EN-US/library/ms405768.aspx|DataContractSerializer]]      | DCS           | (.NET 4.5.1) | XML               |
-| [[http://msdn.microsoft.com/EN-US/library/ms574991.aspx|NetDataContractSerializer]]   | NDCS          | (.NET 4.5.1) | XML               |
-| [[http://msdn.microsoft.com/EN-US/library/swxzdhc0.aspx|XmlSerializer]]               | XMLSer        | (.NET 4.5.1) | XML               |
-| [[http://msdn.microsoft.com/EN-US/library/bb908432.aspx|DataContractJsonSerializer]]  | DCJS          | (.NET 4.5.1) | JSON              |
-| [[http://james.newtonking.com/json|JSON.NET]]                                         | JSON.Net      | 6.0.5        | JSON              |
+| [BinaryFormatter](http://msdn.microsoft.com/EN-US/library/y50tb888.aspx)             | BF            | (.NET 4.5.1) | Binary            |
+| [DataContractSerializer](http://msdn.microsoft.com/EN-US/library/ms405768.aspx)      | DCS           | (.NET 4.5.1) | XML               |
+| [NetDataContractSerializer](http://msdn.microsoft.com/EN-US/library/ms574991.aspx)   | NDCS          | (.NET 4.5.1) | XML               |
+| [XmlSerializer](http://msdn.microsoft.com/EN-US/library/swxzdhc0.aspx)               | XMLSer        | (.NET 4.5.1) | XML               |
+| [DataContractJsonSerializer](http://msdn.microsoft.com/EN-US/library/bb908432.aspx)  | DCJS          | (.NET 4.5.1) | JSON              |
+| [JSON.NET](http://james.newtonking.com/json)                                         | JSON.Net      | 6.0.5        | JSON              |
 
 == Testing Framework ==
 I wrote a small framework to do most of the tests in this article. You can get it here:
@@ -51,7 +51,7 @@ You may also want to have a look at it when some feature isn't clear to you.
 **Notes on features:**
 * A dash (`-`) means "not applicable". For example, `BinaryFormatter` can only serialize classes that are attributed with `[Serializable]`. So, it doesn't make sense to check whether it calls the parameterless constructor on a `[DataContract]` class.
 * **Can serialize unattributed class:** Serializers that can't serialize unattributed classes are a bad choice if you want to serialize types that are not attributed (with `[Serializable]` or `[DataContract]`) and for which you don't have access to the code (e.g. some library types).
-* For `[OnDeserialization]`, see [[http://msdn.microsoft.com/en-us/library/ms733734%28v=vs.110%29.aspx|Version-Tolerant Serialization Callbacks]].
+* For `[OnDeserialization]`, see [Version-Tolerant Serialization Callbacks](http://msdn.microsoft.com/en-us/library/ms733734%28v=vs.110%29.aspx).
 ** Tests were done with the attributed methods being `private`.
 
 **Notes on serializers:**
@@ -78,7 +78,7 @@ You may also want to have a look at it when some feature isn't clear to you.
 | Calls parameterless constructor (`[DataContract]`)                | -    | no   | no    | -       | no    | yes       |
 
 **Notes on features:**
-* For how serializers can deserialize an object without calling the constructor, see [[http://stackoverflow.com/a/1076735/614177|this Stack Overflow answer]].
+* For how serializers can deserialize an object without calling the constructor, see [this Stack Overflow answer](http://stackoverflow.com/a/1076735/614177).
 
 
 == Fields and Properties ==
@@ -156,11 +156,11 @@ You may also want to have a look at it when some feature isn't clear to you.
 
 **Notes on features:**
 * Values for **Serializes enums as** are: "name", "int", and "bin"(ary).
-* For more information about `[EnumMember]`, see [[http://msdn.microsoft.com/en-us/library/aa347875.aspx|Enumeration Types in Data Contracts]].
+* For more information about `[EnumMember]`, see [Enumeration Types in Data Contracts](http://msdn.microsoft.com/en-us/library/aa347875.aspx).
 * The test for serializing `static` members is included here only for completeness reasons and because some tests depend on static fields not being serialized (which is what one would expect).
 
 **Notes on serializers:**
-* The JSON.NET serializer does serialize static fields/properties attributed with `[DataMember]`. This phenomenon is tracked as [[https://github.com/JamesNK/Newtonsoft.Json/issues/399|issue #399]].
+* The JSON.NET serializer does serialize static fields/properties attributed with `[DataMember]`. This phenomenon is tracked as [issue #399](https://github.com/JamesNK/Newtonsoft.Json/issues/399).
 
 
 == Conclusion ==

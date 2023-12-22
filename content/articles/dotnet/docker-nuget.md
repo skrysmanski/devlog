@@ -8,16 +8,16 @@ topics:
 draft: true
 ---
 
-Recently, I wanted to try out the new [[https://www.microsoft.com/net/core|.NET Core]] together with a [[https://www.docker.com/|Docker]] container. However, coming from programing .NET applications for the regular .NET Framework, there were some obstacles I encountered. This one is about NuGet packages.
+Recently, I wanted to try out the new [.NET Core](https://www.microsoft.com/net/core) together with a [Docker](https://www.docker.com/) container. However, coming from programing .NET applications for the regular .NET Framework, there were some obstacles I encountered. This one is about NuGet packages.
 
 <!--more-->
 
 == The Goal ==
 The goal is to have a .NET Core console application with some NuGet dependencies running in a Docker container.
 
-I'll be using Visual Studio 2015 ([[https://www.visualstudio.com/|Community Edition]]) for this article but you also use any other IDE that supports .NET Core projects. As such, I'll try to minimize the dependency on Visual Studio in this article.
+I'll be using Visual Studio 2015 ([Community Edition](https://www.visualstudio.com/)) for this article but you also use any other IDE that supports .NET Core projects. As such, I'll try to minimize the dependency on Visual Studio in this article.
 
-To better understand how a .NET Core application integrates with Docker, I will **not** use the [[https://aka.ms/DockerToolsForVS|Docker Tools for Visual Studio]]. While they work, they add a lot of "magic" to the build process. And this magic makes it hard to understand what's going on.
+To better understand how a .NET Core application integrates with Docker, I will **not** use the [Docker Tools for Visual Studio](https://aka.ms/DockerToolsForVS). While they work, they add a lot of "magic" to the build process. And this magic makes it hard to understand what's going on.
 
 == Download the Example Code == #example-code
 To keep the article brief, I'll just explain the important parts.
@@ -26,7 +26,7 @@ You can find the complete source code on my GitHub:
 
   https://github.com/skrysmanski/dotnetcore-docker
 
-Note that you can examine the [[https://github.com/skrysmanski/dotnetcore-docker/commits/master|commits]] to see how the example evolves like this article.
+Note that you can examine the [commits](https://github.com/skrysmanski/dotnetcore-docker/commits/master) to see how the example evolves like this article.
 
 == The Program ==
 The program I'm going to write is very simple:
@@ -54,7 +54,7 @@ It just uses .NET Core and the `Newtonsoft.Json` NuGet package as dependency.
 == Building with Visual Studio ==
 Building the application in Visual Studio is pretty straight forward.
 
-# Make sure you have installed the [[https://www.microsoft.com/net/core#windows|.NET Core Visual Studio Tooling]] installed.
+# Make sure you have installed the [.NET Core Visual Studio Tooling](https://www.microsoft.com/net/core#windows) installed.
 # Create a new **.NET Core Console Application** project/solution called <nobr>`DockerCoreConsoleTest`</nobr>.
 # Use NuGet to add `Newtonsoft.Json` to the project.
 # Copy the code from above into your `Program.cs`
@@ -71,7 +71,7 @@ If you run into any troubles, go and checkout the [[#example-code|example code]]
 == Running in Docker ==
 So far, so good. Now lets execute this program in a Docker container.
 
-**Note:** If you haven't installed Docker yet, you can download it [[https://www.docker.com/products/docker#/windows|here]].
+**Note:** If you haven't installed Docker yet, you can download it [here](https://www.docker.com/products/docker#/windows).
 
 For this, we'll use the following `Dockerfile`:
 
@@ -152,7 +152,7 @@ We could go one step further and actually build the docker image as part of the 
 ```
 
 Two notes one this:
-# I have not found a [[http://stackoverflow.com/a/36730997/614177|suitable]] variable (like `%publish:OutputPath%`) yet that could be used for the docker label (`-t`). So, for the time being, the label has to be hard-coded here.
+# I have not found a [suitable](http://stackoverflow.com/a/36730997/614177) variable (like `%publish:OutputPath%`) yet that could be used for the docker label (`-t`). So, for the time being, the label has to be hard-coded here.
 # Building a docker image as part of publish process may not be for everyone. I like the idea mainly because I haven't come across any (relevant) downsides of doing this.
 
 == Wrapping Things Up ==
@@ -193,5 +193,5 @@ This approach has some disadvantages:
 # The container in general will be bigger than the solution proposed in the rest of the article.
 # You need to copy all source code into the container (and it will stay there).
 #* Depending on how you execute `docker build`, this container may even contain the build output of configurations that you don't intend to run (e.g. `bin/Debug` when actually running a release build).
-#* Removing the source code after building the application (or having lots of `RUN` directives in general) may be inefficient in regard to Docker's container layering system and [[https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/#build-cache|Build Cache]].
+#* Removing the source code after building the application (or having lots of `RUN` directives in general) may be inefficient in regard to Docker's container layering system and [Build Cache](https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/#build-cache).
 # Running `dotnet restore` will re-download all NuGet dependencies every time the container image is built. This will increase the build time and cause unnecessary network traffic - especially if the application is built often as part of some continuous integration process.
