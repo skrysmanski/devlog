@@ -73,8 +73,8 @@ The following is a [quote from Stack Overflow](http://stackoverflow.com/a/370519
 
 The problem though comes with what to do with the native memory that was returned from `foo()`. The CLR assumes the following two items about a PInvoke function which directly returns the string type
 
- * The native memory needs to be freed
- * The native memory was allocated with `CoTaskMemAlloc`
+* The native memory needs to be freed
+* The native memory was allocated with `CoTaskMemAlloc`
 
 Therefore it will marshal the string and then call `CoTaskMemFree` on the native memory blob. Unless you actually allocated this memory with `CoTaskMemAlloc` this will at best cause a crash in your application.
 

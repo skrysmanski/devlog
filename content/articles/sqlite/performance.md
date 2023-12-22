@@ -33,8 +33,8 @@ In each test scenario, the SQLite database contained only one table with four co
 
 There are two kinds of concurrent access:
 
- * *Read access:* Simulated by repeatedly selecting a random row from the table and reading all four values.
- * *Write access:* Simulated by inserting random values into the table.
+* *Read access:* Simulated by repeatedly selecting a random row from the table and reading all four values.
+* *Write access:* Simulated by inserting random values into the table.
 
 The first batch of tests simulated read access, the second batch simulated write access, and the third batch simulated both concurrently.
 
@@ -43,11 +43,11 @@ The first batch of tests simulated read access, the second batch simulated write
 = Test Parameters =======
 Each test comprises of a certain combination of the following test parameters:
 
- * *Shared connection vs. multi connection:* Whether all threads share the same database connection, or whether every thread has its own connection (to the same database though). Shared connections use `SQLITE_OPEN_FULLMUTEX` (serialized), multi connections use `SQLITE_OPEN_NOMUTEX` (multithread).
- * *Read-only:* Whether the connection is opened in read-only or read-write mode (`SQLITE_OPEN_READONLY`).
- * *Shared cache:* Whether all connections share the same cache (`SQLITE_OPEN_SHAREDCACHE`), or whether each connection has its own cache.
- * *WAL:* Whether the connection(s) use a database in [WAL (write-ahead logging) journal mode](http://www.sqlite.org/draft/wal.html).
- * *Filled table:* Whether the table to read from is empty or filled (not examined in this report due to missing data; I should mention though that trying to read from an empty table is significant slower than reading from a filled table).
+* *Shared connection vs. multi connection:* Whether all threads share the same database connection, or whether every thread has its own connection (to the same database though). Shared connections use `SQLITE_OPEN_FULLMUTEX` (serialized), multi connections use `SQLITE_OPEN_NOMUTEX` (multithread).
+* *Read-only:* Whether the connection is opened in read-only or read-write mode (`SQLITE_OPEN_READONLY`).
+* *Shared cache:* Whether all connections share the same cache (`SQLITE_OPEN_SHAREDCACHE`), or whether each connection has its own cache.
+* *WAL:* Whether the connection(s) use a database in [WAL (write-ahead logging) journal mode](http://www.sqlite.org/draft/wal.html).
+* *Filled table:* Whether the table to read from is empty or filled (not examined in this report due to missing data; I should mention though that trying to read from an empty table is significant slower than reading from a filled table).
 
 = Batch 1: read tests ======
 Let's start with the tests only reading data (i.e. no data is written during these tests). Each thread randomly reads a data row and then obtains all four values stored in it. This is repeated for 30 seconds.
@@ -93,9 +93,9 @@ As you can see, with few threads, using WAL for read operations results in a big
 == Summary: read tests ======
 Let's summarize what we've learned so far (for reading operations):
 
- * using a read-only connection doesn't provide any performance benefit
- * using a shared cache is never faster (but sometimes slower) than using a private cache
- * using WAL is always faster than using the default journal mode (DELETE)
+* using a read-only connection doesn't provide any performance benefit
+* using a shared cache is never faster (but sometimes slower) than using a private cache
+* using WAL is always faster than using the default journal mode (DELETE)
 
 As for the question whether to use a shared connection or multiple connections, see this chart:
 
@@ -148,9 +148,9 @@ The results are clear. Using a shared connection always yields better write perf
 == Summary: write tests =======
 To summarize the previous sections:
 
- * Using a shared cache doesn't affect the performance.
- * Using WAL improves write performance significantly.
- * Using a shared connection is always faster than using multiple connections.
+* Using a shared cache doesn't affect the performance.
+* Using WAL improves write performance significantly.
+* Using a shared connection is always faster than using multiple connections.
 
 [[image:insert-results.png|center|medium|link=source]]
 
@@ -184,18 +184,18 @@ As you can see, in both cases using one connection per threads and using WAL pro
 = Conclusions ========
 Assuming, my code doesn't contain any errors that are affecting the results in a significant way, the following conclusions can be drawn:
 
- * Enabling WAL for a database gives a significant performance boost for all read and write operations.
- * If memory is not an issue, shared caches shouldn't be used as they may decrease read performance.
- * Using read-only connections doesn't affect the read performance.
+* Enabling WAL for a database gives a significant performance boost for all read and write operations.
+* If memory is not an issue, shared caches shouldn't be used as they may decrease read performance.
+* Using read-only connections doesn't affect the read performance.
 
 Regarding shared connection vs. multiple connections:
 
- * If you only have one thread, it doesn't matter (obviously).
- * If you do primarily reading...
+* If you only have one thread, it doesn't matter (obviously).
+* If you do primarily reading...
  ** ... and the thread count is <= the CPU (core) count: use multiple connections
  ** ... and you have more threads than CPUs (cores): use shared connection
- * If you do primarily writing, use a shared connection.
- * If you do about the same amount of reading and writing, use multiple connections.
+* If you do primarily writing, use a shared connection.
+* If you do about the same amount of reading and writing, use multiple connections.
 
 I hope this helps. If there's something (terribly) wrong with this analysis, please leave a comment below.
 

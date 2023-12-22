@@ -9,9 +9,9 @@ draft: true
 
 There are many object serializers in C#/.NET but their details are often not so obvious, for example:
 
- * Does my class need a parameterless constructor?
- * Can I serialize `private` fields?
- * Can I serialize `readonly` fields?
+* Does my class need a parameterless constructor?
+* Can I serialize `private` fields?
+* Can I serialize `readonly` fields?
 
 So, I've compiled a comparison chart in this article that will compare the various serializers and their capabilities.
 

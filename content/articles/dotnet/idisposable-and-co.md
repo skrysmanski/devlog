@@ -18,8 +18,8 @@ The [help page](http://msdn.microsoft.com/library/system.idisposable.aspx) for `
 Here's the summary of this article for those who don't want to read the actual explanations.
 
 Rules:
- * For a class owning *managed* resources, implement `IDisposable` (but not a finalizer).
- * For a class owning at least one *unmanaged* resource, implement both `IDisposable` and a finalizer.
+* For a class owning *managed* resources, implement `IDisposable` (but not a finalizer).
+* For a class owning at least one *unmanaged* resource, implement both `IDisposable` and a finalizer.
 
 C# code:
 
@@ -201,8 +201,8 @@ private:
 
 In C++/CLI a deterministic destructor (or the `Dispose()` method) is called automatically when:
 
- * a class instance is on the stack (instead of the managed heap) and goes out of scope
- * a class instance is on the managed heap and gets deleted via `delete myVar;`
+* a class instance is on the stack (instead of the managed heap) and goes out of scope
+* a class instance is on the managed heap and gets deleted via `delete myVar;`
 
 This is identical with how you would "call" destructors in C++.
 
@@ -419,8 +419,8 @@ At this point I'd like to cite three easy rules when to use `IDisposable`. These
 
 There are only two situations when `IDisposable` does need to be implemented:
 
- * The class owns unmanaged resources.
- * The class owns managed (`IDisposable`) resources.
+* The class owns unmanaged resources.
+* The class owns managed (`IDisposable`) resources.
 
 <b>Rule 2: For a class owning *managed* resources, implement IDisposable (but not a finalizer)</b>
 

@@ -16,12 +16,12 @@ This article describes the problem and shows solutions.
 = For the impatient =
 For those of you that don't want to read the whole article, here's the summary:
 
- * Library providing method with native type:
+* Library providing method with native type:
  ** Native types *outside* a C++/CLI project need to be made public in a C++/CLI project via ` #pragma make_public(Type)`
  ** Native types *inside* a C++/CLI project need to be made public via keyword `public`.
  ** This pragma has to be written in the `.h` file
  ** To prevent C3767, include the `.h` file before the pragma (i.e. don't just use a forward declaration).
- * Library using the method:
+* Library using the method:
  ** Needs to include `.h` file of native type
  ** Forward declaration *may* not be enough (gives linker warning)
  ** If the native type is defined *inside* a C++/CLI project, the project must be reference in the project settings via "Add Reference" *as well as* "Linker --> Input".
@@ -275,9 +275,9 @@ I've created a small solution (for Visual Studios 2010) that contains the exampl
 
 = History =
 
- * 2012-01-09 : Fixed using a native type from a C++/CLI project
- * 2012-01-09 : No longer suggests forward declarations for public native types
- * 2012-01-09 : Published
+* 2012-01-09 : Fixed using a native type from a C++/CLI project
+* 2012-01-09 : No longer suggests forward declarations for public native types
+* 2012-01-09 : Published
 
 %% Article is to be imported by CodeProject
 <a href="http://www.codeproject.com/script/Articles/BlogFeedList.aspx?amid=274673" rel="tag" style="display:none">CodeProject</a>

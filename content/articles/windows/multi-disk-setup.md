@@ -34,8 +34,8 @@ Determining on which drive Windows Setup will install the boot manager onto is a
 
 The only *hint* you get, is if:
 
- * your installation disk has no partitions (i.e. is empty) ...
- * .. and then you can create a partition on this disk.
+* your installation disk has no partitions (i.e. is empty) ...
+* .. and then you can create a partition on this disk.
 
 In this case Windows Setup will show you a dialog reading:
 

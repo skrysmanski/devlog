@@ -194,8 +194,8 @@ public class Document {
 
 This implementation suffers two major problems:
 
- * The code for the `Document.To...()` methods is almost identical. This may lead to errors when changing one of the methods but forgetting to update the others.
- * Each document part needs to know every possible output format.
+* The code for the `Document.To...()` methods is almost identical. This may lead to errors when changing one of the methods but forgetting to update the others.
+* Each document part needs to know every possible output format.
 
 These problems can be solved with the **visitor pattern**.
 

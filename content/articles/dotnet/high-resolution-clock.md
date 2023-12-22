@@ -10,17 +10,17 @@ Clocks in computers have (among others) the following three properties: *accurac
 
 People generally agree on what's the difference between *accuracy* and *precision/resolution* but there seem to be lots of opinions on what's the difference between *precision* and *resolution* and which is which. So I'm going to shamelessly copy a [definition I found on Stack Overflow](http://stackoverflow.com/a/16740505/614177) that I'm agreeing with.
 
- * **Precision:** the amount of information, i.e. the number of significant digits you report. (E.g. I'm 2m, 1.8m, 1.83m, 1.8322m tall. All those measurements are accurate, but increasingly precise.)
- * **Accuracy:** the relation between the reported information and the truth. (E.g. "I'm 1.70m tall" is more precise than "1.8m", but not actually accurate.)
- * **Resolution (or Granularity):** the smallest time interval that a clock can measure. For example, if you have 1 ms resolution, there's little point reporting the result with nanosecond precision, since the clock cannot possibly be accurate to that level of precision.
+* **Precision:** the amount of information, i.e. the number of significant digits you report. (E.g. I'm 2m, 1.8m, 1.83m, 1.8322m tall. All those measurements are accurate, but increasingly precise.)
+* **Accuracy:** the relation between the reported information and the truth. (E.g. "I'm 1.70m tall" is more precise than "1.8m", but not actually accurate.)
+* **Resolution (or Granularity):** the smallest time interval that a clock can measure. For example, if you have 1 ms resolution, there's little point reporting the result with nanosecond precision, since the clock cannot possibly be accurate to that level of precision.
 
 This article will be mainly about **resolution** (and precision and accuracy to some extend).
 
 == DateTime ==
 C# provides the `DateTime` type ([MSDN](http://msdn.microsoft.com/EN-US/library/system.datetime.aspx)) that allows to:
 
- * store a certain point in time
- * get the current date and time (via `Now` or `UtcNow`)
+* store a certain point in time
+* get the current date and time (via `Now` or `UtcNow`)
 
 First, lets take a look at **precision**: The `DateTime` type is basically just a 64 bit integer that counts "ticks". One tick is 100 nanoseconds (or 0.0001 milliseconds) long ([MSDN](http://msdn.microsoft.com/EN-US/library/system.datetime.ticks.aspx)). So `DateTime`'s precision can be up to 0.0001 milliseconds.
 

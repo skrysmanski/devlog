@@ -41,8 +41,8 @@ The members of *handles* are accessed with the "->" operator (and not with the "
 = CLR types ================================
 A type (class, struct) becomes a CLR type when it's being prefixed with a specific keyword.
 
- * **Native types:** `class`, `struct`
- * **Managed types:**
+* **Native types:** `class`, `struct`
+* **Managed types:**
    ** **C# class:** `ref class`, ~~`ref struct`~~
    ** **C# struct:** ~~`value class`~~, `value struct`
    ** **C# interface:** `interface class`, ~~`interface struct`~~
@@ -160,10 +160,10 @@ Console::WriteLine(str);
 This again changes the string. Note the `%` in `ChangeString()`.
 
 **Notes:**
- * For the C# keyword `out`, the parameter must also be prefixed with the `[Out]` attribute (from `System::Runtime::InteropServices`). For example: `void ChangeString([Out] String^% str)`
- * Unlike in C# `out` and `ref` don't need to be specified when calling methods using the `%` operator.
- * Handles are type-safe, i.e. you can't cast them to anything aren't.
- * Handles can't be cast to or from `void^`.
+* For the C# keyword `out`, the parameter must also be prefixed with the `[Out]` attribute (from `System::Runtime::InteropServices`). For example: `void ChangeString([Out] String^% str)`
+* Unlike in C# `out` and `ref` don't need to be specified when calling methods using the `%` operator.
+* Handles are type-safe, i.e. you can't cast them to anything aren't.
+* Handles can't be cast to or from `void^`.
 
 == Mixing native and managed types ====================================
 This section gives a quick overview what is allowed with handles and what isn't.
@@ -304,28 +304,28 @@ public class MyClass {
 = Inheritance ================================
 Inheritance for CLR types is like you know it from C#. Therefore just some notes:
 
- * *Only public inheritance* is allowed for CLR types. This doesn't work:
+* *Only public inheritance* is allowed for CLR types. This doesn't work:
    `ref class Derived1 : private Base {}; // which would be allowed in C++`
    If no visibility is specified, `public` will be assumed automatically.
- * *Multiple inheritance* isn't supported by the CLR (although it is by C++).
- * "value" types can only inherit interfaces but not classes.
- * "value" types are automatically sealed.
+* *Multiple inheritance* isn't supported by the CLR (although it is by C++).
+* "value" types can only inherit interfaces but not classes.
+* "value" types are automatically sealed.
 
 
 = Arrays ================================
 Arrays are defined like this in C++/CLI:
 
- * `array<int>^ myArr1`
- * `array<String^>^ myArr2`
- * `array<String^> myArr3  // sits on the stack`
+* `array<int>^ myArr1`
+* `array<String^>^ myArr2`
+* `array<String^> myArr3  // sits on the stack`
 
 Arrays (if they're a handle) are created using "gcnew":
 
- * Regular array:
+* Regular array:
    `array<int>^ strarray = gcnew array<int>(5); // 5 elements`
- * Multi-dimensional array:
+* Multi-dimensional array:
    `array<String^,2>^ names = gcnew array<String^,2>(4,3); // 4x3 elements`
- * Jagged array (array of arrays):
+* Jagged array (array of arrays):
    `array<array<int>^>^ arr = gcnew array<array<int>^>(5);`
 
 Accessing an element works like in C# or C++:
@@ -337,8 +337,8 @@ myArray[5]  // retrieves or sets the 6th array element
 All C++/CLI arrays are direct subclasses of `System::Array`. Thus, the *size of an array* can be obtained through the property `Length`.
 
 More information:
- * [General information on C++/CLI arrays](http://msdn.microsoft.com/de-de/library/ts4c4dw6(v=VS.100).aspx)
- * [System::Array members overview](http://msdn.microsoft.com/library/system.array(v=VS.100).aspx)
+* [General information on C++/CLI arrays](http://msdn.microsoft.com/de-de/library/ts4c4dw6(v=VS.100).aspx)
+* [System::Array members overview](http://msdn.microsoft.com/library/system.array(v=VS.100).aspx)
 
 = Properties ================================
 The easiest way to define a .NET property is like this:
@@ -647,22 +647,22 @@ Also defined are `__cplusplus_cli` and `__CLR_VER`. For more information, see [P
 = History =
 What happened to this article:
 
- * **2013-07-31:** Added more information about generic constraints and `nullptr` with generics
- * **2013-07-05:** Added section about forward declarations
- * **2012-01-13:** Improved info about `gcroot`, delegates and events, and improved destructors section
- * **2012-01-11:** Updated information about preprocessor defines and added history section
- * **2012-01-10:** Added section about C#'s `typeof` equivalent in C++/CLI
- * **2012-01-09:** Added note about passing native pointer across assembly boundaries
- * **2012-01-04:** Added section about constructors
- * **2011-12-20:** Added section about templates and generics
- * **2011-12-19:** Added some notes about CLR arrays and preprocessor definitions
- * **2011-08-29:** Added section about handles and pointers as members of managed and native classes
- * **2011-08-26:** Added section about managed and native classes on the heap, stack, and GC heap
- * **2011-08-19:** Added section "Referencing managed type from other file (in the same project)"
- * **2011-08-09:** Added sections about .NET properties and the C# modifiers `const` and `readonly`
- * **2011-06-15:** Added information about value types and their relationship to handles
- * **2011-05-02:** Formatting and added scope to modifier table
- * **2011-04-19:** Published
+* **2013-07-31:** Added more information about generic constraints and `nullptr` with generics
+* **2013-07-05:** Added section about forward declarations
+* **2012-01-13:** Improved info about `gcroot`, delegates and events, and improved destructors section
+* **2012-01-11:** Updated information about preprocessor defines and added history section
+* **2012-01-10:** Added section about C#'s `typeof` equivalent in C++/CLI
+* **2012-01-09:** Added note about passing native pointer across assembly boundaries
+* **2012-01-04:** Added section about constructors
+* **2011-12-20:** Added section about templates and generics
+* **2011-12-19:** Added some notes about CLR arrays and preprocessor definitions
+* **2011-08-29:** Added section about handles and pointers as members of managed and native classes
+* **2011-08-26:** Added section about managed and native classes on the heap, stack, and GC heap
+* **2011-08-19:** Added section "Referencing managed type from other file (in the same project)"
+* **2011-08-09:** Added sections about .NET properties and the C# modifiers `const` and `readonly`
+* **2011-06-15:** Added information about value types and their relationship to handles
+* **2011-05-02:** Formatting and added scope to modifier table
+* **2011-04-19:** Published
 
 
 %% Article is to be imported by CodeProject

@@ -35,9 +35,9 @@ Let's examine what you see here:
 
 Let's examine the property sheets a bit closer:
 
- * There are two kinds of property sheets. I couldn't find their official names, so let's call them *Base Property Sheets* (icon: [[image:base-prop-icon.png]]) and *Custom Property Sheets* (icon: [[image:cust-prop-icon.png]]). You can edit only custom property sheets. Base property sheets are read-only.
- * Property sheets have an order in which they're evaluated. This is important, if two property sheets define a value for the same setting. The order can be seen in the Property Manager and is bottom up. So in the image above, for the "Debug" configuration first `Core Windows Libraries` is evaluated, then `Unicode Support` and so forth. We'll examine the effects of this order a little later.
- * Property sheets belong to a certain configuration (such as "Debug|Win32"). The stack of property sheets defines the value that can be inherited for this specific configuration (i.e. that's what you get when you choose `<inherit from parent or project defaults>` for a value in the project settings).
+* There are two kinds of property sheets. I couldn't find their official names, so let's call them *Base Property Sheets* (icon: [[image:base-prop-icon.png]]) and *Custom Property Sheets* (icon: [[image:cust-prop-icon.png]]). You can edit only custom property sheets. Base property sheets are read-only.
+* Property sheets have an order in which they're evaluated. This is important, if two property sheets define a value for the same setting. The order can be seen in the Property Manager and is bottom up. So in the image above, for the "Debug" configuration first `Core Windows Libraries` is evaluated, then `Unicode Support` and so forth. We'll examine the effects of this order a little later.
+* Property sheets belong to a certain configuration (such as "Debug|Win32"). The stack of property sheets defines the value that can be inherited for this specific configuration (i.e. that's what you get when you choose `<inherit from parent or project defaults>` for a value in the project settings).
 
 *Note:* The property sheet `Microsoft.Cpp.Win32.user` is located somewhere in the current user's application settings. It's contents therefore will be different for each user. By keeping it *the top item* in every configuration you allow the user to override any option, if necessary, without needing to change the project file.
 
@@ -101,8 +101,8 @@ It's possible to define your own custom variables (like the pre-defined `$(OutDi
 = Inheriting From Other Property Sheets =
 Property sheets can inherit their values from other property sheets. You can either specify this inheritance ...
 
- * in a *project file*: This is accomplished by adding the inherited property sheet to the Property Manager and move it below the inheriting property sheet.
- * in a *property sheet file*: To do this, right-click on the inherit*ing* property sheet file in the Property Manager and choose `Add ... Property Sheet` and select/create the inherit*ed* property sheet. The inherit*ed* property sheet is now being displayed as child node of the inherit*ing* property sheet (see screenshot).
+* in a *project file*: This is accomplished by adding the inherited property sheet to the Property Manager and move it below the inheriting property sheet.
+* in a *property sheet file*: To do this, right-click on the inherit*ing* property sheet file in the Property Manager and choose `Add ... Property Sheet` and select/create the inherit*ed* property sheet. The inherit*ed* property sheet is now being displayed as child node of the inherit*ing* property sheet (see screenshot).
 
 [[image:inherited-property-sheet.png|center]]
 

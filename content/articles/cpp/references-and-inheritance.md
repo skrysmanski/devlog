@@ -136,15 +136,15 @@ const BaseClassPointer& getReference() {
 
 Now the compiler will give you a warning:
 
- * Visual C++: *warning C4172: returning address of local variable or temporary*
- * g++: *warning: returning reference to temporary [enabled by default]*
+* Visual C++: *warning C4172: returning address of local variable or temporary*
+* g++: *warning: returning reference to temporary [enabled by default]*
 
 <strong>Important:</strong> Don't be as stupid as I was and try to "fix" the warning by using my initial implementation of `getReference()`. This warning is there for a reason and the reason is not that the compiler is too dumb to figure out what to do.
 
 The compiler is telling you here that you're returning a reference to a local variable. This is always a bad thing. The questions now are:
 
- * Why is this a bad thing?
- * Where does the local variable or temporary (variable) come from?
+* Why is this a bad thing?
+* Where does the local variable or temporary (variable) come from?
 
 <strong>Note:</strong> You won't get this warning if you change the data type of `g_somePointer` back to `BaseClass*`. So, under some conditions the current implementation of `getReference()` is actually valid.
 
