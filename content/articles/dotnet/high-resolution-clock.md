@@ -51,9 +51,10 @@ This program records all the different values `DateTime.UtcNow` returns over the
 
 According to [MSDN](http://msdn.microsoft.com/EN-US/library/system.datetime.utcnow.aspx) the resolution depends on the operating system but in my tests I found out that the resolution also seems to depend on the hardware (unless newer OS versions have a worse resolution).
 
-|= Machine |= OS           |= Resolution |
-| Dev Box  | Windows 7 x64 | 1 ms        |
-| Laptop   | Windows 8 x64 | 16 ms       |
+| Machine  | OS           |  Resolution |
+| -------- | ------------- | ---------- |
+| Dev Box  | Windows 7 x64 | 1 ms       |
+| Laptop   | Windows 8 x64 | 16 ms      |
 
 ## High Resolution Clock
 
@@ -110,9 +111,10 @@ public static class HighResolutionDateTime
 
 Using the same test code as above but using `HighResolutionDateTime.UtcNow` as input (instead of `DateTime.UtcNow`) leads to:
 
-|= Machine |= OS           |= Resolution |
-| Dev Box  | Windows 7 x64 | n/a         |
-| Laptop   | Windows 8 x64 | 0.0004 ms   |
+| Machine  | OS            | Resolution |
+| -------- | ------------- | ---------- |
+| Dev Box  | Windows 7 x64 | n/a        |
+| Laptop   | Windows 8 x64 | 0.0004 ms  |
 
 So, on my laptop the resolution increased by a factor of 40000.
 
@@ -126,9 +128,10 @@ To complete this article, lets also talk about **accuracy**.
 
 There's also `Stopwatch` in C#. `Stopwatch` has a high **resolution**. Using `Stopwatch.ElapsedTicks` as input for resolution measure code from above, I got these results:
 
-|= Machine |= OS           |= Resolution |
-| Dev Box  | Windows 7 x64 | 0.0004 ms   |
-| Laptop   | Windows 8 x64 | 0.0004 ms   |
+| Machine  | OS            | Resolution |
+| -------- | ------------- | ---------- |
+| Dev Box  | Windows 7 x64 | 0.0004 ms  |
+| Laptop   | Windows 8 x64 | 0.0004 ms  |
 
 However, `Stopwatch` is not very accurate. On my laptop it drifts by 0.2 ms per second, i.e. it gets less accurate over time.
 

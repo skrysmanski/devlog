@@ -16,19 +16,20 @@ P/Invoke tries to make your life easier by automatically converting ("marshallin
 
 Primitive data types (`bool`, `int`, `double`, ...) are the easiest to use. They map directly to their native counterparts.
 
-|= C# type |= C/C++ type                           |= Bytes    |= Range
-|`bool`  |`bool` (with `int` fallback)       | usually 1 | `true` or `false`
-|`char`  |`wchar_t` (or `char` if necessary) | 2 (1)     | Unicode <abbr title="Basic Multilingual Plane">BMP</abbr>
-|`byte`  |`unsigned char`                      | 1         | 0 to 255
-|`sbyte` |`char`                               | 1         | -128 to 127
-|`short` |`short`                              | 2         | -32,768 to 32,767
-|`ushort`|`unsigned short`                     | 2         | 0 to 65,535
-|`int`   |`int`                                | 4         | -2 billion to 2 billion
-|`uint`  |`unsigned int`                       | 4         | 0 to 4 billion
-|`long`  |`__int64`                            | 8         | -9 quintillion to 9 quintillion
-|`ulong` |`unsigned __int64`                   | 8         | 0 to 18 quintillion
-|`float` |`float`                              | 4         | 7 significant decimal digits
-|`double`|`double`                             | 8         | 15 significant decimal digits
+| C# type  | C/C++ type                           | Bytes     | Range
+| -------- | ------------------------------------ | --------- | -----
+| `bool`   | `bool` (with `int` fallback)         | usually 1 | `true` or `false`
+| `char`   | `wchar_t` (or `char` if necessary)   | 2 (1)     | Unicode <abbr title="Basic Multilingual Plane">BMP</abbr>
+| `byte`   | `unsigned char`                      | 1         | 0 to 255
+| `sbyte`  | `char`                               | 1         | -128 to 127
+| `short`  | `short`                              | 2         | -32,768 to 32,767
+| `ushort` | `unsigned short`                     | 2         | 0 to 65,535
+| `int`    | `int`                                | 4         | -2 billion to 2 billion
+| `uint`   | `unsigned int`                       | 4         | 0 to 4 billion
+| `long`   | `__int64`                            | 8         | -9 quintillion to 9 quintillion
+| `ulong`  | `unsigned __int64`                   | 8         | 0 to 18 quintillion
+| `float`  | `float`                              | 4         | 7 significant decimal digits
+| `double` | `double`                             | 8         | 15 significant decimal digits
 
 ## Marshalling Strings
 

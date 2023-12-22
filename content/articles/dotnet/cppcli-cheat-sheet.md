@@ -176,11 +176,12 @@ This again changes the string. Note the `%` in `ChangeString()`.
 
 This section gives a quick overview what is allowed with handles and what isn't.
 
-|=                                                          |= Native Classes              |= Managed Classes         |
-|Methods with native types (as parameters or return types)  | Yes (copy and reference)     | Yes (copy and reference); this method will only be callable from C++/CLI code (but not from C# code) |
-|Methods with managed types (as parameters or return types) | Yes (copy and handle)        | Yes (copy and handle)    |
-|Fields with native type                                    | Yes (direct and pointer)     | Only pointer             |
-|Fields with managed type                                   | value types directly; handles via `gcroot` (see below) | Values types and handles |
+|                                                            | Native Classes               | Managed Classes
+| ---------------------------------------------------------- | ---------------------------- | ---------------
+| Methods with native types (as parameters or return types)  | Yes (copy and reference)     | Yes (copy and reference); this method will only be callable from C++/CLI code (but not from C# code) |
+| Methods with managed types (as parameters or return types) | Yes (copy and handle)        | Yes (copy and handle)
+| Fields with native type                                    | Yes (direct and pointer)     | Only pointer
+| Fields with managed type                                   | value types directly; handles via `gcroot` (see below) | Values types and handles
 
 *Important:* Passing pointers of native types across assembly (dll) boundaries requires some more work. See [[1832]] for more information.
 
@@ -251,14 +252,15 @@ Beside using a single visibility modifier, C++/CLI allows the programmer to spec
 
 Here's a list of supported modifiers:
 
-|= Scope         |= C++/CLI              |= C#
-|Classes/Members | `public`            | `public`
-|Members         | `protected`         | `protected`
-|Members         | `private`           | `private`
-|Classes         | `private`           | `internal`
-|Members         | `internal`          | `internal`
-|Members         | `public protected`  | `internal protected`
-|Members         | `protected private` | not possible (i.e. you can't define this in C# although it's a valid CLR visibility)
+| Scope           | C++/CLI             | C#
+| --------------- | ------------------- | --------
+| Classes/Members | `public`            | `public`
+| Members         | `protected`         | `protected`
+| Members         | `private`           | `private`
+| Classes         | `private`           | `internal`
+| Members         | `internal`          | `internal`
+| Members         | `public protected`  | `internal protected`
+| Members         | `protected private` | not possible (i.e. you can't define this in C# although it's a valid CLR visibility)
 
 
 ## Modifiers: abstract, sealed, static
@@ -287,7 +289,8 @@ static int MyFunc();
 
 To sum it up:
 
-|= C++/CLI     |= C#          |= Note                 |
+| C++/CLI    | C#         | Note                  |
+| ---------- | ---------- | --------------------- |
 | `literal`  | `const`    | Compile-time constant |
 | `initonly` | `readonly` | Runtime constant      |
 

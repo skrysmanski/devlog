@@ -21,12 +21,13 @@ private void TestMethod() {
 
 Here are the results:
 
-|= Locking Type |= Calls per second |= Factor |
-| No locking (fastest possible)        | 470,972,276 | 19.61 |
-|`Interlocked.CompareExchange`       | 62,439,529 | 2.60 |
-|`lock` keyword                      | 37,554,119 | 1.56 |
-|`SpinLock` (without owner tracking) | 34,489,245 | 1.44 |
-|`ReaderWriterLockSlim` with `LockRecursionPolicy.NoRecursion` | 25,214,451 | 1.05 |
-|`ReaderWriterLockSlim` with `LockRecursionPolicy.SupportsRecursion` | 24,013,488 | 1.00 |
+| Locking Type                                                          | Calls per second  | Factor |
+| --------------------------------------------------------------------- | ----------------- | ------ |
+| No locking (fastest possible)                                         | 470,972,276       | 19.61  |
+|`Interlocked.CompareExchange`                                          | 62,439,529        | 2.60   |
+|`lock` keyword                                                         | 37,554,119        | 1.56   |
+|`SpinLock` (without owner tracking)                                    | 34,489,245        | 1.44   |
+|`ReaderWriterLockSlim` with `LockRecursionPolicy.NoRecursion`          | 25,214,451        | 1.05   |
+|`ReaderWriterLockSlim` with `LockRecursionPolicy.SupportsRecursion`    | 24,013,488        | 1.00   |
 
 Full source code: [[file:Program.cs_1.txt|Program.cs]]

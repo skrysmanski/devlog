@@ -106,7 +106,8 @@ Each IPv6 address has a scope. The scope says where the address is valid.
 
 The most important scopes are:
 
-|= Scope     |= Prefix Length |= Description
+| Scope      | Prefix Length  | Description
+| ---------- | -------------- | -----------
 | Host       | 128            | Only valid on the host; used by `::1`
 | Link-local | 64             | Only valid on the link (i.e. up to the next router)
 | Global     | 64 ([[rfc:4291#section-2.5.4|source]]) | Valid globally
@@ -177,10 +178,11 @@ $ ping6 fe80::b4:f9f6:e5e9:727e%eth0
 
 IPv6 addresses can either be a unicast, anycast, or multicast address.
 
-|= Type                  |= <nobr>Receivers</nobr> |= Description
-| <nobr>Unicast</nobr>   | one        | Identifies a single network adapter; most IP addresses are of this type (and if you generally talk about an IP address, you mean a unicast IP address)
-| <nobr>Anycast</nobr>   | one        | Multiple devices share the same IP address; a network packet is routed to the "nearest" device; for a sender it's indistinguishable from a unicast addresses
-| <nobr>Multicast</nobr> | many       | Multiple devices share the same IP address (actually, they register themselves on this IP address which is called a *multicast group*); each device receives the packet
+| Type      | Receivers | Description
+| --------- | --------- | -----------
+| Unicast   | one       | Identifies a single network adapter; most IP addresses are of this type (and if you generally talk about an IP address, you mean a unicast IP address)
+| Anycast   | one       | Multiple devices share the same IP address; a network packet is routed to the "nearest" device; for a sender it's indistinguishable from a unicast addresses
+| Multicast | many      | Multiple devices share the same IP address (actually, they register themselves on this IP address which is called a *multicast group*); each device receives the packet
 
 A **multicast** group has the additional benefit that the traffic for the sender is the same no matter how many receivers there are. This is useful, for example, for video streaming where all receivers get the same high-volume content.
 
@@ -188,7 +190,8 @@ A **multicast** group has the additional benefit that the traffic for the sender
 
 There's a number of well-known (read: predefined) address prefixes (or subnet prefixes) from which you can determine an address type:
 
-|= Address starts with |= Description
-| `fe80`             | Link-local addresses
-| `2`                | Global unicast addresses
-| `ff`               | Multicast groups
+| Address starts with | Description
+| ------------------- | -----------
+| `fe80`              | Link-local addresses
+| `2`                 | Global unicast addresses
+| `ff`                | Multicast groups

@@ -19,13 +19,14 @@ So, I've compiled a comparison chart in this article that will compare the vario
 
 The following serializers will be compared:
 
-|= Name                                                                                 |= Abbreviation |= Version     |= Output Format    |
-| [BinaryFormatter](http://msdn.microsoft.com/EN-US/library/y50tb888.aspx)             | BF            | (.NET 4.5.1) | Binary            |
-| [DataContractSerializer](http://msdn.microsoft.com/EN-US/library/ms405768.aspx)      | DCS           | (.NET 4.5.1) | XML               |
-| [NetDataContractSerializer](http://msdn.microsoft.com/EN-US/library/ms574991.aspx)   | NDCS          | (.NET 4.5.1) | XML               |
-| [XmlSerializer](http://msdn.microsoft.com/EN-US/library/swxzdhc0.aspx)               | XMLSer        | (.NET 4.5.1) | XML               |
-| [DataContractJsonSerializer](http://msdn.microsoft.com/EN-US/library/bb908432.aspx)  | DCJS          | (.NET 4.5.1) | JSON              |
-| [JSON.NET](http://james.newtonking.com/json)                                         | JSON.Net      | 6.0.5        | JSON              |
+| Name                                                                                 | Abbreviation | Version      | Output Format |
+| ------------------------------------------------------------------------------------ | ------------ | ------------ | ------------- |
+| [BinaryFormatter](http://msdn.microsoft.com/EN-US/library/y50tb888.aspx)             | BF           | (.NET 4.5.1) | Binary        |
+| [DataContractSerializer](http://msdn.microsoft.com/EN-US/library/ms405768.aspx)      | DCS          | (.NET 4.5.1) | XML           |
+| [NetDataContractSerializer](http://msdn.microsoft.com/EN-US/library/ms574991.aspx)   | NDCS         | (.NET 4.5.1) | XML           |
+| [XmlSerializer](http://msdn.microsoft.com/EN-US/library/swxzdhc0.aspx)               | XMLSer       | (.NET 4.5.1) | XML           |
+| [DataContractJsonSerializer](http://msdn.microsoft.com/EN-US/library/bb908432.aspx)  | DCJS         | (.NET 4.5.1) | JSON          |
+| [JSON.NET](http://james.newtonking.com/json)                                         | JSON.Net     | 6.0.5        | JSON          |
 
 ## Testing Framework
 
@@ -38,16 +39,17 @@ You may also want to have a look at it when some feature isn't clear to you.
 
 ## General Capabilities
 
-|= Feature                                                                |= BF    |= DCS  |= NDCS  |= XMLSer |= DCJS  |= JSON.Net |
-| Serialized size of 1 example object (bytes)                             | 322    | 253   | 456    | 273     | 54     | 57        |
-| Serialized size of 500 example objects (bytes)                          | 18.583 | 68.679| 76.397 | 81.687  | 27.501 | 33.396    |
-| Can serialize unattributed class                                        | no     | yes   | yes    | yes     | yes    | yes       |
-| Supports `[Serializable]` and `[NonSerializable]`                   | yes    | yes   | yes    | no      | yes    | yes       |
+| Feature                                                               | BF     | DCS   | NDCS   | XMLSer  | DCJS   | JSON.Net  |
+| --------------------------------------------------------------------- | ------ | ----- | ------ | ------- | ------ | --------- |
+| Serialized size of 1 example object (bytes)                           | 322    | 253   | 456    | 273     | 54     | 57        |
+| Serialized size of 500 example objects (bytes)                        | 18.583 | 68.679| 76.397 | 81.687  | 27.501 | 33.396    |
+| Can serialize unattributed class                                      | no     | yes   | yes    | yes     | yes    | yes       |
+| Supports `[Serializable]` and `[NonSerializable]`                     | yes    | yes   | yes    | no      | yes    | yes       |
 | Supports `[DataContract]`                                             | no     | yes   | yes    | no      | yes    | yes       |
-| Can mix attributed and unattributed members                             | -      | yes   | yes    | -       | yes    | yes       |
+| Can mix attributed and unattributed members                           | -      | yes   | yes    | -       | yes    | yes       |
 | Respects `[OnDeserialized]` and related (unattributed)                | -      | yes   | yes    | no      | yes    | yes       |
-| Respects `[OnDeserialized]` and related (`[Serializable]`)          | yes    | yes   | yes    | -       | yes    | yes       |
-| Respects `[OnDeserialized]` and related (`[DataContract]`)          | -      | yes   | yes    | -       | yes    | yes       |
+| Respects `[OnDeserialized]` and related (`[Serializable]`)            | yes    | yes   | yes    | -       | yes    | yes       |
+| Respects `[OnDeserialized]` and related (`[DataContract]`)            | -      | yes   | yes    | -       | yes    | yes       |
 
 **Notes on features:**
 * A dash (`-`) means "not applicable". For example, `BinaryFormatter` can only serialize classes that are attributed with `[Serializable]`. So, it doesn't make sense to check whether it calls the parameterless constructor on a `[DataContract]` class.
@@ -64,19 +66,20 @@ You may also want to have a look at it when some feature isn't clear to you.
 
 ## Class/Type Features
 
-|= Feature                                                            |= BF  |= DCS |= NDCS |= XMLSer |= DCJS |= JSON.Net |
-| Can serialize private class (unattributed)                          | -    | no   | no    | no      | no    | yes       |
-| Can serialize private class (`[Serializable]`)                    | yes  | yes  | yes   | -       | yes   | yes       |
-| Can serialize private class (`[DataContract]`)                    | -    | yes  | yes   | -       | yes   | yes       |
-| Needs parameterless constructor (unattributed)                      | -    | yes  | yes   | yes     | yes   | no        |
-| Needs parameterless constructor (`[Serializable]`)                | no   | no   | no    | -       | no    | no        |
-| Needs parameterless constructor (`[DataContract]`)                | -    | no   | no    | -       | no    | no        |
-| Can deserialize class with private constructor (unattributed)       | -    | no   | no    | no      | no    | no        |
-| Can deserialize class with private constructor (`[Serializable]`) | yes  | yes  | yes   | -       | yes   | no        |
-| Can deserialize class with private constructor (`[DataContract]`) | -    | yes  | yes   | -       | yes   | no        |
-| Calls parameterless constructor (unattributed)                      | -    | yes  | yes   | yes     | yes   | yes       |
-| Calls parameterless constructor (`[Serializable]`)                | no   | no   | no    | -       | no    | yes       |
-| Calls parameterless constructor (`[DataContract]`)                | -    | no   | no    | -       | no    | yes       |
+| Feature                                                               | BF     | DCS   | NDCS   | XMLSer  | DCJS   | JSON.Net  |
+| --------------------------------------------------------------------- | ------ | ----- | ------ | ------- | ------ | --------- |
+| Can serialize private class (unattributed)                            | -      | no    | no     | no      | no    | yes        |
+| Can serialize private class (`[Serializable]`)                        | yes    | yes   | yes    | -       | yes   | yes        |
+| Can serialize private class (`[DataContract]`)                        | -      | yes   | yes    | -       | yes   | yes        |
+| Needs parameterless constructor (unattributed)                        | -      | yes   | yes    | yes     | yes   | no         |
+| Needs parameterless constructor (`[Serializable]`)                    | no     | no    | no     | -       | no    | no         |
+| Needs parameterless constructor (`[DataContract]`)                    | -      | no    | no     | -       | no    | no         |
+| Can deserialize class with private constructor (unattributed)         | -      | no    | no     | no      | no    | no         |
+| Can deserialize class with private constructor (`[Serializable]`)     | yes    | yes   | yes    | -       | yes   | no         |
+| Can deserialize class with private constructor (`[DataContract]`)     | -      | yes   | yes    | -       | yes   | no         |
+| Calls parameterless constructor (unattributed)                        | -      | yes   | yes    | yes     | yes   | yes        |
+| Calls parameterless constructor (`[Serializable]`)                    | no     | no    | no     | -       | no    | yes        |
+| Calls parameterless constructor (`[DataContract]`)                    | -      | no    | no     | -       | no    | yes        |
 
 **Notes on features:**
 * For how serializers can deserialize an object without calling the constructor, see [this Stack Overflow answer](http://stackoverflow.com/a/1076735/614177).
@@ -84,39 +87,41 @@ You may also want to have a look at it when some feature isn't clear to you.
 
 ## Fields and Properties
 
-|= Feature                                                               |= BF  |= DCS |= NDCS |= XMLSer |= DCJS |= JSON.Net |
-| Can serialize `private` fields (Unattributed)                        | -    | no   | no    | no      | no    | no        |
-| Can serialize `private` fields (`[Serializable]`)                  | yes  | yes  | yes   | -       | yes   | no        |
-| Can serialize `private` fields (`[DataContract]`)                  | -    | yes  | yes   | -       | yes   | yes       |
-| Can serialize `readonly` fields (Unattributed)                       | -    | no   | no    | no      | no    | no        |
-| Can serialize `readonly` fields (`[Serializable]`)                 | yes  | yes  | yes   | -       | yes   | no        |
-| Can serialize `readonly` fields (`[DataContract]`)                 | -    | yes  | yes   | -       | yes   | yes       |
-| Calls property getter and setter when serializing (unattributed)       | -    | yes  | yes   | yes     | yes   | yes       |
-| Calls property getter and setter when serializing (`[Serializable]`) | no   | no   | no    | -       | no    | yes       |
-| Calls property getter and setter when serializing (`[DataContract]`) | -    | yes  | yes   | -       | yes   | yes       |
-| Calls private setter when deserializing (unattributed)                 | -    | no   | no    | no      | no    | no        |
-| Calls private setter when deserializing (`[Serializable]`)           | -    | -    | -     | -       | -     | no        |
-| Calls private setter when deserializing (`[DataContract]`)           | -    | yes  | yes   | -       | yes   | yes       |
+| Feature                                                               | BF     | DCS   | NDCS   | XMLSer  | DCJS   | JSON.Net  |
+| --------------------------------------------------------------------- | ------ | ----- | ------ | ------- | ------ | --------- |
+| Can serialize `private` fields (Unattributed)                         | -      | no    | no     | no      | no     | no        |
+| Can serialize `private` fields (`[Serializable]`)                     | yes    | yes   | yes    | -       | yes    | no        |
+| Can serialize `private` fields (`[DataContract]`)                     | -      | yes   | yes    | -       | yes    | yes       |
+| Can serialize `readonly` fields (Unattributed)                        | -      | no    | no     | no      | no     | no        |
+| Can serialize `readonly` fields (`[Serializable]`)                    | yes    | yes   | yes    | -       | yes    | no        |
+| Can serialize `readonly` fields (`[DataContract]`)                    | -      | yes   | yes    | -       | yes    | yes       |
+| Calls property getter and setter when serializing (unattributed)      | -      | yes   | yes    | yes     | yes    | yes       |
+| Calls property getter and setter when serializing (`[Serializable]`)  | no     | no    | no     | -       | no     | yes       |
+| Calls property getter and setter when serializing (`[DataContract]`)  | -      | yes   | yes    | -       | yes    | yes       |
+| Calls private setter when deserializing (unattributed)                | -      | no    | no     | no      | no     | no        |
+| Calls private setter when deserializing (`[Serializable]`)            | -      | -     | -      | -       | -      | no        |
+| Calls private setter when deserializing (`[DataContract]`)            | -      | yes   | yes    | -       | yes    | yes       |
 
 
 ## Deserialization Type Restrictions
 
-|= Feature                                                                |= BF  |= DCS |= NDCS |= XMLSer |= DCJS |= JSON.Net |
-| Can deserialize arbitrary types (unattributed)                          | -    | no   | yes   | no      | no    | no        |
-| Can deserialize arbitrary types (`[Serializable]`)                    | yes  | no   | yes   | -       | no    | no        |
-| Can deserialize arbitrary types (`[DataContract]`)                    | -    | no   | yes   | -       | no    | no        |
-| Serialized root type information                                        | assm | ns   | assm  | name    | none  | none      |
-| Can deserialize to different assembly (unattributed)                    | -    | yes  | no    | yes     | yes   | yes       |
-| Can deserialize to different assembly (`[Serializable]`)              | no   | yes  | no    | -       | yes   | yes       |
-| Can deserialize to different assembly (`[DataContract]`)              | -    | yes  | no    | -       | yes   | yes       |
-| Can deserialize to different namespace (unattributed)                   | -    | no   | no    | yes     | yes   | yes       |
-| Can deserialize to different namespace (`[Serializable]`)             | no   | no   | no    | -       | yes   | yes       |
-| Can deserialize to different namespace (`[DataContract]` w/o attrib)  | -    | no   | no    | -       | yes   | yes       |
-| Can deserialize to different namespace (`[DataContract]` w/ attrib)   | -    | yes  | no    | -       | yes   | yes       |
-| Can deserialize to different class name (unattributed)                  | -    | no   | no    | no      | yes   | yes       |
-| Can deserialize to different class name (`[Serializable]`)            | no   | no   | no    | -       | yes   | yes       |
-| Can deserialize to different class name (`[DataContract]` w/o attrib) | -    | no   | no    | -       | yes   | yes       |
-| Can deserialize to different class name (`[DataContract]` w/ attrib)  | -    | yes  | no    | -       | yes   | yes       |
+| Feature                                                               | BF     | DCS   | NDCS   | XMLSer  | DCJS   | JSON.Net  |
+| --------------------------------------------------------------------- | ------ | ----- | ------ | ------- | ------ | --------- |
+| Can deserialize arbitrary types (unattributed)                        | -      | no    | yes    | no      | no     | no        |
+| Can deserialize arbitrary types (`[Serializable]`)                    | yes    | no    | yes    | -       | no     | no        |
+| Can deserialize arbitrary types (`[DataContract]`)                    | -      | no    | yes    | -       | no     | no        |
+| Serialized root type information                                      | assm   | ns    | assm   | name    | none   | none      |
+| Can deserialize to different assembly (unattributed)                  | -      | yes   | no     | yes     | yes    | yes       |
+| Can deserialize to different assembly (`[Serializable]`)              | no     | yes   | no     | -       | yes    | yes       |
+| Can deserialize to different assembly (`[DataContract]`)              | -      | yes   | no     | -       | yes    | yes       |
+| Can deserialize to different namespace (unattributed)                 | -      | no    | no     | yes     | yes    | yes       |
+| Can deserialize to different namespace (`[Serializable]`)             | no     | no    | no     | -       | yes    | yes       |
+| Can deserialize to different namespace (`[DataContract]` w/o attrib)  | -      | no    | no     | -       | yes    | yes       |
+| Can deserialize to different namespace (`[DataContract]` w/ attrib)   | -      | yes   | no     | -       | yes    | yes       |
+| Can deserialize to different class name (unattributed)                | -      | no    | no     | no      | yes    | yes       |
+| Can deserialize to different class name (`[Serializable]`)            | no     | no    | no     | -       | yes    | yes       |
+| Can deserialize to different class name (`[DataContract]` w/o attrib) | -      | no    | no     | -       | yes    | yes       |
+| Can deserialize to different class name (`[DataContract]` w/ attrib)  | -      | yes   | no     | -       | yes    | yes       |
 
 **Notes on features:**
 * If **Can deserialize arbitrary types** is "yes", it means that the serializer doesn't require a "known types" list. If it's "no", all types need to be statically available (i.e. child class instead of base class) and/or a known types list must be provided.
@@ -127,18 +132,19 @@ You may also want to have a look at it when some feature isn't clear to you.
 
 ## Reference Support
 
-|= Feature                                                              |= BF  |= DCS |= NDCS |= XMLSer |= DCJS |= JSON.Net |
-| Supports references (unattributed)                                    | -    | no   | yes   | no      | no    | yes       |
-| Supports references (`[Serializable]`)                              | yes  | no   | yes   | -       | no    | yes       |
-| Supports references (`[DataContract(IsReference=false)`)            | -    | no   | yes   | -       | no    | yes       |
-| Supports references (`[DataContract(IsReference=true)`)             | -    | yes  | yes   | -       | no    | yes       |
-| Supports references loops (unattributed)                              | -    | -    | yes   | -       | -     | yes       |
-| Supports references loops (`[Serializable]`)                        | yes  | -    | yes   | -       | -     | yes       |
-| Supports references loops (`[DataContract]`)                        | -    | yes  | yes   | -       | -     | yes       |
-| Can detected references loops (unattributed)                          | -    | yes  | yes   | yes     | yes   | yes       |
-| Can detected references loops (`[Serializable]`)                    | yes  | yes  | yes   | -       | yes   | yes       |
-| Can detected references loops (`[DataContract(IsReference=false)]`) | -    | yes  | yes   | -       | yes   | yes       |
-| Can detected references loops (`[DataContract(IsReference=true)]`)  | -    | yes  | yes   | -       | yes   | yes       |
+| Feature                                                               | BF     | DCS   | NDCS   | XMLSer  | DCJS   | JSON.Net  |
+| --------------------------------------------------------------------- | ------ | ----- | ------ | ------- | ------ | --------- |
+| Supports references (unattributed)                                    | -      | no    | yes    | no      | no     | yes       |
+| Supports references (`[Serializable]`)                                | yes    | no    | yes    | -       | no     | yes       |
+| Supports references (`[DataContract(IsReference=false)`)              | -      | no    | yes    | -       | no     | yes       |
+| Supports references (`[DataContract(IsReference=true)`)               | -      | yes   | yes    | -       | no     | yes       |
+| Supports references loops (unattributed)                              | -      | -     | yes    | -       | -      | yes       |
+| Supports references loops (`[Serializable]`)                          | yes    | -     | yes    | -       | -      | yes       |
+| Supports references loops (`[DataContract]`)                          | -      | yes   | yes    | -       | -      | yes       |
+| Can detected references loops (unattributed)                          | -      | yes   | yes    | yes     | yes    | yes       |
+| Can detected references loops (`[Serializable]`)                      | yes    | yes   | yes    | -       | yes    | yes       |
+| Can detected references loops (`[DataContract(IsReference=false)]`)   | -      | yes   | yes    | -       | yes    | yes       |
+| Can detected references loops (`[DataContract(IsReference=true)]`)    | -      | yes   | yes    | -       | yes    | yes       |
 
 **Notes on features:**
 * **Supports references** means that, if the same object (i.e. same reference) exists multiple times in the object tree, it won't be deserialized as two different objects (two different references).
@@ -148,12 +154,13 @@ You may also want to have a look at it when some feature isn't clear to you.
 
 ## Other
 
-|= Feature                             |= BF  |= DCS |= NDCS |= XMLSer |= DCJS |= JSON.Net |
-| Can serialize readonly collections   | yes  | yes  | yes   | no      | yes   | yes       |
-| Serializes enums as                  | bin  | name | name  | name    | int   | int       |
-| Can deserialize unknown enum values  | yes  | no   | no    | no      | yes   | yes       |
-| Requires `[EnumMember]` attributes | no   | no   | no    | no      | no    | no        |
-| Can serialize static members         | no   | no   | no    | no      | no    | yes/no    |
+| Feature                                                               | BF     | DCS   | NDCS   | XMLSer  | DCJS   | JSON.Net  |
+| --------------------------------------------------------------------- | ------ | ----- | ------ | ------- | ------ | --------- |
+| Can serialize readonly collections                                    | yes    | yes   | yes    | no      | yes    | yes       |
+| Serializes enums as                                                   | bin    | name  | name   | name    | int    | int       |
+| Can deserialize unknown enum values                                   | yes    | no    | no     | no      | yes    | yes       |
+| Requires `[EnumMember]` attributes                                    | no     | no    | no     | no      | no     | no        |
+| Can serialize static members                                          | no     | no    | no     | no      | no     | yes/no    |
 
 **Notes on features:**
 * Values for **Serializes enums as** are: "name", "int", and "bin"(ary).
