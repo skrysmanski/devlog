@@ -7,7 +7,7 @@ topics:
 draft: true
 ---
 
-There are a lot of articles out there that explain how to run a [[wiki:en|Preboot_Execution_Environment|PXE server]]. However, I couldn't find a single one that contained *all* the information to setup a PXE server:
+There are a lot of articles out there that explain how to run a [PXE server](wikipedia:Preboot_Execution_Environment). However, I couldn't find a single one that contained *all* the information to setup a PXE server:
 * on Ubuntu
 * without replacing the network's existing DHCP server (e.g. provided by a hardware router)
 

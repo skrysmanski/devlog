@@ -58,7 +58,7 @@ Here's what you need:
 * **OS X:** Everything is pre-installed. You don't need anything else.
 
 **Notes:**
-* The domain [[wiki:en|.local]] has officially been reserved for resolving names in a local network. This means that:
+* The domain [.local](wikipedia:.local) has officially been reserved for resolving names in a local network. This means that:
  ** there will never be a "real" domain ending called ".local". So you don't run the risk of name conflicts with the internet.
  ** good routers won't ask your ISP's DNS server for ".local" names. So connecting to a ".local" name, will always result in an ip address from the local network.
 * mDNS, of course, only works if no two computers on the local network share the same name.

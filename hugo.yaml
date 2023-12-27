@@ -43,6 +43,7 @@ params:
   # CompactURIs supported by dev-log-theme
   compactUris:
     rfc: https://datatracker.ietf.org/doc/html/rfc
+    wikipedia: https://en.wikipedia.org/wiki/
 
   discussions: github
 

@@ -24,7 +24,7 @@ But since I'm not a quitter I went on and tamed it. So, in this article I'm goin
 
 ## Definition
 
-The main problem (in my opinion) with the visitor pattern is that it's often not really clear what it does. So, let's start with the following definition (based on [[wiki:en|Visitor pattern|Wikipedia]]):
+The main problem (in my opinion) with the visitor pattern is that it's often not really clear what it does. So, let's start with the following definition (based on [Wikipedia](wikipedia:Visitor_pattern)):
 
 > The visitor design pattern is a way of *separating an operation from an object structure* on which it operates. [...] In essence, this pattern allows one to *add new virtual functions* to a family of classes without modifying the classes themselves;
 
