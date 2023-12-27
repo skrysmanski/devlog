@@ -9,8 +9,10 @@
 		"Krysmanski",
 		"markdownlint",
 		"pagefind",
+		"routable",
 		"shortcode",
 		"shortcodes",
+		"SLAAC",
 		"warnf",
 		"webfonts"
 	],
