@@ -20,11 +20,20 @@ I also wrote some C# code to demonstrate how to use performance counters. You'll
 
 ## Terminology
 
-; Performance counter : A counter to monitor performance of a running system (e.g. CPU usage). Is basically just an `int`.
-; Sampling, Measurement : Read the value of a performance counter (at a certain point in time)
-; Sampling rate : How often a performance counter is sampled (e.g. every second)
-; Time frame : Time between two samplings (usually one second)
-; Monotonicity : Whether you can increase and/or decrease the value of a performance counter. (Some counters require you to always increase - but not decrease - their values.)
+Performance counter
+: A counter to monitor performance of a running system (e.g. CPU usage). Is basically just an `int`.
+
+Sampling, Measurement
+: Read the value of a performance counter (at a certain point in time)
+
+Sampling rate
+: How often a performance counter is sampled (e.g. every second)
+
+Time frame
+: Time between two samplings (usually one second)
+
+Monotonicity
+: Whether you can increase and/or decrease the value of a performance counter. (Some counters require you to always increase - but not decrease - their values.)
 
 ## Composite Counters
 
@@ -80,7 +89,9 @@ The following table lists which base counter type can be used with which parent 
 | Composite    | yes (`AverageBase`)
 | Monotonicity | increasing, ~~decreasing~~, remain static
 
-; Note : The difference to `RawFraction` is that `RawFraction` would be displayed as the average since the creation/last reset of the counter, while `AverageCount64` would be displayed as average during the last time frame (usually a second).
+```note
+The difference to `RawFraction` is that `RawFraction` would be displayed as the average since the creation/last reset of the counter, while `AverageCount64` would be displayed as average during the last time frame (usually a second).
+```
 
 |              |
 | ------------ | -----
@@ -100,7 +111,9 @@ The following table lists which base counter type can be used with which parent 
 | Composite    | no
 | Monotonicity | increasing, decreasing, remain static
 
-; Note : I found the information about `CountPerTimeInterval` somewhere on the internet. However, in my test I couldn't get it working properly. The values of this counter would display as extremely small in Performance Monitor; something like `10.5E-06` - although it should be something like `10.5`. Also Performance Monitor doesn't seem capable of displaying negative values. They are necessary however when the queue handles requests faster than new requests get placed into it.
+```note
+I found the information about `CountPerTimeInterval` somewhere on the internet. However, in my test I couldn't get it working properly. The values of this counter would display as extremely small in Performance Monitor; something like `10.5E-06` - although it should be something like `10.5`. Also Performance Monitor doesn't seem capable of displaying negative values. They are necessary however when the queue handles requests faster than new requests get placed into it.
+```
 
 |              |
 | ------------ | -----
@@ -175,7 +188,9 @@ The following table lists which base counter type can be used with which parent 
 | Composite    | no
 | Monotonicity | increasing, decreasing, remain static
 
-; Note : Performance Monitor can't display negative values.
+```note
+Performance Monitor can't display negative values.
+```
 
 |              |
 | ------------ | -----
@@ -186,7 +201,9 @@ The following table lists which base counter type can be used with which parent 
 | Composite    | no
 | Monotonicity | ~~increasing~~, ~~decreasing~~, ~~remain static~~
 
-; Note : I have no clue what start time is chosen for the counter. It's certainly not the time the counter was created. In my example, where I created the counter just a couple of seconds ago, it already had a value of about 27 hours (was even longer than my system up time).
+```note
+I have no clue what start time is chosen for the counter. It's certainly not the time the counter was created. In my example, where I created the counter just a couple of seconds ago, it already had a value of about 27 hours (was even longer than my system up time).
+```
 
 
 ## Example Code

@@ -668,12 +668,23 @@ Also defined are `__cplusplus_cli` and `__CLR_VER`. For more information, see [P
 
 ## Glossary
 
-; Garbage Collector (GC): reclaims garbage, or memory used by objects that will never be accessed or mutated again by the application.
-; Common Language Infrastructure (CLI): It is an open specification that defines a runtime environment that allows multiple high-level languages to be used on different computer platforms without being rewritten for specific architectures.
-; Common Type System (CTS): a standard that specifies how Type definitions and specific values of Types are represented in computer memory, so programs in different programming languages can easily share information.
-; Base Class Library (BCL): a standard library available to all languages using the .NET Framework, comparable in scope to the standard libraries of Java.
-; Framework Class Library (FCL): a collection of thousands of reusable classes, interfaces and value types, within hundreds of namespaces. BCL is a part of FCL and provide the most fundamental functionality.
-; Mono: Free .NET (CLI) alternative available on Linux, Mac OS X and Windows. The development is usually behind the development of Microsoft's .NET implementation (e.g. while Microsoft supports .NET 4.0, Mono only supports .NET 2.0).
+Garbage Collector (GC)
+: reclaims garbage, or memory used by objects that will never be accessed or mutated again by the application.
+
+Common Language Infrastructure (CLI)
+: It is an open specification that defines a runtime environment that allows multiple high-level languages to be used on different computer platforms without being rewritten for specific architectures.
+
+Common Type System (CTS)
+: a standard that specifies how Type definitions and specific values of Types are represented in computer memory, so programs in different programming languages can easily share information.
+
+Base Class Library (BCL)
+: a standard library available to all languages using the .NET Framework, comparable in scope to the standard libraries of Java.
+
+Framework Class Library (FCL)
+: a collection of thousands of reusable classes, interfaces and value types, within hundreds of namespaces. BCL is a part of FCL and provide the most fundamental functionality.
+
+Mono
+: Free .NET (CLI) alternative available on Linux, Mac OS X and Windows. The development is usually behind the development of Microsoft's .NET implementation (e.g. while Microsoft supports .NET 4.0, Mono only supports .NET 2.0).
 
 ## History
 
