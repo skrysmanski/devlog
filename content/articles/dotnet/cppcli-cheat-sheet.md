@@ -18,7 +18,7 @@ This article provides a quick comparison between C++/CLI and C#. It's meant for 
 
 C++/CLI is - as the name suggest - an extension of C++ to allow it to use Microsoft's .NET framework including the CLR (common language runtime; i.e. garbage collection and such things).
 
-C++/CLI is the successor of "Managed C++", which felt unnatural to many programmers. However, both "languages" have the same goal: combine native code with managed code.
+C++/CLI is the successor of "Managed C++", which felt unnatural to many developers. However, both "languages" have the same goal: combine native code with managed code.
 
 **Note:** C++/CLI is currently only available on Windows. At the time of writing (mid 2010) there are no plans in the Mono project to support C++/CLI. Such support would be necessary as a C++/CLI compiler creates mixed code that contains native and managed code. While the managed code could be executed by the Mono runtime the native can't. Therefore a C++/CLI library can't be used on Linux or MacOSX (or any other Mono supported OS).
 
@@ -248,7 +248,7 @@ private value struct MyStruct { }; // internal struct
 
 Classes/structs without visibility modifier will be interpreted as `internal` (which is `private` in C++/CLI).
 
-Beside using a single visibility modifier, C++/CLI allows the programmer to specify *two modifiers*. The rule here is: The higher visibility is used inside the assembly and the lower visibility outside the assembly.
+Beside using a single visibility modifier, C++/CLI allows the developer to specify *two modifiers*. The rule here is: The higher visibility is used inside the assembly and the lower visibility outside the assembly.
 
 Here's a list of supported modifiers:
 

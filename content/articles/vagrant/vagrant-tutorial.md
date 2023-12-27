@@ -198,7 +198,7 @@ This is exactly the same command as for a single VM.
 
 The previous multi-machine `Vagrantfile` had lots of copied code.
 
-The same setup can also be described in a more "programmer-like" manner:
+The same setup can also be described in a more "developer-like" manner:
 
 ```ruby
 BOX_IMAGE = "bento/ubuntu-16.04"

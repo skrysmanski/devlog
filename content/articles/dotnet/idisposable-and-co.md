@@ -114,7 +114,7 @@ The question now is: **When gets the unmanaged data deleted?**
 
 Since our class `DataContainer` is a managed class, it is managed by .NET's garbage collector. When the garbage collector determines that our instance of `DataContainer` is no longer needed, the object's *finalizer* is called. So, that's are good point to delete our unmanaged data.
 
-*Note:* Finalizers are also called *non-deterministic* destructors because the programmer has no influence over *when* the garbage collector will call the finalizer (once the object went out of scope). For *deterministic* destructors (explained in the next section), on the other hand, the programmer has full control when they are called.
+*Note:* Finalizers are also called *non-deterministic* destructors because the developer has no influence over *when* the garbage collector will call the finalizer (once the object went out of scope). For *deterministic* destructors (explained in the next section), on the other hand, the developer has full control when they are called.
 
 In C# the finalizer method (internally named `Finalize()`) is created by using C++'s destructor notation (`~DataContainer`):
 
@@ -178,7 +178,7 @@ class DataContainer : IDisposable {
 }
 ```
 
-In C# you can either call the `Dispose()` method directly or use a `using` block. Note that we've added `m_isDisposed` to prevent the programmer from calling `Dispose()` multiple times.
+In C# you can either call the `Dispose()` method directly or use a `using` block. Note that we've added `m_isDisposed` to prevent the developer from calling `Dispose()` multiple times.
 
 In C++/CLI the `Dispose()` method is automatically created (and `IDisposable` is implemented) when creating a destructor (`~DataContainer`):
 
@@ -212,9 +212,9 @@ This is identical with how you would "call" destructors in C++.
 
 ## Combining Dispose and Finalizer
 
-Since the programmer can forget to call `Dispose()`, it's important to free unmanaged data in the finalizer (as well) to avoid memory leaks. So, often you want to combine `Dispose()` and the finalizer. Here's how.
+Since the developer can forget to call `Dispose()`, it's important to free unmanaged data in the finalizer (as well) to avoid memory leaks. So, often you want to combine `Dispose()` and the finalizer. Here's how.
 
-In C#, simply call `Dispose()` from the finalizer. Note that the finalizer will be called in any case, so the unmanaged data is freed even if the programmer forgets to call `Dispose()`.
+In C#, simply call `Dispose()` from the finalizer. Note that the finalizer will be called in any case, so the unmanaged data is freed even if the developer forgets to call `Dispose()`.
 
 ```c# highlight=15
 class DataContainer : IDisposable {
