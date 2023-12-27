@@ -135,8 +135,8 @@ $result = PrintAndReturnSomething
 To sum things up:
 
 * PowerShell functions will always return (as `object[]`, if there's more than one return value):
- ** all uncaptured objects (i.e. objects that haven't been assigned to variables)
- ** as well as all output (from `echo`/`Write-Output`)
+  * all uncaptured objects (i.e. objects that haven't been assigned to variables)
+  * as well as all output (from `echo`/`Write-Output`)
 * Exclude from return value:
- ** Uncaptured objects: prefix with `[void]`
- ** Console output: use `Write-Host` instead of `echo`/`Write-Output`
+  * Uncaptured objects: prefix with `[void]`
+  * Console output: use `Write-Host` instead of `echo`/`Write-Output`

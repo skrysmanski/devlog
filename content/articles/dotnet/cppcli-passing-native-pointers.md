@@ -18,14 +18,14 @@ This article describes the problem and shows solutions.
 For those of you that don't want to read the whole article, here's the summary:
 
 * Library providing method with native type:
- ** Native types *outside* a C++/CLI project need to be made public in a C++/CLI project via ` #pragma make_public(Type)`
- ** Native types *inside* a C++/CLI project need to be made public via keyword `public`.
- ** This pragma has to be written in the `.h` file
- ** To prevent C3767, include the `.h` file before the pragma (i.e. don't just use a forward declaration).
+  * Native types *outside* a C++/CLI project need to be made public in a C++/CLI project via ` #pragma make_public(Type)`
+  * Native types *inside* a C++/CLI project need to be made public via keyword `public`.
+  * This pragma has to be written in the `.h` file
+  * To prevent C3767, include the `.h` file before the pragma (i.e. don't just use a forward declaration).
 * Library using the method:
- ** Needs to include `.h` file of native type
- ** Forward declaration *may* not be enough (gives linker warning)
- ** If the native type is defined *inside* a C++/CLI project, the project must be reference in the project settings via "Add Reference" *as well as* "Linker --> Input".
+  * Needs to include `.h` file of native type
+  * Forward declaration *may* not be enough (gives linker warning)
+  * If the native type is defined *inside* a C++/CLI project, the project must be reference in the project settings via "Add Reference" *as well as* "Linker --> Input".
 
 ## Preparation
 
