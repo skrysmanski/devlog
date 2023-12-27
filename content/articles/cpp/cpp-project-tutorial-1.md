@@ -201,7 +201,3 @@ int _tmain(int argc, _TCHAR* argv[])
 Without "dllimport" compiling this project will result in (rather cryptic) linker errors - namely "unresolved external symbol". Uncommenting `__declspec(dllimport)` in `PrintableInt.h` again solves this problem.
 
 [[image:unresolved-symbols.png|center|medium|link=source]]
-
-
-%% Article is to be imported by CodeProject
-<a href="http://www.codeproject.com/script/Articles/BlogFeedList.aspx?amid=274673" rel="tag" style="display:none">CodeProject</a>

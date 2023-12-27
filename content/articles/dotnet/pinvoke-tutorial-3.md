@@ -127,6 +127,3 @@ becomes:
 [DllImport("NativeLib.dll")]
 private static extern void do_something(IntPtr ptr);
 ```
-
-%% Article is to be imported by CodeProject
-<a href="http://www.codeproject.com/script/Articles/BlogFeedList.aspx?amid=274673" rel="tag" style="display:none">CodeProject</a>

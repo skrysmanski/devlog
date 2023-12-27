@@ -160,6 +160,3 @@ Besides P/Invoke, the other way of integrating C/C++ functions is using C++/CLI.
 You can find more information about P/Invoke here:
 
 * http://www.mono-project.com/Interop_with_Native_Libraries
-
-%% Article is to be imported by CodeProject
-<a href="http://www.codeproject.com/script/Articles/BlogFeedList.aspx?amid=274673" rel="tag" style="display:none">CodeProject</a>

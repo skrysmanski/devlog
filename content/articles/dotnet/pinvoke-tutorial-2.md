@@ -82,7 +82,3 @@ The problem though comes with what to do with the native memory that was returne
 Therefore it will marshal the string and then call `CoTaskMemFree` on the native memory blob. Unless you actually allocated this memory with `CoTaskMemAlloc` this will at best cause a crash in your application.
 
 In order to get the correct semantics here you must return an `IntPtr` directly. Then use `Marshal.PtrToString` in order to get to a managed String value. You may still need to free the native memory but that will dependent upon the implementation of foo.
-
-
-%% Article is to be imported by CodeProject
-<a href="http://www.codeproject.com/script/Articles/BlogFeedList.aspx?amid=274673" rel="tag" style="display:none">CodeProject</a>

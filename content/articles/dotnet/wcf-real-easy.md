@@ -224,8 +224,3 @@ After starting the app, you can call `Ping()` by going to:
 You can get the complete code here:
 
   [[file:Program.cs]]
-
-
-
-%% Article is to be imported by CodeProject
-<a href="http://www.codeproject.com/script/Articles/BlogFeedList.aspx?amid=274673" rel="tag" style="display:none">CodeProject</a>

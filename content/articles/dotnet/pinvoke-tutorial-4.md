@@ -133,7 +133,3 @@ do_something2(text, handle.AddrOfPinnedObject());
 As mentioned in the previous section P/Invoke *may* create a copy of an object instead of passing it by reference directly.
 
 You can easily verify this by comparing the pointer adresses. In C# use `handle.AddrOfPinnedObject().ToString()` to obtain the address of the pinned object.
-
-
-%% Article is to be imported by CodeProject
-<a href="http://www.codeproject.com/script/Articles/BlogFeedList.aspx?amid=274673" rel="tag" style="display:none">CodeProject</a>

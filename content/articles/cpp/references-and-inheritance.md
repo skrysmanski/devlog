@@ -244,6 +244,3 @@ const BaseClassPointer& getRef() {
 ```
 
 This code is illegal because the compiler needs introduce a temporary, local variable in `getRef()` to store the resulting address of the (static) cast from `ChildClass*` to `BaseClass*`. And then the function returns a reference to this local variable instead of a reference to `g_somePointer`.
-
-%% Article is to be imported by CodeProject
-<a href="http://www.codeproject.com/script/Articles/BlogFeedList.aspx?amid=274673" rel="tag" style="display:none">CodeProject</a>

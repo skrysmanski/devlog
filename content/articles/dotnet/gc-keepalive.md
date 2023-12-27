@@ -94,7 +94,3 @@ This way, the garbage collector won't collect `obj` (and thus run its finalizer)
 ** You still need to use `GC.KeepAlive()` if you can't change the implementation of `SomeClass`.
 * Using `GC.KeepAlive()` is like using [GCHandle](http://msdn.microsoft.com/library/system.runtime.interopservices.gchandle(v=vs.110).aspx), just more light-weight and faster.
 * `GC.KeepAlive()` only works because it can't be inlined by the compiler (`MethodImplOptions.NoInlining`).
-
-
-%% Article is to be imported by CodeProject
-<a href="http://www.codeproject.com/script/Articles/BlogFeedList.aspx?amid=274673" rel="tag" style="display:none">CodeProject</a>

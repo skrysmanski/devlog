@@ -147,7 +147,3 @@ There are several possible solutions for this problem (although, theoretically, 
 
 * Set the output directory to be the same as the directory where the DLL files are compiled to. (recommended)
 * Use the "PATH" like describes in the documentation.
-
-
-%% Article is to be imported by CodeProject
-<a href="http://www.codeproject.com/script/Articles/BlogFeedList.aspx?amid=274673" rel="tag" style="display:none">CodeProject</a>

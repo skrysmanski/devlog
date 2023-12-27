@@ -168,7 +168,3 @@ Diff: 1,898 ms
 ```
 
 As you can see, the difference increases over time. Thus, `Stopwatch` becomes less accurate over time.
-
-
-%% Article is to be imported by CodeProject
-<a href="http://www.codeproject.com/script/Articles/BlogFeedList.aspx?amid=274673" rel="tag" style="display:none">CodeProject</a>

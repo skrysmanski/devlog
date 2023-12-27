@@ -81,6 +81,3 @@ Next, you need to go to the *file's* settings (via context menu) and change the 
 [[image:creating-precompiled-header.png|center|medium|link=source]]
 
 That's it. Now, when compiling the project again for the first time, the precompiled header will be created. After that, compiling the other source files should be significantly faster than before. Also the precompiled header will only be compiled on the first run. After that it won't be compiled again (which would somehow defeat its purpose) unless either the "stdafx.cpp" or "stdafx.h" file is modified.
-
-%% Article is to be imported by CodeProject
-<a href="http://www.codeproject.com/script/Articles/BlogFeedList.aspx?amid=274673" rel="tag" style="display:none">CodeProject</a>

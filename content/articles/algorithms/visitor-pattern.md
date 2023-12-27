@@ -532,7 +532,3 @@ The visitor pattern is a relatively complicated pattern.
 **Real world examples:**
 * Converting a data structure into different output formats. Compilers are a good example for this.
 * Implementing drawing code for some scene graph/map structure on different platforms (e.g. OpenGL vs. DirectX).
-
-
-%% Article is to be imported by CodeProject
-<a href="http://www.codeproject.com/script/Articles/BlogFeedList.aspx?amid=274673" rel="tag" style="display:none">CodeProject</a>

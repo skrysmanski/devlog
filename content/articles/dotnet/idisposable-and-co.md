@@ -440,6 +440,3 @@ The class should not have a finalizer.
 **Rule 3: For a class owning at least one *unmanaged* resource, implement both IDisposable and a finalizer**
 
 The finalizer should free the unmanaged resource, `Dispose` should dispose any managed resource and then call the finalizer.
-
-%% Article is to be imported by CodeProject
-<a href="http://www.codeproject.com/script/Articles/BlogFeedList.aspx?amid=274673" rel="tag" style="display:none">CodeProject</a>

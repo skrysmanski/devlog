@@ -706,7 +706,3 @@ What happened to this article:
 * **2011-06-15:** Added information about value types and their relationship to handles
 * **2011-05-02:** Formatting and added scope to modifier table
 * **2011-04-19:** Published
-
-
-%% Article is to be imported by CodeProject
-<a href="http://www.codeproject.com/script/Articles/BlogFeedList.aspx?amid=274673" rel="tag" style="display:none">CodeProject</a>

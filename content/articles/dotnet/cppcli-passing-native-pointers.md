@@ -287,6 +287,3 @@ I've created a small solution (for Visual Studios 2010) that contains the exampl
 * 2012-01-09 : Fixed using a native type from a C++/CLI project
 * 2012-01-09 : No longer suggests forward declarations for public native types
 * 2012-01-09 : Published
-
-%% Article is to be imported by CodeProject
-<a href="http://www.codeproject.com/script/Articles/BlogFeedList.aspx?amid=274673" rel="tag" style="display:none">CodeProject</a>
