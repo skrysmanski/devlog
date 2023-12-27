@@ -111,3 +111,11 @@ privacy:
 build:
   # Prevents the creation of the "jsconfig.json" file in the theme's assets folder (which VSCode always reports an error in).
   noJSConfigInAssets: true
+
+module:
+  mounts:
+    - source: 'content'
+      target: 'content'
+      # Exclude files from the 'content' directory
+      excludeFiles:
+        - '__README.md'
