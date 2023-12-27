@@ -30,9 +30,11 @@ The following serializers will be compared:
 
 ## Testing Framework
 
-I wrote a small framework to do most of the tests in this article. You can get it here:
+I wrote a small framework to do most of the tests in this article.
 
-    https://bitbucket.org/skrysmanski/dotnetserializertests
+```note
+Unfortunately, the code got lost when BitBucket nuked its Mercurial projects.
+```
 
 You may also want to have a look at it when some feature isn't clear to you.
 

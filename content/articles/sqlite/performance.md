@@ -7,7 +7,7 @@ topics:
 draft: true
 ---
 
-I'm currently working on a [cross-platform SQLite .NET wrapper](https://bitbucket.org/mayastudios/sqlite.net). At the moment it's not really thread-safe. So, I was looking for ways of making it thread-safe.
+I'm currently working on a cross-platform SQLite .NET wrapper. At the moment it's not really thread-safe. So, I was looking for ways of making it thread-safe.
 
 Basically, there are two ways to do this:
 
