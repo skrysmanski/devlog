@@ -18,6 +18,7 @@ enableGitInfo: true
 disableKinds: [ 'RSS' ]
 
 params:
+  description: A place to keep track of all the software development topics I've explorer over time.
   author: "Sebastian Krysmanski"
   avatar: "/avatar.jpg"
 
