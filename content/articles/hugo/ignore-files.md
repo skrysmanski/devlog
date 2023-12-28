@@ -1,7 +1,7 @@
 ---
 title: Ignore Content Files in Hugo
 description: How to ignore content files when rendering website with Hugo.
-tags:
+topics:
 - hugo
 ---
 

@@ -84,7 +84,7 @@ uglyURLs: false
 # * https://gohugo.io/content-management/taxonomies/#configure-taxonomies
 #
 taxonomies:
-  tag: tags
+  topic: topics
 
 frontmatter:
   # Defines the date of each page.
