@@ -1,3 +1,9 @@
+#
+# Main Hugo configuration file
+#
+# See: https://gohugo.io/getting-started/configuration/
+#
+
 languageCode: en-us
 title: "Manski's Dev Log"
 theme: "devlog-theme"

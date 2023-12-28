@@ -5,9 +5,11 @@
 		"CJKT",
 		"editorconfig",
 		"fontawesome",
+		"goldmark",
 		"Krysmanski",
 		"markdownlint",
 		"pagefind",
+		"shortcode",
 		"shortcodes",
 		"webfonts"
 	],
