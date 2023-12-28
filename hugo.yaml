@@ -75,6 +75,13 @@ uglyURLs: false
 #  page:
 #    articles: "/articles/:slugorfilename"
 
+#
+# Taxonomies
+#
+# See:
+# * https://gohugo.io/content-management/taxonomies/
+# * https://gohugo.io/content-management/taxonomies/#configure-taxonomies
+#
 taxonomies:
   tag: tags
 
