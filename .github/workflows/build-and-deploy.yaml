@@ -72,7 +72,7 @@ jobs:
       - name: Build site (preview)
         if: ${{ env.DEPLOY_STAGE == 'preview' }}
         # NOTE: We don't use "--minify" here so that the output remains better readable.
-        run: hugo --gc --printPathWarnings --logLevel info --buildDrafts --destination ./public/
+        run: hugo --gc --printPathWarnings --logLevel info --buildDrafts --baseURL 'https://preview.manski.net' --destination ./public/
         env:
           # Disable search engine crawling for the preview stage.
           HUGO_PARAMS_robots: 'noindex'

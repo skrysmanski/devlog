@@ -8,6 +8,9 @@ languageCode: en-us
 title: "Manski's Dev Log"
 theme: "devlog-theme"
 
+# Required for canonical URLs and the sitemap.
+baseURL: 'https://www.manski.net/'
+
 enableGitInfo: true
 
 # https://gohugo.io/getting-started/configuration/#disablekinds
@@ -43,21 +46,18 @@ params:
   # Prevent greedy lawyers from using Google to find images to sue you.
   robots: noimageindex
 
-# Make URLs to pages "../my-page.html" instead of "../my-page/".
-# I personally like this better because it better transports that you're
-# looking at a single page (rather than a directory). It also reduces
-# the complexity of the file layout when publishing the site.
 #
-# SIDE NOTE: I'd personally love "../my-page" (i.e. without trailing slash)
-#   but the Hugo dev's don't seem to be willing to make this work:
-#   https://github.com/gohugoio/hugo/issues/7458#issuecomment-699049286
+# Enable pretty URLs (i.e. use "../my-page/" instead of "../my-page.html").
 #
-# NOTE: I tried to make "../my-page" URLs working with .htaccess and URL rewrite.
-#   Unfortunately, I couldn't get this working properly - especially in cases where
-#   there is a folder ("/tags/") and a file ("/tags.html") with the same base name.
-#   Opening "/tags" would always resolve to "/tags/" instead of staying "/tags".
-#   In the end, it was just too much fuss.
-uglyURLs: true
+# NOTE 1: This is required or else images in page bundles won't work properly. If this
+#  setting was "true", the page itself would be located in the parent(!) folder of the images.
+#  If this is "false", the page is located in the same(!) folder as the images.
+#
+# NOTE 2: There's quite some .htaccess mod_rewrite magic to make sure we trim the
+#  trailing slash of URLs (which, unfortunately, is something the Hugo dev team doesn't seem to
+#  be willing to support: https://github.com/gohugoio/hugo/issues/7458#issuecomment-699049286)
+#
+uglyURLs: false
 
 #
 # Permalinks
