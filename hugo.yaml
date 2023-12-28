@@ -97,10 +97,16 @@ frontmatter:
   publishDate: ['publishDate', 'date', ':git', ':fileModTime']
 
 markup:
+  # Configure Markdown parser: https://gohugo.io/getting-started/configuration-markup/#goldmark
+  goldmark:
+    extensions:
+      definitionList: true
+
   # Syntax highlighting
   highlight:
     # For an overview of all available styles, see: https://gohugo.io/getting-started/configuration-markup/#highlight
     style: 'dracula'
+
   # TOC: https://gohugo.io/getting-started/configuration-markup/#table-of-contents
   tableOfContents:
     startLevel: 2
