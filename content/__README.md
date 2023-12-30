@@ -8,9 +8,17 @@ Reference: <https://gohugo.io/content-management/>
 
 All articles go into the `articles` folder.
 
-Hugo supports standard Markdown plus extensions provided by its Markdown parser (Goldmark). For a list of supported Markdown extensions, see: <https://github.com/yuin/goldmark/#built-in-extensions>
+To Hugo, `articles` is both a [Hugo Section](https://gohugo.io/content-management/sections/) and a [Content Type](https://gohugo.io/content-management/types/).
 
-`articles` is a [Hugo Section](https://gohugo.io/content-management/sections/) and [Content Type](https://gohugo.io/content-management/types/).
+### Markdown Extensions
+
+Hugo supports standard Markdown plus extensions provided by its Markdown parser (Goldmark).
+
+For a list of supported Markdown extensions, see: <https://github.com/yuin/goldmark/#built-in-extensions>
+
+### Emojis
+
+Hugo supports Emojis. For a full list, see: <https://gohugo.io/quick-reference/emojis/#introduction>
 
 ### Content Summaries
 

@@ -11,6 +11,10 @@ theme: "devlog-theme"
 # Required for canonical URLs and the sitemap.
 baseURL: 'https://www.manski.net/'
 
+# Enable Emoji support
+# https://gohugo.io/quick-reference/emojis/
+enableEmoji: true
+
 enableGitInfo: true
 
 # https://gohugo.io/getting-started/configuration/#disablekinds
