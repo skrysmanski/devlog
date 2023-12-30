@@ -103,9 +103,12 @@ markup:
       definitionList: true
 
   # Syntax highlighting
+  # https://gohugo.io/getting-started/configuration-markup/#highlight
   highlight:
-    # For an overview of all available styles, see: https://gohugo.io/getting-started/configuration-markup/#highlight
-    style: 'dracula'
+    # For an overview of all available styles, see:
+    # * https://xyproto.github.io/splash/docs/all.html (short snippets)
+    # * https://xyproto.github.io/splash/docs/longer/all.html (longer snippets)
+    style: 'catppuccin-macchiato'
 
   # TOC: https://gohugo.io/getting-started/configuration-markup/#table-of-contents
   tableOfContents:
