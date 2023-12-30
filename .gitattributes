@@ -1,3 +1,12 @@
+##############################################################################
+#
+# Defines Git attributes (text, binary, lfs, ...) for various file extensions.
+#
+# Official documentation: https://git-scm.com/docs/gitattributes
+#
+# File pattern format: https://git-scm.com/docs/gitignore#_pattern_format
+#
+##############################################################################
 #
 # NOTE: To re-apply all changes in this file to the current repository, run:
 #
@@ -13,6 +22,7 @@
 #
 #   git status -v
 #
+##############################################################################
 
 # Prevent git from messing around with line endings (i.e. treat all files as binary by default).
 * -text
@@ -21,11 +31,11 @@
 # Binary files - stored in git-lfs
 #
 
-# Application files
+## Application files
 **/*.exe filter=lfs diff=lfs merge=lfs
 **/*.dll filter=lfs diff=lfs merge=lfs
 
-# Image files
+## Image files
 **/*.gif filter=lfs diff=lfs merge=lfs
 **/*.png filter=lfs diff=lfs merge=lfs
 **/*.jpg filter=lfs diff=lfs merge=lfs
@@ -35,27 +45,27 @@
 **/*.ico filter=lfs diff=lfs merge=lfs
 **/*.cur filter=lfs diff=lfs merge=lfs
 
-# Movie files
+## Movie files
 **/*.avi filter=lfs diff=lfs merge=lfs
 **/*.mpg filter=lfs diff=lfs merge=lfs
 **/*.mpeg filter=lfs diff=lfs merge=lfs
 
-# Audio files
+## Audio files
 **/*.wav filter=lfs diff=lfs merge=lfs
 **/*.mp3 filter=lfs diff=lfs merge=lfs
 **/*.m4a filter=lfs diff=lfs merge=lfs
 
-# Archive files
+## Archive files
 **/*.zip filter=lfs diff=lfs merge=lfs
 **/*.gz filter=lfs diff=lfs merge=lfs
 
-# Font files
+## Font files
 **/*.ttf filter=lfs diff=lfs merge=lfs
 **/*.otf filter=lfs diff=lfs merge=lfs
 **/*.woff filter=lfs diff=lfs merge=lfs
 **/*.woff2 filter=lfs diff=lfs merge=lfs
 
-# Office documents
+## Office documents
 **/*.doc filter=lfs diff=lfs merge=lfs
 **/*.docx filter=lfs diff=lfs merge=lfs
 **/*.xls filter=lfs diff=lfs merge=lfs
@@ -66,5 +76,14 @@
 **/*.xps filter=lfs diff=lfs merge=lfs
 **/*.rtf filter=lfs diff=lfs merge=lfs
 
-# Other binary files
+## Other binary files
 **/*.bin filter=lfs diff=lfs merge=lfs
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# Exclude files from GitHub's language statistics
+# https://github.com/github-linguist/linguist/blob/master/docs/overrides.md#vendored-code
+
+# Helper scripts present in most repositories
+/git-clean.* linguist-vendored
+/git-clone-submodules.* linguist-vendored
