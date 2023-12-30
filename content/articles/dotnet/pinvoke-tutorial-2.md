@@ -31,9 +31,9 @@ However, there exists a hidden pitfall here:
 
 ## ASCII and Unicode: A Historical Overview
 
-Historically there was ASCII which defined characters up to character number 127 (i.e. everything that fits into 7 bits). However, these 128 characters contained only letters used in English. Umlauts (like Ã¤, Ã¶, Ã¼) and other characters were not present. So, the 8th bit was used to map these characters, but the mapping was not standardized. Basically each country had its own mapping of the region 128 - 255. These different mapping were called *code pages*.
+Historically there was ASCII which defined characters up to character number 127 (i.e. everything that fits into 7 bits). However, these 128 characters contained only letters used in English. Umlauts (like Ä, Ö, Ü) and other characters were not present. So, the 8th bit was used to map these characters, but the mapping was not standardized. Basically each country had its own mapping of the region 128 - 255. These different mapping were called *code pages*.
 
-For example, on code page 850 (MS-DOS Latin 1) the character number 154 is &#x00DC; (German Umlaut) while on code page 855 (MS-DOS Cyrillic) the very same character number represents &#x045F; (Cyrillic small letter DZHE).
+For example, on code page 850 (MS-DOS Latin 1) the character number 154 is Ü (German Umlaut) while on code page 855 (MS-DOS Cyrillic) the very same character number represents џ (Cyrillic small letter DZHE).
 
 To unify these different mapping the *Unicode standard* was established in 1991. The idea was (and is) to give each existing character a unique id. These ids are called *code points*. So basically the Unicode standard is "just" a much bigger version of the ASCII standard. The latest version as of writing is Unicode version 6.1 which covers over 110,000 characters.
 

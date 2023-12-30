@@ -9,7 +9,7 @@ draft: true
 
 Last friday I stumbled over a seroius shortcomming of C++ (compared to C# or Java) I'd like to share here with you. It's about ##virtual## methods called from a class constructor.
 
-## The C&#35; Example
+## The C# Example
 
 Let me start with an example. Here's some C# code that simply calls a `virtual` method (named `test()`) from the class' constructor:
 
