@@ -8,7 +8,7 @@ draft: true
 
 Security is hard. In a current project I saw some code that created some access tokens based on a random number generator - .NET's `Random` class. The code used an instance of `Random` stored in `static` field and I got curious:
 
->If you have such a long living `Random` instance, could you predict the random values after generating a few of them?
+> If you have such a long living `Random` instance, could you predict the random values after generating a few of them?
 
 It turns out, it is possible. And **you only need to read ~~56~~ 55 "random" values to predict all future values**.
 

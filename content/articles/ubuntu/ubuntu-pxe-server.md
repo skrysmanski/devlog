@@ -164,7 +164,7 @@ $ service dnsmasq start
 
 and you get the error:
 
->Job for dnsmasq.service failed because a configured resource limit was exceeded.
+> Job for dnsmasq.service failed because a configured resource limit was exceeded.
 
 ... then you (accidentally) deleted `/etc/dnsmasq.d/README`.
 
