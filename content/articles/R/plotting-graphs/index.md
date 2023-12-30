@@ -25,7 +25,7 @@ curve(x^2)
 
 This will plot the function *x^^2^^* and will look like this:
 
-[[image:curve1.png|center|medium|link=source]]
+![Curve x²](curve1.png)
 
 Since we didn't specify any boundaries for the x and y axes, R used `0..1` for the x axis and chose the y axis to fit.
 
@@ -37,7 +37,7 @@ curve(x^2, -4, 3)
 
 This will plot *x^^2^^* with `-4..3`:
 
-[[image:curve2.png|center|medium|link=source]]
+![Curve x² - x axis: -4 to 3](curve2.png)
 
 As you can see in this plot, R makes the y axis match the required value range (here: `0..15`).
 
@@ -51,7 +51,7 @@ curve(x^2, -4, 3, asp=1)
 
 will give us:
 
-[[image:curve3.png|center|medium|link=source]]
+![Curve x² - same scale on x and y axis](curve3.png)
 
 The other option is to explicitely specify the range for the y axis by using the `ylim` parameter:
 
@@ -61,6 +61,6 @@ curve(x^2, -4, 3, ylim=range(c(-1, 4)))
 
 will give us a y axis range of `-1..4`:
 
-[[image:curve4.png|center|medium|link=source]]
+![Curve x² - y axis: -1 to 4](curve4.png)
 
 For more information on `curve()`, just type `?curve` in R's prompt.

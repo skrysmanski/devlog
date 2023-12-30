@@ -117,7 +117,7 @@ There are a couple of things that can go wrong with P/Invoke.
 
 You may get a `DllNotFoundException` with an error message like "The specified module could not be found."
 
-[[image:dll-not-found.png|center|medium|link=source]]
+![Exception: DLL not found](dll-not-found.png)
 
 As the error message suggests the DLL "NativeLib.dll" could not be found.
 
@@ -129,7 +129,7 @@ Solution: Change the output directory of the .NET project (*PInvokeTest*) to mat
 
 You may get an error saying that a `PInvokeStackImbalance was detected`.
 
-[[image:stack-imbalance.png|center|medium|link=source]]
+![Exception: Stack imbalance](stack-imbalance.png)
 
 The reason is most likely that the native library uses another *calling convention* then the .NET project. By default, C/C++ projects use the `__cdecl` calling convention, whereas `[DllImport]` uses `__stdcall` by default.
 

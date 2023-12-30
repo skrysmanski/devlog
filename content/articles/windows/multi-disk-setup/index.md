@@ -16,7 +16,7 @@ Turns out, the root problem is the BIOS' **boot order** (a.k.a. **boot sequence*
 
 The BIOS usually lets you define this order. Either all devices are in one big list, or each device type (CD drives, hard disks) has its own list.
 
-[[image:boot-order.jpg|center|medium|link=source]]
+![Boot Order in BIOS](boot-order.jpg)
 
 Now, when you install Windows, the setup asks the BIOS for this list. And no matter what you do, Windows Setup will **always install the boot manager on the first hard disk** in this boot order list.
 
@@ -45,7 +45,7 @@ In this case Windows Setup will show you a dialog reading:
 
 If this happens and you click on "OK", Windows Setup will automatically create a partition called "System Reserved" where it'll install the boot manager.
 
-[[image:boot-manager-in-windows-setup.jpg|center|medium|link=source]]
+![Windows Setup asking to create additional partitions](boot-manager-in-windows-setup.jpg)
 
 If this doesn't happen the boot manager may or may not be installed in the correct location. If this is the case, you can only check the location *after* Windows has been installed.
 
@@ -57,4 +57,4 @@ To determine the partition where the boot manager is installed, go to:
 
 The partition where the boot manager is installed has the word **System** in its status.
 
-[[image:sytem-partition.jpg|center|medium|link=source]]
+![Boot Manager Partition in Disk Management on Windows](sytem-partition.jpg)

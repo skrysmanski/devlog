@@ -148,7 +148,7 @@ $ service dnsmasq start
 
 Now, when starting a PXE-enabled machine, it should boot memtest.
 
-[[image:pxe-boot.gif|center]]
+![Booting via PXE](pxe-boot.gif)
 
 ## Troubleshooting
 
@@ -174,12 +174,12 @@ The `dnsmasq` init script checks the existence of this file and this leads to th
 
 VMWare Fusion's GUI is more designed for regular users than developers. If you want to use PXE boot in a VMWare Fusion VM, make sure you select "Bridged Networking" rather than "Share with my Mac" (which is NAT).
 
-[[image:vmware-network.png|center]]
+![Configure VMWare Fusion for PXE Boot](vmware-network.png)
 
 ### PXE Boot with Hyper-V
 
 To be able to PXE boot a Hyper-V VM, you need to **add a *Legacy* Network Adapter** to the VM. By default, only a non-legacy network adapter is added to VMs and it doesn't support PXE boot (for whatever reason).
 
-[[image:hyperv-pxe.png|center]]
+![Configure Hyper-V for PXE Boot](hyperv-pxe.png)
 
 This is especially confusing since the "BIOS" section always lists "Legacy Network adapter" - even if none has been added to the VM.

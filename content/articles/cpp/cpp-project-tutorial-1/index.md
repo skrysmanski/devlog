@@ -30,15 +30,15 @@ In this article we'll create a *dynamic* library.
 
 To create a library project in Visual C++ 2010 (that is a part of Visual Studio 2010) in an *existing* solution, choose `Add` --> `New Project...` from the solution's context menu in the "Solution Explorer" window.
 
-[[image:add-new-project.png|center|medium|link=source]]
+![Add a new project](add-new-project.png)
 
 Alternatively you can create a new solution by using `File` --> `New` --> `Project...`. Either way will open up the "Add New Project" dialog. Here you choose "Class Library" (in section `Other Languages` --> `Visual C++`) and specify a new for the project. This name will also be the name of the DLL file.
 
-[[image:create-new-library-project.png|center|medium|link=source]]
+![Create new C++ class library project](create-new-library-project.png)
 
 After hitting "Ok", your new class library project will be created. By default, it'll create a dynamic library. To verify this, head to the project's settings (available through the project's context menu) and check that `Configuration Type` is set to `Dynamic Library (.dll)`.
 
-[[image:library-project-settings.png|center|medium|link=source]]
+![Project settings](library-project-settings.png)
 
 You may also want to review the setting `Common Language Runtime Support`. If enabled (switch `/clr`), this will allow you to create .NET classes in this project. For a pure C++ project, however, you may want to disable CLR support (as shown in the screenshot above).
 
@@ -122,7 +122,7 @@ class MYLIBRARY_EXPORT PrintableInt
 
 For this to work, you add the preprocessor definition `COMPILE_MYLIBRARY` to the library project (but *not* to the projects using the library). This way `MYLIBRARY_EXPORT` will be replaced by `__declspec(dllexport)` when compiling the library project and by `__declspec(dllimport)` when using the project (from another project). To specify this preprocessor, go to the library project's settings and enter the name `COMPILE_MYLIBRARY` in the field "Preprocessor Definitions". You should also make sure to select "All Configuration" from the "Configuration" dropdown field (see screenshot) so that this definition gets added to the Debug *and* Release configuration.
 
-[[image:preprocessor-definition.png|center|medium|link=source]]
+![Preprocessor configuration](preprocessor-definition.png)
 
 *Note:* The keyword `__declspec(...)` is a Microsoft specific extension to C++ (see [here](http:*msdn.microsoft.com/en-us/library/3y1sfaz2.aspx)). So it only works in Visual C++. There is an alternative (more portable?) way to specify which classes/functions are to be exported. For this, a "Module-Definition File" (`.def`) needs to be created. However, creating such a file is more tedious than specifying the export statement directly in the code. For more information, see [this article](http:*www.codeguru.com/cpp/cpp/cpp_mfc/tutorials/article.php/c9855).
 
@@ -200,4 +200,4 @@ int _tmain(int argc, _TCHAR* argv[])
 
 Without "dllimport" compiling this project will result in (rather cryptic) linker errors - namely "unresolved external symbol". Uncommenting `__declspec(dllimport)` in `PrintableInt.h` again solves this problem.
 
-[[image:unresolved-symbols.png|center|medium|link=source]]
+![Cryptic linker errors due to missing "dllimport"](unresolved-symbols.png)

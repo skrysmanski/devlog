@@ -22,21 +22,21 @@ While property sheets (file extension: `.props`) are simply XML files and theref
 
 *Note:* Property sheet files share the same XML syntax as `.vcxproj` files.
 
-[[image:property-manager-in-menu.png|center|medium|link=source]]
+![Property Manager in main menu](property-manager-in-menu.png)
 
 This will open the Property Manager pane. For just one project (here called `MainConsoleProj`), the contents of the Property Manager will look like this:
 
-[[image:property-manager-new.png|center]]
+![The Property Manager](property-manager-new.png)
 
 Let's examine what you see here:
 
-1. On the top (icon: [[image:project-icon.png]]) you see our project. If there were more projects in the solution, they'd listed here as well.
-1. On the next level there are all configurations of the project on all supported platforms (icon: [[image:configuration-icon.png]]). There are usually the configurations "Debug" and "Release" on the platform "Win32". These are the same configurations you have available in the project settings in the `Configuration` drop-down field. To keep things simply, from now on in this article a configuration-platform combination will be called just "configuration".
+1. On the top (icon: ![Icon: Project](project-icon.png)) you see our project. If there were more projects in the solution, they'd listed here as well.
+1. On the next level there are all configurations of the project on all supported platforms (icon: ![Icon: Configuration](configuration-icon.png)). There are usually the configurations "Debug" and "Release" on the platform "Win32". These are the same configurations you have available in the project settings in the `Configuration` drop-down field. To keep things simply, from now on in this article a configuration-platform combination will be called just "configuration".
 1. On the inner-most level you have the actual *property sheets*.
 
 Let's examine the property sheets a bit closer:
 
-* There are two kinds of property sheets. I couldn't find their official names, so let's call them *Base Property Sheets* (icon: [[image:base-prop-icon.png]]) and *Custom Property Sheets* (icon: [[image:cust-prop-icon.png]]). You can edit only custom property sheets. Base property sheets are read-only.
+* There are two kinds of property sheets. I couldn't find their official names, so let's call them *Base Property Sheets* (icon: ![Icon: Base Property Sheet](base-prop-icon.png)) and *Custom Property Sheets* (icon: ![Icon: Custom Property Sheet](cust-prop-icon.png)). You can edit only custom property sheets. Base property sheets are read-only.
 * Property sheets have an order in which they're evaluated. This is important, if two property sheets define a value for the same setting. The order can be seen in the Property Manager and is bottom up. So in the image above, for the "Debug" configuration first `Core Windows Libraries` is evaluated, then `Unicode Support` and so forth. We'll examine the effects of this order a little later.
 * Property sheets belong to a certain configuration (such as "Debug|Win32"). The stack of property sheets defines the value that can be inherited for this specific configuration (i.e. that's what you get when you choose `<inherit from parent or project defaults>` for a value in the project settings).
 
@@ -50,11 +50,11 @@ The first step is to create a new property sheet file. To do this, right-click o
 
 As mentioned before, we want to keep the property sheet `Microsoft.Cpp.Win32.user` the top item in every configuration. So, select an instance of the new property sheets and click on the down arrow in the Property Manager's toolbar. Repeat this also for the property sheet(s) in the other configuration(s).
 
-[[image:property-manager-move-down.png|center]]
+![Move down](property-manager-move-down.png)
 
 The result then should look like this:
 
-[[image:property-manager-result.png|center]]
+![Result after moving down](property-manager-result.png)
 
 ## Editing a property sheet
 
@@ -64,15 +64,15 @@ To edit a property sheet (file), simply double-click on it in the Property Manag
 
 This will pop up a dialog that's very similar to the "Project Settings" dialog of a C++ project. Note that since the property sheet file itself isn't bound to any specified project kind or configuration, the dialog may display more options than are actually available to the project the property sheet is currently associated with.
 
-[[image:property-sheet-editor.png|center|medium|link=source]]
+![The property sheet](property-sheet-editor.png)
 
 Let's demonstrate the effect of a property sheet with compiler switch `Warning Level`. But before we start editing the property sheet, we need to revert this switch's its default value. To do this, open up the project settings for the current project (for example by select the project in the Property Manager and select `Properties` from the context menu). Then select `All Configurations` from the `Configuration` drop-down box and go to `C++` --> `General`. Then make sure that `Warning Level` is inheriting the default value (which should be `Level1 (/W1)`). If it's not, its value will be printed in bold. In this case, click on the down arrow in the value field and select `<inherit from parent or project defaults>` (see screenshot).
 
-[[image:inherit-warning-level.png|center|medium|link=source]]
+![Change warning level](inherit-warning-level.png)
 
 After clicking on `Apply`, the result should look like this:
 
-[[image:warning-level-default-value.png|center|medium|link=source]]
+![Result after clicking "Apply"](warning-level-default-value.png)
 
 Now, again, open the property sheet editor for the `common` property sheet we created earlier. There, set the `Warning Level` to `Level3 (/W3)`. Then click `OK`.
 
@@ -80,7 +80,7 @@ Now, again, open the property sheet editor for the `common` property sheet we cr
 
 When you now open the project's settings again, you should see that the inherited value (not in bold) of `Warning Level` *changed* from level 1 to level 3.
 
-[[image:default-value-w3.png|center|medium|link=source]]
+![New default value](default-value-w3.png)
 
 That's the effect of the property sheet. You can define as many settings in a single property sheet file as you want. Then you can add the same property sheet file to multiple project thereby sharing this set of common project settings among all projects.
 
@@ -92,11 +92,11 @@ As mentioned earlier, the property sheets are applied in a certain order - from 
 
 So, lets have a look at the property sheet `Microsoft.Cpp.Win32.user` (in one of the configurations). It still should be *the top item in the stack*. The value for `Warning Level` is already `Level3 (/W3)`. It's inherited from one of the property sheets below - our "common" sheet in this case.
 
-[[image:user-sheet-above.png|center|medium|link=source]]
+![Inherited default value](user-sheet-above.png)
 
 Now lets swap the `common` sheet with the `Microsoft.Cpp.Win32.user` sheet. This will move the `common` sheet to a position *above* of `Microsoft.Cpp.Win32.user`. Again, open the `Microsoft.Cpp.Win32.user` sheet. The `Warning Level` is now `Level1 (/W1)`, as it's no longer inherited from the `common` sheet. In fact, the `common` sheet now inherits its values from the `Microsoft.Cpp.Win32.user` sheet.
 
-[[image:user-sheet-below.png|center|medium|link=source]]
+![Result after swapping property sheets](user-sheet-below.png)
 
 ## Custom Variables (a.k.a. Macros)
 
@@ -110,7 +110,7 @@ Property sheets can inherit their values from other property sheets. You can eit
 * in a *project file*: This is accomplished by adding the inherited property sheet to the Property Manager and move it below the inheriting property sheet.
 * in a *property sheet file*: To do this, right-click on the inherit*ing* property sheet file in the Property Manager and choose `Add ... Property Sheet` and select/create the inherit*ed* property sheet. The inherit*ed* property sheet is now being displayed as child node of the inherit*ing* property sheet (see screenshot).
 
-[[image:inherited-property-sheet.png|center]]
+![Property sheet inheritance](inherited-property-sheet.png)
 
 The XML code for inheritance is:
 

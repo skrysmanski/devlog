@@ -90,7 +90,7 @@ This shouldn't have any impact on the program, should it?
 
 With me asking this question you probably already know the answer. Executing the program now should give you a segmentation fault/access violation.
 
-[[image:segmentation-fault.png|center|medium|link=source]]
+![A segmentation fault](segmentation-fault.png)
 
 What has happened? This second change seemed totally unrelated. Let's debug the program. I'll only show the relevant code and mark the current execution position with an arrow:
 
@@ -157,7 +157,7 @@ If you already know why returning a reference to a local variable is a bad thing
 
 The problem here is that local variables reside on the so called "stack" (or "call stack"). This is a continuous section of memory that grows with each function that is called (and also shrinks again once the function returns). The following image shows the call stack for a function (= subroutine) named `DrawLine()`, called from a function named `DrawSquare()`:
 
-[[image:callstack.png|center|link=http://en.wikipedia.org/wiki/File:Call_stack_layout.svg]]
+![Layout of a call stack (source: [Wikipedia](wikipedia:File:Call_stack_layout.svg))](call_stack_layout.svg)
 
 As you can see, there are two stack frames here (blue and green) - on for each function. Each stack frame contains the "Locals" (i.e. the local variables, such as "ref") of the associated function. The stack frame (and with it the locals) of `DrawLine()` (the callee) is stored *above* the locals of `DrawSquare()` (the caller). Currently the function `DrawLine()` is being executed, indicated by the position of the "Stack Pointer". When `DrawLine()` returns, the stack pointer will move to the top of `DrawSquare()`'s stack frame (the blue section). When this happens the stack frame of `DrawLine()` (the green section) will become *invalid*. Invalid here means that the memory section previously occupied by the stack frame (green section) must not be used anymore. If `DrawSquare()` now calls another function, this new function's stack frame will replace the content in the green section with its own content.
 

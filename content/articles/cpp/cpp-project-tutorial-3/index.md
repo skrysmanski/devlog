@@ -50,7 +50,7 @@ Whether to use a precompiled header or not can be specified per project as well 
 
 To enable precompiled headers in a project (or file), open the project settings (or file settings) and select "Use" under "C++" --> "Precompiled Headers" --> "Precompiled Header". Also make sure, that you've selected "All Configurations" from the "Configuration" dropdown field. (Note that the option "Create" will be used [[#compiling_the_header|below]].)
 
-[[image:enable-precompiled-headers.png|center|medium|link=source]]
+![Enabling precompiled headers in the project settings](enable-precompiled-headers.png)
 
 The next thing you need to do is to `#include "..."` the precompiled header file in every source file (`.cpp`). You shouldn't (can't?) include it in the header files (`.h`) but only in the `.cpp` file. Also, the include statement must be *the first statement* in the file (only comments or whitespace is allowed above it). This is because Visual C++ assumes that everything before the include statement is already compiled.
 
@@ -78,6 +78,6 @@ For this you need to add a new `.cpp` file to your project. By convention, it ha
 
 Next, you need to go to the *file's* settings (via context menu) and change the value of "Precompiled Header" from "Use" to "Create".
 
-[[image:creating-precompiled-header.png|center|medium|link=source]]
+![Marking file as precompiled header](creating-precompiled-header.png)
 
 That's it. Now, when compiling the project again for the first time, the precompiled header will be created. After that, compiling the other source files should be significantly faster than before. Also the precompiled header will only be compiled on the first run. After that it won't be compiled again (which would somehow defeat its purpose) unless either the "stdafx.cpp" or "stdafx.h" file is modified.
