@@ -88,4 +88,7 @@
 /git-clean.* linguist-vendored
 /git-clone-submodules.* linguist-vendored
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# Force GitHub to include the Markdown files of this repo in the language statistics
 /content/**/*.md linguist-detectable -linguist-documentation
