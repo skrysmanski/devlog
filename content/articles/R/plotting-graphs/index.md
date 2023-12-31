@@ -23,7 +23,7 @@ Let's start with something simple:
 curve(x^2)
 ```
 
-This will plot the function *x^^2^^* and will look like this:
+This will plot the function *x²* and will look like this:
 
 ![Curve x²](curve1.png)
 
@@ -35,7 +35,7 @@ Of course, we can manually specify the range for the values on the x axis:
 curve(x^2, -4, 3)
 ```
 
-This will plot *x^^2^^* with `-4..3`:
+This will plot *x²* with `-4..3`:
 
 ![Curve x² - x axis: -4 to 3](curve2.png)
 
