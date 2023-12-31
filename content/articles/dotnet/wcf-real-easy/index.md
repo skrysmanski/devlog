@@ -223,4 +223,4 @@ After starting the app, you can call `Ping()` by going to:
 
 You can get the complete code here:
 
-  [[file:Program.cs]]
+  [](Program.cs)

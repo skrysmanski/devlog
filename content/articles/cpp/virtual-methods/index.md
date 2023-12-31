@@ -130,4 +130,4 @@ The problem becomes even more severe with **pure virtual** (which is `abstract` 
 
 I've created a solution (for Visual Studio 2010) containing the source code above. In addition to a C# and a C++ project, I've also added a C++/CLI project. You can download it here:
 
-[[file:VirtualMethodTest.zip]]
+[](VirtualMethodTest.zip)

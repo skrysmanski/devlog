@@ -30,4 +30,4 @@ Here are the results:
 |`ReaderWriterLockSlim` with `LockRecursionPolicy.NoRecursion`          | 25,214,451        | 1.05   |
 |`ReaderWriterLockSlim` with `LockRecursionPolicy.SupportsRecursion`    | 24,013,488        | 1.00   |
 
-Full source code: [[file:Program.cs_1.txt|Program.cs]]
+Full source code: [](Program.cs)

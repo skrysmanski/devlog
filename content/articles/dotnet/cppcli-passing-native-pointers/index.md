@@ -280,7 +280,7 @@ I'm not sure whether linking the same `.lib` file twice is a bug or working as i
 
 I've created a small solution (for Visual Studios 2010) that contains the example source code described in this article.
 
-[[file:CLIAssemblyCrossBoundaryTest.zip]]
+[](CLIAssemblyCrossBoundaryTest.zip)
 
 ## History
 

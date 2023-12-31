@@ -215,7 +215,7 @@ Because of this address change the compiler can't just use `g_somePointer` for `
 
 I've attached the whole code of the example so that you can try it out for yourself.
 
-[[file:reference_problem.cpp_.txt]]
+[](reference_problem.cpp)
 
 ## Summary
 

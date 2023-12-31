@@ -23,7 +23,7 @@ For this tutorial, we need a small project structure containing two projects:
 
 To get you started real quick, you can download the project structure here:
 
-  [[file:PInvokeTest.zip]]
+  [](PInvokeTest.zip)
 
 If you're not using Visual Studio 2010 (or don't want to use the provided zip file), adopt the following settings.
 
@@ -107,7 +107,7 @@ Now compile the project and it should print `Hello, PInvoke!` to the console.
 
 You can download the complete project here:
 
-  [[file:PInvokeTest-Complete.zip]]
+  [](PInvokeTest-Complete.zip)
 
 ## Troubleshooting
 

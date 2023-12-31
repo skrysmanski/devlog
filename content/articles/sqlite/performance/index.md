@@ -55,7 +55,7 @@ Each test comprises of a certain combination of the following test parameters:
 
 Let's start with the tests only reading data (i.e. no data is written during these tests). Each thread randomly reads a data row and then obtains all four values stored in it. This is repeated for 30 seconds.
 
-[[file:select-statements.csv]] (file containing data for charts in this section)
+[](select-statements.csv) (file containing data for charts in this section)
 
 ### Test: read-only
 
@@ -125,7 +125,7 @@ This chart only contains the variations for shared and multi connections with th
 
 Next, let's look at write-only tests. With these tests, multiple threads concurrently write to the same database table, inserting random data.
 
-[[file:insert-statements.csv]] (file containing data for charts in this section)
+[](insert-statements.csv) (file containing data for charts in this section)
 
 ### Test: shared cache
 
@@ -180,7 +180,7 @@ To summarize the previous sections:
 
 The last batch combines the previous two batches. This time the same number of read and write threads read and write concurrently from/to the same database table.
 
-[[file:mixed-statements.csv]] (file containing data for charts in this section)
+[](mixed-statements.csv) (file containing data for charts in this section)
 
 ### Assumption: WAL improves general performance
 

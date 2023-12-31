@@ -210,4 +210,4 @@ I have no clue what start time is chosen for the counter. It's certainly not the
 
 Here's an example project that demonstrates the various performance counters:
 
-  [[file:PerformanceCounters.zip]] (15 KB)
+  [](PerformanceCounters.zip) (15 KB)
