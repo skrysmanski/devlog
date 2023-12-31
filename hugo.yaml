@@ -33,6 +33,9 @@ params:
   # Page types to list under "recent articles" on the start/home/index page.
   mainSections:
     - articles
+  search:
+    # Don't index "Terms & Privacy" and other helper pages
+    includeOnlyMainSections: true
 
   # Number of "recent articles" on the start/home/index page.
   indexPageCount: 50
