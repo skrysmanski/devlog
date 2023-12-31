@@ -70,7 +70,7 @@ You should see the following output:
 Hello, Docker and Newtonsoft.Json.JsonConvert!
 ```
 
-If you run into any troubles, go and checkout the [[#example-code|example code]].
+If you run into any troubles, go and checkout the [example code](#example-code).
 
 ## Running in Docker
 

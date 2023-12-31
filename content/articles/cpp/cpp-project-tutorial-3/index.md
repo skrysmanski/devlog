@@ -48,7 +48,7 @@ You may also note the `#pragma` statement on the first line. This is just "helpe
 
 Whether to use a precompiled header or not can be specified per project as well as per file. When you want to use a precompiled header in a project, you usually say "Use" for the whole project and then exclude certain `.cpp` file that shall not use the precompiled header. Both options are in the same section - it just depends on whether you open the project settings or the file settings (both being available through their context menus).
 
-To enable precompiled headers in a project (or file), open the project settings (or file settings) and select "Use" under "C++" --> "Precompiled Headers" --> "Precompiled Header". Also make sure, that you've selected "All Configurations" from the "Configuration" dropdown field. (Note that the option "Create" will be used [[#compiling_the_header|below]].)
+To enable precompiled headers in a project (or file), open the project settings (or file settings) and select "Use" under "C++" --> "Precompiled Headers" --> "Precompiled Header". Also make sure, that you've selected "All Configurations" from the "Configuration" dropdown field. (Note that the option "Create" will be used [below](#compiling_the_header).)
 
 ![Enabling precompiled headers in the project settings](enable-precompiled-headers.png)
 

@@ -492,7 +492,7 @@ For example, you could implement the visitor pattern for saving a data structure
 
 If you add new visitable, you need to update every visitor that's already implemented.
 
-Let's take our document classes from [[#object_structure|above]]. We had the classes `PlainText`, `BoldText`, and `Hyperlink`.
+Let's take our document classes from [above](#object_structure). We had the classes `PlainText`, `BoldText`, and `Hyperlink`.
 
 Now, let's say we want to add a class for underlined text. The interface `IVisitor` would thus change to:
 

@@ -22,7 +22,7 @@ At the end of this tutorial, we'll have 3 virtual machines, one called "master" 
 
 The setup we'll be creating is just a foundation you can expand on. It won't do anything meaningful. It's just to get you the infrastructure to do something meaningful.
 
-If you're just interested in the end result, skip ahead to [[#endresult]].
+If you're just interested in the end result, skip ahead to [](#endresult).
 
 ## Notes Before We Start
 
