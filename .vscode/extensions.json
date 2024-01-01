@@ -4,5 +4,6 @@
 		"davidanson.vscode-markdownlint",
 		"streetsidesoftware.code-spell-checker",
 		"mrmlnc.vscode-apache",
+		"budparr.language-hugo-vscode",
 	]
 }
