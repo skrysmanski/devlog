@@ -14,8 +14,8 @@ Here at work I have a C++ project with about 50 `.cpp` files in it. The project 
 
 **Related Articles:**
 
-* [](project-tutorial-1--create-project.md)
-* [](project-tutorial-2--project-dependencies.md)
+* [](part-1--create-project.md)
+* [](part-2--project-dependencies.md)
 
 <!--more-->
 

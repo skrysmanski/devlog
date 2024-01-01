@@ -152,7 +152,7 @@ On non-Windows systems you can use [Mono](http://www.mono-project.com) to execut
 
 Besides P/Invoke, the other way of integrating C/C++ functions is using C++/CLI. Although C++/CLI performs better than P/Invoke it also has several drawbacks:
 
-* You need to learn a new language (if you only know C#; even if you know C++ as well). See my [C++/CLI Cheat Sheet](cppcli-cheat-sheet.md) for an overview.
+* You need to learn a new language (if you only know C#; even if you know C++ as well). See my [](/cpp-cli/cheat-sheet.md) for an overview.
 * C++/CLI is not supported by Mono; so you can use C++/CLI assemblies *only on Windows*.
 
 ## Read On

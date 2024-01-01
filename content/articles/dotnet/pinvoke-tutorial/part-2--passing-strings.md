@@ -8,7 +8,7 @@ topics:
 draft: true
 ---
 
-In the [previous tutorial](pinvoke-tutorial-1.md) we passed a single string to a native C/C++ function by using P/Invoke.
+In the [previous tutorial](part-1--basics.md) we passed a single string to a native C/C++ function by using P/Invoke.
 
 This function was defined like this:
 

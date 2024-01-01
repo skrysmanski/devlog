@@ -183,7 +183,7 @@ This section gives a quick overview what is allowed with handles and what isn't.
 | Fields with native type                                    | Yes (direct and pointer)     | Only pointer
 | Fields with managed type                                   | value types directly; handles via `gcroot` (see below) | Values types and handles
 
-*Important:* Passing pointers of native types across assembly (dll) boundaries requires some more work. See [](cppcli-passing-native-pointers.md) for more information.
+*Important:* Passing pointers of native types across assembly (dll) boundaries requires some more work. See [](passing-native-pointers.md) for more information.
 
 To be able to store a handle as field in a native class, wrap it in a [gcroot](http://msdn.microsoft.com/library/481fa11f.aspx) instance, like so: `gcroot<String^> m_myMember`.
 

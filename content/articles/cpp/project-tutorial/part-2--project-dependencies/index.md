@@ -14,8 +14,8 @@ Referencing a library in C++ (or, more specific, with Visual C++) is somewhat cu
 
 **Related Articles:**
 
-* [](project-tutorial-1--create-project.md)
-* [](project-tutorial-3--precompiled-headers.md)
+* [](part-1--create-project.md)
+* [](part-3--precompiled-headers.md)
 
 <!--more-->
 
@@ -72,7 +72,7 @@ std::string PrintableInt::toString() const {
 }
 ```
 
-Again, this (and the project "MyProgram" as well) use a precompiled header file named "stdafx.h". Precompiled headers are explained in [another article](project-tutorial-3--precompiled-headers.md).
+Again, this (and the project "MyProgram" as well) use a precompiled header file named "stdafx.h". Precompiled headers are explained in [another article](part-3--precompiled-headers.md).
 
 ### The Code: MyProgram
 
