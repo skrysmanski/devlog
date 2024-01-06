@@ -61,7 +61,7 @@ private static extern void do_something(byte[] data);
 
 To be able to pass objects you need to make their memory layout sequential:
 
-```c# highlight=1
+```c# {hl_lines="1"}
 [StructLayout(LayoutKind.Sequential)]
 class MyClass {
   ...

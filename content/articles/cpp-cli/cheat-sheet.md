@@ -489,7 +489,7 @@ There are two ways of calling the (deterministic) destructor (i.e. `~MyClass()`)
 
 When an object sits on the stack, its destructor is automatically called when the variable goes out of scope:
 
-```c++/cli highlight=5
+```c++/cli {hl_lines="5"}
 int main() {
   MyClass myClazz;
   myClazz.DoSomething();
@@ -499,7 +499,7 @@ int main() {
 
 On the other hand, when an object is created on the GC heap, use `delete` to call its destructor:
 
-```c++/cli highlight=5
+```c++/cli {hl_lines="5"}
 int main() {
   MyClass^ myClazz;
   myClazz->DoSomething();
@@ -517,7 +517,7 @@ Delegates are basically pointers (or "handles") to .NET methods. The can be call
 
 You create a delegate by passing `this` and a pointer to method to its constructor.
 
-```c++/cli highlight=11
+```c++/cli {hl_lines="11"}
 using namespace System;
 
 ref class CliClass {
@@ -534,7 +534,7 @@ int main() {
 
 To call a delegate, simply call it like a regular function:
 
-```c++/cli highlight=3
+```c++/cli {hl_lines="3"}
 int main() {
   EventHandler^ handler = gcnew EventHandler(clazz, &CliClass::MyHandler);
   handler(nullptr, EventArgs::Empty); // or use "Invoke()"
@@ -557,7 +557,7 @@ dispatcherTimer->Tick += gcnew EventHandler(this, &MyClass::OnTick);
 
 Creating an event is pretty much the same as in C#. Just use the keyword `event` together with the desired delegate type:
 
-```c++/cli highlight=3
+```c++/cli {hl_lines="3"}
 public ref class CExercise {
 public:
   event EventHandler^ MyCustomEvent;

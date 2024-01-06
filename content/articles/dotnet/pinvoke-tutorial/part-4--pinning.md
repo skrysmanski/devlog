@@ -73,7 +73,7 @@ handle.Free();
 
 The alternative is to pass it as `IntPtr` (although it's no different from the direct approach):
 
-```c# highlight=2,8
+```c# {hl_lines="2 8"}
 [DllImport("NativeLib")]
 private static extern void do_something(IntPtr myType);
 

@@ -183,7 +183,7 @@ First, you need to add `[WebGet]` (GET) or `[WebInvoke]` (POST) to the methods o
 
 For example, change the implementation of `IService` to this:
 
-```c# highlight=4
+```c# {hl_lines="4"}
 [ServiceContract]
 public interface IService {
   // Returns "Hello, name" to the user.

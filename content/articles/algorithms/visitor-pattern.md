@@ -252,7 +252,7 @@ public class HtmlVisitor : IVisitor {
 
 By applying the visitor pattern to our document classes, they change to this:
 
-```c# highlight=3,7,8,9,13,14,15,21,22,23,29,30,31,32,33
+```c# {hl_lines="3 7 8 9 13 14 15 21 22 23 29 30 31 32 33"}
 public abstract class DocumentPart {
   public string Text { get; private set; }
   public abstract void Accept(IVisitor visitor);

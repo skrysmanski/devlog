@@ -84,7 +84,7 @@ In C#, all classes are managed by the garbage collector. However, some things ju
 
 So, here's an example of a C# class containing unmanaged data:
 
-```c# highlight=3,6
+```c# {hl_lines="3 6"}
 class DataContainer {
   public DataContainer() {
     m_unmanagedData = DataProvider.CreateUnmanagedData();
@@ -96,7 +96,7 @@ class DataContainer {
 
 The equivalent C++/CLI example would look like this:
 
-```c++/cli highlight=4,8
+```c++/cli {hl_lines="4 8"}
 ref class DataContainer {
 public:
   DataContainer() {
@@ -118,7 +118,7 @@ Since our class `DataContainer` is a managed class, it is managed by .NET's garb
 
 In C# the finalizer method (internally named `Finalize()`) is created by using C++'s destructor notation (`~DataContainer`):
 
-```c# highlight=6,7,8
+```c# {hl_lines="6 7 8"}
 class DataContainer {
   public DataContainer() {
     m_unmanagedData = DataProvider.CreateUnmanagedData();
@@ -134,7 +134,7 @@ class DataContainer {
 
 In C++/CLI the notation `~DataContainer()` is already reserved for deterministic destructors (because *all* destructors are deterministic in C++). So, here we must use the notation `!DataContainer` instead:
 
-```c++/cli highlight=7,8,9
+```c++/cli {hl_lines="7 8 9"}
 ref class DataContainer {
 public:
   DataContainer() {
@@ -159,7 +159,7 @@ Since finalizers are non-deterministic, you have no control over when they will 
 
 The .NET framework provides a standard name for this method: `Dispose()`, defined by the `IDisposable` interface. This method is also called a "*deterministic* destructor" (whereas finalizers are non-deterministic destructors). Here's the implementation in C#:
 
-```c# highlight=1,6,7,8,9,10,11,12
+```c# {hl_lines="1 6 7 8 9 10 11 12"}
 class DataContainer : IDisposable {
   public DataContainer() {
     m_unmanagedData = DataProvider.CreateUnmanagedData();
@@ -182,7 +182,7 @@ In C# you can either call the `Dispose()` method directly or use a `using` block
 
 In C++/CLI the `Dispose()` method is automatically created (and `IDisposable` is implemented) when creating a destructor (`~DataContainer`):
 
-```c++/cli highlight=7,8,9,10,11,12,13
+```c++/cli {hl_lines="7 8 9 10 11 12 13"}
 ref class DataContainer {
 public:
   DataContainer() : m_isDisposed(false) {
@@ -216,7 +216,7 @@ Since the developer can forget to call `Dispose()`, it's important to free unman
 
 In C#, simply call `Dispose()` from the finalizer. Note that the finalizer will be called in any case, so the unmanaged data is freed even if the developer forgets to call `Dispose()`.
 
-```c# highlight=15
+```c# {hl_lines="15"}
 class DataContainer : IDisposable {
   public DataContainer() {
     m_unmanagedData = DataProvider.CreateUnmanagedData();
@@ -242,7 +242,7 @@ class DataContainer : IDisposable {
 
 In C++/CLI we do the opposite: we call the finalizer (which isn't possible in C#). This way is the cleaner. I'll explain this a little later on.
 
-```c++/cli highlight=11
+```c++/cli {hl_lines="11"}
 ref class DataContainer {
 public:
   DataContainer() : m_isDisposed(false) {
@@ -287,7 +287,7 @@ void Finalizer() {
 
 This is why I called the C++/CLI way the "cleaner" way above. It implements the whole thing just like our pseudo-code:
 
-```c++/cli highlight=9,10
+```c++/cli {hl_lines="9 10"}
 ref class DataContainer {
 public:
    ...
@@ -315,7 +315,7 @@ private:
 
 In C#, on the other hand, we can't call the finalizer. So, we need to add a helper method called `Dispose(bool)`:
 
-```c# highlight=5,9,12
+```c# {hl_lines="5 9 12"}
 class DataContainer : IDisposable {
   ...
 
@@ -354,7 +354,7 @@ The default dispose implementation pattern (as shown in [IDisposable's help page
 
 In C# the `Dispose()` method changes like this:
 
-```c# highlight=3
+```c# {hl_lines="3"}
   public void Dispose() {
     Dipose(true);
     GC.SuppressFinalize(this);
@@ -363,7 +363,7 @@ In C# the `Dispose()` method changes like this:
 
 In C++/CLI the destructor doesn't change *at all*. That's because the C++/CLI compiler automatically adds this code line to the destructor. (You can read about this and see a decompiled destructor [here](http://www.codeproject.com/KB/mcpp/cppclidtors.aspx). Search for "SuppressFinalize".)
 
-```c++/cli highlight=8
+```c++/cli {hl_lines="8"}
   ~DataContainer() {
     if (m_isDisposed)
        return;
@@ -387,7 +387,7 @@ In C#, an implementation must
 
 The base method is called last to ensure that child classes are disposed before their parent classes. This is how destructors work in C++ and `Dispose()` mimics this behavior.
 
-```c# highlight=12
+```c# {hl_lines="12"}
   protected virtual void Dispose(bool disposing) {
     if (m_isDisposed)
       return;
@@ -407,7 +407,7 @@ The base method is called last to ensure that child classes are disposed before 
 
 In C++/CLI, again, the destructor remains the same. This is because it mimics the C++ destructor's behavior which automatically calls its parent destructor.
 
-```c++/cli highlight=9
+```c++/cli {hl_lines="9"}
   ~DataContainer() {
     if (m_isDisposed)
        return;

@@ -77,7 +77,7 @@ MYAPI void print_line(const char* str) {
 
 Now, let's call this function from the *PInvokeTest* project. To do this, add the highlighted lines to `Program.cs`:
 
-```c# line=1 highlight=5,10,13,14
+```c# {hl_lines="5 10 13 14"}
 using System;
 using System.Collections.Generic;
 using System.Linq;

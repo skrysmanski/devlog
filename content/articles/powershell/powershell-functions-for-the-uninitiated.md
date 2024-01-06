@@ -89,7 +89,7 @@ The problem here is that `$strBld.Append` returns a `StringBuilder` object. And 
 
 To resolve this problem, prefix `$strBld.Append` with `[void]`:
 
-```powershell highlight=4
+```powershell {hl_lines="4"}
 function LongNumericString {
   $strBld = new-object System.Text.StringBuilder
   for ($i=0; $i -lt 20; $i++) {
@@ -120,7 +120,7 @@ To force PowerShell to write something to the console (rather than including it 
 
 The corrected code is:
 
-```powershell highlight=2
+```powershell {hl_lines="2"}
 function PrintAndReturnSomething {
   Write-Host "Hello, World"
   return 42
