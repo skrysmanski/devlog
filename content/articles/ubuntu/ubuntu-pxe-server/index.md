@@ -110,7 +110,7 @@ $ ln -s /usr/lib/syslinux/modules/bios/ldlinux.c32 /var/lib/tftpboot/
 
 Now, clear all contents of `/etc/dnsmasq.conf` and replace them with this:
 
-```ini line=1 {hl_lines="9"}
+```ini {lineNos=true,hl_lines="9"}
 # Disable DNS Server
 port=0
 

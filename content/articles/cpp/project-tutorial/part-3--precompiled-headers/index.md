@@ -33,7 +33,7 @@ To be able to use a precompiled header in Visual C++, one first needs to specify
 
 The limitation that only one precompiled header is allowed is no real limitation because you can include any header file from within the precompiled header. For example, a precompiled header may look like this (for using the Qt framework):
 
-```c++ line=1
+```c++ {lineNos=true}
 #pragma message("Compiling precompiled headers.\n")
 
 #include <QtCore>

@@ -14,7 +14,7 @@ Fortunately, this turned out to be wrong, though.
 
 After reading the [documentation of GC.KeepAlive()](http://msdn.microsoft.com/en-us/library/vstudio/system.gc.keepalive%28v=vs.110%29.aspx) (couldn't really figure it out), I did some decompiling and found out that `GC.KeepAlive()` looks like this:
 
-```c# line=1
+```c# {lineNos=true}
 [MethodImpl(MethodImplOptions.NoInlining)]
 public static void KeepAlive(object obj)
 {
@@ -29,7 +29,7 @@ Why? The .NET garbage collector may collect a variable directly after its last u
 
 Consider this code:
 
-```c# line=1
+```c# {lineNos=true}
 class SomeClass
 {
   // This field is initialized somewhere
@@ -56,7 +56,7 @@ The garbage collector *may* collect `obj` just after the runtime has retrieved `
 
 Usually this optimization not a problem. It becomes a problem, however, if `SomeClass` has a finalizer:
 
-```c# line=1
+```c# {lineNos=true}
 class SomeClass
 {
   public SomeOtherClass Value;
@@ -74,7 +74,7 @@ So, if `obj`'s finalizer is executed before `SomeOtherMethod()` is called, `Some
 
 To solve this problem, add `GC.KeepAlive()` after the call to `SomeOtherMethod()`, like this (line 5):
 
-```c# line=1
+```c# {lineNos=true}
 void MyMethod()
 {
   SomeClass obj = new SomeClass();
