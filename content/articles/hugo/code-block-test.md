@@ -9,11 +9,103 @@ This page lists various code blocks to test Hugo code blocks.
 
 For supported languages and their names, see: <https://gohugo.io/content-management/syntax-highlighting/#list-of-chroma-highlighting-languages>
 
-## Supported Language + Line Highlights
+## Base
 
-### First Line
+```c#
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Runtime.InteropServices;
 
-```c# {hl_lines="1"}
+// By the way, this is a very long line that will cause the code block to get a horizontal scroll bar!!!
+
+namespace PInvokeTest {
+  class Program {
+    static void Main(string[] args) {
+      print_line("Hello, PInvoke!");
+    }
+
+    [DllImport("NativeLib.dll")]
+    private static extern void print_line(string str);
+  }
+}
+```
+
+## Line Highlights
+
+```c# {hl_lines="1 5 7 12 15 16"}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Runtime.InteropServices;
+
+// By the way, this is a very long line that will cause the code block to get a horizontal scroll bar!!!
+
+namespace PInvokeTest {
+  class Program {
+    static void Main(string[] args) {
+      print_line("Hello, PInvoke!");
+    }
+
+    [DllImport("NativeLib.dll")]
+    private static extern void print_line(string str);
+  }
+}
+```
+
+## Everything
+
+### Supported Language
+
+```c# {lineNos=true,hl_lines="5 7 12 15 16"}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Runtime.InteropServices;
+
+// By the way, this is a very long line that will cause the code block to get a horizontal scroll bar!!!
+
+namespace PInvokeTest {
+  class Program {
+    static void Main(string[] args) {
+      print_line("Hello, PInvoke!");
+    }
+
+    [DllImport("NativeLib.dll")]
+    private static extern void print_line(string str);
+  }
+}
+```
+
+### Plain Text
+
+``` {lineNos=true,hl_lines="5 7 12 15 16"}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Runtime.InteropServices;
+
+// By the way, this is a very long line that will cause the code block to get a horizontal scroll bar!!!
+
+namespace PInvokeTest {
+  class Program {
+    static void Main(string[] args) {
+      print_line("Hello, PInvoke!");
+    }
+
+    [DllImport("NativeLib.dll")]
+    private static extern void print_line(string str);
+  }
+}
+```
+
+### Unsupported Language
+
+```looks-like-c#-but-is-not {lineNos=true,hl_lines="5 10 13 14"}
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,62 +124,9 @@ namespace PInvokeTest {
 }
 ```
 
-### Multiple Lines
+## HTML (no line highlights)
 
-```c# {hl_lines="5 10 13 14"}
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Runtime.InteropServices;
-
-namespace PInvokeTest {
-  class Program {
-    static void Main(string[] args) {
-      print_line("Hello, PInvoke!");
-    }
-
-    [DllImport("NativeLib.dll")]
-    private static extern void print_line(string str);
-  }
-}
-```
-
-## Unsupported langue with line highlighting
-
-```looks-like-c#-but-is-not {hl_lines="5 10 13 14"}
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Runtime.InteropServices;
-
-namespace PInvokeTest {
-  class Program {
-    static void Main(string[] args) {
-      print_line("Hello, PInvoke!");
-    }
-
-    [DllImport("NativeLib.dll")]
-    private static extern void print_line(string str);
-  }
-}
-```
-
-```looks-like-html-but-is-not {hl_lines="3 6"}
-<html>
-  <head>
-    <title>Hello, HTML</title>
-  </head>
-  <body>
-    <p>Some text here</p>
-  </body>
-</html>
-```
-
-## HTML
-
-### Highlighted
+### Highlighted HTML
 
 ```html
 <html>
@@ -100,7 +139,7 @@ namespace PInvokeTest {
 </html>
 ```
 
-### Plain
+### Plain Text HTML
 
 ```
 <html>
