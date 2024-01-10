@@ -3,6 +3,7 @@ title: Hugo Code Block Test
 topics:
 - hugo
 - markdown
+- test-page
 ---
 
 This page lists various code blocks to test Hugo code blocks.

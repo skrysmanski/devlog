@@ -20,6 +20,6 @@ module:
 
 See also: [Official Documentation on this feature](https://gohugo.io/hugo-modules/configuration/#module-configuration-mounts)
 
-{{< note >}}
+```note
 Hugo also supports the [`ignoreFiles` directive](https://gohugo.io/getting-started/configuration/#ignore-content-and-data-files-when-rendering) but using the `module` way seems to be preferred.
-{{</ note >}}
+```
