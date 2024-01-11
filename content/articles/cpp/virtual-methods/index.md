@@ -4,16 +4,15 @@ date: 2011-04-18T10:53:00+01:00
 topics:
 - cpp
 - oop
-draft: true
 ---
 
-Last friday I stumbled over a seroius shortcomming of C++ (compared to C# or Java) I'd like to share here with you. It's about ##virtual## methods called from a class constructor.
+Last friday I stumbled over a serious shortcoming of C++ (compared to C# or Java) I'd like to share here with you. It's about ##virtual## methods called from a class constructor.
 
 ## The C# Example
 
 Let me start with an example. Here's some C# code that simply calls a `virtual` method (named `test()`) from the class' constructor:
 
-```"csharp"
+```c#
 class TestBaseClass {
   public TestBaseClass() {
     Console.Write("From base class: ");
@@ -34,7 +33,7 @@ From base class: in base class
 
 Now lets create a sub class of `TestBaseClass` and override the `virtual` method:
 
-```"csharp"
+```c#
 class TestSubClass : TestBaseClass {
   public TestSubClass() {
     Console.Write("From sub class: ");
@@ -56,14 +55,17 @@ From sub class: in sub class
 
 This means that the sub class' implementation of `test()` was executed (and not `TestBaseClass`' implementation) - just as expected.
 
-**Note:** In Java all methods are automatically `virtual`. In contrast to C# or C++ you can't create "non-virtual" methods in Java.
+```note
+In Java all methods are automatically `virtual`. In contrast to C# or C++ you can't create "non-virtual" methods in Java.
+```
 
 ## The C++ Problem
 
 And exactly here is **the problem** in C++. Let's create a C++ version of the two classes above (compiled with Visual C++).
 
 Header file (`TestClass.h`):
-```"cpp"
+
+```c++
 #pragma once
 
 class TestBaseClass {
@@ -85,7 +87,8 @@ protected:
 ```
 
 Source file (`TestClass.cpp`):
-```"cpp"
+
+```c++
 #include "TestClass.h"
 #include <stdio.h>
 
@@ -118,7 +121,7 @@ From sub class: in sub class
 
 Note how the *base class' implementation* of `test()` is used in the base class constructor while the *sub class' implementation* of `test()` is used in the sub class constructor.
 
-The problem here (in constrast to C# or Java) is that the sub class constructor hasn't been executed yet and therefore the "redirection" from `TestBaseClass::test()` to `TestSubClass::test()` hasn't been established yet.
+The problem here (in contrast to C# or Java) is that the sub class constructor hasn't been executed yet and therefore the "redirection" from `TestBaseClass::test()` to `TestSubClass::test()` hasn't been established yet.
 
   **Rule: There is *no way* to call a sub class' implementation of a virtual function in the base class constructor!**
 

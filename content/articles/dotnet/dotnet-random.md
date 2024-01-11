@@ -3,7 +3,7 @@ title: Breaking .NET's Random class
 date: 2016-08-23T18:35:00+01:00
 topics:
 - dotnet
-draft: true
+- algorithms
 ---
 
 Security is hard. In a current project I saw some code that created some access tokens based on a random number generator - .NET's `Random` class. The code used an instance of `Random` stored in `static` field and I got curious:
@@ -31,7 +31,11 @@ public class RandomBreaker
 
     for (int x = 0; x < 10; x++)
     {
-      int predictedRandomValue = PredictNextRandomValue(seedArray, ref inext, ref inextp);
+      int predictedRandomValue = PredictNextRandomValue(
+        seedArray,
+        ref inext,
+        ref inextp
+      );
       int officialRandomValue = random.Next();
 
       if (officialRandomValue == predictedRandomValue)
@@ -45,7 +49,12 @@ public class RandomBreaker
     }
   }
 
-  private static void Prepare(Random random, out int[] seedArray, out int inext, out int inextp)
+  private static void Prepare(
+      Random random,
+      out int[] seedArray,
+      out int inext,
+      out int inextp
+    )
   {
     const int INTERNAL_ARRAY_SIZE = 56;
     const int INEXTP_START = 21;
@@ -62,8 +71,13 @@ public class RandomBreaker
     inextp = INEXTP_START;
   }
 
-  * Implementation mirrors: http:*referencesource.microsoft.com/#mscorlib/system/random.cs,100
-  private static int PredictNextRandomValue(int[] seedArray, ref int inext, ref int inextp)
+  // Implementation mirrors:
+  // http://referencesource.microsoft.com/#mscorlib/system/random.cs,100
+  private static int PredictNextRandomValue(
+      int[] seedArray,
+      ref int inext,
+      ref int inextp
+    )
   {
     const int MBIG =  int.MaxValue;
 
@@ -90,5 +104,6 @@ public class RandomBreaker
 ```
 
 **Notes:**
+
 * To be able to predict the values, one needs to know exactly [how `Random` internally works](http://referencesource.microsoft.com/#mscorlib/system/random.cs). This code was run against .NET Framework 4.5.2. If Microsoft ever decides to change the implementation, the prediction won't work anymore.
 * If `Next(maxValue)` was used instead of `Next()`, the prediction would become much harder as `Next(maxValue)` basically divides the range 0 to `int.MaxValue` into `maxValue` buckets. It then calls `Next()` and checks in which bucket the returned value resides. The number of this bucket is then returned. The "worst" case here is `Next(1)` which will return either 0 or 1. In this case, each value is based on any of 1,000,000,000 numbers - which makes it very hard (but probably not impossible) to find the original value.

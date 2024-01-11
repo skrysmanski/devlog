@@ -5,7 +5,6 @@ topics:
 - dotnet
 - csharp
 - cpp-cli
-draft: true
 ---
 
 The .NET framework features an interface called [IDisposable](http://msdn.microsoft.com/library/system.idisposable.aspx). It basically exists to allow freeing unmanaged resources (think: C++ pointers). In most cases, you won't need `IDisposable` when writing C# code. There are some exceptions though, and it becomes more important when writing C++/CLI code.
@@ -19,6 +18,7 @@ The [help page](http://msdn.microsoft.com/library/system.idisposable.aspx) for `
 Here's the summary of this article for those who don't want to read the actual explanations.
 
 Rules:
+
 * For a class owning *managed* resources, implement `IDisposable` (but not a finalizer).
 * For a class owning at least one *unmanaged* resource, implement both `IDisposable` and a finalizer.
 
@@ -27,7 +27,7 @@ C# code:
 ```c#
 class DataContainer : IDisposable {
   public void Dispose() {
-    Dipose(true);
+    Dispose(true);
     GC.SuppressFinalizer(this);
   }
 
@@ -151,7 +151,6 @@ private:
 ```
 
 *Note:* Although you can declare a finalizer public in C++/CLI, it won't be. So, don't bother with its visibility. (In C# you get a compiler error when specifying anything but private visibility for the finalizer.)
-
 
 ## IDisposable
 
@@ -320,7 +319,7 @@ class DataContainer : IDisposable {
   ...
 
   public void Dispose() {
-    Dipose(true);
+    Dispose(true);
   }
 
   ~DataContainer() {
@@ -356,7 +355,7 @@ In C# the `Dispose()` method changes like this:
 
 ```c# {hl_lines="3"}
   public void Dispose() {
-    Dipose(true);
+    Dispose(true);
     GC.SuppressFinalize(this);
   }
 ```
@@ -431,7 +430,7 @@ There are only two situations when `IDisposable` does need to be implemented:
 * The class owns unmanaged resources.
 * The class owns managed (`IDisposable`) resources.
 
-<b>Rule 2: For a class owning *managed* resources, implement IDisposable (but not a finalizer)</b>
+**Rule 2: For a class owning *managed* resources, implement IDisposable (but not a finalizer)**
 
 This implementation of `IDisposable` should only call `Dispose()` for each owned resource. It should not set anything to `null`.
 

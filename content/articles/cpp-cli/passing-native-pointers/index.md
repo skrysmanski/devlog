@@ -4,10 +4,9 @@ date: 2012-01-09T10:21:00+01:00
 topics:
 - cpp-cli
 - dotnet
-draft: true
 ---
 
-[C++/CLI](cheat-sheet.md) allows you to mix native C++ code with managed .NET code (which is extremly nice). Mixing such code also allows you to create methods in a .NET class that take or return pointers to native (C++) classes. Unfortunately, this doesn't work out of the box across assemblies (read: DLLs). If you define a .NET class in one assembly and this class has a method that returns a pointer, you may not be able to use this method from within *another* C++/CLI assembly.
+[C++/CLI](cheat-sheet.md) allows you to mix native C++ code with managed .NET code (which is extremely nice). Mixing such code also allows you to create methods in a .NET class that take or return pointers to native (C++) classes. Unfortunately, this doesn't work out of the box across assemblies (read: DLLs). If you define a .NET class in one assembly and this class has a method that returns a pointer, you may not be able to use this method from within *another* C++/CLI assembly.
 
 This article describes the problem and shows solutions.
 
@@ -18,7 +17,7 @@ This article describes the problem and shows solutions.
 For those of you that don't want to read the whole article, here's the summary:
 
 * Library providing method with native type:
-  * Native types *outside* a C++/CLI project need to be made public in a C++/CLI project via ` #pragma make_public(Type)`
+  * Native types *outside* a C++/CLI project need to be made public in a C++/CLI project via `#pragma make_public(Type)`
   * Native types *inside* a C++/CLI project need to be made public via keyword `public`.
   * This pragma has to be written in the `.h` file
   * To prevent C3767, include the `.h` file before the pragma (i.e. don't just use a forward declaration).
@@ -29,7 +28,7 @@ For those of you that don't want to read the whole article, here's the summary:
 
 ## Preparation
 
-To illustrate the problem, we first create some projects that we can use as basis. Each project will only contain one or two classes, so nothing fancy here. I'll assume you know how to create projects and how to enable and disable the `/clr` compiler switch to create C++/CLI and pure C++ project respectivly.
+To illustrate the problem, we first create some projects that we can use as basis. Each project will only contain one or two classes, so nothing fancy here. I'll assume you know how to create projects and how to enable and disable the `/clr` compiler switch to create C++/CLI and pure C++ project respectively.
 
 The first project (called "NativeLib") is a pure C++ (no C++/CLI) and DLL project which provides a native (unmanaged) class called `MyNativeClass`. This class is the type that will later be passed across assembly boundaries. Here's the source code (for the meaning of `NATIVE_LIB_EXPORT`, see [](/cpp/project-tutorial/part-1--create-project.md#exporting-classes)):
 
@@ -100,7 +99,7 @@ MyNativeClass* ManagedProvider::getNativeClass() {
 }
 ```
 
-This should be pretty straight forward. Additionaly you need to add the project "NativeLib" to the include and library directories of "ManagedProviderLib".
+This should be pretty straight forward. Additionally you need to add the project "NativeLib" to the include and library directories of "ManagedProviderLib".
 
 Here's the final project structure:
 
@@ -115,7 +114,7 @@ ManagedProviderLib (C++/CLI)
 
 ## The Problem
 
-After we've created our skeletan projects, let's explore the actual problem.
+After we've created our skeleton projects, let's explore the actual problem.
 
 ### What does work
 
@@ -212,7 +211,7 @@ So, even if the native type was exported (via `__declspec(dllexport)`) in the na
 
 ### Native Types From Pure C++ Projects
 
-If the native type is defined in a pure C++ project (or in a framework for which you only have the header files), use ` #pragma make_public(Type)`. You should place it in the `.h` after after including its header. So, our example code for `ManagedProvider.h` changes to this:
+If the native type is defined in a pure C++ project (or in a framework for which you only have the header files), use `#pragma make_public(Type)`. You should place it in the `.h` after after including its header. So, our example code for `ManagedProvider.h` changes to this:
 
 ```c++/cli
 // ManagedProvider.h
@@ -227,8 +226,9 @@ public ref class ManagedProvider {
 ```
 
 *Notes:*
+
 * Using `make_public` in a `.cpp` file instead of an `.h` file may result in the linker error [LNK2022](http://msdn.microsoft.com/de-de/library/zkf0dz41.aspx) (metadata operation failed).
-* The code above swapped the forward declaration (`class MyNativeClass.h`) with the ` #include` statement. This is to be on the safe side. Forward declarations work in some cases, while they don't work in others (resulting again in C3767 compiler errors).
+* The code above swapped the forward declaration (`class MyNativeClass.h`) with the `#include` statement. This is to be on the safe side. Forward declarations work in some cases, while they don't work in others (resulting again in C3767 compiler errors).
 
 Compiling the whole solution now will give you a linker warning [LNK4248](http://msdn.microsoft.com/de-de/library/h8027ys9.aspx) (unresolved typeref token). To fix this, you need to include the type's `.h` file instead of just creating a forward reference. So, our "ExternalTestClass.cpp" changes to this:
 

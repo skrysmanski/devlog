@@ -3,14 +3,13 @@ title: Windows Setup, Boot Manager, And Multiple Disks
 date: 2013-05-17T15:09:00+01:00
 topics:
 - windows
-draft: true
 ---
 
 Although Windows Setup has evolved since the days of Windows 95, it sometimes is still a real pain in the ass.
 
 Today, I spent the whole morning figuring out why Windows Setup always placed the Windows boot manager on a separate drive - and not on the drive I was installing Windows onto.
 
-The "easiest" solution would be to unplug all other drives, install Windows, and then replug all drives. But since I'm a engineer I wanted to find out the real cause of the problem.
+The "easiest" solution would be to unplug all other drives, install Windows, and then re-plug all drives. But since I'm a engineer I wanted to find out the real cause of the problem.
 
 Turns out, the root problem is the BIOS' **boot order** (a.k.a. **boot sequence**). A computer's BIOS has a boot order list which basically defines from which device (hard disk, CD drive) to boot. If the BIOS can't boot from the first device, it tries the second one, and so on.
 

@@ -5,21 +5,20 @@ topics:
 - networking
 - dns
 - mdns
-draft: true
 ---
 
 In a local network (or any other network), it's desirable to be able to find computers by *name* rather than by *ip address*.
 
 So, instead of using:
 
-```
-$ ping 192.168.178.25
+```shell
+ping 192.168.178.25
 ```
 
 one wants to use:
 
-```
-$ ping mycomputer
+```shell
+ping mycomputer
 ```
 
 This mapping task is typically done by a **DNS server**.
@@ -41,8 +40,8 @@ Multicast DNS lets you find computers on your *local* network by name. You just 
 
 So, to ping a computer called **marvin** you'd use:
 
-```
-$ ping marvin.local
+```shell
+ping marvin.local
 ```
 
 ## What Do I Need?

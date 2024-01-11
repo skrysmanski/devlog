@@ -5,12 +5,17 @@ topics:
 - dotnet
 - cpp
 - pinvoke
-draft: true
 ---
 
 P/Invoke tries to make your life easier by automatically converting ("marshalling") data types from managed code to native code and the other way around.
 
 <!--more-->
+
+See also:
+
+* [](part-1--basics.md)
+* [](part-2--passing-strings.md)
+* [](part-4--pinning.md)
 
 ## Marshalling Primitive Data Types
 
@@ -100,7 +105,6 @@ void do_something(MyClass data);
 ```
 
 Of course, you can pass the `struct` also by reference. In this case, use `(MyClass* data)` or `(MyClass& data)` in C/C++ and `(ref MyClass data)` in C#.
-
 
 ## Marshalling Delegates
 

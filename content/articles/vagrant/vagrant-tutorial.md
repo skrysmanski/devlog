@@ -1,12 +1,11 @@
 ---
 title: Vagrant Tutorial - From Nothing To Multi-Machine
-date: 2016-09-29T20:55:00+01:00
+date: 2016-10-02
 topics:
 - vagrant
-draft: true
 ---
 
-As developers, we sometimes want to quickly test some software. Instead of installing it directly on our developer machine, it's better to install it in a virtual machine (VM). But if you don't have a VM ready, setting one up usally takes a lot of time - and there goes your productivity.
+As developers, we sometimes want to quickly test some software. Instead of installing it directly on our developer machine, it's better to install it in a virtual machine (VM). But if you don't have a VM ready, setting one up usually takes a lot of time - and there goes your productivity.
 
 Fortunately, there is a solution: [Vagrant](https://www.vagrantup.com)
 
@@ -22,7 +21,7 @@ At the end of this tutorial, we'll have 3 virtual machines, one called "master" 
 
 The setup we'll be creating is just a foundation you can expand on. It won't do anything meaningful. It's just to get you the infrastructure to do something meaningful.
 
-If you're just interested in the end result, skip ahead to [](#endresult).
+If you're just interested in the end result, skip ahead to [](#end-result).
 
 ## Notes Before We Start
 
@@ -42,7 +41,7 @@ To be able to use Vagrant you need two things: **Vagrant itself and a hyper-viso
 
 You can download Vagrant here:
 
-  https://www.vagrantup.com/downloads.html
+<https://www.vagrantup.com/downloads.html>
 
 As **hyper-visor**, you can choose between VirtualBox, VMWare (Fusion), and Hyper-V.
 
@@ -54,8 +53,8 @@ If you have **VMWare Fusion** installed on your Mac, please note that the VMWare
 
 To verify that Vagrant is installed, type on the command line:
 
-```
-> vagrant -v
+```shell
+$ vagrant -v
 Vagrant 1.8.5
 ```
 
@@ -65,9 +64,9 @@ To start your first VM, first **create an empty directory** somewhere and `cd` i
 
 Then execute the following two commands:
 
-```
-> vagrant init hashicorp/precise64
-> vagrant up
+```shell
+$ vagrant init hashicorp/precise64
+$ vagrant up
 ```
 
 This will start a virtual machine running Ubuntu 12.04 (Precise Pangolin).
@@ -76,16 +75,16 @@ This will start a virtual machine running Ubuntu 12.04 (Precise Pangolin).
 
 To ssh into the VM, call:
 
-```
-> vagrant ssh
+```shell
+$ vagrant ssh
 ```
 
 To get out of the VM, hit `Ctrl + D`.
 
 To stop and delete the whole VM, call:
 
-```
-> vagrant destroy -f
+```shell
+$ vagrant destroy -f
 ```
 
 This will delete the VM and all of its resources (i.e. the virtual hard drive) from your computer.
@@ -116,7 +115,7 @@ When Vagrant creates a VM from a box (base image), it actually creates a **copy*
 
 Vagrant boxes are downloaded by default from HashiCorp's Atlas system. All available boxes can be searched here:
 
-  https://atlas.hashicorp.com/boxes/search
+<https://atlas.hashicorp.com/boxes/search>
 
 For a single, specific operating system there are usually many boxes to choose from. For example, searching for a **Ubuntu 14.04** box returns (among others):
 
@@ -135,7 +134,7 @@ The [Vagrant documentation about official boxes](https:*www.vagrantup.com/docs/b
 
 During my (limited) tests they worked flawlessly and so they're my recommendation, too. We'll use them for rest of the tutorial. You can find them here:
 
-  https://atlas.hashicorp.com/bento
+<https://atlas.hashicorp.com/bento>
 
 **Note:** Unfortunately, the bento boxes don't work with Hyper-V. So if you're using Hyper-V with Vagrant, you have to find a different box.
 
@@ -160,7 +159,7 @@ We can also start multiple VMs with a single `Vagrantfile`. This is called **Mul
 
 The easiest (or most naive) way to create a multi-machine is with a `Vagrantfile` like this:
 
-```lang=ruby
+```ruby
 Vagrant.configure("2") do |config|
   config.vm.define "master" do |subconfig|
     subconfig.vm.box = "bento/ubuntu-16.04"
@@ -180,14 +179,14 @@ This will create 3 VMs (master, node1, node2).
 
 To ssh into any of the VMs, just specify its name. For example, to ssh into `node1`, call:
 
-```
-> vagrant ssh node1
+```shell
+$ vagrant ssh node1
 ```
 
 To destroy all VMs, just call:
 
-```
-> vagrant destroy -f
+```shell
+$ vagrant destroy -f
 ```
 
 This is exactly the same command as for a single VM.
@@ -216,6 +215,7 @@ end
 ```
 
 Here we:
+
 * Moved the box name into a constant (`BOX_IMAGE`).
 * Converted the "nodeX" definitions into a for each loop where `NODE_COUNT` describes the number of nodes to create.
 
@@ -223,7 +223,7 @@ Here we:
 
 The setup in the previous section created 3 VMs. However, up until now these VMs had no way of communicating with each other.
 
-**Important:** Before you do this section, please call `vagrant destory -f`. This makes things easier.
+**Important:** Before you do this section, please call `vagrant destroy -f`. This makes things easier.
 
 To fix this we need three things.
 
@@ -257,7 +257,7 @@ For each VM, we need to add a config like this (where each VM will have a differ
 subconfig.vm.network :private_network, ip: "10.0.0.10"
 ```
 
-## Putting everything together {#endresult}
+## Putting everything together {#end-result}
 
 Putting everything mentioned in the previous section together results in a `Vagrantfile` like this:
 
@@ -294,14 +294,14 @@ end
 
 You can now call `vagrant up` and then ssh into any of the VMs:
 
-```
-> vagrant ssh node1
+```shell
+$ vagrant ssh node1
 ```
 
 From there you can ping any other VM by using their hostname (plus `.local` at the end):
 
-```
-> ping node2.local
+```shell
+$ ping node2.local
 ```
 
 ## Wrap Up
@@ -310,18 +310,19 @@ As you've seen, it just takes a `Vagrantfile` with 22 lines and a call to `vagra
 
 To continue from here, have a look at these resources:
 
-* https://www.vagrantup.com/docs/
-* https://www.vagrantup.com/docs/vagrantfile/
-* https://www.vagrantup.com/docs/multi-machine/
+* <https://www.vagrantup.com/docs/>
+* <https://www.vagrantup.com/docs/vagrantfile/>
+* <https://www.vagrantup.com/docs/multi-machine/>
 
 You can also leave a comment below.
 
-== Changelog ==
+## Changelog
+
 * **2016-10-02**
-** Added note about bento box not being available for Hyper-V
-** Found mention of the Bento boxes in the official Vagrant documentation; changed links to there
+  * Added note about bento box not being available for Hyper-V
+  * Found mention of the bento boxes in the official Vagrant documentation; changed links to there
 * **2016-10-01**
-** Added link to command line replacements on Windows
-** Added ##NODE_COUNT## to ##Vagrantfile##
+  * Added link to command line replacements on Windows
+  * Added `NODE_COUNT` to `Vagrantfile`
 * **2016-09-29**
-** Initial release
+  * Initial release

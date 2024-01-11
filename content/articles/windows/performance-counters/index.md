@@ -4,7 +4,6 @@ date: 2013-11-20T19:35:00+01:00
 topics:
 - windows
 - dotnet
-draft: true
 ---
 
 There are several types of performance counters in Windows. However, I had a hard time of understanding all these types just from their documentation. So I decided to compile some examples for each counter type.
@@ -14,6 +13,7 @@ I also wrote some C# code to demonstrate how to use performance counters. You'll
 <!--more-->
 
 **Notes:**
+
 * You can watch performance counters with the **Performance Monitor** (`perfmon`) that comes with Windows. However, it can't display negative values so some counters can't be monitored properly.
 * I use the .NET names for performance counter types in this article.
 * Categorization of the counter types follows the [official documentation](http://msdn.microsoft.com/EN-US/library/4bcx21aa.aspx).
@@ -52,7 +52,6 @@ The following table lists which base counter type can be used with which parent 
 | `RawBase`          | `RawFraction`
 | `SampleBase`       | `SampleFraction`
 
-
 ## Instantaneous Counters
 
 **Displays:** the most recent measurement
@@ -74,7 +73,6 @@ The following table lists which base counter type can be used with which parent 
 | Displays as  | `(RawFraction / RawBase) * 100`
 | Composite    | yes (base: `RawBase`)
 | Monotonicity | increasing, decreasing, remain static
-
 
 ## Average Counters
 
@@ -124,7 +122,6 @@ I found the information about `CountPerTimeInterval` somewhere on the internet. 
 | Composite    | no
 | Monotonicity | increasing, ~~decreasing~~, remain static
 
-
 ## Rate Counters
 
 **Displays:** rate of item count growth
@@ -137,7 +134,6 @@ I found the information about `CountPerTimeInterval` somewhere on the internet. 
 | Displays as  | average item per second (during the last time frame)
 | Composite    | no
 | Monotonicity | increasing, ~~decreasing~~, remain static
-
 
 ## Percentage (of Time) Counters
 
@@ -153,6 +149,7 @@ I found the information about `CountPerTimeInterval` somewhere on the internet. 
 | Monotonicity | increasing, ~~decreasing~~, remain static
 
 **Notes:**
+
 * `CounterTimerInverse` is like `CounterTimer` but measures how long the component is inactive. So, you'd measure the time from when the component became inactive to the next time it becomes active and increase the counter's value by this amount.
 * For `CounterTimer` and `CounterTimerInverse`, use `Stopwatch.ElapsedTicks` as counter value. For `Timer100Ns` and `Timer100NsInverse`, use `DateTime.Ticks` instead. (Note that these ticks have different lengths, as stated [here](http://msdn.microsoft.com/EN-US/library/2d0zc00w.aspx).)
 
@@ -173,7 +170,6 @@ I found the information about `CountPerTimeInterval` somewhere on the internet. 
 | Displays as  | average ratio in %
 | Composite    | yes (`SampleBase`)
 | Monotonicity | increasing, ~~decreasing~~, remain static
-
 
 ## Difference Counters
 
@@ -204,7 +200,6 @@ Performance Monitor can't display negative values.
 ```note
 I have no clue what start time is chosen for the counter. It's certainly not the time the counter was created. In my example, where I created the counter just a couple of seconds ago, it already had a value of about 27 hours (was even longer than my system up time).
 ```
-
 
 ## Example Code
 

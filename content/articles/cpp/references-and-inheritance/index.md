@@ -4,7 +4,6 @@ date: 2012-02-01T10:23:00+01:00
 topics:
 - cpp
 - oop
-draft: true
 ---
 
 The last few days I've been hunting a bug in a C++ project I've been working on. This hunt again showed me how easily you can break C++ programs by accident (something that isn't possibly in Java or C#). You need to completely understand the inner workings of C++ to avoid such pitfalls.
@@ -142,14 +141,18 @@ Now the compiler will give you a warning:
 * Visual C++: *warning C4172: returning address of local variable or temporary*
 * g++: *warning: returning reference to temporary [enabled by default]*
 
-<strong>Important:</strong> Don't be as stupid as I was and try to "fix" the warning by using my initial implementation of `getReference()`. This warning is there for a reason and the reason is not that the compiler is too dumb to figure out what to do.
+```warn
+**Important:** Don't be as stupid as I was and try to "fix" the warning by using my initial implementation of `getReference()`. This warning is there for a reason and the reason is not that the compiler is too dumb to figure out what to do.
+```
 
 The compiler is telling you here that you're returning a reference to a local variable. This is always a bad thing. The questions now are:
 
 * Why is this a bad thing?
 * Where does the local variable or temporary (variable) come from?
 
-<strong>Note:</strong> You won't get this warning if you change the data type of `g_somePointer` back to `BaseClass*`. So, under some conditions the current implementation of `getReference()` is actually valid.
+```note
+You won't get this warning if you change the data type of `g_somePointer` back to `BaseClass*`. So, under some conditions the current implementation of `getReference()` is actually valid.
+```
 
 ### Why is this a bad thing? (Stack Frames)
 

@@ -4,7 +4,6 @@ date: 2012-10-04T19:41:00+01:00
 topics:
 - dotnet
 - performance
-draft: true
 ---
 
 Just a quick overview over the different lock types and their performance in .NET.

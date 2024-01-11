@@ -3,7 +3,6 @@ title: High Resolution Clock in C#
 date: 2014-07-02T11:47:00+01:00
 topics:
 - dotnet
-draft: true
 ---
 
 Clocks in computers have (among others) the following three properties: *accuracy*, *precision*, and *resolution*.
@@ -60,7 +59,7 @@ According to [MSDN](http://msdn.microsoft.com/EN-US/library/system.datetime.utcn
 
 On Windows 8 (or Windows Server 2012) or higher there's a new API that returns the current time with a much higher resolution:
 
-  [GetSystemTimePreciseAsFileTime()](http://msdn.microsoft.com/en-us/library/windows/desktop/hh706895%28v=vs.85%29.aspx)
+[GetSystemTimePreciseAsFileTime()](http://msdn.microsoft.com/en-us/library/windows/desktop/hh706895%28v=vs.85%29.aspx)
 
 Here's how to use it in C#:
 

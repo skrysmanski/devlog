@@ -5,7 +5,6 @@ topics:
 - dotnet
 - wcf
 - networking
-draft: true
 ---
 
 If you search for WCF tutorials, you'll find a lot of elaborate examples that involve editing several files.
@@ -76,7 +75,6 @@ class ServiceImplementation : IService {
 
 The setting `InstanceContextMode.PerCall` will create a new instance of `ServiceImplementation` for every call. Of course, other settings are possible as well.
 
-
 ## The Server
 
 For the service to be able to respond to request, it needs to be executed in a so called **service host**.
@@ -104,7 +102,7 @@ class Server {
   }
 
   private void Run() {
-    var svh = new ServiceHost(typeof (ServiceImplementation));
+    var svh = new ServiceHost(typeof(ServiceImplementation));
     svh.AddServiceEndpoint(typeof(IService), new NetTcpBinding(), "net.tcp://localhost:8000");
     svh.Open();
 
@@ -121,7 +119,7 @@ class Server {
 
 The important code here is in `Run()`.
 
-First, we create an instance of [ServiceHost](http:*msdn.microsoft.com/library/ms554652.aspx) and pass the service *implementation// to it.
+First, we create an instance of [ServiceHost](http:*msdn.microsoft.com/library/ms554652.aspx) and pass the service *implementation* to it.
 
 Next, we add an endpoint for the host (i.e. where the client will connect to). Here we specified the service *interface* because the service implementation could implement multiple services.
 
@@ -200,7 +198,10 @@ We don't need to change `ServiceImplementation` at all.
 So, next we'll modify `Server.Run()`. Add the following code just after `svh.Open();`
 
 ```c#
-var wsh = new WebServiceHost(typeof(ServiceImplementation), new Uri("http://localhost:8080"));
+var wsh = new WebServiceHost(
+    typeof(ServiceImplementation),
+    new Uri("http://localhost:8080")
+);
 wsh.AddServiceEndpoint(typeof(IService), new WebHttpBinding(), "");
 
 // Define debug properties

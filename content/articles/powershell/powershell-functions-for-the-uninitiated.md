@@ -3,7 +3,6 @@ title: PowerShell functions for the uninitiated (C# developer)
 date: 2013-03-18T13:27:00+01:00
 topics:
 - powershell
-draft: true
 ---
 
 Being a C# developer, I recently found some use for Microsoft's PowerShell (the `cmd` replacement). What's nice about PowerShell is that it has full access to the .NET framework.
@@ -60,40 +59,40 @@ function LongNumericString {
 One would expect that `LongNumericString` returns just a string; but it doesn't. Instead it returns an `object[]` with this contents:
 
 ```
-Capacity           MaxCapacity                        Length
-â€”â€”â€“                â€”â€”â€”â€“                               â€”â€”
-16                 2147483647                         1
-16                 2147483647                         2
-16                 2147483647                         3
-16                 2147483647                         4
-16                 2147483647                         5
-16                 2147483647                         6
-16                 2147483647                         7
-16                 2147483647                         8
-16                 2147483647                         9
-16                 2147483647                        10
-16                 2147483647                        12
-16                 2147483647                        14
-16                 2147483647                        16
-32                 2147483647                        18
-32                 2147483647                        20
-32                 2147483647                        22
-32                 2147483647                        24
-32                 2147483647                        26
-32                 2147483647                        28
-32                 2147483647                        30
+Capacity MaxCapacity Length
+-------- ----------- ------
+      16  2147483647      1
+      16  2147483647      2
+      16  2147483647      3
+      16  2147483647      4
+      16  2147483647      5
+      16  2147483647      6
+      16  2147483647      7
+      16  2147483647      8
+      16  2147483647      9
+      16  2147483647     10
+      16  2147483647     12
+      16  2147483647     14
+      16  2147483647     16
+      32  2147483647     18
+      32  2147483647     20
+      32  2147483647     22
+      32  2147483647     24
+      32  2147483647     26
+      32  2147483647     28
+      32  2147483647     30
 012345678910111213141516171819
 ```
 
 The problem here is that `$strBld.Append` returns a `StringBuilder` object. And since this return value isn't assigned to a variable, PowerShell considers it part of the return value.
 
-To resolve this problem, prefix `$strBld.Append` with `[void]`:
+To resolve this problem, add `| Out-Null` to the `$strBld.Append` line:
 
 ```powershell {hl_lines="4"}
 function LongNumericString {
   $strBld = new-object System.Text.StringBuilder
   for ($i=0; $i -lt 20; $i++) {
-    [void]$strBld.Append($i)
+    $strBld.Append($i) | Out-Null
   }
   return $strBld.ToString()
 }
@@ -135,8 +134,8 @@ $result = PrintAndReturnSomething
 To sum things up:
 
 * PowerShell functions will always return (as `object[]`, if there's more than one return value):
-  * all uncaptured objects (i.e. objects that haven't been assigned to variables)
+  * all non-captured objects (i.e. objects that haven't been assigned to variables)
   * as well as all output (from `echo`/`Write-Output`)
 * Exclude from return value:
-  * Uncaptured objects: prefix with `[void]`
+  * Non-captured objects: prefix with `[void]`
   * Console output: use `Write-Host` instead of `echo`/`Write-Output`

@@ -4,7 +4,6 @@ date: 2013-01-18T11:13:00+01:00
 topics:
 - R
 - graphs
-draft: true
 ---
 
 I recently stumbled over [R](http://www.r-project.org/), a programming language for data analysis. R is open-source and available on all major platforms (Windows, Linux, Mac).
@@ -45,7 +44,7 @@ Sometimes, however, this may not be desired. There are two ways to fix this.
 
 First, you can specify the aspect ratio to be 1 ([cause log scales are for quitters](http://xkcd.com/1162/)). In this case, the x and the y axes will use the same scale:
 
-```
+```r
 curve(x^2, -4, 3, asp=1)
 ```
 
@@ -53,9 +52,9 @@ will give us:
 
 ![Curve x² - same scale on x and y axis](curve3.png)
 
-The other option is to explicitely specify the range for the y axis by using the `ylim` parameter:
+The other option is to explicitly specify the range for the y axis by using the `ylim` parameter:
 
-```
+```r
 curve(x^2, -4, 3, ylim=range(c(-1, 4)))
 ```
 

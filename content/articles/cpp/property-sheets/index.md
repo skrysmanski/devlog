@@ -5,7 +5,6 @@ topics:
 - cpp
 - cpp-cli
 - visual-studio
-draft: true
 ---
 
 Everyone who has ever created and managed a C++ project in Visual Studio knows that there are hundreds of compiler switches and options to choose from. While setting the desired values for one project may be ok, it's quite time-consuming and error-prone to do this for multiple projects. I'm currently working with a solution containing about 30 or so projects that share most of their project settings. I always wished there was a way to sync or share these common settings among the projects in the solution. Fortunately, there is: *property sheets*. They're a bit hidden though, so I'll explain how to use them in this article.
@@ -102,7 +101,6 @@ Now lets swap the `common` sheet with the `Microsoft.Cpp.Win32.user` sheet. This
 
 It's possible to define your own custom variables (like the pre-defined `$(OutDir)` or `$(SolutionDir)`). These variables are called "Macros" in Visual Studio. To define one, open the property sheet editor and go to `User Macros`. There, you can add new macros with the `Add Macro` button. These macros then appear in the `Macros` section that is available when editing free text properties (such as paths).
 
-
 ## Inheriting From Other Property Sheets
 
 Property sheets can inherit their values from other property sheets. You can either specify this inheritance ...
@@ -119,7 +117,6 @@ The XML code for inheritance is:
   <Import Project="commons.props" />
 </ImportGroup>
 ```
-
 
 ## Conditional Properties
 

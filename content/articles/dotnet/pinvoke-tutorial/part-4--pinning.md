@@ -5,7 +5,6 @@ topics:
 - dotnet
 - cpp
 - pinvoke
-draft: true
 ---
 
 Sometimes a C/C++ function needs to store data you pass to it for *later reference*. If such data is a managed object (like a `string` or `class`) you need to make sure that the garbage collector doesn't delete it while it's still used/stored in the native code.
@@ -13,6 +12,12 @@ Sometimes a C/C++ function needs to store data you pass to it for *later referen
 That's what *pinning* is for. It prevents the garbage collector from deleting *and* moving the object.
 
 <!--more-->
+
+See also:
+
+* [](part-1--basics.md)
+* [](part-2--passing-strings.md)
+* [](part-3--passing-parameters.md)
 
 ## Pinning an Object
 
@@ -36,6 +41,7 @@ After unpinning the object it can again be:
 * deleted, if no more references exist to it
 
 *Notes:*
+
 * `Free()` will never be called automatically. If you don't call it manually, the memory of the pinned object will never be freed (i.e. you create a memory leak).
 * You only need to pin *objects* (including strings). You can't pin primitive types (like `int`) and *structs*, as they reside on the stack and are passed by copy. If you try pin a `struct`, a *copy* of the struct will be pinned.
 * Classes and structs must have the attribute `[StructLayout(LayoutKind.Sequential)]` to control the layout of their fields. Otherwise `GCHandle.Alloc()` will throw an `ArgumentException` reading: "Object contains non-primitive or non-blittable data."
@@ -88,7 +94,6 @@ do_something(handle.AddrOfPinnedObject());
 handle.Free();
 ```
 
-
 ## Pinning and Passing Strings {#pinning-strings}
 
 Pinning strings is the same as pinning objects with one exception:
@@ -132,4 +137,4 @@ do_something2(text, handle.AddrOfPinnedObject());
 
 As mentioned in the previous section P/Invoke *may* create a copy of an object instead of passing it by reference directly.
 
-You can easily verify this by comparing the pointer adresses. In C# use `handle.AddrOfPinnedObject().ToString()` to obtain the address of the pinned object.
+You can easily verify this by comparing the pointer addresses. In C# use `handle.AddrOfPinnedObject().ToString()` to obtain the address of the pinned object.

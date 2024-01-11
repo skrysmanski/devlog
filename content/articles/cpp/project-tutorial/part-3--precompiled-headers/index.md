@@ -5,7 +5,6 @@ topics:
 - cpp
 - visual-studio
 - tutorials
-draft: true
 ---
 
 In this part of the "Projects in Visual C++ 2010" mini series another important aspect of C++ programming is explain: *precompiled headers*. Precompiled headers (or precompiled header files) in many cases significantly reduce the time needed to compile a project.

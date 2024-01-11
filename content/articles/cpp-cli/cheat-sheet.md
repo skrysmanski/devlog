@@ -5,7 +5,6 @@ topics:
 - cpp-cli
 - cheat-sheets
 - dotnet
-draft: true
 ---
 
 This article provides a quick comparison between C++/CLI and C#. It's meant for those who know C# (and possibly C++) and will explain which C++/CLI language construct correspond with which in C#. (I don't know Visual Basic so I can't add infos about this here.)
@@ -23,9 +22,10 @@ C++/CLI is the successor of "Managed C++", which felt unnatural to many develope
 **Note:** C++/CLI is currently only available on Windows. At the time of writing (mid 2010) there are no plans in the Mono project to support C++/CLI. Such support would be necessary as a C++/CLI compiler creates mixed code that contains native and managed code. While the managed code could be executed by the Mono runtime the native can't. Therefore a C++/CLI library can't be used on Linux or MacOSX (or any other Mono supported OS).
 
 See also:
-* http://www.codeproject.com/KB/mcpp/cppcliintro01.aspx
-* http://www.codeproject.com/KB/books/CppCliInActionCh1Ex1.aspx
-* http://www.codeproject.com/KB/mcpp/cppcliarrays.aspx
+
+* <http://www.codeproject.com/KB/mcpp/cppcliintro01.aspx>
+* <http://www.codeproject.com/KB/books/CppCliInActionCh1Ex1.aspx>
+* <http://www.codeproject.com/KB/mcpp/cppcliarrays.aspx>
 * [/clr compiler switch on MSDN](http://msdn.microsoft.com/library/k8d11d4s.aspx)
 
 ## Handles
@@ -39,23 +39,22 @@ C++/CLI allows for two reference/pointer types:
 
 The members of *handles* are accessed with the "->" operator (and not with the "." operator).
 
-
 ## CLR types
 
 A type (class, struct) becomes a CLR type when it's being prefixed with a specific keyword.
 
 * **Native types:** `class`, `struct`
 * **Managed types:**
-   ** **C# class:** `ref class`, ~~`ref struct`~~
-   ** **C# struct:** ~~`value class`~~, `value struct`
-   ** **C# interface:** `interface class`, ~~`interface struct`~~
-   ** **C# enum:** `enum class`, `enum struct`
+  * **C# class:** `ref class`, ~~`ref struct`~~
+  * **C# struct:** ~~`value class`~~, `value struct`
+  * **C# interface:** `interface class`, ~~`interface struct`~~
+  * **C# enum:** `enum class`, `enum struct`
 
 *Notes:*
+
 * In C++ `struct` and `class` can be used interchangeably with the difference that all C++ `struct` members are public by default while all C++ `class` members are private by default. To avoid confusion `ref struct`, `value class`, and `interface struct` should not be used. There are therefore stroke-through in the list above. For an `interface class`, however, all members are public automatically.
 * Don't forget to terminate a type declaration (even `class`es and `struct`s) with a semicolon; i.e. use `ref class MyClass { };`. Otherwise you will get compiler errors. (Just mention this here as this is not necessary in C#.)
 * In C++/CLI a CLR type can be used as a handle or directly on the stack, i.e.: `MyCLRType^ myHandleVar` (handle on heap) vs. `MyCLRType myStackVar` (stack)
-
 
 ### Native and managed types on stack and heap
 
@@ -80,7 +79,6 @@ void test() {
   MyManagedTestClass^ managed3 = gcnew MyManagedTestClass();
 }
 ```
-
 
 ### Handles and Value Types (.Net Structs and Enums)
 
@@ -118,20 +116,18 @@ public class MyTestClass {
 }
 ```
 
-
 ### Casting Handles
 
 There are several ways to cast a handle to another type:
 
 * **safe cast:** Casts the handle to the other type, if possible, and throws an exception if the cast isn't possible due to incompatible types. This is identical to a C# type cast. Examples:
-** `(NewType^)myHandle`
-** `safe_cast<NewType^>(myHandle)`
+  * `(NewType^)myHandle`
+  * `safe_cast<NewType^>(myHandle)`
 * **dynamic cast:** Casts the handle to the other type, if possible, and returns `nullptr` if the cast isn't possible due to incompatible types. This is identical to the C# keyword `as` (or `is`, if used in a condition). Examples:
-** `dynamic_cast<NewType^>(myHandle)`
-** `if (dynamic_cast<NewType^>(myHandle) != nullptr) { ... }`
-* **static cast:** This is the equivalent of a C++ type cast; i.e. not type checking is done. Doing an invalid cast on a handle this way will result in undefined behaviour. Can't be used when the compiler option "/clr:safe" is enabled. Example:
-** `static_cast<NewType^>(myHandle)`
-
+  * `dynamic_cast<NewType^>(myHandle)`
+  * `if (dynamic_cast<NewType^>(myHandle) != nullptr) { ... }`
+* **static cast:** This is the equivalent of a C++ type cast; i.e. not type checking is done. Doing an invalid cast on a handle this way will result in undefined behavior. Can't be used when the compiler option "/clr:safe" is enabled. Example:
+  * `static_cast<NewType^>(myHandle)`
 
 ### Passing handles
 
@@ -167,6 +163,7 @@ Console::WriteLine(str);
 This again changes the string. Note the `%` in `ChangeString()`.
 
 **Notes:**
+
 * For the C# keyword `out`, the parameter must also be prefixed with the `[Out]` attribute (from `System::Runtime::InteropServices`). For example: `void ChangeString([Out] String^% str)`
 * Unlike in C# `out` and `ref` don't need to be specified when calling methods using the `%` operator.
 * Handles are type-safe, i.e. you can't cast them to anything aren't.
@@ -203,7 +200,6 @@ int main() {
 }
 ```
 
-
 ### Type Of
 
 To get the type of an object, simply use:
@@ -239,7 +235,7 @@ Visibility modifiers for class/struct members are used as in C++:
     String^ my_public_string;
 ```
 
-Visibility modifiers for classes/structs themself are prefixed before the CLR type keyword (i.e. like used as in C#):
+Visibility modifiers for classes/structs themselves are prefixed before the CLR type keyword (i.e. like used as in C#):
 
 ```c++/cli
 public ref class MyClass { };
@@ -261,7 +257,6 @@ Here's a list of supported modifiers:
 | Members         | `internal`          | `internal`
 | Members         | `public protected`  | `internal protected`
 | Members         | `protected private` | not possible (i.e. you can't define this in C# although it's a valid CLR visibility)
-
 
 ## Modifiers: abstract, sealed, static
 
@@ -328,7 +323,6 @@ Inheritance for CLR types is like you know it from C#. Therefore just some notes
 * "value" types can only inherit interfaces but not classes.
 * "value" types are automatically sealed.
 
-
 ## Arrays
 
 Arrays are defined like this in C++/CLI:
@@ -355,6 +349,7 @@ myArray[5]  // retrieves or sets the 6th array element
 All C++/CLI arrays are direct subclasses of `System::Array`. Thus, the *size of an array* can be obtained through the property `Length`.
 
 More information:
+
 * [General information on C++/CLI arrays](http://msdn.microsoft.com/de-de/library/ts4c4dw6(v=VS.100).aspx)
 * [System::Array members overview](http://msdn.microsoft.com/library/system.array(v=VS.100).aspx)
 
@@ -416,7 +411,7 @@ void MyClass::SomeValue::set(String^ value) {
 }
 ```
 
-Read on: http://www.codeproject.com/KB/mcpp/CppCliProperties.aspx
+Read on: <http://www.codeproject.com/KB/mcpp/CppCliProperties.aspx>
 
 ## Constructors
 
@@ -482,7 +477,6 @@ private:
 };
 ```
 
-
 ### Calling the Destructor
 
 There are two ways of calling the (deterministic) destructor (i.e. `~MyClass()`) in C++/CLI.
@@ -507,7 +501,6 @@ int main() {
   delete myClazz;
 }
 ```
-
 
 ## Events and Delegates
 
@@ -625,7 +618,6 @@ T MyClass::ReturnNull() {
 ```
 
 *Note:* The syntax of `T()` may be misleading. It does **not** create an instance of `T` on the stack and call `T`'s default constructor (as the syntax would suggest). It indeed results in `nullptr`.
-
 
 ## Referencing managed type from other file (in the same project)
 

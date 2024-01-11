@@ -3,7 +3,6 @@ title: SimpleMutex in .NET
 date: 2015-02-05T18:23:00+01:00
 topics:
 - dotnet
-draft: true
 ---
 
 The [Mutex](https://msdn.microsoft.com/library/system.threading.mutex.aspx) class in .NET is a little bit tricky to use.
@@ -71,13 +70,15 @@ You can use it like this:
 ```c#
 using (SimpleMutex.Acquire("MyTestMutex", Timeout.InfiniteTimeSpan))
 {
-    Console.WriteLine("Acquired mutext");
+    Console.WriteLine("Acquired mutex");
     Console.ReadKey();
 }
 
-Console.WriteLine("Released mutext");
+Console.WriteLine("Released mutex");
 ```
 
 If you run your program twice, one will acquire the mutex and the other one will wait - until you press a key in the first one.
 
-**Note:** If you forget to call `Dispose()` on this mutex, the operating system will make sure that the mutex is released when the program terminates. However, the next process trying to acquire this mutex will then get an `AbandonedMutexException` (which is handled properly in `Acquire()` though).
+```note
+If you forget to call `Dispose()` on this mutex, the operating system will make sure that the mutex is released when the program terminates. However, the next process trying to acquire this mutex will then get an `AbandonedMutexException` (which is handled properly in `Acquire()` though).
+```

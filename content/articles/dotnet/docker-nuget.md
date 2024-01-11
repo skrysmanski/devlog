@@ -5,10 +5,9 @@ topics:
 - dotnet
 - nuget
 - docker
-draft: true
 ---
 
-Recently, I wanted to try out the new [.NET Core](https:*www.microsoft.com/net/core) together with a [Docker](https:*www.docker.com/) container. However, coming from programing .NET applications for the regular .NET Framework, there were some obstacles I encountered. This one is about NuGet packages.
+Recently, I wanted to try out the new [.NET Core](https:*www.microsoft.com/net/core) together with a [Docker](https:*www.docker.com/) container. However, coming from programming .NET applications for the regular .NET Framework, there were some obstacles I encountered. This one is about NuGet packages.
 
 <!--more-->
 
@@ -26,7 +25,7 @@ To keep the article brief, I'll just explain the important parts.
 
 You can find the complete source code on my GitHub:
 
-  https://github.com/skrysmanski/dotnetcore-docker
+<https://github.com/skrysmanski/dotnetcore-docker>
 
 Note that you can examine the [commits](https://github.com/skrysmanski/dotnetcore-docker/commits/master) to see how the example evolves like this article.
 
@@ -59,7 +58,7 @@ It just uses .NET Core and the `Newtonsoft.Json` NuGet package as dependency.
 Building the application in Visual Studio is pretty straight forward.
 
 1. Make sure you have installed the [.NET Core Visual Studio Tooling](https://www.microsoft.com/net/core#windows) installed.
-1. Create a new **.NET Core Console Application** project/solution called <nobr>`DockerCoreConsoleTest`</nobr>.
+1. Create a new **.NET Core Console Application** project/solution called `DockerCoreConsoleTest`.
 1. Use NuGet to add `Newtonsoft.Json` to the project.
 1. Copy the code from above into your `Program.cs`
 1. Run the program
@@ -80,7 +79,7 @@ So far, so good. Now lets execute this program in a Docker container.
 
 For this, we'll use the following `Dockerfile`:
 
-```
+```Dockerfile
 FROM microsoft/dotnet:1.0.0-core
 COPY bin/Debug/netcoreapp1.0/ /app/
 WORKDIR /app
@@ -89,13 +88,13 @@ ENTRYPOINT ["dotnet", "DockerCoreConsoleTest.dll"]
 
 Then build the Docker image with:
 
-```
+```shell
 docker build -t dockercoreconsoletest .
 ```
 
 Then run the Docker image with:
 
-```
+```shell
 docker run dockercoreconsoletest
 ```
 
@@ -116,7 +115,7 @@ If you look into `bin\Debug\netcoreapp1.0` you'll find no `Newtonsoft.Json.dll` 
 
 There's a second problem (or more an inconvenience). The `Dockerfile` contains the following line:
 
-```
+```Dockerfile
 COPY bin/Debug/netcoreapp1.0/ /app/
 ```
 
@@ -142,7 +141,7 @@ Now, when running `dotnet publish`, the `Dockerfile` will be copied to the publi
 
 This also means that we can change the `COPY` directive in the `Dockerfile` to:
 
-```
+```Dockerfile
 COPY . /app/
 ```
 
@@ -167,9 +166,9 @@ Two notes one this:
 
 You can now run:
 
-```
-# dotnet publish
-# docker run dockercoreconsoletest
+```shell
+dotnet publish
+docker run dockercoreconsoletest
 ```
 
 This will give you the expected output:
@@ -184,11 +183,11 @@ This is my first shot at Docker and .NET Core. If you find any error or have sug
 
 There's another solution to the problem(s) described in this article. This solution is less "clean", in my opinion, but I thought I mention it anyways.
 
-In the `Dockerfile`, instead of using `microsoft/dotnet:1.0.0-core` as base image, one could use `microsoft/dotnet:latest`. This will give the Docker container access to <nobr>`dotnet build`</nobr> (whereas the `-core` base image just contains `dotnet someapplication.dll`).
+In the `Dockerfile`, instead of using `microsoft/dotnet:1.0.0-core` as base image, one could use `microsoft/dotnet:latest`. This will give the Docker container access to `dotnet build` (whereas the `-core` base image just contains `dotnet someapplication.dll`).
 
 You may then build the .NET Core application from **within** the container with a `Dockerfile` like this:
 
-```
+```Dockerfile
 FROM microsoft/dotnet:latest
 COPY . /app
 WORKDIR /app

@@ -3,7 +3,6 @@ title: C# and GC.KeepAlive()
 date: 2013-08-08T13:40:00+01:00
 topics:
 - dotnet
-draft: true
 ---
 
 Today, while browsing some C++/CLI code, I stumbled upon several calls to `GC.KeepAlive(someObj)`.
@@ -87,10 +86,11 @@ void MyMethod()
 This way, the garbage collector won't collect `obj` (and thus run its finalizer) before line 5 has been reached.
 
 *Notes:*
+
 * The implementation of the finalizer of `SomeClass` is flawed - as the examples in this article show. The user shouldn't need to worry about `Value` being disposed too early.
-** Rule of thumb: A finalizer should only dispose the resources of its *own* class, not resources of some member (by calling `Dispose()` on members).
-** The problem with the finalizer persists if `Value` is an unmanaged resource/pointer that's being passed to `SomeOtherMethod()`. This is always possible in C++/CLI. In C# `Value` could be of type `IntPtr`.
-** In the examples above, consider implementing and using `IDisposable` for `SomeClass` instead of `GC.KeepAlive()`, if you need a finalizer.
-** You still need to use `GC.KeepAlive()` if you can't change the implementation of `SomeClass`.
+  * Rule of thumb: A finalizer should only dispose the resources of its *own* class, not resources of some member (by calling `Dispose()` on members).
+  * The problem with the finalizer persists if `Value` is an unmanaged resource/pointer that's being passed to `SomeOtherMethod()`. This is always possible in C++/CLI. In C# `Value` could be of type `IntPtr`.
+  * In the examples above, consider implementing and using `IDisposable` for `SomeClass` instead of `GC.KeepAlive()`, if you need a finalizer.
+  * You still need to use `GC.KeepAlive()` if you can't change the implementation of `SomeClass`.
 * Using `GC.KeepAlive()` is like using [GCHandle](http://msdn.microsoft.com/library/system.runtime.interopservices.gchandle(v=vs.110).aspx), just more light-weight and faster.
 * `GC.KeepAlive()` only works because it can't be inlined by the compiler (`MethodImplOptions.NoInlining`).

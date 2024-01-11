@@ -4,10 +4,10 @@ date: 2016-09-02T20:47:00+01:00
 topics:
 - ubuntu
 - pxe
-draft: true
 ---
 
 There are a lot of articles out there that explain how to run a [PXE server](wikipedia:Preboot_Execution_Environment). However, I couldn't find a single one that contained *all* the information to setup a PXE server:
+
 * on Ubuntu
 * without replacing the network's existing DHCP server (e.g. provided by a hardware router)
 
@@ -39,13 +39,13 @@ The steps in this article are based on Ubuntu 16.04.
 
 You need the following packages:
 
-```
+```shell
 $ apt-get install dnsmasq pxelinux syslinux-common
 ```
 
 You also need the precompiled memtest binary:
 
-```
+```shell
 $ wget http://www.memtest.org/download/5.01/memtest86+-5.01.bin.gz
 $ gzip -dk memtest86+-5.01.bin.gz
 ```
@@ -54,7 +54,9 @@ Furthermore, you need a working DHCP server (e.g. one provided by a hard router)
 
 The last thing you need is to know the network you're on. My network is `192.168.178.XXX` - so I'll use this in this article. This information is only needed once in a configuration file (see below).
 
-**Warning:** During the course of this article your Ubuntu machine may temporarily lose the ability to do DNS lookups. This is caused by `dnsmasq`. If this happens to you and you need to download anything or access the web, just (temporarily) stop `dnsmasq`.
+```warn
+During the course of this article your Ubuntu machine may temporarily lose the ability to do DNS lookups. This is caused by `dnsmasq`. If this happens to you and you need to download anything or access the web, just (temporarily) stop `dnsmasq`.
+```
 
 ## Step by Step: From Start to Finish
 
@@ -62,19 +64,19 @@ Lets do it then. This section describes all steps need to get a working PXE serv
 
 First, lets stop dnsmasq for now.
 
-```
+```shell
 $ service dnsmasq stop
 ```
 
 Create the directory where all transferable operating system files will reside:
 
-```
+```shell
 $ mkdir -p /var/lib/tftpboot
 ```
 
 Inside of this directory, create a directory for the unzipped memtest binary file and copy it there:
 
-```
+```shell
 $ mkdir -p /var/lib/tftpboot/memtest
 $ cp ~/memtest86+-5.01.bin /var/lib/tftpboot/memtest/memtest86+-5.01
 ```
@@ -83,7 +85,7 @@ $ cp ~/memtest86+-5.01.bin /var/lib/tftpboot/memtest/memtest86+-5.01
 
 Now create the directory for the PXE configuration file:
 
-```
+```shell
 $ mkdir -p /var/lib/tftpboot/pxelinux.cfg
 ```
 
@@ -103,7 +105,7 @@ label memtest86
 
 Next, you need to put the files `pxelinux.0` (Ubuntu package `pxelinux`) and `ldlinux.c32` (Ubuntu package `syslinux-common`) in `/var/lib/tftpboot`. I'll use symlinks for that:
 
-```
+```shell
 $ ln -s /usr/lib/PXELINUX/pxelinux.0 /var/lib/tftpboot/
 $ ln -s /usr/lib/syslinux/modules/bios/ldlinux.c32 /var/lib/tftpboot/
 ```
@@ -142,7 +144,7 @@ This line is necessary because you disabled dnsmasq's DNS functionality above (w
 
 Last step - start `dnsmasq` again:
 
-```
+```shell
 $ service dnsmasq start
 ```
 
@@ -158,7 +160,7 @@ While I was trying to get a PXE server working, I stumbled across some pitfalls 
 
 When starting `dnsmasq` with:
 
-```
+```shell
 $ service dnsmasq start
 ```
 

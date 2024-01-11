@@ -5,7 +5,6 @@ topics:
 - dotnet
 - cpp
 - pinvoke
-draft: true
 ---
 
 P/Invoke is a way of calling C/C++ functions from a .NET program. It's very easy to use. This article will cover the basics of using P/Invoke.
@@ -13,6 +12,12 @@ P/Invoke is a way of calling C/C++ functions from a .NET program. It's very easy
 *Note:* This tutorial will focus on Windows and thus use Visual Studio. If you're developing on another platform or with another IDE, adopting the things in this article should be easy enough.
 
 <!--more-->
+
+See also:
+
+* [](part-2--passing-strings.md)
+* [](part-3--passing-parameters.md)
+* [](part-4--pinning.md)
 
 ## Project Structure
 
@@ -159,4 +164,4 @@ Besides P/Invoke, the other way of integrating C/C++ functions is using C++/CLI.
 
 You can find more information about P/Invoke here:
 
-* http://www.mono-project.com/Interop_with_Native_Libraries
+* <http://www.mono-project.com/Interop_with_Native_Libraries>

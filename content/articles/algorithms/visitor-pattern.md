@@ -5,7 +5,6 @@ topics:
 - algorithms
 - design-patterns
 - oop
-draft: true
 ---
 
 In my last job interview I got a (rather vague) question about traversing a tree and operating on the tree nodes. I think I've a lot of experience in programming but I couldn't figure out the answer on my own. The answer the guy wanted to hear was: **visitor pattern**.
@@ -63,7 +62,6 @@ public class Document {
   private List<DocumentPart> m_parts;
 }
 ```
-
 
 ### Scenario 1: Converting Into HTML
 
@@ -329,7 +327,6 @@ The implementation of the actual document classes remain unchanged.
 
 *Side note:* If you're wondering whether `Accept` is a good name or whether the method should be renamed (e.g. to `Convert`): Check whether operations other than conversions are possible. For example, one could implement a `BoldTextCountVisitor` or a `UrlExtractorVisitor`. If such operations are possible, you should stick with the name `Accept` - as this communicates that the visitor pattern is being used here.
 
-
 ## The Actual Problem Being Solved
 
 If you're not into theory, you can skip this part. It explains the formal problem the visitor pattern solves: something called **double dispatch**.
@@ -520,15 +517,18 @@ The visitor pattern is a relatively complicated pattern.
 **Design goal:** Separate operations from the data structures they work on. As a nice side effect, this allows you to add operations to data structures that you can't change (maybe because you lost the source code for them).
 
 **You need:**
+
 * `IVisitor` (the operation) providing a `Visit()` method for each visitable class; needs to be implemented by every visitor.
 * `IVisitable` providing an `Accept(Visitor)` method; needs to be implemented by every visitable class.
 
 **Issues:**
+
 * Difference to iterator pattern sometimes a little fuzzy.
 * Iteration order can't be controlled.
 * Adding or removing visitables requires you to update all visitors.
 * Visitor implementations may be in conflict with the principle of information hiding.
 
 **Real world examples:**
+
 * Converting a data structure into different output formats. Compilers are a good example for this.
 * Implementing drawing code for some scene graph/map structure on different platforms (e.g. OpenGL vs. DirectX).

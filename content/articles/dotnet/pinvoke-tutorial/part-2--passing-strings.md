@@ -5,7 +5,6 @@ topics:
 - dotnet
 - cpp
 - pinvoke
-draft: true
 ---
 
 In the [previous tutorial](part-1--basics.md) we passed a single string to a native C/C++ function by using P/Invoke.
@@ -28,6 +27,12 @@ However, there exists a hidden pitfall here:
 *What happens when the user passes a **non-ASCII** character to this function?*
 
 <!--more-->
+
+See also:
+
+* [](part-1--basics.md)
+* [](part-3--passing-parameters.md)
+* [](part-4--pinning.md)
 
 ## ASCII and Unicode: A Historical Overview
 
