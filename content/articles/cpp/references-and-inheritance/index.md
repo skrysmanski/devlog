@@ -212,7 +212,9 @@ BaseClass2* basePtr = ptr;
 
 Because of this address change the compiler can't just use `g_somePointer` for `temporary`. It needs to cast the instance first and then store it in some variable (here: `localPointer`). It than creates the reference to this local variable, which is bad as explained in the previous section.
 
-**Side note:** Adding the local variable `someString` to `getReferenceWrapper()` broke the code above because `std::string` is a class that has a destructor. The destructor is "just" a method (function) which is *automatically* called when the object (`someString`) goes out of scope. As I explained in the previous section, calling a function overwrites the call stack above the current function's stack frame (i.e. the green part in the image above), thereby overwriting the memory section containing the address to the base class of `g_somePointer` (to which our reference pointed).
+```note
+Adding the local variable `someString` to `getReferenceWrapper()` broke the code above because `std::string` is a class that has a destructor. The destructor is "just" a method (function) which is *automatically* called when the object (`someString`) goes out of scope. As I explained in the previous section, calling a function overwrites the call stack above the current function's stack frame (i.e. the green part in the image above), thereby overwriting the memory section containing the address to the base class of `g_somePointer` (to which our reference pointed).
+```
 
 ## Working Example
 

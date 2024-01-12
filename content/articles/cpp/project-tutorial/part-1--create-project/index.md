@@ -124,7 +124,9 @@ For this to work, you add the preprocessor definition `COMPILE_MYLIBRARY` to the
 
 ![Preprocessor configuration](preprocessor-definition.png)
 
-*Note:* The keyword `__declspec(...)` is a Microsoft specific extension to C++ (see [here](http:*msdn.microsoft.com/en-us/library/3y1sfaz2.aspx)). So it only works in Visual C++. There is an alternative (more portable?) way to specify which classes/functions are to be exported. For this, a "Module-Definition File" (`.def`) needs to be created. However, creating such a file is more tedious than specifying the export statement directly in the code. For more information, see [this article](http:*www.codeguru.com/cpp/cpp/cpp_mfc/tutorials/article.php/c9855).
+```note
+The keyword `__declspec(...)` is a Microsoft specific extension to C++ (see [here](http:*msdn.microsoft.com/en-us/library/3y1sfaz2.aspx)). So it only works in Visual C++. There is an alternative (more portable?) way to specify which classes/functions are to be exported. For this, a "Module-Definition File" (`.def`) needs to be created. However, creating such a file is more tedious than specifying the export statement directly in the code. For more information, see [this article](http:*www.codeguru.com/cpp/cpp/cpp_mfc/tutorials/article.php/c9855).
+```
 
 Now, when you compile the library project, an additional `.lib` file will be created. This file is used to import the exported classes/functions in another project. (If you don't export anything, the file won't be created.) How to do this, is explained in [part two of this mini series](part-2--project-dependencies.md).
 
@@ -182,7 +184,9 @@ std::string PrintableInt<T>::toString() const
 
 This adds the type parameter `T` to the class. Note that `__declspec(dllimport)` has been commented out to demonstrate the problem.
 
-*Note:* The type parameter `T` serves no purpose in this implementation. It's just there to demonstrate the problem.
+```note
+The type parameter `T` serves no purpose in this implementation. It's just there to demonstrate the problem.
+```
 
 Now, assume another project using the library project like this:
 

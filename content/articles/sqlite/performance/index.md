@@ -39,7 +39,9 @@ There are two kinds of concurrent access:
 
 The first batch of tests simulated read access, the second batch simulated write access, and the third batch simulated both concurrently.
 
-*Note:* In all tests, the CPU was the limiting factor - not the hard drive.
+```note
+In all tests, the CPU was the limiting factor - not the hard drive.
+```
 
 ## Test Parameters
 
@@ -197,7 +199,9 @@ The previous tests clearly showed that enabling WAL improves read as well as wri
 
 Again, enabling WAL results in a significant performance boost.
 
-*Note:* Reading without WAL is extremely slow (under 1000 rows per second for 10 threads or less).
+```note
+Reading without WAL is extremely slow (under 1000 rows per second for 10 threads or less).
+```
 
 ### Test: Shared or multiple connections
 

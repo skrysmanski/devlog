@@ -92,7 +92,9 @@ typedef struct {
 void do_something(MyClass* data);
 ```
 
-*Note:* Obviously the order of the fields in the native struct and the managed class *must be exactly the same*.
+```note
+The order of the fields in the native struct and the managed class *must be exactly the same*.
+```
 
 ## Marshalling Structs
 

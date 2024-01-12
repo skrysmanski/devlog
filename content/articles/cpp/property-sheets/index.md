@@ -9,9 +9,13 @@ topics:
 
 Everyone who has ever created and managed a C++ project in Visual Studio knows that there are hundreds of compiler switches and options to choose from. While setting the desired values for one project may be ok, it's quite time-consuming and error-prone to do this for multiple projects. I'm currently working with a solution containing about 30 or so projects that share most of their project settings. I always wished there was a way to sync or share these common settings among the projects in the solution. Fortunately, there is: *property sheets*. They're a bit hidden though, so I'll explain how to use them in this article.
 
-*Note:* This only applies to C++ and C++/CLI projects. .NET projects (C# and Visual Basic) don't have that many options to be tweaked and (therefore?) can't have shared settings.
+```note
+This only applies to C++ and C++/CLI projects. .NET projects (C# and Visual Basic) don't have that many options to be tweaked and (therefore?) can't have shared settings.
+```
 
-*Note 2:* This article describes property sheets as they appear in Visual Studio 2010. They may work slightly different in other versions of Visual Studio.
+```note
+This article describes property sheets as they appear in Visual Studio 2010. They may work slightly different in other versions of Visual Studio.
+```
 
 <!--more-->
 
@@ -19,7 +23,9 @@ Everyone who has ever created and managed a C++ project in Visual Studio knows t
 
 While property sheets (file extension: `.props`) are simply XML files and therefore could be edited with a simple text editor, Visual Studio also provides an editor for property sheets. This editor is available through the so called Property Manager. To display the Property Manager pane, in the menu go to `View` --> `Other Windows` --> `Property Manager`.
 
-*Note:* Property sheet files share the same XML syntax as `.vcxproj` files.
+```note
+Property sheet files share the same XML syntax as `.vcxproj` files.
+```
 
 ![Property Manager in main menu](property-manager-in-menu.png)
 
@@ -39,13 +45,17 @@ Let's examine the property sheets a bit closer:
 * Property sheets have an order in which they're evaluated. This is important, if two property sheets define a value for the same setting. The order can be seen in the Property Manager and is bottom up. So in the image above, for the "Debug" configuration first `Core Windows Libraries` is evaluated, then `Unicode Support` and so forth. We'll examine the effects of this order a little later.
 * Property sheets belong to a certain configuration (such as "Debug|Win32"). The stack of property sheets defines the value that can be inherited for this specific configuration (i.e. that's what you get when you choose `<inherit from parent or project defaults>` for a value in the project settings).
 
-*Note:* The property sheet `Microsoft.Cpp.Win32.user` is located somewhere in the current user's application settings. It's contents therefore will be different for each user. By keeping it *the top item* in every configuration you allow the user to override any option, if necessary, without needing to change the project file.
+```note
+The property sheet `Microsoft.Cpp.Win32.user` is located somewhere in the current user's application settings. It's contents therefore will be different for each user. By keeping it *the top item* in every configuration you allow the user to override any option, if necessary, without needing to change the project file.
+```
 
 ## Creating a shared property sheet
 
 The first step is to create a new property sheet file. To do this, right-click on the project and choose `Add New Project Property Sheet`. This will add a new property sheet to all configurations of the project. In this article, we'll called the file `commons.props` and place it in a directory called `shared-properties` directly in the solution directory.
 
-*Note:* You can also right-click on a configuration and choose the same menu item. In this case the new property sheet will only be added to the selected configuration. You can, of course, add this property sheet later to the other configurations as well.
+```note
+You can also right-click on a configuration and choose the same menu item. In this case the new property sheet will only be added to the selected configuration. You can, of course, add this property sheet later to the other configurations as well.
+```
 
 As mentioned before, we want to keep the property sheet `Microsoft.Cpp.Win32.user` the top item in every configuration. So, select an instance of the new property sheets and click on the down arrow in the Property Manager's toolbar. Repeat this also for the property sheet(s) in the other configuration(s).
 
@@ -59,7 +69,9 @@ The result then should look like this:
 
 To edit a property sheet (file), simply double-click on it in the Property Manager.
 
-*Note:* The same property sheet file can be listed multiple times in the Property Manager. Editing one "instance" of this file will, of course, update all other "instances" as well (since all "instances" share the same file).
+```note
+The same property sheet file can be listed multiple times in the Property Manager. Editing one "instance" of this file will, of course, update all other "instances" as well (since all "instances" share the same file).
+```
 
 This will pop up a dialog that's very similar to the "Project Settings" dialog of a C++ project. Note that since the property sheet file itself isn't bound to any specified project kind or configuration, the dialog may display more options than are actually available to the project the property sheet is currently associated with.
 
@@ -75,7 +87,9 @@ After clicking on `Apply`, the result should look like this:
 
 Now, again, open the property sheet editor for the `common` property sheet we created earlier. There, set the `Warning Level` to `Level3 (/W3)`. Then click `OK`.
 
-*Note:* You may need to save the property sheet manually. For this, use the `Save` button in the Property Manager's toolbar.
+```note
+You may need to save the property sheet manually. For this, use the `Save` button in the Property Manager's toolbar.
+```
 
 When you now open the project's settings again, you should see that the inherited value (not in bold) of `Warning Level` *changed* from level 1 to level 3.
 
@@ -83,7 +97,9 @@ When you now open the project's settings again, you should see that the inherite
 
 That's the effect of the property sheet. You can define as many settings in a single property sheet file as you want. Then you can add the same property sheet file to multiple project thereby sharing this set of common project settings among all projects.
 
-*Note:* A value of a setting specified in a property sheet is only used in a project, when there isn't a custom value (printed in bold) assigned to this setting in the project settings. To take the value of the property sheet (instead of defining a value in the project file), select `<inherit from parent or project defaults>` from the drop-down menu of this setting.
+```note
+A value of a setting specified in a property sheet is only used in a project, when there isn't a custom value (printed in bold) assigned to this setting in the project settings. To take the value of the property sheet (instead of defining a value in the project file), select `<inherit from parent or project defaults>` from the drop-down menu of this setting.
+```
 
 ## Property Sheet Order
 
@@ -122,7 +138,9 @@ The XML code for inheritance is:
 
 Property sheets can also contain *conditional property values*. This means that the value of a property depends on some other value. Usually, this is used to place values for debug and release builds in the same property sheet file. Unfortunately, you can edit these conditions in Visual Studio's property editor. You need to use a text editor.
 
-*Note:* When you've modified a property sheet outside of Visual Studio, you need to close the solution(s) it belongs to and reopen them afterwards. Otherwise Visual Studio won't detect the changes to the property sheet.
+```note
+When you've modified a property sheet outside of Visual Studio, you need to close the solution(s) it belongs to and reopen them afterwards. Otherwise Visual Studio won't detect the changes to the property sheet.
+```
 
 First, you can define conditions on single properties by using the `Condition` attribute:
 

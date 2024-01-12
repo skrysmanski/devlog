@@ -114,7 +114,9 @@ The question now is: **When gets the unmanaged data deleted?**
 
 Since our class `DataContainer` is a managed class, it is managed by .NET's garbage collector. When the garbage collector determines that our instance of `DataContainer` is no longer needed, the object's *finalizer* is called. So, that's are good point to delete our unmanaged data.
 
-*Note:* Finalizers are also called *non-deterministic* destructors because the developer has no influence over *when* the garbage collector will call the finalizer (once the object went out of scope). For *deterministic* destructors (explained in the next section), on the other hand, the developer has full control when they are called.
+```note
+Finalizers are also called *non-deterministic* destructors because the developer has no influence over *when* the garbage collector will call the finalizer (once the object went out of scope). For *deterministic* destructors (explained in the next section), on the other hand, the developer has full control when they are called.
+```
 
 In C# the finalizer method (internally named `Finalize()`) is created by using C++'s destructor notation (`~DataContainer`):
 
@@ -150,7 +152,9 @@ private:
 };
 ```
 
-*Note:* Although you can declare a finalizer public in C++/CLI, it won't be. So, don't bother with its visibility. (In C# you get a compiler error when specifying anything but private visibility for the finalizer.)
+```note
+Although you can declare a finalizer public in C++/CLI, it won't be. So, don't bother with its visibility. (In C# you get a compiler error when specifying anything but private visibility for the finalizer.)
+```
 
 ## IDisposable
 
@@ -343,7 +347,9 @@ class DataContainer : IDisposable {
 }
 ```
 
-*Note:* The method `Dispose(bool)` is `virtual`. The idea behind this is that child classes can override this method to perform their own disposing. See below for more information. Note also that the C++/CLI compiler automatically creates this method when a class has a destructor. You can't, however, use this method directly. It's only visible from C# (or Visual Basic).
+```note
+The method `Dispose(bool)` is `virtual`. The idea behind this is that child classes can override this method to perform their own disposing. See below for more information. Note also that the C++/CLI compiler automatically creates this method when a class has a destructor. You can't, however, use this method directly. It's only visible from C# (or Visual Basic).
+```
 
 ## SuppressFinalize
 
@@ -402,7 +408,9 @@ The base method is called last to ensure that child classes are disposed before 
   }
 ```
 
-*Note:* Each child class must manage its *own* `m_isDisposed` field.
+```note
+Each child class must manage its *own* `m_isDisposed` field.
+```
 
 In C++/CLI, again, the destructor remains the same. This is because it mimics the C++ destructor's behavior which automatically calls its parent destructor.
 

@@ -9,7 +9,9 @@ topics:
 
 This article provides a quick comparison between C++/CLI and C#. It's meant for those who know C# (and possibly C++) and will explain which C++/CLI language construct correspond with which in C#. (I don't know Visual Basic so I can't add infos about this here.)
 
-**Note:** This is not a complete reference but rather quick reference for those features that are (in my opinion) the most unclear.
+```note
+This is not a complete reference but rather quick reference for those features that are (in my opinion) the most unclear.
+```
 
 <!--more-->
 
@@ -19,7 +21,9 @@ C++/CLI is - as the name suggest - an extension of C++ to allow it to use Micros
 
 C++/CLI is the successor of "Managed C++", which felt unnatural to many developers. However, both "languages" have the same goal: combine native code with managed code.
 
-**Note:** C++/CLI is currently only available on Windows. At the time of writing (mid 2010) there are no plans in the Mono project to support C++/CLI. Such support would be necessary as a C++/CLI compiler creates mixed code that contains native and managed code. While the managed code could be executed by the Mono runtime the native can't. Therefore a C++/CLI library can't be used on Linux or MacOSX (or any other Mono supported OS).
+```note
+C++/CLI is currently only available on Windows. At the time of writing (mid 2010) there are no plans in the Mono project to support C++/CLI. Such support would be necessary as a C++/CLI compiler creates mixed code that contains native and managed code. While the managed code could be executed by the Mono runtime the native can't. Therefore a C++/CLI library can't be used on Linux or MacOSX (or any other Mono supported OS).
+```
 
 See also:
 
@@ -449,7 +453,9 @@ protected:
 
 You only need destructor *and* finalizer when the class hosts some unmanaged data (e.g. a pointer to a C++ class). If you don't have unmanaged data in your class, you neither need destructor nor finalizer (unless you have some members implementing `IDisposable`).
 
-*Note:* The destructor (`Dispose()`) will **not** be called automatically from the finalizer.
+```warn
+The destructor (`Dispose()`) will **not** be called automatically from the finalizer.
+```
 
 Since freeing unmanaged resources should occur in the finalizer (see [](idisposable-and-co.md)), the default implementation pattern for finalizer and destructor looks like this:
 
@@ -563,7 +569,9 @@ Calling an event is identical to calling a delegate:
 this->MyCustomEvent(this, EventArgs::Empty);
 ```
 
-*Note:* Checking the event against `nullptr` isn't required in C++/CLI (unlike C#). That's because the event's `raise()` method automatically checks whether there are actually any event handlers ([source](http://stackoverflow.com/a/2014752/614177)).
+```note
+Checking the event against `nullptr` isn't required in C++/CLI (unlike C#). That's because the event's `raise()` method automatically checks whether there are actually any event handlers ([source](http://stackoverflow.com/a/2014752/614177)).
+```
 
 ## Templates and Generics
 
@@ -617,7 +625,9 @@ T MyClass::ReturnNull() {
 }
 ```
 
-*Note:* The syntax of `T()` may be misleading. It does **not** create an instance of `T` on the stack and call `T`'s default constructor (as the syntax would suggest). It indeed results in `nullptr`.
+```note
+The syntax of `T()` may be misleading. It does **not** create an instance of `T` on the stack and call `T`'s default constructor (as the syntax would suggest). It indeed results in `nullptr`.
+```
 
 ## Referencing managed type from other file (in the same project)
 
