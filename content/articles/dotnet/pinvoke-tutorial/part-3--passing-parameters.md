@@ -24,7 +24,7 @@ Primitive data types (`bool`, `int`, `double`, ...) are the easiest to use. They
 | C# type  | C/C++ type                           | Bytes     | Range
 | -------- | ------------------------------------ | --------- | -----
 | `bool`   | `bool` (with `int` fallback)         | usually 1 | `true` or `false`
-| `char`   | `wchar_t` (or `char` if necessary)   | 2 (1)     | Unicode <abbr title="Basic Multilingual Plane">BMP</abbr>
+| `char`   | `wchar_t` (or `char` if necessary)   | 2 (1)     | Unicode {{< abbr "BMP" "Basic Multilingual Plane" >}}
 | `byte`   | `unsigned char`                      | 1         | 0 to 255
 | `sbyte`  | `char`                               | 1         | -128 to 127
 | `short`  | `short`                              | 2         | -32,768 to 32,767
