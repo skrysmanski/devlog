@@ -223,7 +223,7 @@ Assuming, my code doesn't contain any errors that are affecting the results in a
 
 Regarding shared connection vs. multiple connections:
 
-* If you only have one thread, it doesn't matter (obviously).
+* If you only have one thread, it doesn't matter.
 * If you do primarily reading...
   * ... and the thread count is <= the CPU (core) count: use multiple connections
   * ... and you have more threads than CPUs (cores): use shared connection
