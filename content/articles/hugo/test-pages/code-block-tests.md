@@ -1,5 +1,5 @@
 ---
-title: Hugo Code Block Test
+title: Hugo Code Block Tests
 topics:
 - hugo
 - markdown

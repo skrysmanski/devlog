@@ -1,5 +1,5 @@
 ---
-title: Hugo Info Box Test
+title: Hugo Info Box Tests
 topics:
 - hugo
 - markdown
