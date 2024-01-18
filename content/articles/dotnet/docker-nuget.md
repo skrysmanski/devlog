@@ -179,8 +179,6 @@ This will give you the expected output:
 Hello, Docker and Newtonsoft.Json.JsonConvert!
 ```
 
-This is my first shot at Docker and .NET Core. If you find any error or have suggestions for improvements, please leave them in the comments below.
-
 ## Alternative Solution: Using dotnet:latest as base image
 
 There's another solution to the problem(s) described in this article. This solution is less "clean", in my opinion, but I thought I mention it anyways.

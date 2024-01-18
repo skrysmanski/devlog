@@ -322,8 +322,6 @@ To continue from here, have a look at these resources:
 * <https://www.vagrantup.com/docs/vagrantfile/>
 * <https://www.vagrantup.com/docs/multi-machine/>
 
-You can also leave a comment below.
-
 ## Changelog
 
 * **2016-10-02**

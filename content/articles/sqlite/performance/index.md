@@ -229,6 +229,6 @@ Regarding shared connection vs. multiple connections:
 * If you do primarily writing, use a shared connection.
 * If you do about the same amount of reading and writing, use multiple connections.
 
-I hope this helps. If there's something (terribly) wrong with this analysis, please leave a comment through the discussion link at the top of the page.
+I hope this helps.
 
 Please note that these results are based on a Windows system. Other operating system may produce other results.
