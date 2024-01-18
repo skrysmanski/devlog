@@ -4,7 +4,6 @@ date: 2012-10-01T14:23:00+01:00
 topics:
 - sqlite
 - performance
-draft: true
 ---
 
 I'm currently working on a cross-platform SQLite .NET wrapper. At the moment it's not really thread-safe. So, I was looking for ways of making it thread-safe.
@@ -53,20 +52,20 @@ Each test comprises of a certain combination of the following test parameters:
 * *WAL:* Whether the connection(s) use a database in [WAL (write-ahead logging) journal mode](http://www.sqlite.org/draft/wal.html).
 * *Filled table:* Whether the table to read from is empty or filled (not examined in this report due to missing data; I should mention though that trying to read from an empty table is significant slower than reading from a filled table).
 
-## Batch 1: read tests
+## Batch 1: Read Tests
 
 Let's start with the tests only reading data (i.e. no data is written during these tests). Each thread randomly reads a data row and then obtains all four values stored in it. This is repeated for 30 seconds.
 
 [](select-statements.csv) (file containing data for charts in this section)
 
-### Test: read-only
+### Read Test: read-only
 
 First test is about whether opening a database connection in read-only mode (`SQLITE_OPEN_READONLY`) does result in any performance benefit.
 
-<div style="text-align:center;padding-bottom:1em">
-<span style="color:black">---</span> : read-write
-<span style="color:red">---</span> : read-only
-</div>
+{{< center >}}
+{{< color black >}}—{{</ color >}} : read-write \
+{{< color red >}}—{{</ color >}} : read-only
+{{</ center >}}
 
 ![Read test: read-only vs. read-write (shared connection)](select-sh-con-read-only.png)
 
@@ -74,14 +73,14 @@ First test is about whether opening a database connection in read-only mode (`SQ
 
 As you can see, there's no benefit from choosing a read-only connection over a read-write connection (but it doesn't hurt either).
 
-### Test: shared cache
+### Read Test: shared cache
 
 Next, let's check whether using a shared cache (`SQLITE_OPEN_SHAREDCACHE`) affects read performance.
 
-<div style="text-align:center;padding-bottom:1em">
-<span style="color:black">---</span>, <span style="color:gray">---</span> : no shared cache
-<span style="color:red">---</span>, <span style="color:orange">---</span> : use shared cache
-</div>
+{{< center >}}
+{{< color black >}}—{{</ color >}}, {{< color gray >}}—{{</ color >}} : no shared cache \
+{{< color red >}}—{{</ color >}}, {{< color orange >}}—{{</ color >}} : use shared cache
+{{</ center >}}
 
 ![Read test: shared cache (shared connection)](select-sh-con-shared-cache.png)
 
@@ -89,14 +88,14 @@ Next, let's check whether using a shared cache (`SQLITE_OPEN_SHAREDCACHE`) affec
 
 For a shared connection (first chart) you can clearly see that using a shared cache is never better than using a private cache. The same is true for multiple connection (second chart).
 
-### Test: WAL
+### Read Test: WAL
 
 Next, we test the use of WAL (write-ahead logging). WAL is (suppose to be) bringing a performance benefit for concurrent write operations (which we don't have here).
 
-<div style="text-align:center;padding-bottom:1em">
-<span style="color:black">---</span> : no WAL
-<span style="color:red">---</span>, <span style="color:green">---</span> : use WAL
-</div>
+{{< center >}}
+{{< color black >}}—{{</ color >}} : no WAL \
+{{< color red >}}—{{</ color >}}, {{< color green >}}—{{</ color >}} : use WAL
+{{</ center >}}
 
 ![Read test: write-ahead logging (shared connection)](select-sh-con-wal.png)
 
@@ -104,7 +103,7 @@ Next, we test the use of WAL (write-ahead logging). WAL is (suppose to be) bring
 
 As you can see, with few threads, using WAL for read operations results in a big performance boost (400% for shared connection, 700% for multi connections). However, when using a shared connection and more than 8 threads, WAL doesn't provide any performance benefit anymore (but it also doesn't hurt).
 
-### Summary: read tests
+### Summary: Read Tests
 
 Let's summarize what we've learned so far (for reading operations):
 
@@ -114,61 +113,61 @@ Let's summarize what we've learned so far (for reading operations):
 
 As for the question whether to use a shared connection or multiple connections, see this chart:
 
-<div style="text-align:center;padding-bottom:1em">
-<span style="color:black">---</span> : one shared connection
-<span style="color:red">---</span> : one connection per thread
-</div>
+{{< center >}}
+{{< color black >}}—{{</ color >}} : one shared connection \
+{{< color red >}}—{{</ color >}} : one connection per thread
+{{</ center >}}
 
 ![Read test: shared connection vs. multi connection](select-result.png)
 
 This chart only contains the variations for shared and multi connections with the best performance, i.e. using WAL and no shared cache. As you can see, for very few threads (my guess: thread count <= cpu count), multiple connections perform much better. However, for more threads, a single shared connection is the better choice.
 
-## Batch 2: write tests
+## Batch 2: Write Tests
 
 Next, let's look at write-only tests. With these tests, multiple threads concurrently write to the same database table, inserting random data.
 
 [](insert-statements.csv) (file containing data for charts in this section)
 
-### Test: shared cache
+### Write Test: shared cache
 
 Our first tests checks the performance for when a shared cache is used.
 
-<div style="text-align:center;padding-bottom:1em">
-<span style="color:black">---</span> : private cache
-<span style="color:red">---</span> : shared cache
-</div>
+{{< center >}}
+{{< color black >}}—{{</ color >}} : private cache \
+{{< color red >}}—{{</ color >}} : shared cache
+{{</ center >}}
 
 ![Write test: shared cache](insert-sh-cache.png)
 
 As you can see, there's no real difference between whether a shared cache or a private cache is used.
 
-### Test: WAL
+### Write Test: WAL
 
 Next, let's check WAL (which improved read performance significantly even though it's designed for write operations).
 
-<div style="text-align:center;padding-bottom:1em">
-<span style="color:black">---</span> : no WAL
-<span style="color:red">---</span> : use WAL
-</div>
+{{< center >}}
+{{< color black >}}—{{</ color >}} : no WAL
+{{< color red >}}—{{</ color >}} : use WAL
+{{</ center >}}
 
 ![Write test: write-ahead logging](insert-wal.png)
 
 As expected, using a database in WAL mode drastically improves write performance.
 
-### Test: shared connections
+### Write Test: shared connections
 
 The last thing to tests is whether to use multiple connections or a single shared one.
 
-<div style="text-align:center;padding-bottom:1em">
-<span style="color:black">---</span> : shared connection
-<span style="color:red">---</span> : one connection per thread
-</div>
+{{< center >}}
+{{< color black >}}—{{</ color >}} : shared connection \
+{{< color red >}}—{{</ color >}} : one connection per thread
+{{</ center >}}
 
 ![Write test: shared connection vs. multi connection](insert-sh-con.png)
 
 The results are clear. Using a shared connection always yields better write performance when using multiple threads.
 
-### Summary: write tests
+### Summary: Write Tests
 
 To summarize the previous sections:
 
@@ -178,7 +177,7 @@ To summarize the previous sections:
 
 ![Write test: shared connection vs. multi connection - WAL vs. no WAL](insert-results.png)
 
-## Batch 3: mixed reads and writes test
+## Batch 3: Mixed Reads and Writes Tests
 
 The last batch combines the previous two batches. This time the same number of read and write threads read and write concurrently from/to the same database table.
 
@@ -188,10 +187,10 @@ The last batch combines the previous two batches. This time the same number of r
 
 The previous tests clearly showed that enabling WAL improves read as well as write performance. Let's check whether this is still true for concurrent reads and writes.
 
-<div style="text-align:center;padding-bottom:1em">
-<span style="color:black">---</span> : no WAL
-<span style="color:red">---</span> : use WAL
-</div>
+{{< center >}}
+{{< color black >}}—{{</ color >}} : no WAL \
+{{< color red >}}—{{</ color >}} : use WAL
+{{</ center >}}
 
 ![Read/write test (SELECT): write-ahead logging](mixed-select-wal.png)
 
@@ -230,6 +229,6 @@ Regarding shared connection vs. multiple connections:
 * If you do primarily writing, use a shared connection.
 * If you do about the same amount of reading and writing, use multiple connections.
 
-I hope this helps. If there's something (terribly) wrong with this analysis, please leave a comment below.
+I hope this helps. If there's something (terribly) wrong with this analysis, please leave a comment through the discussion link at the top of the page.
 
 Please note that these results are based on a Windows system. Other operating system may produce other results.
