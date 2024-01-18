@@ -1,18 +1,36 @@
 {
 	"cSpell.language": "en",
 	"cSpell.words": [
+		"blittable",
 		"CJKT",
+		"decompiled",
+		"decompiling",
 		"diffable",
 		"editorconfig",
+		"finalizer",
+		"Finalizers",
 		"fontawesome",
 		"goldmark",
+		"hostnames",
+		"hyperv",
 		"Krysmanski",
+		"Linq",
 		"markdownlint",
+		"Newtonsoft",
 		"pagefind",
+		"parameterless",
+		"routable",
 		"shortcode",
 		"shortcodes",
+		"SLAAC",
+		"stackoverflow",
+		"struct",
+		"Structs",
+		"typeof",
+		"unmanaged",
 		"warnf",
-		"webfonts"
+		"webfonts",
+		"wikicode"
 	],
 
 	"markdownlint.config": {

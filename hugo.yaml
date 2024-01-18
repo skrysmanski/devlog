@@ -40,6 +40,11 @@ params:
   # Number of "recent articles" on the start/home/index page.
   indexPageCount: 50
 
+  # CompactURIs supported by dev-log-theme
+  compactUris:
+    rfc: https://datatracker.ietf.org/doc/html/rfc
+    wikipedia: https://en.wikipedia.org/wiki/
+
   discussions: github
 
   # Links to various social sites.
