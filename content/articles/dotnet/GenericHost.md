@@ -1,5 +1,6 @@
 ---
 title: Generic Host (a.k.a. IHostBuilder) - demystified
+date: 2022-10-03
 topics:
 - dotnet
 - csharp

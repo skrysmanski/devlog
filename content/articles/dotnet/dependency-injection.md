@@ -1,5 +1,6 @@
 ---
 title: Dependency Injection in .NET
+date: 2022-09-19
 topics:
 - dotnet
 - csharp

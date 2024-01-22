@@ -1,5 +1,6 @@
 ---
 title: MSBuild and .csproj Cheat Sheet
+date: 2023-05-16
 topics:
 - msbuild
 - dotnet
