@@ -1,6 +1,6 @@
 ---
 title: C++/CLI Cheat Sheet
-date: 2013-07-31T13:52:00+01:00
+date: 2013-07-31
 topics:
 - cpp-cli
 - cheat-sheets

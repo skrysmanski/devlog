@@ -1,6 +1,6 @@
 ---
 title: C++ references and inheritance
-date: 2012-02-01T10:23:00+01:00
+date: 2012-02-01
 topics:
 - cpp
 - oop

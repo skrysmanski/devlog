@@ -1,6 +1,6 @@
 ---
 title: .NET Serializers Comparison Chart
-date: 2014-10-30T21:15:00+01:00
+date: 2014-10-30
 topics:
 - dotnet
 - serializers

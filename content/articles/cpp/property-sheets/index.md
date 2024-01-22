@@ -1,6 +1,6 @@
 ---
 title: Sharing project properties in Visual C++
-date: 2012-01-11T18:24:00+01:00
+date: 2012-01-11
 topics:
 - cpp
 - cpp-cli

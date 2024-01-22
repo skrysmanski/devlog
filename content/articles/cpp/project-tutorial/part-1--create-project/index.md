@@ -1,6 +1,6 @@
 ---
 title: 'Projects in Visual C++ 2010 - Part 1: Creating a DLL project'
-date: 2011-11-09T10:39:00+01:00
+date: 2011-11-09
 topics:
 - cpp
 - visual-studio

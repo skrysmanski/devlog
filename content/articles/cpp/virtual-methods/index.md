@@ -1,6 +1,6 @@
 ---
 title: C++ and virtual methods (for C# or Java developers)
-date: 2011-04-18T10:53:00+01:00
+date: 2011-04-18
 topics:
 - cpp
 - oop

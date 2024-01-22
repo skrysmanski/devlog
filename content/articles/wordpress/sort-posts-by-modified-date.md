@@ -1,6 +1,6 @@
 ---
 title: Sort posts by modification date in Wordpress
-date: 2013-02-13T11:35:00+01:00
+date: 2013-02-13
 topics:
 - wordpress
 ---

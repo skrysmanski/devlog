@@ -1,6 +1,6 @@
 ---
 title: Rectangle Intersection Test
-date: 2011-05-11T13:44:00+01:00
+date: 2011-05-11
 topics:
 - algorithms
 - wpf

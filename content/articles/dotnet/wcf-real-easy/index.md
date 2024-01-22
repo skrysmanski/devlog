@@ -1,6 +1,6 @@
 ---
 title: 'WCF: Real Easy'
-date: 2013-07-08T22:32:00+01:00
+date: 2013-07-08
 topics:
 - dotnet
 - wcf

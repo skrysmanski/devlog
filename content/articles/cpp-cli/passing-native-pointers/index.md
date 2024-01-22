@@ -1,6 +1,6 @@
 ---
 title: Passing native pointers across C++/CLI assembly boundaries
-date: 2012-01-09T10:21:00+01:00
+date: 2012-01-09
 topics:
 - cpp-cli
 - dotnet

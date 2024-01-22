@@ -1,6 +1,6 @@
 ---
 title: SQLite Performance
-date: 2012-10-01T14:23:00+01:00
+date: 2012-10-01
 topics:
 - sqlite
 - performance

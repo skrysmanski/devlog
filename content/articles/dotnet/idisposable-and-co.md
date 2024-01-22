@@ -1,6 +1,6 @@
 ---
 title: IDisposable, Finalizer, and SuppressFinalize in C# and C++/CLI
-date: 2012-01-16T09:39:00+01:00
+date: 2012-01-16
 topics:
 - dotnet
 - csharp

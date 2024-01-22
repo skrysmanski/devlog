@@ -1,6 +1,6 @@
 ---
 title: Windows Performance Counter Types
-date: 2013-11-20T19:35:00+01:00
+date: 2013-11-20
 topics:
 - windows
 - dotnet

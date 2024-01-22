@@ -1,6 +1,6 @@
 ---
 title: IPv6 Address Primer
-date: 2018-01-01T17:34:00+01:00
+date: 2018-01-01
 topics:
 - ipv6
 - networking

@@ -1,6 +1,6 @@
 ---
 title: Plotting graphs with R
-date: 2013-01-18T11:13:00+01:00
+date: 2013-01-18
 topics:
 - R
 - graphs

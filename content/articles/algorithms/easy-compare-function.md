@@ -1,6 +1,6 @@
 ---
 title: Calculate return value for sort by int
-date: 2013-01-17T13:55:00+01:00
+date: 2013-01-17
 topics:
 - algorithms
 - dotnet

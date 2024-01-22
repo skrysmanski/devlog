@@ -1,6 +1,6 @@
 ---
 title: 'Projects in Visual C++ 2010 - Part 3: Precompiled Headers'
-date: 2011-11-09T13:53:00+01:00
+date: 2011-11-09
 topics:
 - cpp
 - visual-studio

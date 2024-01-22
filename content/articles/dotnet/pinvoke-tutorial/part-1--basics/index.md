@@ -1,6 +1,6 @@
 ---
 title: 'P/Invoke Tutorial: Basics (Part 1)'
-date: 2012-05-29T15:29:00+01:00
+date: 2012-05-29
 topics:
 - dotnet
 - cpp

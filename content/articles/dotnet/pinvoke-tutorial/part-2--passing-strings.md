@@ -1,6 +1,6 @@
 ---
 title: 'P/Invoke Tutorial: Passing strings (Part 2)'
-date: 2012-06-11T10:42:00+01:00
+date: 2012-06-11
 topics:
 - dotnet
 - cpp

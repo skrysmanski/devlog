@@ -1,6 +1,6 @@
 ---
 title: PowerShell functions for the uninitiated (C# developer)
-date: 2013-03-18T13:27:00+01:00
+date: 2013-03-18
 topics:
 - powershell
 ---

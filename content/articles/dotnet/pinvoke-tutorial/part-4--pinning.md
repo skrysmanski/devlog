@@ -1,6 +1,6 @@
 ---
 title: 'P/Invoke Tutorial: Pinning (Part 4)'
-date: 2012-06-11T15:26:00+01:00
+date: 2012-06-11
 topics:
 - dotnet
 - cpp

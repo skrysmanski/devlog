@@ -1,6 +1,6 @@
 ---
 title: High Resolution Clock in C#
-date: 2014-07-02T11:47:00+01:00
+date: 2014-07-02
 topics:
 - dotnet
 ---

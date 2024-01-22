@@ -1,6 +1,6 @@
 ---
 title: Breaking .NET's Random class
-date: 2016-08-23T18:35:00+01:00
+date: 2016-08-23
 topics:
 - dotnet
 - algorithms

@@ -1,6 +1,6 @@
 ---
 title: 'P/Invoke Tutorial: Passing parameters (Part 3)'
-date: 2012-06-11T14:47:00+01:00
+date: 2012-06-11
 topics:
 - dotnet
 - cpp

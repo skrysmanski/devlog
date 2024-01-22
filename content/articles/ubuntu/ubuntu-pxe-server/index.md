@@ -1,6 +1,6 @@
 ---
 title: PXE Server on Existing Network (DHCP Proxy) with Ubuntu
-date: 2016-09-02T20:47:00+01:00
+date: 2016-09-02
 topics:
 - ubuntu
 - pxe

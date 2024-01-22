@@ -1,6 +1,6 @@
 ---
 title: Bash variable inheritances cheat sheet
-date: 2016-10-20T18:05:00+01:00
+date: 2016-10-20
 topics:
 - bash
 - cheat-sheets

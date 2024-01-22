@@ -1,6 +1,6 @@
 ---
 title: .NET Locking Performance
-date: 2012-10-04T19:41:00+01:00
+date: 2012-10-04
 topics:
 - dotnet
 - performance

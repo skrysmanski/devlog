@@ -1,6 +1,6 @@
 ---
 title: Ping/Identify Computers By Name In Local Network
-date: 2014-07-07T20:54:00+01:00
+date: 2014-07-07
 topics:
 - networking
 - dns

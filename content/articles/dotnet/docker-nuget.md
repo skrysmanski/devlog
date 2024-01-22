@@ -1,6 +1,6 @@
 ---
 title: Docker, .NET Core and (NuGet) Dependencies
-date: 2016-08-13T16:00:00+01:00
+date: 2016-08-13
 topics:
 - dotnet
 - nuget

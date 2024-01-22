@@ -1,6 +1,6 @@
 ---
 title: SimpleMutex in .NET
-date: 2015-02-05T18:23:00+01:00
+date: 2015-02-05
 topics:
 - dotnet
 ---

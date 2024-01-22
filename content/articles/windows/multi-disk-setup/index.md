@@ -1,6 +1,6 @@
 ---
 title: Windows Setup, Boot Manager, And Multiple Disks
-date: 2013-05-17T15:09:00+01:00
+date: 2013-05-17
 topics:
 - windows
 ---

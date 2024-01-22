@@ -1,6 +1,6 @@
 ---
 title: C# and GC.KeepAlive()
-date: 2013-08-08T13:40:00+01:00
+date: 2013-08-08
 topics:
 - dotnet
 ---
