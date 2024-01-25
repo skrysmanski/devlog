@@ -1,0 +1,9 @@
+# See: https://www.eff.org/de/deeplinks/2023/12/no-robotstxt-how-ask-chatgpt-and-google-bard-not-use-your-website-training
+# Disallow ChatGPT
+User-agent: GPTBot
+Disallow: /
+
+# Disallow Google Bard
+# See: https://developers.google.com/search/docs/crawling-indexing/overview-google-crawlers?hl=en
+User-agent: Google-Extended
+Disallow: /
