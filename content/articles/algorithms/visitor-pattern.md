@@ -1,6 +1,7 @@
 ---
 title: The Visitor Pattern Explained
 date: 2013-05-06
+oldContentWarning: false
 topics:
 - algorithms
 - design-patterns
