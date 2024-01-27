@@ -10,6 +10,18 @@ This page lists various code blocks to test Hugo code blocks.
 
 For supported languages and their names, see: <https://gohugo.io/content-management/syntax-highlighting/#list-of-chroma-highlighting-languages>
 
+## Unstyled
+
+    $ ping6 fe80::b4:f9f6:e5e9:727e
+    connect: Invalid argument
+    And here we have a very long line with a long URI: https://gohugo.io/content-management/syntax-highlighting/#list-of-chroma-highlighting-languages
+
+```
+$ ping6 fe80::b4:f9f6:e5e9:727e
+connect: Invalid argument
+And here we have a very long line with a long URI: https://gohugo.io/content-management/syntax-highlighting/#list-of-chroma-highlighting-languages
+```
+
 ## Base
 
 ```c#
