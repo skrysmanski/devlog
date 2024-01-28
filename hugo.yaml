@@ -9,7 +9,7 @@ title: "Manski's Dev Log"
 theme: "devlog-theme"
 
 # Required for canonical URLs and the sitemap.
-baseURL: 'https://www.manski.net/'
+baseURL: 'https://manski.net/'
 
 # Enable Emoji support
 # https://gohugo.io/quick-reference/emojis/
