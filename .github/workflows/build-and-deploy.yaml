@@ -23,7 +23,7 @@ on:
 env:
   # Set "DEPLOY_STATE" to "production" if this workflow was triggered by a push to the main branch.
   # Set "DEPLOY_STATE" to "preview" in any other case (i.e. pull requests).
-  DEPLOY_STAGE: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && 'production' || 'preview' }}
+  DEPLOY_STAGE: ${{ (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main' && 'production' || 'preview' }}
 
 # Permissions for GITHUB_TOKEN for this workflow.
 #   See: https://docs.github.com/en/actions/reference/authentication-in-a-workflow#permissions-for-the-github_token
