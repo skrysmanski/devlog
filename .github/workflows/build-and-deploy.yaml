@@ -17,6 +17,8 @@ on:
     branches: [ main ]
   # Trigger the workflow for any pull requests (deploy to preview, if "local" PR; don't deploy if PR from fork).
   pull_request:
+  # Allow manual run of this workflow (https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow)
+  workflow_dispatch:
 
 env:
   # Set "DEPLOY_STATE" to "production" if this workflow was triggered by a push to the main branch.
