@@ -4,6 +4,9 @@ date: 2012-10-01
 topics:
 - sqlite
 - performance
+aliases:
+- /2012/10/01/sqlite-performance/
+- /2012/10/sqlite-performance/
 ---
 
 I'm currently working on a cross-platform SQLite .NET wrapper. At the moment it's not really thread-safe. So, I was looking for ways of making it thread-safe.

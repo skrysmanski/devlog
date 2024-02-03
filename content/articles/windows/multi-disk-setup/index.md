@@ -3,6 +3,9 @@ title: Windows Setup, Boot Manager, And Multiple Disks
 date: 2013-05-17
 topics:
 - windows
+aliases:
+- /2013/05/17/windows-setup-boot-manager-and-multiple-disks/
+- /2013/05/windows-setup-boot-manager-and-multiple-disks/
 ---
 
 Although Windows Setup has evolved since the days of Windows 95, it sometimes is still a real pain in the ass.

@@ -5,6 +5,9 @@ topics:
 - cpp
 - visual-studio
 - tutorials
+aliases:
+- /2011/11/09/project-dependencies-in-visual-c/
+- /2011/11/project-dependencies-in-visual-c/
 ---
 
 This article is the second part of the subprojects mini series. This part will show how to use a DLL library project in another project.

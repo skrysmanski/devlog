@@ -7,6 +7,7 @@ topics:
 - tutorials
 aliases:
 - /2011/11/09/creating-a-dll-project/
+- /2011/11/creating-a-dll-project/
 ---
 
 When you write software, you often/sometimes divide your project into several subprojects. This mini series describes how to do this with Visual C++ 2010 (but this first part also applies to earlier versions). We start with creating a library project in form of a DLL.

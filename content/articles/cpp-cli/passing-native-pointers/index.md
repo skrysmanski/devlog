@@ -4,6 +4,9 @@ date: 2012-01-09
 topics:
 - cpp-cli
 - dotnet
+aliases:
+- /2012/01/09/passing-native-pointers-across-ccli-assembly-boundaries/
+- /2012/01/passing-native-pointers-across-ccli-assembly-boundaries/
 ---
 
 [C++/CLI](cheat-sheet.md) allows you to mix native C++ code with managed .NET code (which is extremely nice). Mixing such code also allows you to create methods in a .NET class that take or return pointers to native (C++) classes. Unfortunately, this doesn't work out of the box across assemblies (read: DLLs). If you define a .NET class in one assembly and this class has a method that returns a pointer, you may not be able to use this method from within *another* C++/CLI assembly.

@@ -3,6 +3,9 @@ title: C# and GC.KeepAlive()
 date: 2013-08-08
 topics:
 - dotnet
+aliases:
+- /2013/08/08/c-and-gc-keepalive/
+- /2013/08/c-and-gc-keepalive/
 ---
 
 Today, while browsing some C++/CLI code, I stumbled upon several calls to `GC.KeepAlive(someObj)`.

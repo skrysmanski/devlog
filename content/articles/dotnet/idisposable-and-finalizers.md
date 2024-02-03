@@ -5,6 +5,9 @@ topics:
 - dotnet
 - csharp
 - cpp-cli
+aliases:
+- /2012/01/16/idisposable-finalizer-and-suppressfinalize/
+- /2012/01/idisposable-finalizer-and-suppressfinalize/
 ---
 
 The .NET framework features an interface called [IDisposable](http://msdn.microsoft.com/library/system.idisposable.aspx). It basically exists to allow freeing unmanaged resources (think: C++ pointers). In most cases, you won't need `IDisposable` when writing C# code. There are some exceptions though, and it becomes more important when writing C++/CLI code.

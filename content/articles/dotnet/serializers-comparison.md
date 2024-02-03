@@ -4,6 +4,9 @@ date: 2014-10-30
 topics:
 - dotnet
 - serializers
+aliases:
+- /2014/10/27/net-serializers-comparison-chart/
+- /2014/10/net-serializers-comparison-chart/
 ---
 
 There are many object serializers in C#/.NET but their details are often not so obvious, for example:

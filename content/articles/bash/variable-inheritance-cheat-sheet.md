@@ -4,6 +4,9 @@ date: 2016-10-20
 topics:
 - bash
 - cheat-sheets
+aliases:
+- /2016/10/20/bash-variable-inheritances-cheat-sheet/
+- /2016/10/bash-variable-inheritances-cheat-sheet/
 ---
 
 Just a quick cheat sheet about how variables get inherited in Bash.

@@ -4,6 +4,9 @@ date: 2016-08-23
 topics:
 - dotnet
 - algorithms
+aliases:
+- /2016/08/23/breaking-nets-random-class/
+- /2016/08/breaking-nets-random-class/
 ---
 
 Security is hard. In a current project I saw some code that created some access tokens based on a random number generator - .NET's `Random` class. The code used an instance of `Random` stored in `static` field and I got curious:

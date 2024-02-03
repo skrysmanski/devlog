@@ -4,6 +4,9 @@ date: 2012-10-04
 topics:
 - dotnet
 - performance
+aliases:
+- /2012/10/04/net-locking-performance/
+- /2012/10/net-locking-performance/
 ---
 
 Just a quick overview over the different lock types and their performance in .NET.

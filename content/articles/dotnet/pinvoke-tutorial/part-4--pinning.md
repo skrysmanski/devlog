@@ -5,6 +5,9 @@ topics:
 - dotnet
 - cpp
 - pinvoke
+aliases:
+- /2012/06/11/pinvoke-tutorial-pinning-part-4/
+- /2012/06/pinvoke-tutorial-pinning-part-4/
 ---
 
 Sometimes a C/C++ function needs to store data you pass to it for *later reference*. If such data is a managed object (like a `string` or `class`) you need to make sure that the garbage collector doesn't delete it while it's still used/stored in the native code.

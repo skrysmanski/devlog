@@ -3,6 +3,9 @@ title: PowerShell functions for the uninitiated (C# developer)
 date: 2013-03-18
 topics:
 - powershell
+aliases:
+- /2013/03/18/powershell-functions-for-the-uninitiated-c-programmer/
+- /2013/03/powershell-functions-for-the-uninitiated-c-programmer/
 ---
 
 Being a C# developer, I recently found some use for Microsoft's PowerShell (the `cmd` replacement). What's nice about PowerShell is that it has full access to the .NET framework.

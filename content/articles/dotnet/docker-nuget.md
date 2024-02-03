@@ -5,6 +5,9 @@ topics:
 - dotnet
 - nuget
 - docker
+aliases:
+- /2016/08/13/docker-dotnet-core-and-nuget-dependencies/
+- /2016/08/docker-dotnet-core-and-nuget-dependencies/
 ---
 
 Recently, I wanted to try out the new [.NET Core](https:*www.microsoft.com/net/core) together with a [Docker](https:*www.docker.com/) container. However, coming from programming .NET applications for the regular .NET Framework, there were some obstacles I encountered. This one is about NuGet packages.

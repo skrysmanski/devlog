@@ -3,6 +3,9 @@ title: Sort posts by modification date in Wordpress
 date: 2013-02-13
 topics:
 - wordpress
+aliases:
+- /2013/02/13/sort-posts-by-modification-date-in-wordpress/
+- /2013/02/sort-posts-by-modification-date-in-wordpress/
 ---
 
 By default, Wordpress sorts blog posts by *creation date*. However, if you update your blog posts from time to time, you may want to sort them by *modification date* rather than creation date.

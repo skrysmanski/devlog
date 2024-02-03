@@ -3,6 +3,9 @@ title: Vagrant Tutorial - From Nothing To Multi-Machine
 date: 2016-10-02
 topics:
 - vagrant
+aliases:
+- /2016/09/29/vagrant-multi-machine-tutorial/
+- /2016/09/vagrant-multi-machine-tutorial/
 ---
 
 As developers, we sometimes want to quickly test some software. Instead of installing it directly on our developer machine, it's better to install it in a virtual machine (VM). But if you don't have a VM ready, setting one up usually takes a lot of time - and there goes your productivity.

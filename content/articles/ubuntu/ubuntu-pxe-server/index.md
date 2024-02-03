@@ -4,6 +4,9 @@ date: 2016-09-02
 topics:
 - ubuntu
 - pxe
+aliases:
+- /2016/09/02/pxe-server-on-existing-network-dhcp-proxy-on-ubuntu/
+- /2016/09/pxe-server-on-existing-network-dhcp-proxy-on-ubuntu/
 ---
 
 There are a lot of articles out there that explain how to run a [PXE server](wikipedia:Preboot_Execution_Environment). However, I couldn't find a single one that contained *all* the information to setup a PXE server:

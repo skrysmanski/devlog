@@ -4,6 +4,9 @@ date: 2011-04-18
 topics:
 - cpp
 - oop
+aliases:
+- /2011/04/18/c-and-virtual-methods-for-c-or-java-programmers/
+- /2011/04/c-and-virtual-methods-for-c-or-java-programmers/
 ---
 
 Last friday I stumbled over a serious shortcoming of C++ (compared to C# or Java) I'd like to share here with you. It's about ##virtual## methods called from a class constructor.

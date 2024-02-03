@@ -3,6 +3,9 @@ title: High Resolution Clock in C#
 date: 2014-07-02
 topics:
 - dotnet
+aliases:
+- /2014/07/02/high-resolution-clock-in-csharp/
+- /2014/07/high-resolution-clock-in-csharp/
 ---
 
 Clocks in computers have (among others) the following three properties: *accuracy*, *precision*, and *resolution*.

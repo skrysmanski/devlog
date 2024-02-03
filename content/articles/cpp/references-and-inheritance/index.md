@@ -4,6 +4,9 @@ date: 2012-02-01
 topics:
 - cpp
 - oop
+aliases:
+- /2012/02/01/cpp-references-and-inheritance/
+- /2012/02/cpp-references-and-inheritance/
 ---
 
 The last few days I've been hunting a bug in a C++ project I've been working on. This hunt again showed me how easily you can break C++ programs by accident (something that isn't possibly in Java or C#). You need to completely understand the inner workings of C++ to avoid such pitfalls.

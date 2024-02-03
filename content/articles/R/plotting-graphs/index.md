@@ -4,6 +4,9 @@ date: 2013-01-18
 topics:
 - R
 - graphs
+aliases:
+- /2013/01/18/plotting-graphs-with-r/
+- /2013/01/plotting-graphs-with-r/
 ---
 
 I recently stumbled over [R](http://www.r-project.org/), a programming language for data analysis. R is open-source and available on all major platforms (Windows, Linux, Mac).

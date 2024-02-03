@@ -5,6 +5,9 @@ topics:
 - networking
 - dns
 - mdns
+aliases:
+- /2014/07/07/pingidentify-computers-by-name-in-local-network/
+- /2014/07/pingidentify-computers-by-name-in-local-network/
 ---
 
 In a local network (or any other network), it's desirable to be able to find computers by *name* rather than by *ip address*.

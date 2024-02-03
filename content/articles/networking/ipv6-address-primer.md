@@ -4,6 +4,9 @@ date: 2018-01-01
 topics:
 - ipv6
 - networking
+aliases:
+- /2018/01/01/ipv6-address-primer/
+- /2018/01/ipv6-address-primer/
 ---
 
 Almost all developers know that IPv6 solves the problem that we're running out of (IPv4) IP addresses - by having "longer" IP addresses. But that's only a part of what IPv6 addresses really mean. So, in this article I'm going to shed some light onto these other parts.

@@ -5,6 +5,9 @@ topics:
 - dotnet
 - cpp
 - pinvoke
+aliases:
+- /2012/06/11/pinvoke-tutorial-passing-strings-part-2/
+- /2012/06/pinvoke-tutorial-passing-strings-part-2/
 ---
 
 In the [previous tutorial](part-1--basics.md) we passed a single string to a native C/C++ function by using P/Invoke.

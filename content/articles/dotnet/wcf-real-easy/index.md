@@ -5,6 +5,9 @@ topics:
 - dotnet
 - wcf
 - networking
+aliases:
+- /2013/07/08/wcf-real-easy/
+- /2013/07/wcf-real-easy/
 ---
 
 If you search for WCF tutorials, you'll find a lot of elaborate examples that involve editing several files.

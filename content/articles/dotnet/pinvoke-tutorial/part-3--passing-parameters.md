@@ -5,6 +5,9 @@ topics:
 - dotnet
 - cpp
 - pinvoke
+aliases:
+- /2012/06/11/pinvoke-tutorial-passing-parameters-part-3/
+- /2012/06/pinvoke-tutorial-passing-parameters-part-3/
 ---
 
 P/Invoke tries to make your life easier by automatically converting ("marshalling") data types from managed code to native code and the other way around.
