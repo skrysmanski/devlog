@@ -460,7 +460,7 @@ You only need destructor *and* finalizer when the class hosts some unmanaged dat
 The destructor (`Dispose()`) will **not** be called automatically from the finalizer.
 ```
 
-Since freeing unmanaged resources should occur in the finalizer (see [](idisposable-and-co.md)), the default implementation pattern for finalizer and destructor looks like this:
+Since freeing unmanaged resources should occur in the finalizer (see [](idisposable-and-finalizers.md)), the default implementation pattern for finalizer and destructor looks like this:
 
 ```c++/cli
 ref class DataContainer {
