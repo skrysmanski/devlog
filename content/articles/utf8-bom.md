@@ -4,6 +4,7 @@ date: 2020-03-22
 oldContentWarning: false
 topics:
 - unicode
+- file-format
 ---
 
 When it comes to text file encoding, it usually boils down to two options:
