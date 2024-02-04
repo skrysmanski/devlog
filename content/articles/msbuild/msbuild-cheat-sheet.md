@@ -49,6 +49,38 @@ Imports `Project.Shared.props` from any parent folder:
 <Import Project="$([MSBuild]::GetPathOfFileAbove('Project.Shared.props', '$(MSBuildThisFileDirectory)'))" />
 ```
 
+## List items from ItemGroup
+
+To list all items in an `<ItemGroup>`, use:
+
+```xml
+<ItemGroup>
+  <TestAssemblies Include="**\*tests.dll" />
+</ItemGroup>
+
+<Message Importance="High" Text="Found @(TestAssemblies->Count()) test assemblies:" />
+<Message Importance="High" Text=" * %(TestAssemblies.FullPath)" />
+```
+
+## Remove items from ItemGroup
+
+To remove items from an `<ItemGroup>` (here from `<ItemsToCopy>`), use:
+
+```xml
+<ItemGroup>
+  <ItemsToCopy Remove="**\*.nuget.g.targets" />
+  <ItemsToCopy Remove="**\*.nuget.g.props" />
+</ItemGroup>
+```
+
+or even:
+
+```xml
+<ItemGroup>
+  <ItemsToCopy Remove="*" />
+</ItemGroup>
+```
+
 ## Common MSBuild Properties
 
 For a full list, see:
@@ -59,7 +91,8 @@ For a full list, see:
 
 * `$(MSBuildThisFileDirectory)`: The directory of the current file (.csproj, .targets, .props, ...)
 
-* `$(OutputPath)`: The relative output path (e.g. `bin\Debug`) - same as `$(OutDir)`
+* `$(OutputPath)`: The *relative* output path (e.g. `bin\Debug`) - same as `$(OutDir)`
+* `$(TargetDir)`: The *fully qualified* path of the output directory `$(OutputPath)`.
 * `$(TargetPath)`: The fully qualified path to the output file.
 * `$(TargetName)`: The name of the target file without file extension (and without path).
 * `$(TargetFileName)`: The name of the target file with file extension (but without path).
