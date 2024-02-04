@@ -35,7 +35,7 @@ permissions:
 # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#concurrency
 concurrency:
   # Makes this workflow part of the "deploy" concurrency group. (Note that this text can be chosen arbitrarily.)
-  group: deploy-${{ DEPLOY_STAGE }}
+  group: deploy-${{ env.DEPLOY_STAGE }}
   cancel-in-progress: false
 
 # NOTE: Jobs run in parallel by default.
