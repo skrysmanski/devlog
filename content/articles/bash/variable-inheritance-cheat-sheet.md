@@ -3,7 +3,7 @@ title: Bash variable inheritances cheat sheet
 date: 2016-10-20
 topics:
 - bash
-- cheat-sheets
+- cheat-sheet
 aliases:
 - /2016/10/20/bash-variable-inheritances-cheat-sheet/
 - /2016/10/bash-variable-inheritances-cheat-sheet/

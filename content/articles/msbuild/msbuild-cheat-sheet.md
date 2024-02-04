@@ -4,7 +4,7 @@ date: 2023-05-16
 topics:
 - msbuild
 - dotnet
-- cheat-sheets
+- cheat-sheet
 ---
 
 ## Project Types
