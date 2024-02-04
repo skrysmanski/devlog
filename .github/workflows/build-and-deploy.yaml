@@ -78,7 +78,7 @@ jobs:
         run: hugo --destination ./public/ --printPathWarnings --logLevel info --panicOnWarning --buildDrafts --baseURL 'https://preview.manski.net'
         env:
           # Disable search engine crawling for the preview stage.
-          HUGO_PARAMS_robots: 'noindex'
+          HUGO_PARAMS_robots: 'noindex,nofollow'
 
       - name: Build site (production)
         if: ${{ env.DEPLOY_STAGE == 'production' }}
