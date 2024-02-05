@@ -22,7 +22,10 @@ enableGitInfo: true
 disableKinds: [ 'RSS' ]
 
 params:
-  description: On this site I write down things I find interesting and/or want to remember - mostly software development topics I've explored over time. Hopefully, some may even be interesting or helpful to you.
+  description: >
+    Hi. I'm Sebastian, software developer from Europe. On this site I write about topics that I've explored over time and want to remember -
+    mostly related to software development. And hopefully, some of them may be interesting or helpful to you.
+
   author: "Sebastian Krysmanski"
   avatar: "/avatar.jpg"
 
