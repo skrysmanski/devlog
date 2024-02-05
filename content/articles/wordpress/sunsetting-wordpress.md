@@ -39,7 +39,7 @@ Motivation is one reason for this - but there's also the time it takes to fix, u
 
 I could leave the plugins as they are (although GitHub reminds me once per week that there are some security issues in my plugins) - but I want to manage expectations here:
 
-By removing my plugins from WordPress' plugin repository, it make it clear to any user of my plugins that there will be **no more updates** for them.
+By removing my plugins from WordPress' plugin directory, it make it clear to any user of my plugins that there will be **no more updates** for them.
 
 I will archive the GitHub repositories of all my plugins - so if you want to continue using them, you can fork the repositories and adopt them for your needs:
 
