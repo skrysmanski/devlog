@@ -1,6 +1,6 @@
 ---
 title: Sunsetting WordPress
-date: 2024-02-04
+date: 2024-02-05
 topics:
 - wordpress
 ---
