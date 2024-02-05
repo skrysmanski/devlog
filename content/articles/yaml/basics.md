@@ -96,7 +96,7 @@ Single quotes are useful for forcing a string when the first characters would ha
 In **literal** style (`|`), newlines are preserved.
 
 ```yaml
-|
+description: |
   \//||\/||
   // ||  ||__
 ```
@@ -111,7 +111,7 @@ becomes:
 In **folded** style (`>`), newlines are replaced with spaces - unless it ends an empty or a more-indented line.
 
 ```yaml
->
+description: >
   Mark McGwire's
   year was crippled
   by a knee injury.
@@ -122,7 +122,7 @@ becomes:
     Mark McGwire's year was crippled by a knee injury.
 
 ```yaml
->
+description: >
   Sammy Sosa completed another
   fine season with great stats.
 
