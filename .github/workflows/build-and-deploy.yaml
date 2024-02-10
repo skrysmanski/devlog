@@ -68,6 +68,12 @@ jobs:
           # IMPORTANT: Fetch the whole history. This is how Hugo determines the (publish) dates for the articles!!!
           fetch-depth: 0
 
+      # This creates ${{ steps.short-sha.outputs.sha }} to be used below.
+      # See: https://github.com/marketplace/actions/short-sha
+      - name: Provide short commit hash to workflow
+        id: short-sha
+        uses: benjlevesque/short-sha@v3.0
+
       - name: Download node modules
         run: npm install
         working-directory: themes/devlog-theme/assets
@@ -87,6 +93,26 @@ jobs:
       - name: Build search index
         run: npx pagefind --site "../../../public"
         working-directory: themes/devlog-theme/assets
+
+      #
+      # Store generated files in a zip file in the workflow itself. This way outputs between two workflow runs can be compared,
+      # if necessary.
+      #
+      # NOTE: Artifacts are retained only up to 90 days at the moment. See: https://github.com/orgs/community/discussions/107115
+      #
+      # See: https://github.com/actions/upload-artifact
+      - name: Add generated files to workflow run
+        uses: actions/upload-artifact@v4
+        with:
+          # To make the artifacts easier to differentiate (i.e. when downloading them from different runs),
+          # we'll add the workflow run number to the name (this is the same number that's also shown in the
+          # GitHub UI - like 27 for run #27).
+          #
+          # NOTE: We also add some context information (like the commit SHA) to the file name to make it easier
+          #   to identify what this artifact represents.
+          name: 'generated-files_#${{ github.run_number }}_sha-${{ steps.short-sha.outputs.sha }}'
+          path: ./public/
+          if-no-files-found: error
 
       # See: https://github.com/marketplace/actions/ftp-deploy
       - name: Deploy site
