@@ -94,6 +94,10 @@ jobs:
         run: npx pagefind --site "../../../public"
         working-directory: themes/devlog-theme/assets
 
+      - name: Determine Hugo version
+        id: hugo-version
+        run: hugo version | sed -r 's/hugo v([0-9.]+).*/version=\1/' >> $GITHUB_OUTPUT
+
       #
       # Store generated files in a zip file in the workflow itself. This way outputs between two workflow runs can be compared,
       # if necessary.
@@ -110,7 +114,7 @@ jobs:
           #
           # NOTE: We also add some context information (like the commit SHA) to the file name to make it easier
           #   to identify what this artifact represents.
-          name: 'generated-files_#${{ github.run_number }}_sha-${{ steps.short-sha.outputs.sha }}'
+          name: 'generated-files_#${{ github.run_number }}_sha-${{ steps.short-sha.outputs.sha }}_hugo-${{ steps.hugo-version.outputs.version }}'
           path: ./public/
           if-no-files-found: error
 
