@@ -94,7 +94,7 @@ jobs:
 
       - name: Build search index
         run: npx pagefind --site "../../../public"
-        working-directory: themes/devlog-theme/assets
+        working-directory: themes/devlog-theme/_utils
 
       # This creates ${{ steps.short-sha.outputs.sha }} to be used below.
       # See: https://github.com/marketplace/actions/short-sha
