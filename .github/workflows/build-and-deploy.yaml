@@ -68,9 +68,13 @@ jobs:
           # IMPORTANT: Fetch the whole history. This is how Hugo determines the (publish) dates for the articles!!!
           fetch-depth: 0
 
-      - name: Download node modules
+      - name: Download node modules (assets)
         run: npm install
         working-directory: themes/devlog-theme/assets
+
+      - name: Download node modules (utils)
+        run: npm install
+        working-directory: themes/devlog-theme/_utils
 
       - name: Build site (preview)
         if: ${{ env.DEPLOY_STAGE == 'preview' }}
@@ -82,7 +86,11 @@ jobs:
 
       - name: Build site (production)
         if: ${{ env.DEPLOY_STAGE == 'production' }}
-        run: hugo --destination ./public/ --printPathWarnings --logLevel info --panicOnWarning --minify
+        run: hugo --destination ./public/ --printPathWarnings --logLevel info --panicOnWarning
+
+      - name: Beautify output
+        run: node beautify.js "../../../public"
+        working-directory: themes/devlog-theme/_utils
 
       - name: Build search index
         run: npx pagefind --site "../../../public"
