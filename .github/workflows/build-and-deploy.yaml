@@ -68,6 +68,12 @@ jobs:
           # IMPORTANT: Fetch the whole history. This is how Hugo determines the (publish) dates for the articles!!!
           fetch-depth: 0
 
+      # Use this to dump the complete "github" context for the build log.
+      # - name: Dump GitHub context
+      #   env:
+      #     GITHUB_CONTEXT: ${{ toJson(github) }}
+      #   run: echo "$GITHUB_CONTEXT"
+
       - name: Download node modules (assets)
         run: npm install
         working-directory: themes/devlog-theme/assets
