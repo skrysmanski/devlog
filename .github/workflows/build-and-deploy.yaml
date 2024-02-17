@@ -130,7 +130,7 @@ jobs:
           #
           # NOTE: We also add some context information (like the commit SHA) to the file name to make it easier
           #   to identify what this artifact represents.
-          name: 'generated-files_#${{ github.run_number }}_sha-${{ steps.short-sha.outputs.sha }}_hugo-${{ steps.hugo-version.outputs.version }}'
+          name: 'generated-files__${{ env.DEPLOY_STAGE }}__#${{ github.run_number }}-${{ steps.short-sha.outputs.sha }}__hugo-v${{ steps.hugo-version.outputs.version }}'
           path: ./public/
           if-no-files-found: error
 
