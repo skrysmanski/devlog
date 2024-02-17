@@ -89,6 +89,8 @@ jobs:
         env:
           # Disable search engine crawling for the preview stage.
           HUGO_PARAMS_robots: 'noindex,nofollow'
+          # For pull requests, the git branch name can't be determined by reading ".git/HEAD". So we have to specify it here explicitly.
+          HUGO_PARAMS_gitBranch: ${{ github.head_ref }}
 
       - name: Build site (production)
         if: ${{ env.DEPLOY_STAGE == 'production' }}
