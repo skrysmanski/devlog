@@ -49,9 +49,22 @@ jobs:
     # See: https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
     runs-on: ubuntu-latest
 
+    # Use this to pin the Hugo version, if necessary.
+    env:
+      HUGO_VERSION: 0.122.0
+
     steps:
-      - name: Install Hugo CLI
+      - name: Install Hugo CLI (latest)
+        if: ${{ !env.HUGO_VERSION }}
         run: sudo snap install hugo
+
+      - name: Install Hugo CLI (specific)
+        if: ${{ env.HUGO_VERSION }}
+        # NOTE: "snap" doesn't support installing old versions, if they're not provided by the package authors.
+        #   This snippet is taken from: https://gohugo.io/hosting-and-deployment/hosting-on-github/
+        run: |
+          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb
+          sudo dpkg -i ${{ runner.temp }}/hugo.deb
 
       # See: https://github.com/actions/setup-node
       - name: Setup NodeJS environment
