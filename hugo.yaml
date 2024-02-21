@@ -21,6 +21,12 @@ enableGitInfo: true
 # We don't need static RSS files to be generated.
 disableKinds: [ 'RSS' ]
 
+# Don't auto capitalize ".Term.Title" as this breaks our topic name cleanup code
+# (which assumes all lower case topic names if no explicit title has been provided).
+# NOTE: This not only affects term titles but all kind of titles (it basically leaves them as is; see uses of "auto-title.html").
+# https://gohugo.io/getting-started/configuration/#capitalizelisttitles
+capitalizeListTitles: false
+
 params:
   description: >
     Hi. I'm Sebastian, software developer from Europe. On this site I write about topics that I've explored over time and want to remember -
