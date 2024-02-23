@@ -8,7 +8,7 @@ topics:
 
 This page lists various code blocks to test Hugo code blocks.
 
-For supported languages and their names, see: <https://gohugo.io/content-management/syntax-highlighting/#list-of-chroma-highlighting-languages>
+For supported languages and their names, see: <https://github.com/highlightjs/highlight.js/blob/main/SUPPORTED_LANGUAGES.md>
 
 ## Unstyled
 
@@ -48,7 +48,7 @@ namespace PInvokeTest {
 
 ## Line Highlights
 
-```c# {hl_lines="1 6 8 13 16 17"}
+```c# {hl_lines="1-3;6 8,13 16 17"}
 // This is a very long line that will intersect with the language text and copy button if we're not careful.
 using System;
 using System.Collections.Generic;
