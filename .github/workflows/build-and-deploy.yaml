@@ -56,6 +56,10 @@ jobs:
       #   can be updated with a pull request where I can test the new version.
       HUGO_VERSION: 0.122.0
 
+      # The directory in which Hugo stores the generated site.
+      # NOTE: '${{ runner.temp }}' isn't available here so we have to use '${{ github.workspace }}'.
+      PUBLISH_DIR: '${{ github.workspace }}/public/'
+
     steps:
       - name: Install Hugo CLI
         # This snippet is taken from: https://gohugo.io/hosting-and-deployment/hosting-on-github/
@@ -98,7 +102,7 @@ jobs:
       - name: Build site (preview)
         if: ${{ env.DEPLOY_STAGE == 'preview' }}
         # NOTE: We don't use "--minify" here so that the output remains better readable/diffable.
-        run: hugo --destination ./public/ --printPathWarnings --logLevel info --panicOnWarning --buildDrafts --baseURL 'https://preview.manski.net'
+        run: hugo --destination '${{ env.PUBLISH_DIR }}' --printPathWarnings --logLevel info --panicOnWarning --buildDrafts --baseURL 'https://preview.manski.net'
         env:
           # Disable search engine crawling for the preview stage.
           HUGO_PARAMS_robots: 'noindex,nofollow'
@@ -107,14 +111,14 @@ jobs:
 
       - name: Build site (production)
         if: ${{ env.DEPLOY_STAGE == 'production' }}
-        run: hugo --destination ./public/ --printPathWarnings --logLevel info --panicOnWarning
+        run: hugo --destination '${{ env.PUBLISH_DIR }}' --printPathWarnings --logLevel info --panicOnWarning
 
       - name: Beautify output
-        run: node beautify.js "../../../public"
+        run: node beautify.js '${{ env.PUBLISH_DIR }}'
         working-directory: themes/devlog-theme/_utils
 
       - name: Build search index
-        run: npx pagefind --site "../../../public"
+        run: npx pagefind --site '${{ env.PUBLISH_DIR }}'
         working-directory: themes/devlog-theme/_utils
 
       # This creates ${{ steps.short-sha.outputs.sha }} to be used below.
@@ -144,7 +148,7 @@ jobs:
           # NOTE: We also add some context information (like the commit SHA) to the file name to make it easier
           #   to identify what this artifact represents.
           name: 'generated-files__${{ env.DEPLOY_STAGE }}__#${{ github.run_number }}-${{ steps.short-sha.outputs.sha }}__hugo-v${{ steps.hugo-version.outputs.version }}'
-          path: ./public/
+          path: '${{ env.PUBLISH_DIR }}'
           if-no-files-found: error
 
       # See: https://github.com/marketplace/actions/ftp-deploy
@@ -171,7 +175,7 @@ jobs:
           #log-level: verbose
 
           # NOTE: This action actually compares file hashes to determine if a file needs to be uploaded.
-          local-dir: ./public/
+          local-dir: '${{ env.PUBLISH_DIR }}'
           server-dir: ./www_${{ env.DEPLOY_STAGE }}/
           state-name: ../sync-state-${{ env.DEPLOY_STAGE }}.json
 
