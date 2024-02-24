@@ -21,10 +21,6 @@ enableGitInfo: true
 # We don't need static RSS files to be generated.
 disableKinds: [ 'RSS' ]
 
-# https://gohugo.io/getting-started/configuration/#disablehugogeneratorinject
-# We disable this because this makes it easier to compare generated files from different Hugo versions.
-disableHugoGeneratorInject: true
-
 params:
   description: >
     Hi. I'm Sebastian, software developer from Europe. On this site I write about topics that I've explored over time and want to remember -
