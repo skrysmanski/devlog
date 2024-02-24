@@ -149,6 +149,9 @@ jobs:
           #   to identify what this artifact represents.
           name: 'generated-files__#${{ github.run_number }}-${{ steps.short-sha.outputs.sha }}__${{ env.DEPLOY_STAGE }}__hugo-v${{ steps.hugo-version.outputs.version }}'
           path: '${{ env.PUBLISH_DIR }}'
+          # NOTE: We keep the default compression level as in our tests increasing it to 9 (max) resulted in a zip that's only
+          #   about 10 KB smaller (5.88 MB to 5.87 MB).
+          #compression-level: 6
           if-no-files-found: error
 
       # See: https://github.com/marketplace/actions/ftp-deploy
