@@ -60,6 +60,13 @@ jobs:
       # NOTE: '${{ runner.temp }}' isn't available here so we have to use '${{ github.workspace }}'.
       PUBLISH_DIR: '${{ github.workspace }}/public/'
 
+      # The directory in which to store diffable files (i.e. the generated site which can be more easily diffed
+      # especially across branches).
+      DIFF_PUBLISH_DIR: '${{ github.workspace }}/public-diff/'
+
+      # Hugo build parameters used by all build steps.
+      HUGO_COMMON_BUILD_PARAMS: --printPathWarnings --logLevel info --panicOnWarning
+
     steps:
 
       ###########################################################################
@@ -116,7 +123,7 @@ jobs:
       - name: Build site (preview)
         if: ${{ env.DEPLOY_STAGE == 'preview' }}
         # NOTE: We don't use "--minify" here so that the output remains better readable/diffable.
-        run: hugo --destination '${{ env.PUBLISH_DIR }}' --printPathWarnings --logLevel info --panicOnWarning --buildDrafts --baseURL 'https://preview.manski.net'
+        run: hugo --destination '${{ env.PUBLISH_DIR }}' ${{ env.HUGO_COMMON_BUILD_PARAMS }} --buildDrafts --baseURL 'https://preview.manski.net'
         env:
           # Disable search engine crawling for the preview stage.
           HUGO_PARAMS_robots: 'noindex,nofollow'
@@ -125,7 +132,7 @@ jobs:
 
       - name: Build site (production)
         if: ${{ env.DEPLOY_STAGE == 'production' }}
-        run: hugo --destination '${{ env.PUBLISH_DIR }}' --printPathWarnings --logLevel info --panicOnWarning
+        run: hugo --destination '${{ env.PUBLISH_DIR }}' ${{ env.HUGO_COMMON_BUILD_PARAMS }}
 
       - name: Beautify output
         run: node beautify.js '${{ env.PUBLISH_DIR }}'
@@ -141,6 +148,24 @@ jobs:
       # Archive Steps
       #
       ###########################################################################
+
+      - name: Create diffable site (with drafts)
+        if: ${{ env.DEPLOY_STAGE == 'preview' }}
+        run: hugo --destination '${{ env.DIFF_PUBLISH_DIR }}' ${{ env.HUGO_COMMON_BUILD_PARAMS }} --baseURL 'https://fake.manski.net' --buildDrafts
+        env:
+          HUGO_PARAMS_robots: 'diffable-value'
+          HUGO_PARAMS_gitBranch: 'fake-branch'
+
+      - name: Create diffable site (without drafts)
+        if: ${{ env.DEPLOY_STAGE == 'production' }}
+        run: hugo --destination '${{ env.DIFF_PUBLISH_DIR }}' ${{ env.HUGO_COMMON_BUILD_PARAMS }} --baseURL 'https://fake.manski.net'
+        env:
+          HUGO_PARAMS_robots: 'diffable-value'
+          HUGO_PARAMS_gitBranch: 'fake-branch'
+
+      - name: Beautify diffable site
+        run: node beautify.js '${{ env.DIFF_PUBLISH_DIR }}'
+        working-directory: themes/devlog-theme/_utils
 
       # This creates ${{ steps.short-sha.outputs.sha }} to be used below.
       # See: https://github.com/marketplace/actions/short-sha
@@ -159,7 +184,7 @@ jobs:
       # NOTE: Artifacts are retained only up to 90 days at the moment. See: https://github.com/orgs/community/discussions/107115
       #
       # See: https://github.com/actions/upload-artifact
-      - name: Add generated files to workflow run
+      - name: Attach generated files to workflow run
         uses: actions/upload-artifact@v4
         with:
           # To make the artifacts easier to differentiate (i.e. when downloading them from different runs),
@@ -169,10 +194,19 @@ jobs:
           # NOTE: We also add some context information (like the commit SHA) to the file name to make it easier
           #   to identify what this artifact represents.
           name: 'generated-files__#${{ github.run_number }}-${{ steps.short-sha.outputs.sha }}__${{ env.DEPLOY_STAGE }}__hugo-v${{ steps.hugo-version.outputs.version }}'
-          path: '${{ env.PUBLISH_DIR }}'
+          path: ${{ env.PUBLISH_DIR }}
           # NOTE: We keep the default compression level as in our tests increasing it to 9 (max) resulted in a zip that's only
           #   about 10 KB smaller (5.88 MB to 5.87 MB).
           #compression-level: 6
+          if-no-files-found: error
+
+      # NOTE: We attach the diffable files as separate(!) artifact which makes it easier to compare results (as the extracted
+      #   folder can be compared directly).
+      - name: Attach generated files (diffable) to workflow run
+        uses: actions/upload-artifact@v4
+        with:
+          name: 'generated-files-diffable__#${{ github.run_number }}-${{ steps.short-sha.outputs.sha }}__${{ env.DEPLOY_STAGE }}__hugo-v${{ steps.hugo-version.outputs.version }}'
+          path: ${{ env.DIFF_PUBLISH_DIR }}
           if-no-files-found: error
 
 
