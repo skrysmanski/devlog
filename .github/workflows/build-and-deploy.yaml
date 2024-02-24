@@ -61,6 +61,13 @@ jobs:
       PUBLISH_DIR: '${{ github.workspace }}/public/'
 
     steps:
+
+      ###########################################################################
+      #
+      # Setup Steps
+      #
+      ###########################################################################
+
       - name: Install Hugo CLI
         # This snippet is taken from: https://gohugo.io/hosting-and-deployment/hosting-on-github/
         # NOTE: We can't use "snap" for this as it doesn't support installing old versions, if they're not provided by the package authors.
@@ -99,6 +106,13 @@ jobs:
         run: npm install
         working-directory: themes/devlog-theme/_utils
 
+
+      ###########################################################################
+      #
+      # Build Steps
+      #
+      ###########################################################################
+
       - name: Build site (preview)
         if: ${{ env.DEPLOY_STAGE == 'preview' }}
         # NOTE: We don't use "--minify" here so that the output remains better readable/diffable.
@@ -120,6 +134,13 @@ jobs:
       - name: Build search index
         run: npx pagefind --site '${{ env.PUBLISH_DIR }}'
         working-directory: themes/devlog-theme/_utils
+
+
+      ###########################################################################
+      #
+      # Archive Steps
+      #
+      ###########################################################################
 
       # This creates ${{ steps.short-sha.outputs.sha }} to be used below.
       # See: https://github.com/marketplace/actions/short-sha
@@ -153,6 +174,13 @@ jobs:
           #   about 10 KB smaller (5.88 MB to 5.87 MB).
           #compression-level: 6
           if-no-files-found: error
+
+
+      ###########################################################################
+      #
+      # Deploy Steps
+      #
+      ###########################################################################
 
       # See: https://github.com/marketplace/actions/ftp-deploy
       - name: Deploy site
