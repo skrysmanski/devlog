@@ -22,9 +22,10 @@ connect: Invalid argument
 And here we have a very long line with a long URI: https://gohugo.io/content-management/syntax-highlighting/#list-of-chroma-highlighting-languages
 ```
 
-## Base
+## Base (no line numbers or line highlights)
 
 ```c#
+// This is a very long line that will intersect with the language text and copy button if we're not careful.
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,7 +48,8 @@ namespace PInvokeTest {
 
 ## Line Highlights
 
-```c# {hl_lines="1 5 7 12 15 16"}
+```c# {hl_lines="1 6 8 13 16 17"}
+// This is a very long line that will intersect with the language text and copy button if we're not careful.
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,9 +72,10 @@ namespace PInvokeTest {
 
 ## Everything
 
-### Supported Language
+### Supported Language (line numbers and line highlights)
 
-```c# {lineNos=true,hl_lines="5 7 12 15 16"}
+```c# {lineNos=true,hl_lines="1 6 8 13 16 17"}
+// This is a very long line that will intersect with the language text and copy button if we're not careful.
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -93,9 +96,10 @@ namespace PInvokeTest {
 }
 ```
 
-### Plain Text
+### Plain Text (line numbers and line highlights)
 
-``` {lineNos=true,hl_lines="5 7 12 15 16"}
+``` {lineNos=true,hl_lines="1 6 8 13 16 17"}
+// This is a very long line that will intersect with the language text and copy button if we're not careful.
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -116,9 +120,10 @@ namespace PInvokeTest {
 }
 ```
 
-### Unsupported Language
+### Unsupported Language (line numbers and line highlights)
 
-```looks-like-c#-but-is-not {lineNos=true,hl_lines="5 10 13 14"}
+```looks-like-c#-but-is-not {lineNos=true,hl_lines="1 6 11 14 15"}
+// This is a very long line that will intersect with the language text and copy button if we're not careful.
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -163,4 +168,18 @@ namespace PInvokeTest {
     <p>Some text here</p>
   </body>
 </html>
+```
+
+## Shell
+
+```shell
+CHANNEL=stable sh -c "$(curl -fsSL https://get.docker.com)"
+```
+
+```shell
+$ CHANNEL=stable sh -c "$(curl -fsSL https://get.docker.com)"
+```
+
+```shell
+> CHANNEL=stable sh -c "$(curl -fsSL https://get.docker.com)"
 ```
