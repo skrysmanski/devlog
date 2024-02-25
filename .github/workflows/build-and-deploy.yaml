@@ -169,12 +169,6 @@ jobs:
         run: node beautify.js '${{ env.DIFF_PUBLISH_DIR }}'
         working-directory: themes/devlog-theme/_utils
 
-      # This creates ${{ steps.short-sha.outputs.sha }} to be used below.
-      # See: https://github.com/marketplace/actions/short-sha
-      - name: Provide short commit hash to workflow
-        id: short-sha
-        uses: benjlevesque/short-sha@v3.0
-
       - name: Determine Hugo version
         id: hugo-version
         run: hugo version | sed -r 's/hugo v([0-9.]+).*/version=\1/' >> $GITHUB_OUTPUT
@@ -195,7 +189,7 @@ jobs:
           #
           # NOTE: We also add some context information (like the commit SHA) to the file name to make it easier
           #   to identify what this artifact represents.
-          name: 'generated-files__#${{ github.run_number }}-${{ steps.short-sha.outputs.sha }}__${{ env.DEPLOY_STAGE }}__hugo-v${{ steps.hugo-version.outputs.version }}'
+          name: 'published-output__#${{ github.run_number }}__${{ env.DEPLOY_STAGE }}__hugo-v${{ steps.hugo-version.outputs.version }}'
           path: ${{ env.PUBLISH_DIR }}
           # NOTE: We keep the default compression level as in our tests increasing it to 9 (max) resulted in a zip that's only
           #   about 10 KB smaller (5.88 MB to 5.87 MB).
@@ -207,7 +201,7 @@ jobs:
       - name: Attach generated files (diffable) to workflow run
         uses: actions/upload-artifact@v4
         with:
-          name: 'generated-files-diffable__#${{ github.run_number }}-${{ steps.short-sha.outputs.sha }}__${{ env.DEPLOY_STAGE }}__hugo-v${{ steps.hugo-version.outputs.version }}'
+          name: 'diffable-output__#${{ github.run_number }}__${{ env.DEPLOY_STAGE }}__hugo-v${{ steps.hugo-version.outputs.version }}'
           path: ${{ env.DIFF_PUBLISH_DIR }}
           if-no-files-found: error
 
