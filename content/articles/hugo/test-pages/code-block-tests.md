@@ -120,6 +120,27 @@ namespace PInvokeTest {
 }
 ```
 
+### Plain Text (no line numbers or line highlights)
+
+```
+This is a simple text
+that should be printed as is.
+```
+
+### Plain Text (line numbers but no line highlights)
+
+``` {lineNos=true}
+This is a text that requires highlighting
+and thus must have the <span>s and classes.
+```
+
+### Plain Text (not line numbers but line highlights)
+
+``` {hl_lines="2"}
+This is a text that requires highlighting
+and thus must have the <span>s and classes.
+```
+
 ### Unsupported Language (line numbers and line highlights)
 
 ```looks-like-c#-but-is-not {lineNos=true,hl_lines="1 6 11 14 15"}
