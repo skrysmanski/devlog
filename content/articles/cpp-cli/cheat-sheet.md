@@ -182,7 +182,7 @@ This section gives a quick overview what is allowed with handles and what isn't.
 
 |                                                            | Native Classes               | Managed Classes
 | ---------------------------------------------------------- | ---------------------------- | ---------------
-| Methods with native types (as parameters or return types)  | Yes (copy and reference)     | Yes (copy and reference); this method will only be callable from C++/CLI code (but not from C# code) |
+| Methods with native types (as parameters or return types)  | Yes (copy and reference)     | Yes (copy and reference); this method will only be callable from C++/CLI code (but not from C# code)
 | Methods with managed types (as parameters or return types) | Yes (copy and handle)        | Yes (copy and handle)
 | Fields with native type                                    | Yes (direct and pointer)     | Only pointer
 | Fields with managed type                                   | value types directly; handles via `gcroot` (see below) | Values types and handles
@@ -291,15 +291,16 @@ static int MyFunc();
 
 To sum it up:
 
-| C++/CLI    | C#         | Note                  |
-| ---------- | ---------- | --------------------- |
-| `literal`  | `const`    | Compile-time constant |
-| `initonly` | `readonly` | Runtime constant      |
+| C++/CLI    | C#         | Note
+| ---------- | ---------- | ---------------------
+| `literal`  | `const`    | Compile-time constant
+| `initonly` | `readonly` | Runtime constant
 
 So, for example, this C++/CLI code:
 
-```C++/CLI
-class MyClass {
+```c++/cli
+class MyClass
+{
 public:
   literal String^ MY_LITERAL = "Hello World";
 
@@ -311,7 +312,8 @@ public:
 will translate into this C# code:
 
 ```c#
-public class MyClass {
+public class MyClass
+{
   public const string MY_LITERAL = "Hello World";
 
   public static readonly int MY_INITONLY;
@@ -374,7 +376,7 @@ Note, however, that there is no way to make a trivial property where getter or s
 
 In most cases, however, you want to specify some code for your property. Here's how it's done.
 
-```C++/CLI
+```c++/cli
 private:
   String^ field;
 public:
@@ -386,7 +388,7 @@ public:
 
 You can also specify the visibility directly for one of the accessor methods and thereby turning the property read-only or write-only:
 
-```C++/CLI
+```c++/cli
 private:
   String^ field;
 public:
@@ -398,7 +400,7 @@ public:
 
 And if you want to separate definition (`.h` file) from implementation (`.cpp` file), you do it like this:
 
-```C++/CLI
+```c++/cli
 // .h file - assume class is "MyClass"
 private:
   String^ field;
