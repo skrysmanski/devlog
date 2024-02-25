@@ -56,7 +56,7 @@ jobs:
       #   can be updated with a pull request where I can test the new version.
       # IMPORTANT: Always use a pull request to update the Hugo version to be able to fix all problems
       #   before pushing the result to production!!!
-      HUGO_VERSION: 0.122.0
+      HUGO_VERSION: 0.123.3
 
       # The directory in which Hugo stores the generated site.
       # NOTE: '${{ runner.temp }}' isn't available here so we have to use '${{ github.workspace }}'.
