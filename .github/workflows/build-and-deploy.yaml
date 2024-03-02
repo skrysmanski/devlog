@@ -26,6 +26,14 @@ permissions:
   contents: read
 
 env:
+  # The Hugo version to use: https://github.com/gohugoio/hugo/releases
+  # NOTE: It sometimes happens that new Hugo versions break the site. So I've decided to always
+  #   "pin" the Hugo version (instead of using the latest version). This way, the Hugo version
+  #   can be updated with a pull request where I can test the new version.
+  # IMPORTANT: Always use a pull request to update the Hugo version to be able to fix all problems
+  #   before pushing the result to production!!!
+  HUGO_VERSION: 0.123.7
+
   # Set "DEPLOY_STATE" to "production" if this workflow was triggered by a push to the main branch.
   # Set "DEPLOY_STATE" to "preview" in any other case (i.e. pull requests).
   DEPLOY_STAGE: ${{ (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main' && 'production' || 'preview' }}
@@ -50,14 +58,6 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      # The Hugo version to use: https://github.com/gohugoio/hugo/releases
-      # NOTE: It sometimes happens that new Hugo versions break the site. So I've decided to always
-      #   "pin" the Hugo version (instead of using the latest version). This way, the Hugo version
-      #   can be updated with a pull request where I can test the new version.
-      # IMPORTANT: Always use a pull request to update the Hugo version to be able to fix all problems
-      #   before pushing the result to production!!!
-      HUGO_VERSION: 0.123.3
-
       # The directory in which Hugo stores the generated site.
       # NOTE: '${{ runner.temp }}' isn't available here so we have to use '${{ github.workspace }}'.
       PUBLISH_DIR: '${{ github.workspace }}/public/'
@@ -169,10 +169,6 @@ jobs:
         run: node beautify.js '${{ env.DIFF_PUBLISH_DIR }}'
         working-directory: themes/devlog-theme/_utils
 
-      - name: Determine Hugo version
-        id: hugo-version
-        run: hugo version | sed -r 's/hugo v([0-9.]+).*/version=\1/' >> $GITHUB_OUTPUT
-
       #
       # Store generated files in a zip file in the workflow itself. This way outputs between two workflow runs can be compared,
       # if necessary.
@@ -189,7 +185,7 @@ jobs:
           #
           # NOTE: We also add some context information (like the commit SHA) to the file name to make it easier
           #   to identify what this artifact represents.
-          name: 'published-output__#${{ github.run_number }}__${{ env.DEPLOY_STAGE }}__hugo-v${{ steps.hugo-version.outputs.version }}'
+          name: 'published-output__#${{ github.run_number }}__${{ env.DEPLOY_STAGE }}__hugo-v${{ env.HUGO_VERSION }}'
           path: ${{ env.PUBLISH_DIR }}
           # NOTE: We keep the default compression level as in our tests increasing it to 9 (max) resulted in a zip that's only
           #   about 10 KB smaller (5.88 MB to 5.87 MB).
@@ -201,7 +197,7 @@ jobs:
       - name: Attach generated files (diffable) to workflow run
         uses: actions/upload-artifact@v4
         with:
-          name: 'diffable-output__#${{ github.run_number }}__${{ env.DEPLOY_STAGE }}__hugo-v${{ steps.hugo-version.outputs.version }}'
+          name: 'diffable-output__#${{ github.run_number }}__${{ env.DEPLOY_STAGE }}__hugo-v${{ env.HUGO_VERSION }}'
           path: ${{ env.DIFF_PUBLISH_DIR }}
           if-no-files-found: error
 
