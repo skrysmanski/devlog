@@ -6,6 +6,24 @@ This folder contains the GitHub actions workflow files for this repository.
 
 **Default Environment Variables:** <https://docs.github.com/en/actions/learn-github-actions/variables#default-environment-variables>
 
+**GitHub Context:** <https://docs.github.com/en/actions/learn-github-actions/contexts#github-context>
+
+## Capture Job Step Output
+
+Define it via:
+
+```yaml
+      - name: Determine Hugo version
+        id: hugo-version
+        run: echo 'version=1.2.3' >> $GITHUB_OUTPUT
+```
+
+Use it via:
+
+```yaml
+${{ steps.hugo-version.outputs.version }}
+```
+
 ## Security Considerations
 
 * The `permissions` properties defines the permissions for the `GITHUB_TOKEN`. The default permission may be too permissive. So, it's a good idea to reduce the necessary permissions as much as possible.
