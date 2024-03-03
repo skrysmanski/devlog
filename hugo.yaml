@@ -29,8 +29,8 @@ capitalizeListTitles: false
 
 params:
   description: >
-    Hi. I'm Sebastian, software developer from Europe. On this site I write about topics that I've explored over time and want to remember -
-    mostly related to software development. And hopefully, some of them may be interesting or helpful to you.
+    Hi. My name is Sebastian and I'm a software developer. On this website I write about topics that I've explored over time and want to remember -
+    most of them related to programming. Hopefully, some of them may even be interesting or helpful to you.
 
   author: "Sebastian Krysmanski"
   avatar: "/avatar.jpg"
