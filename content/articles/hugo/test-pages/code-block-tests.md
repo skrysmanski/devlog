@@ -143,7 +143,7 @@ and thus must have the <span>s and classes.
 
 ### Unsupported Language (line numbers and line highlights)
 
-```looks-like-c#-but-is-not {lineNos=true,hl_lines="1 6 11 14 15"}
+```looks-like-c# {lineNos=true,hl_lines="1 6 11 14 15"}
 // This is a very long line that will intersect with the language text and copy button if we're not careful.
 using System;
 using System.Collections.Generic;
@@ -163,7 +163,7 @@ namespace PInvokeTest {
 }
 ```
 
-## HTML (no line highlights)
+## HTML and Angular Brackets
 
 ### Highlighted HTML
 
@@ -190,6 +190,30 @@ namespace PInvokeTest {
   </body>
 </html>
 ```
+
+### Angular brackets
+
+**Supported language:**
+
+```c#
+var stringListType = typeof(List<string>);
+```
+
+**Unsupported language:**
+
+```looks-like-c#
+var stringListType = typeof(List<string>);
+```
+
+**Plain text (fenced code block):**
+
+```
+var stringListType = typeof(List<string>);
+```
+
+**Plain text (indented code block):**
+
+    var stringListType = typeof(List<string>);
 
 ## Shell
 
