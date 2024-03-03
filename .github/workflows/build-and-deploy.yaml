@@ -36,14 +36,14 @@ env:
 
   # Set "DEPLOY_STATE" to "production" if this workflow was triggered by a push to the main branch.
   # Set "DEPLOY_STATE" to "preview" in any other case (i.e. pull requests).
-  DEPLOY_STAGE: ${{ (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main' && 'production' || 'preview' }}
+  DEPLOY_STAGE: ${{ github.ref == 'refs/heads/main' && 'production' || 'preview' }}
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#concurrency
 concurrency:
   # Makes this workflow part of the "deploy" concurrency group. (Note that this text can be chosen arbitrarily.)
   # NOTE: Unfortunately, we can't use "env.DEPLOY_STAGE" as "env." is not supported.
-  group: deploy-${{ (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main' && 'production' || 'preview' }}
+  group: deploy-${{ github.ref == 'refs/heads/main' && 'production' || 'preview' }}
   # Do NOT cancel in-progress runs as we want to allow these deployments to complete.
   cancel-in-progress: false
 
