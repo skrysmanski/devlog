@@ -173,7 +173,6 @@ jobs:
         # For syntax, see: https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameter-Expansion
         # Strips "feature/" from PR branch names. Also replaces '/' with '-'.
         run: echo "${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" | sed 's#^feature/##' | sed 's#/#-#' | xargs printf "branch=%s\n" >> $GITHUB_OUTPUT
-        shell: bash
 
       #
       # Store generated files in a zip file in the workflow itself. This way outputs between two workflow runs can be compared,
@@ -189,7 +188,7 @@ jobs:
       - name: Attach generated files to workflow run
         uses: actions/upload-artifact@v4
         with:
-          name: 'published-output__#${{ github.run_number }}__${{ steps.file-branch-name.outputs.value }}'
+          name: 'published-output__#${{ github.run_number }}__${{ steps.file-branch-name.outputs.branch }}'
           path: ${{ env.PUBLISH_DIR }}
           if-no-files-found: error
 
@@ -198,7 +197,7 @@ jobs:
       - name: Attach generated files (diffable) to workflow run
         uses: actions/upload-artifact@v4
         with:
-          name: 'diffable-output__#${{ github.run_number }}__${{ steps.file-branch-name.outputs.value }}'
+          name: 'diffable-output__#${{ github.run_number }}__${{ steps.file-branch-name.outputs.branch }}'
           path: ${{ env.DIFF_PUBLISH_DIR }}
           if-no-files-found: error
 
