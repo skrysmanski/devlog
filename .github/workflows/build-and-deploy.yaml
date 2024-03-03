@@ -169,11 +169,11 @@ jobs:
 
       - name: Make branch name compatible with file names
         id: file-branch-name
-        uses: mad9000/actions-find-and-replace-string@5
-        with:
-            source: ${{ github.head_ref }}
-            find: '/'
-            replace: '-'
+        # Based on: https://stackoverflow.com/a/58035262/614177
+        # For syntax, see: https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameter-Expansion
+        # Strips "feature/" from PR branch names. Also replaces '/' with '-'.
+        run: echo "${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" | sed 's#^feature/##' | sed 's#/#-#' | xargs printf "branch=%s\n" >> $GITHUB_OUTPUT
+        shell: bash
 
       #
       # Store generated files in a zip file in the workflow itself. This way outputs between two workflow runs can be compared,
