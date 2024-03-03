@@ -132,6 +132,8 @@ jobs:
           # Disable search engine crawling for the preview stage.
           HUGO_PARAMS_robots: 'noindex,nofollow'
           # For pull requests, the git branch name can't be determined by reading ".git/HEAD". So we have to specify it here explicitly.
+          # NOTE: This variable is empty if this workflow was not triggered by a pull request. This means that the default behavior
+          #   remains in effect for the "preview" branch.
           HUGO_PARAMS_gitBranch: ${{ github.head_ref }}
 
       - name: Build site (production)
