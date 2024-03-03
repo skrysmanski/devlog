@@ -173,23 +173,18 @@ jobs:
       # Store generated files in a zip file in the workflow itself. This way outputs between two workflow runs can be compared,
       # if necessary.
       #
-      # NOTE: Artifacts are retained only up to 90 days at the moment. See: https://github.com/orgs/community/discussions/107115
-      #
       # See: https://github.com/actions/upload-artifact
+      #
+      # NOTES:
+      # * Artifacts are retained only up to 90 days at the moment. See: https://github.com/orgs/community/discussions/107115
+      # * We keep the default compression level as in our tests increasing it to 9 (max) resulted in a zip that's only
+      #   about 10 KB smaller (5.88 MB to 5.87 MB).
+      #
       - name: Attach generated files to workflow run
         uses: actions/upload-artifact@v4
         with:
-          # To make the artifacts easier to differentiate (i.e. when downloading them from different runs),
-          # we'll add the workflow run number to the name (this is the same number that's also shown in the
-          # GitHub UI - like 27 for run #27).
-          #
-          # NOTE: We also add some context information (like the commit SHA) to the file name to make it easier
-          #   to identify what this artifact represents.
           name: 'published-output__#${{ github.run_number }}__${{ env.DEPLOY_STAGE }}'
           path: ${{ env.PUBLISH_DIR }}
-          # NOTE: We keep the default compression level as in our tests increasing it to 9 (max) resulted in a zip that's only
-          #   about 10 KB smaller (5.88 MB to 5.87 MB).
-          #compression-level: 6
           if-no-files-found: error
 
       # NOTE: We attach the diffable files as separate(!) artifact which makes it easier to compare results (as the extracted
