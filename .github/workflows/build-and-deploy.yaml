@@ -14,7 +14,9 @@ name: Build and Deploy
 on:
   # Trigger the workflow on push to the main branch (deploy to production).
   push:
-    branches: [ main ]
+    # NOTE: The preview branch is for tests without pull request (as GitHub Action sometimes work differently for pushes
+    #   and pull requests).
+    branches: [ main, preview ]
   # Trigger the workflow for any pull requests (deploy to preview, if "local" PR; don't deploy if PR from fork).
   pull_request:
   # Allow manual run of this workflow (https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow)
