@@ -151,21 +151,14 @@ jobs:
       #
       ###########################################################################
 
-      - name: Create diffable site (with drafts)
-        if: ${{ env.DEPLOY_STAGE == 'preview' }}
-        run: hugo --destination '${{ env.DIFF_PUBLISH_DIR }}' ${{ env.HUGO_COMMON_BUILD_PARAMS }} --baseURL 'https://fake.manski.net' --buildDrafts
+      - name: Create diffable output
+        run: hugo --destination '${{ env.DIFF_PUBLISH_DIR }}' ${{ env.HUGO_COMMON_BUILD_PARAMS }} ${{ env.BUILD_DRAFTS_PARAM }} --baseURL 'https://fake.manski.net'
         env:
+          BUILD_DRAFTS_PARAM: ${{ env.DEPLOY_STAGE == 'production' && '' || '--buildDrafts' }}
           HUGO_PARAMS_robots: 'diffable-value'
           HUGO_PARAMS_gitBranch: 'fake-branch'
 
-      - name: Create diffable site (without drafts)
-        if: ${{ env.DEPLOY_STAGE == 'production' }}
-        run: hugo --destination '${{ env.DIFF_PUBLISH_DIR }}' ${{ env.HUGO_COMMON_BUILD_PARAMS }} --baseURL 'https://fake.manski.net'
-        env:
-          HUGO_PARAMS_robots: 'diffable-value'
-          HUGO_PARAMS_gitBranch: 'fake-branch'
-
-      - name: Beautify diffable site
+      - name: Beautify diffable output
         run: node beautify.js '${{ env.DIFF_PUBLISH_DIR }}'
         working-directory: themes/devlog-theme/_utils
 
