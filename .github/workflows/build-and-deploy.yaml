@@ -185,7 +185,7 @@ jobs:
           #
           # NOTE: We also add some context information (like the commit SHA) to the file name to make it easier
           #   to identify what this artifact represents.
-          name: 'published-output__#${{ github.run_number }}__${{ env.DEPLOY_STAGE }}__hugo-v${{ env.HUGO_VERSION }}'
+          name: 'published-output__#${{ github.run_number }}__${{ env.DEPLOY_STAGE }}'
           path: ${{ env.PUBLISH_DIR }}
           # NOTE: We keep the default compression level as in our tests increasing it to 9 (max) resulted in a zip that's only
           #   about 10 KB smaller (5.88 MB to 5.87 MB).
@@ -197,7 +197,7 @@ jobs:
       - name: Attach generated files (diffable) to workflow run
         uses: actions/upload-artifact@v4
         with:
-          name: 'diffable-output__#${{ github.run_number }}__${{ env.DEPLOY_STAGE }}__hugo-v${{ env.HUGO_VERSION }}'
+          name: 'diffable-output__#${{ github.run_number }}__${{ env.DEPLOY_STAGE }}'
           path: ${{ env.DIFF_PUBLISH_DIR }}
           if-no-files-found: error
 
