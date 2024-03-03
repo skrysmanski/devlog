@@ -1,5 +1,6 @@
 ---
 title: Hugo Code Block Tests
+description: This page lists various code blocks to test Hugo code blocks.
 topics:
 - hugo
 - markdown
