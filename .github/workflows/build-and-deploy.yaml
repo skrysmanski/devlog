@@ -205,7 +205,7 @@ jobs:
 
       # See: https://github.com/marketplace/actions/ftp-deploy
       - name: Deploy site
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         env:
           HAS_ACCESS_TO_SECRETS: ${{ secrets.ftp_username }}
         # Only run this step if the workflow has access to the repository's secret. Only pull requests
