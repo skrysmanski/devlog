@@ -14,7 +14,7 @@ name: Build and Deploy
 on:
   # Trigger the workflow on push to the main branch (deploy to production).
   push:
-    branches: 
+    branches:
       - main
       # NOTE: The preview branch is for tests without pull request (as GitHub Action sometimes work differently for pushes
       #   and pull requests).
@@ -96,13 +96,13 @@ jobs:
           wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb
           sudo dpkg -i ${{ runner.temp }}/hugo.deb
 
-      # See: https://github.com/actions/setup-node
+      # See: https://github.com/marketplace/actions/setup-node-js-environment
       - name: Setup NodeJS environment
         uses: actions/setup-node@v4
         with:
           node-version: 'latest'
 
-      # See: https://github.com/actions/checkout
+      # See: https://github.com/marketplace/actions/checkout
       - name: Clone Git repository
         uses: actions/checkout@v4
         with:
@@ -186,7 +186,7 @@ jobs:
       # Store generated files in a zip file in the workflow itself. This way outputs between two workflow runs can be compared,
       # if necessary.
       #
-      # See: https://github.com/actions/upload-artifact
+      # See: https://github.com/marketplace/actions/upload-a-build-artifact
       #
       # NOTES:
       # * Artifacts are retained only up to 90 days at the moment. See: https://github.com/orgs/community/discussions/107115
