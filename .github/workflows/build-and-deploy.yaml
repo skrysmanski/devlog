@@ -14,16 +14,24 @@ name: Build and Deploy
 on:
   # Trigger the workflow on push to the main branch (deploy to production).
   push:
-    # NOTE: The preview branch is for tests without pull request (as GitHub Action sometimes work differently for pushes
-    #   and pull requests).
-    branches: [ main, preview ]
+    branches: 
+      - main
+      # NOTE: The preview branch is for tests without pull request (as GitHub Action sometimes work differently for pushes
+      #   and pull requests).
+      - preview
   # Trigger the workflow for any pull requests (deploy to preview, if "local" PR; don't deploy if PR from fork).
   pull_request:
   # Allow manual run of this workflow (https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow)
   workflow_dispatch:
 
 # Permissions for GITHUB_TOKEN for this workflow.
-#   See: https://docs.github.com/en/actions/reference/authentication-in-a-workflow#permissions-for-the-github_token
+#
+# See: https://docs.github.com/en/actions/security-guides/automatic-token-authentication#permissions-for-the-github_token
+#
+# NOTE: Because we run with minimal permissions, we use "@vX" (instead of "@hash") for non-GitHub steps below.
+#   Usually you would use "@hash" as a security measure to pin a specific version. However, since we run with
+#   minimal permissions here, malicious code can't do much harm (most likely). For more details, see:
+#   https://blog.gitguardian.com/github-actions-security-cheat-sheet/#use-specific-action-version-tags
 permissions:
   contents: read
 
