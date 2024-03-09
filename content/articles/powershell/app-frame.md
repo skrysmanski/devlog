@@ -5,10 +5,10 @@ topics:
 - powershell
 ---
 
+Basic structure for a PowerShell "application":
+
 ```powershell
 #!/usr/bin/env pwsh
-
-# This file contains a basic structure for a PowerShell application.
 
 param(
     [Parameter(Mandatory=$True)]
@@ -26,9 +26,13 @@ param(
 $script:ErrorActionPreference = 'Stop'
 
 try {
+    ########################################################################
+
     #
     # Application code here
     #
+
+    ########################################################################
 }
 catch {
     function LogError([string] $exception) {
