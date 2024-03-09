@@ -1,6 +1,6 @@
 ---
 title: PowerShell Application Frame
-date: 2020-01-25
+oldContentWarning: false
 topics:
 - powershell
 ---
