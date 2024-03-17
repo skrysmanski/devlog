@@ -1,6 +1,5 @@
 ---
 title: The .NET Configuration System
-date: 2022-10-03
 topics:
 - dotnet
 - csharp
