@@ -8,6 +8,9 @@ topics:
 
 The [.NET configuration system](https://learn.microsoft.com/en-us/dotnet/core/extensions/configuration) provides a standardized way of expressing and reading configuration values.
 
+**NuGet Package:** [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) \
+**Source Code:** <https://github.com/dotnet/runtime/tree/main/src/libraries>
+
 ## Hierarchical Configuration Values
 
 **Hierarchical configuration values** are supported out-of-the-box. For example here the logging configuration:
