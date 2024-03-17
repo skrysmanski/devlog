@@ -46,6 +46,8 @@ IConfiguration config = ...
 int value = config.GetValue<int>("Parent:FavoriteNumber");
 ```
 
+*Note:* `GetValue<T>()` is an extension method from the [Microsoft.Extensions.Configuration.Binder](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Binder/) NuGet package.
+
 Alternatively you can bind whole **configuration sections** (see below) to objects.
 
 For example, with this configuration:
