@@ -37,3 +37,5 @@ public void MyMethod(object? value)
     bool isNullable = Nullable.GetUnderlyingType(value.GetType()) != null;
 }
 ```
+
+See also: <https://stackoverflow.com/a/3775643/614177>
