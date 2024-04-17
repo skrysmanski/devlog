@@ -46,7 +46,7 @@ env:
   #   can be updated with a pull request where I can test the new version.
   # IMPORTANT: Always use a pull request to update the Hugo version to be able to fix all problems
   #   before pushing the result to production!!!
-  HUGO_VERSION: 0.123.7
+  HUGO_VERSION: 0.125.0
 
   # Set "DEPLOY_STATE" to "production" if this workflow was triggered by a push to the main branch.
   # Set "DEPLOY_STATE" to "preview" in any other case (i.e. pull requests).
