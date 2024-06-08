@@ -126,6 +126,13 @@ markup:
       #   See: https://discourse.gohugo.io/t/nesting-shortcodes-and-markdown/40928/5
       # NOTE: "Using the unsafe option is only unsafe if you are not in control of the content that is created on your site."
       unsafe: true
+    extensions:
+      # https://gohugo.io/getting-started/configuration-markup/#extras-extension
+      extras:
+        subscript:
+          enable: true
+        superscript:
+          enable: true
 
   # TOC: https://gohugo.io/getting-started/configuration-markup/#table-of-contents
   tableOfContents:
