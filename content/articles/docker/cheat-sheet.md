@@ -109,7 +109,7 @@ See: <https://docs.docker.com/config/pruning/>
 
 ```shell
 docker system prune
-docker image prune
+docker image prune -a
 docker container prune
 docker volume prune
 ```
