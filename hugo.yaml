@@ -60,6 +60,7 @@ params:
   social:
     github: "skrysmanski"
     mastodon: "https://hachyderm.io/@manski"
+    mastodon_alt: "@manski@hachyderm.io"
 
   footer:
     copyrightPrefix: 'Personal site.'
