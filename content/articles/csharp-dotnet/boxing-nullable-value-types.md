@@ -1,5 +1,6 @@
 ---
 title: Boxing Nullable Value Types in C#
+description: "[C#] How GetType() behaves for boxed nullable value types."
 topics:
 - csharp
 - dotnet
