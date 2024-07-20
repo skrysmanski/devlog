@@ -43,6 +43,9 @@ params:
     # Don't index "Terms & Privacy" and other helper pages
     includeOnlyMainSections: true
 
+  # Cache busting for JS and CSS
+  enableAssetFingerprinting: true
+
   # Number of "recent articles" on the start/home/index page.
   indexPageCount: 50
 

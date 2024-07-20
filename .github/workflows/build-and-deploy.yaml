@@ -175,7 +175,7 @@ jobs:
           BUILD_DRAFTS_PARAM: ${{ env.DEPLOY_STAGE == 'production' && '' || '--buildDrafts' }}
           HUGO_PARAMS_robots: 'diffable-value'
           HUGO_PARAMS_gitBranch: 'fake-branch'
-          HUGO_PARAMS_enableFingerprinting: 'false'
+          HUGO_PARAMS_enableAssetFingerprinting: 'false'
 
       - name: Beautify diffable output
         run: node beautify.js '${{ env.DIFF_PUBLISH_DIR }}'
