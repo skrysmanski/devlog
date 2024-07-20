@@ -28,10 +28,7 @@ disableKinds: [ 'RSS' ]
 capitalizeListTitles: false
 
 params:
-  description: >
-    Hi. My name is Sebastian and I'm a software developer. On this website I write about topics that I've explored over time and want to remember -
-    most of them related to programming. Hopefully, some of them may even be interesting or helpful to you.
-
+  description: "Things I Learned - by Sebastian Krysmanski"
   author: "Sebastian Krysmanski"
   avatar: "/avatar.jpg"
 
