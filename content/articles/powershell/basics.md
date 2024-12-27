@@ -79,6 +79,12 @@ Powershell understands standard notation for kilobytes, megabytes, gigabytes, te
 1KB, 1MB, 1GB, 1TB, 1PB
 ```
 
+## Require Running Elevated
+
+```powershell
+#Requires -RunAsAdministrator
+```
+
 ## Change Working Directory
 
 ```powershell
