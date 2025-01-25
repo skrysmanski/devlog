@@ -1,5 +1,6 @@
 ---
 title: The .NET Configuration System
+description: Getting started with the .NET Configuration System.
 topics:
 - dotnet
 - csharp
