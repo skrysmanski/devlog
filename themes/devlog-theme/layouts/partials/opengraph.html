@@ -8,7 +8,15 @@
   TIP: The easiest way to test this is to paste a page link into the WhatsApp desktop app - or to use https://opengraph.dev.
 -->
 <meta property="og:title" content="{{ partial "page-title.html" . }}" />
-<meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ if .IsPage }}{{ .Summary }}{{ else }}{{ site.Params.description }}{{ end }}{{ end }}" />
+
+{{- /* NOTE: We don't include ".Summary" (https://gohugo.io/content-management/summaries/) here because it's often auto
+       generated and thus very often not a good summary. I think, it's better to use the site description as a fallback.
+
+     See also: https://gohugo.io/methods/page/description/
+*/}}
+{{- with or .Description site.Params.description | plainify | htmlUnescape }}
+  <meta property="og:description" content="{{ trim . "\n\r\t " }}" />
+{{- end }}
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}" />
 <meta property="og:url" content="{{ partial "permalink-abs.html" . }}" />
 {{ if .IsPage -}}
