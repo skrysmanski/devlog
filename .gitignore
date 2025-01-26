@@ -34,3 +34,4 @@
 resources/_gen/
 public/
 static/pagefind/
+node_modules/
