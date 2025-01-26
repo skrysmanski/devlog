@@ -25,14 +25,19 @@
     -->
     <h1 id="page-title"{{ if $includeInSearch }} data-pagefind-body data-pagefind-meta="title"{{ end }}>{{ .Title }}</h1>
 
-    {{ if $isPrimaryContent -}}
+    {{- if .Description }}
+        {{- if $isPrimaryContent }}
+            <!-- Displays as small sub text under the main heading. -->
+            <div class="page-description">{{ .Description }}</div>
+        {{- end }}
+    {{- else if hugo.IsServer }}
+        <!-- Notify author about a missing page description - but only in "hugo server" mode. -->
+        <div class="page-description dev-warning">
+            Development Warning: <a href="https://gohugo.io/methods/page/description/">Missing Page Description</a>
+        </div>
+    {{- end }}
 
-      {{ if .Description }}
-        <div class="summary">{{ .Description }}</div>
-      {{ else if hugo.IsServer }}
-        <!-- Print the auto summary only in "hugo server" mode - to communicate more easily to the writer that a custom summary should be added. -->
-        <div class="summary auto-summary">{{ .Summary }}</div>
-      {{ end }}
+    {{ if $isPrimaryContent -}}
 
       {{ partial "page-meta" (dict "Page" . "IsSinglePage" true) }}
 
