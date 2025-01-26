@@ -1,0 +1,301 @@
+body {
+  display: grid;
+  // NOTE: The first row is the "collector" div - which is 0px high.
+  // NOTE 2: To test this, use the "short-page" test page.
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+
+  // This basically makes sure the footer sticks to the bottom of the page - even if the page's content
+  // is shorter than the screen's height.
+  min-height: 100vh;
+
+  // For details on this, see "#main-container" below.
+  background: $header-footer-background;
+}
+
+//
+// Header
+//
+#main-header {
+  // NOTE: This doesn't work if both html and body use "overflow-x: hidden;".
+  position: sticky;
+  top: 0;
+  // Make sure the header appears above code blocks (and anything else for that matter).
+  z-index: $z-index-header;
+
+  background: $header-footer-background;
+
+  @mixin header-content-padding($vertical-padding) {
+    padding: $vertical-padding 1em;
+    @media (min-width: $content-width) { // screen is big enough to hold "content-width"
+      padding: $vertical-padding calc(((100% - #{$content-width}) / 2) + 1em);
+    }
+    @media (min-width: calc(#{$content-width} + #{$toc-sidebar-width})) { // screen is big enough to hold "content-width" + an optional TOC
+      padding: $vertical-padding calc(((100% - (#{$content-width} + #{$toc-sidebar-width})) / 2) + 1em);
+    }
+  }
+
+  .main-header-content {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    align-items: center;
+
+    @include header-content-padding($header-content-margin);
+
+    .main-header-title {
+      display: flex;
+      flex-direction: row;
+
+      .app-header-avatar {
+        height: calc(#{$header-height} - (#{$header-content-margin} * 2));
+        @media (max-width: $small-screen-width) {
+          height: calc(#{$header-height} * #{$small-screen-size-factor} - (#{$header-content-margin} * 2));
+        }
+        border: $header-avatar-border;
+        border-radius: 4px;
+        margin-right: 1em;
+      }
+
+      .app-header-title {
+        margin: 0;
+
+        font-size: calc(#{$header-height} * 0.7 - (#{$header-content-margin} * 2));
+        @media (max-width: $small-screen-width) {
+          font-size: calc(#{$header-height} * 0.7 * #{$small-screen-size-factor} - (#{$header-content-margin} * 2));
+        }
+
+        & > a {
+          color: $header-text-color;
+        }
+      }
+    }
+
+    .main-header-navigation {
+      grid-column: 2;
+      grid-row: 1;
+
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      align-items: center;
+
+      .app-header-menu {
+        justify-self: end;
+      }
+
+      .app-header-menu > a, .app-header-menu > button {
+        display: inline-block;
+        color: $header-text-color;
+        font-size: calc(#{$header-height} * 0.7 - (#{$header-content-margin} * 2));
+        @media (max-width: $small-screen-width) {
+          font-size: calc(#{$header-height} * 0.7 * #{$small-screen-size-factor} - (#{$header-content-margin} * 2));
+        }
+
+        width: 2em;
+        text-align: center;
+
+        padding: 0 0.5em;
+
+        border-radius: $block-border-radius;
+
+        background-color: transparent; // for button
+        border: none; // for button
+
+        transition: background-color 0.35s;
+
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.2);
+        }
+      }
+    }
+  }
+
+  .page-title-header-bar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+
+    background-color: #F0F0F4;
+    border-bottom: 1px solid #cdcdcd;
+    font-size: 0.8em;
+
+    .page-title {
+      grid-column: 1;
+      grid-row: 1;
+      justify-self: center;
+
+      padding-top: 0.2em;
+    }
+
+    .toc-toggle-button {
+      grid-column: 1;
+      grid-row: 1;
+      justify-self: end;
+      align-self: stretch;
+
+      display: inline-block;
+      cursor: pointer;
+
+      padding: 2px 1em 0 0.7em;
+
+      @media (min-width: $toc_as_sidebar_width_threshold) { // screen is big enough to show toc as sidebar
+        display: none;
+      }
+
+      &:hover {
+        background-color: lighten($link-color, 35%) !important;
+        border-left: 1px solid #cdcdcd;
+      }
+      &.is-expanded {
+        background-color: #cdcdcd;
+        border-left: 1px solid #cdcdcd;
+      }
+    }
+  }
+
+  .reading-progress-bar {
+    height: $header-footer-separator-line-height;
+    @media (max-width: $small-screen-width) {
+      height: calc(#{$header-footer-separator-line-height} * #{$small-screen-size-factor});
+    }
+
+    background-color: #fff;
+
+    .progress {
+      height: 100%;
+      background-color: $header-footer-separator-line-color;
+    }
+
+    // We do this to reduce flickering of the progress bar between when the page is loaded and when the
+    // progress bar is initialized.
+    &.enabled .progress {
+      opacity: 0;
+      transition: opacity 1s;
+    }
+    &.enabled.initialized .progress {
+      opacity: 1;
+    }
+  }
+}
+
+//
+// Main Content
+//
+// NOTE: We have this separate "#main-container" for mobile devices with rounded corners or similar irregular shapes.
+//   On these devices, the browser makes sure the website's content don't get hidden behind this shape. It does this
+//   by starting and/or ending the page just before the irregular shape begins. By doing so, it creates an empty space
+//   at the beginning and/or end of the page which can only be styled with the body background. Because of this, we
+//   have to set the body's background to the same color as the header and footer. To make the primary text readable
+//   again, we have to set the background for this container explicitly. And since the main content is centered via margins,
+//   we can't set the background on "main" element (or the background would not extend to the whole width of the browser window).
+#main-container {
+  display: grid;
+  align-items: start;
+
+  justify-content: start;
+  @media (min-width: #{$content-width}) {
+    // Screen is wider than "content-width". Let's center the content.
+    justify-content: center;
+  }
+
+  background: $background-color;
+
+  padding-bottom: 3em;
+
+  &.use-dynamic-end-of-page-margin {
+    // The margin/padding between content and footer is sized dynamically (see "dynamic-end-of-page-margin.module.ts").
+    padding-bottom: 0;
+  }
+
+  main {
+    // Padding for mobile view.
+    padding: 0 1em;
+
+    @media (min-width: #{$content-width}) { // screen is big enough to hold "content-width"
+      // IMPORTANT: Do NOT use "max-width" or else the content will not be properly aligned if it's smaller than the specified width.
+      width: $content-width;
+    }
+    @media (min-width: calc(#{$content-width} + #{$toc-sidebar-width})) { // screen is big enough to hold "content-width" + an optional TOC
+      // IMPORTANT: Do NOT use "max-width" or else the content will not be properly aligned if it's smaller than the specified width.
+      width: calc(#{$content-width} + #{$toc-sidebar-width});
+    }
+
+    // NOTE: "section" only works if JavaScript is enabled; otherwise the h* elements have the id.
+    section[id], h1[id], h2[id], h3[id], h4[id], h5[id], h6[id] {
+      // This prevents the heading from scrolling under the fixed header when clicking a
+      // link in the TOC.
+      // See: https://getpublii.com/blog/one-line-css-solution-to-prevent-anchor-links-from-scrolling-behind-a-sticky-header.html
+      scroll-margin-top: calc(#{$header-height} + #{$header-footer-separator-line-height});
+      @media (max-width: $small-screen-width) {
+        scroll-margin-top: calc((#{$header-height} + #{$header-footer-separator-line-height}) * #{$small-screen-size-factor});
+      }
+    }
+  }
+}
+
+// "Back to top" link (displayed in the bottom right corner)
+.back-to-top-wrapper {
+  position: fixed;
+
+  // NOTE: 20px works great with the rounded screen corner of newer iPhones.
+  right: 20px;
+  bottom: 20px;
+
+  background-color: $header-footer-background;
+  border-radius: $block-border-radius;
+
+  width: 40px;
+  text-align: center;
+
+  opacity: 0.4;
+  transition: opacity 0.35s;
+
+  a {
+    font-size: 25px;
+    color: $header-text-color;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+
+//
+// Footer
+//
+#main-footer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+
+  color: $header-text-color;
+  background: $header-footer-background;
+
+  // makes the footer stick to the bottom of the page (works in combination with the "body" styling above).
+  margin-top: auto;
+
+  padding: 1em;
+  @media (min-width: $content-width) { // screen is big enough to hold "content-width"
+    padding: 1em calc(((100% - #{$content-width}) / 2) + 1em);
+  }
+  @media (min-width: calc(#{$content-width} + #{$toc-sidebar-width})) { // screen is big enough to hold "content-width" + an optional TOC
+    padding: 1em calc(((100% - (#{$content-width} + #{$toc-sidebar-width})) / 2) + 1em);
+  }
+
+  border-top: $header-footer-separator-line-height solid $header-footer-separator-line-color;
+
+  a {
+    color: $header-text-color;
+  }
+
+  & > div {
+    display: inline-block;
+  }
+
+  .social-links > a {
+    display: inline-block;
+    margin-left: 0.5em;
+
+    &:first-child {
+      margin-left: 0.2em;
+    }
+  }
+}

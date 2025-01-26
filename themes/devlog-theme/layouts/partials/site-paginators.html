@@ -1,0 +1,39 @@
+{{- /*
+  This partial is included at the very top of "baseof.html". It makes sure that our custom ".Paginator" object
+  is properly defined and available from the very start of the page (e.g. even in the <head> element).
+
+  The primary reason for this is to provide proper permalinks for pagination pages. At the moment, ".Permalink"
+  always points to page 1 - even for other pages: https://github.com/gohugoio/hugo/issues/4507 . With this we
+  make sure the proper ".Paginator" is available in "permalink-abs.html" and this correct permalinks can be generated.
+
+  This partial also makes sure the ".Paginator" object is initialized the way we want it (sorting, items per page).
+  Reason: You can only have one(!) paginator per page. Subsequent calls to ".Paginate" will simply return the main/single
+  paginator (and ignore all of its options). Through this partial we make sure that our call to ".Paginate" is the very
+  first and thus properly defines the paginator for this page. (See also: https://discourse.gohugo.io/t/determine-if-current-page-is-result-of-pagination/37494/4)
+*/ -}}
+{{- $usePagination := false -}}
+{{- if .IsNode -}}
+  {{- $usePagination = true -}}
+
+  {{- if eq .Kind "404" -}}
+    {{- /* Do not use pagination for 404 pages (see also: https://discourse.gohugo.io/t/404-html-reports-isnode-as-true/48487). */ -}}
+    {{- $usePagination = false -}}
+  {{- else if eq .Kind "taxonomy" -}}
+    {{- /* Our taxonomy pages don't use pagination. */ -}}
+    {{- $usePagination = false -}}
+  {{- else if .IsHome -}}
+    {{- /* Our home page doesn't use pagination. */ -}}
+    {{- $usePagination = false -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if $usePagination -}}
+  {{- .Store.Set "use_pagination" true -}}
+  {{- /*
+    NOTES:
+    * This call also stores the paginator in ".Paginator" which is then used everywhere else.
+    * We don't use the $paginator variable but we need to assign it or it'll generate some text output.
+    * The paginator is cached for the whole page: https://discourse.gohugo.io/t/determine-if-current-page-is-result-of-pagination/37494/4
+  */ -}}
+  {{- $paginator := .Paginate .Pages.ByTitle 10 -}}
+{{- end -}}

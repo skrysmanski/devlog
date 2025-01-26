@@ -1,0 +1,71 @@
+{{- /* See: https://gohugo.io/templates/single-page-templates/ */ -}}
+{{ define "main" }}
+{{- $isPrimaryContent := in site.MainSections .Type -}}
+{{- $includeOnlyPrimaryContentInSearch := default true site.Params.search.includeOnlyMainSections -}}
+{{- $includeInSearch := or $isPrimaryContent (not $includeOnlyPrimaryContentInSearch) -}}
+<main class="page{{ if $isPrimaryContent }} page-main-section{{ end }}">
+
+  {{ if and ($isPrimaryContent) (gt (len .Fragments.HeadingsMap) 1) }}
+  <aside id="page-toc" class="hide-in-print">
+
+    <header>
+      <h2>What's on this Page</h2>
+    </header>
+
+    {{ .TableOfContents }}
+
+  </aside>
+
+  {{ end -}}
+
+  <header>
+    <!-- 'data-pagefind-meta="title"' tells pagefind that this is the title. (Without this, all pages have the site's title.)
+         See: https://pagefind.app/docs/metadata/ and https://pagefind.app/docs/default-ui-metadata/
+         NOTE: "data-pagefind-body" needs to be added here as well; see: https://github.com/CloudCannon/pagefind/issues/532
+    -->
+    <h1 id="page-title"{{ if $includeInSearch }} data-pagefind-body data-pagefind-meta="title"{{ end }}>{{ .Title }}</h1>
+
+    {{ if $isPrimaryContent -}}
+
+      {{ if .Description }}
+        <div class="summary">{{ .Description }}</div>
+      {{ else if hugo.IsServer }}
+        <!-- Print the auto summary only in "hugo server" mode - to communicate more easily to the writer that a custom summary should be added. -->
+        <div class="summary auto-summary">{{ .Summary }}</div>
+      {{ end }}
+
+      {{ partial "page-meta" (dict "Page" . "IsSinglePage" true) }}
+
+      {{- if (.Params.oldContentWarning | default true) -}}
+        <!-- This will contain the "old page" note, if the page is older than a certain threshold. See "old-page-note.module.ts".
+            NOTE: This is done dynamically via TypeScript (instead of via Hugo) so that this dynamically appears without
+              the need to rebuild/republish the whole site.
+        -->
+        <div class="old-page-note hidden" data-page-date="{{ .Page.Date.UTC.Format "2006-01-02" }}"></div>
+      {{- end -}}
+
+    {{- end }}
+
+  </header>
+
+  <article>
+
+    <!-- "data-pagefind-body" defines the content that's indexed by pagefind. -->
+    <div id="page-content"{{ if $includeInSearch }} data-pagefind-body{{ end }}>
+      {{ .Content }}
+    </div>
+
+    {{- if $isPrimaryContent }}
+    <!-- Creates an adjustable gap between the last line of content and the footer.
+         See "dynamic-end-of-page-margin.module.ts" for more details.
+
+         NOTE: This element must be here (instead of inside #main-container div) so that the ToC's sticky
+           position works properly even at the end of the page.
+    -->
+    <div id="dynamic-end-of-page" class="hide-in-print"></div>
+    {{ end }}
+
+  </article>
+
+</main>
+{{ end }}

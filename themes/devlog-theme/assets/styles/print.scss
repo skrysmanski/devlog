@@ -1,0 +1,125 @@
+@import '_variables';
+
+// Normalize everything
+// IMPORTANT: Do NOT add ".css" to the end or else the file won't be inlined (and thus trigger a CSP violation - at least during dev)!!!
+@import '../node_modules/modern-normalize/modern-normalize';
+
+
+// Define fonts
+@import 'fonts/_main-font';
+@import 'fonts/_headings-font';
+@import 'fonts/_code-font';
+
+// Define icons
+@import 'fonts/fontawesome';
+
+// Base styles
+@import '_base';
+
+
+//
+// General purpose
+//
+// Prevent page breaks right after headings.
+// NOTE: "break-after: avoid" doesn't seem to work properly - but this hack does.
+// NOTE 2: Only works with "before", not with "after".
+// See: https://stackoverflow.com/a/68268825/614177
+#main-container {
+  h1, h2, h3, h4, h5, h6 {
+    &:before {
+      content: "";
+      display: block;
+
+      height: 8rem; // pretend that the header is at least 8rem high so this header cannot fit near the end of page
+      margin-bottom: -8rem; // however, reduce the margin the same amount so that the following content can stay in its usual place
+      break-inside: avoid;
+    }
+  }
+}
+
+
+//
+// Overrides
+//
+a {
+  text-decoration: underline;
+}
+
+#main-header {
+  border-bottom: 1px solid #aaa;
+
+  .app-header-title {
+    margin: 0;
+    & > a {
+      color: black;
+      font-size: 0.7em;
+    }
+  }
+}
+
+.page-meta .primary-meta {
+  display: flex;
+  flex-flow: row wrap;
+  column-gap: 1em;
+  row-gap: 0.5em;
+
+  a.term {
+    color: black;
+    text-decoration: none;
+  }
+}
+
+#page-content {
+  h2, h3, h4, h5, h6 {
+    border-top: 1px solid #dfdfdf;
+    margin-top: 2em;
+    padding-top: 0.7em;
+  }
+
+  pre {
+    font-size: 0.9em;
+    line-height: 1.4em;
+    margin: 0;
+    padding: 1em;
+
+    border-radius: $block-border-radius;
+    border: 1px solid #aaa;
+
+    // Required for "position: absolute" of the language name.
+    position: relative;
+
+    break-inside: avoid;
+
+    // Displays the language of the code block.
+    & > code[data-lang]::before {
+      position: absolute;
+      top: 0.3em;
+      right: 1em;
+      // Show above code block.
+      z-index: 2;
+
+      content: attr(data-lang);
+      text-transform: uppercase;
+
+      font-size: 0.7em;
+    }
+  }
+
+  // Only style <code> that's not under a <pre> element.
+  :not(pre) > code {
+    border-color: #aaa;
+  }
+}
+
+#main-footer {
+  border-top: 1px solid #aaa;
+  margin-top: 2em;
+
+  .copyright {
+    text-align: right;
+    a {
+      color: black;
+      text-decoration: none;
+    }
+  }
+}

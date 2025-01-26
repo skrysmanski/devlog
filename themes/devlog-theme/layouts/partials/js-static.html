@@ -1,0 +1,10 @@
+{{- $scripts := resources.Get . -}}
+
+{{- if eq (printf "%v" (site.Params.enableAssetFingerprinting | default true)) "true" -}}
+  {{- $scripts = $scripts | fingerprint -}}
+{{- end -}}
+
+{{- with $scripts -}}
+  {{- /* IMPORTANT: We can't use "defer" here because we need to execute one of the methods before the page is rendered (see script tag in baseof.html). */ -}}
+  <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}"></script>
+{{- end -}}

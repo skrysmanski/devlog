@@ -1,0 +1,106 @@
+#
+# Wire up 404 response page
+#
+ErrorDocument 404 /404
+
+
+#
+# Disable server-side scripting language
+# This way, we can upload script samples without them being executed.
+#
+RemoveHandler .php .phtml
+RemoveType .php .phtml
+
+
+#
+# Set security headers
+# NOTE: "set" only sets headers on successful response - whereas "always set" always sets the header.
+#  See: https://stackoverflow.com/a/39551910/614177
+#
+
+# See: https://infosec.mozilla.org/guidelines/web_security#x-frame-options
+Header always set X-Frame-Options: "DENY"
+
+# Prevent browsers from incorrectly detecting non-scripts as scripts
+# See: https://infosec.mozilla.org/guidelines/web_security#x-content-type-options
+Header always set X-Content-Type-Options: "nosniff"
+
+# Improve privacy by disabling HTTP referrer headers.
+# See: https://infosec.mozilla.org/guidelines/web_security#referrer-policy
+Header always set Referrer-Policy: "no-referrer"
+
+# Enable HSTS
+# See: https://hstspreload.org/
+# NOTE: "max-age" is in seconds. 63072000 is 2 years.
+Header always set Strict-Transport-Security: "max-age=63072000; includeSubDomains; preload"
+
+
+#
+# Caching
+#
+# See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control
+#
+
+# Set "no-cache" for all files by default. This way, the browser will never display outdated files.
+#
+# NOTE: "no-cache" just means: Ask the server if there are any changes before serving the file from cache (unlike "no-store").
+#   So there's still a file cache involved. The browser does this by sending a request with the If-Modified-Since header.
+#   If the webserver returns HTTP 304 (file not modified), the browser uses the cached version.
+Header set Cache-Control: "no-cache"
+
+# We must unset the "ETag" as it breaks caching for JavaScript files (pagefind-ui.js in our case) - or, to be more precise:
+# It breaks caching for files that are transferred compressed.
+#
+# "Breaking" here means that the server always returns a HTTP 200 (file modified) instead of a HTTP 304 (file not modified) -
+# even if the file hasn't been modified.
+#
+# Unsetting this doesn't breake anything since Apache bases the ETag on the file's last modification date (rather than the file's
+# contents) and the last modification date is already sent via the "last-modified" response header.
+#
+# For more details, see: https://serverfault.com/a/696832/71268
+Header unset ETag
+
+
+#
+# Rewrite URLs [mod_rewrite]
+#
+
+# Needs to be explicitly enabled.
+RewriteEngine On
+
+
+#
+# Redirect to HTTPS
+#
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+
+#
+# Strip trailing / from URLs
+#
+
+# Disable default index.html handling. (We don't need it.) [mod_dir]
+DirectoryIndex disabled
+# Don't add trailing slash to directories. [mod_dir]
+# NOTE: We need this even if "DirectoryIndex disabled" is set.
+DirectorySlash Off
+
+# Redirect: /index.html -> /
+RewriteRule ^index\.html$ / [QSA,R=permanent,END]
+
+# Redirect: .../my-page/index.html -> .../my-page
+RewriteRule ^(.+)/+index\.html$ /$1 [QSA,R=permanent,END]
+
+# Redirect: .../my-page/ -> .../my-page
+RewriteCond '%{REQUEST_FILENAME}/index.html' -f
+# NOTE: Must be "(.*)" - instead of "(.+)" - to also match the home page.
+RewriteRule ^(.*)/+$ /$1 [QSA,R=permanent,END]
+
+# Rewrite: .../my-page -> .../my-page/index.html
+RewriteCond '%{REQUEST_FILENAME}/index.html' -f
+# NOTE: Must be "(.*)" - instead of "(.+)" - to also match the home page.
+RewriteRule ^(.*)$ $1/index.html [QSA,END]
+
+# NOTE: Use this and curl to print the various values. You must disable all other rules and conditions for this to work.
+#RewriteRule ^(.*)$ '%{REQUEST_URI}__/__%{REQUEST_FILENAME}__/__$1__/' [QSA,R,END]

@@ -1,0 +1,40 @@
+{{- /* See: https://gohugo.io/templates/homepage/ */ -}}
+{{ define "main" }}
+<main class="page homepage">
+
+  <article>
+
+    <div id="page-content">
+      {{ or .Content site.Params.description }}
+    </div>
+
+    <h2>Recent Articles</h2>
+
+    {{- if or (not site.MainSections) (and (eq 1 (len site.MainSections)) (not (index site.MainSections 0)) ) -}}
+      {{ warnf "No 'mainSections' specified." }}
+    {{- end }}
+
+    {{- if eq 0 (len site.RegularPages) -}}
+      {{ warnf "No pages found. Do you have a '/content/index.md' file? If so, rename it to '_index.md'." }}
+    {{- end }}
+
+    <ul class="pages-list">
+      <!-- Show the newest X articles from all types considered main sections (that explicitly excludes the "terms & privacy" page).
+           Note also that we need to reverse ".ByPublishDate" as it's sorted from oldest to newest (and we want the newest first).
+
+           See:
+           * https://gohugo.io/methods/pages/
+           * https://gohugo.io/methods/pages/bypublishdate/
+           * https://gohugo.io/functions/collections/where/
+           * https://gohugo.io/functions/collections/where/#use-where-with-first
+           * https://gohugo.io/methods/site/mainsections/
+      -->
+      {{ range first site.Params.indexPageCount (where site.RegularPages.ByPublishDate.Reverse "Type" "in" site.MainSections) }}
+      {{ partial "list-item.html" . }}
+      {{ end }}
+    </ul>
+
+  </article>
+
+</main>
+{{ end }}

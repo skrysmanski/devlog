@@ -1,0 +1,9 @@
+<!--
+  IMPORTANT: Use "&nbsp;" before the anchor/permalink hash so that it never stands alone on the next line.
+  NOTE: We don't add a tooltip to the permalink # because this may cause a horizontal scrollbar on small screens if the # is too close to the right
+    edge of the screen. Similarly, if the # is too close to the left edge of the screen (because the heading was longer than one line), the tooltip
+    will get truncated on the left side (though at least no scrollbar will appear). Unfortunately, there doesn't seem to be a solution for this
+    problem, so we disable the tooltips altogether. (Users will figure out what the # does.)
+-->
+<h{{ .Level }} id="{{ .Anchor | safeURL }}">{{ .Text | safeHTML }}{{- if in site.MainSections .Page.Type -}}&nbsp;<a class="permalink hide-in-print" data-pagefind-ignore href="#{{ .Anchor | safeURL }}" aria-label="Permalink to this section">#</a>{{ end }}</h{{ .Level }}>
+

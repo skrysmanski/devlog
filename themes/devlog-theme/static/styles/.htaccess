@@ -1,0 +1,26 @@
+#
+# Enable browser-side caching
+#
+# NOTE: To test the headers, use:
+#
+#   curl -s -D - -o /dev/null <url>
+#
+<Files "*.css">
+    # Since the files in this directory are fingerprinted (i.e. their name changes if their content changes),
+    # we can basically cache them indefinitely. Thus, we set the max-age to 1 year and add "immutable".
+    #
+    # See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control
+    #
+    # NOTES:
+    # * According to https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Expires, the Expires header is ignored
+    #   if max-age is used. Thus, we don't need to set it.
+    # * We don't use mod_expires here as we don't need an Expires header and since mod_expires is very limited in what
+    #   you can specify for the "Cache-Control" header (i.e. no "immutable", no "no-cache").
+    # * At the time of writing, "immutable" is only supported by Firefox and Safari. Chrome and Edge do not support it
+    #   (see: https://caniuse.com/mdn-http_headers_cache-control_immutable). However, adding it doesn't break anything
+    #   for browsers that don't support it - so it can be safely added.
+    Header set Cache-Control: "max-age=31536000, immutable"
+
+    # For more details, see main .htaccess file.
+    Header unset ETag
+</Files>

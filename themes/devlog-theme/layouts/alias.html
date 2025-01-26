@@ -1,0 +1,12 @@
+{{- /* Template for alias/redirect pages. See: https://gohugo.io/content-management/urls/#aliases */ -}}
+{{- /* Based on: https://github.com/gohugoio/hugo/blob/master/tpl/tplimpl/embedded/templates/alias.html */ -}}
+<!DOCTYPE html>
+<html lang="{{ site.Language.LanguageCode }}">
+  <head>
+    <title>{{ partial "permalink-abs.html" . }}</title>
+    <link rel="canonical" href="{{ partial "permalink-abs.html" . }}">
+    <meta name="robots" content="noindex">
+    <meta charset="utf-8">
+    <meta http-equiv="refresh" content="0; url={{ partial "permalink-abs.html" . }}">
+  </head>
+</html>

@@ -1,0 +1,90 @@
+main.page aside#page-toc {
+  // Screen is big enough - show ToC as sidebar.
+  @media (min-width: $toc_as_sidebar_width_threshold) {
+    // magic, magic - makes the sidebar work without any JavaScript
+    // NOTE: This doesn't work if both html and body use "overflow-x: hidden;".
+    position: sticky;
+    // margin to the browser window's top when scrolling
+    top: 105px;
+    grid-row: 1 / span 2;
+    grid-column: 2;
+    // push it down a little bit when at the top of the page
+    margin-top: 15px;
+    margin-left: $toc-sidebar-spacing;
+  }
+
+  // Screen is too small - show ToC as slide in ToC.
+  @media (max-width: calc(#{$toc_as_sidebar_width_threshold} - 1px)) {
+    position: fixed;
+    right: 0;
+    top: 65px;
+    @media (min-width: $small-screen-width) {
+      top: 85px;
+    }
+    z-index: $z-index-slide-in-toc;
+
+    background-color: $background-color; // for slide in TOC - make it non-transparent
+
+    padding: 1em;
+    border-bottom-left-radius: $block-border-radius;
+
+    transform: translateX(100%);
+    transition: transform .2s linear;
+
+    &.is-expanded {
+      transform: translateX(0);
+    }
+  }
+
+  font-size: 0.8rem;
+
+  // Make sure long ToCs are scrollable.
+  max-height: 80vh;
+  overflow-y: auto;
+
+  // "What's on this page"
+  header > h2 {
+    font-weight: bold;
+    margin: 0;
+    font-size: 0.8em;
+    border-bottom: 1px solid $toc-separator-color;
+  }
+
+  header {
+    margin-bottom: 0.4em;
+  }
+
+  nav#TableOfContents {
+    ul {
+      padding-left: 1.5em;
+      margin-bottom: 0;
+      list-style-type: none;
+    }
+
+    a {
+      display: block;
+
+      color: $text-color;
+      // NOTE: The main font looks better than the headings font here.
+      font-family: $main-font;
+
+      border-left: 2px solid $toc-separator-color;
+      padding: 0.4em 1em;
+
+      transition: background-color 0.35s ease-out, border-color 0.35s ease-out;
+    }
+
+    // Highlight the currently viewed section.
+    // NOTE: Only do this if the TOC is displayed as a sidebar. If not, this may cause flickering especially on mobile.
+    a[aria-current] {
+      font-weight: bold;
+      background-color: lighten($link-color, 45%);
+      border-color: $link-color;
+    }
+
+    // Only the outer most list
+    & > ul {
+      padding-left: 0;
+    }
+  }
+}

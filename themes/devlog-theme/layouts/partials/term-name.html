@@ -1,0 +1,3 @@
+{{- /* NOTE: Only change name if it's all lower case - otherwise assume its name is already cleaned up. */ -}}
+{{- /* NOTE 2: Requires 'capitalizeListTitles: false' in hugo config (https://gohugo.io/getting-started/configuration/#capitalizelisttitles) */ -}}
+{{ if eq . (lower .) }}{{ strings.Title (strings.Replace . "-" " ") }}{{ else }}{{ . }}{{ end }}

@@ -1,0 +1,13 @@
+main.terms-list {
+  ul.terms-list {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    line-height: 1.5;
+
+    & > li {
+      margin-right: 1em;
+    }
+  }
+}

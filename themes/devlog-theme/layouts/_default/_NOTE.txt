@@ -1,0 +1,3 @@
+Note that the names in this folder are fixed and can't be changed arbitrarily.
+
+See: https://gohugo.io/templates/lookup-order/

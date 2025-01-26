@@ -1,0 +1,15 @@
+{{- if .IsHome -}}
+  {{- strings.TrimSuffix "/" site.BaseURL -}}
+{{- /*
+  IMPORTANT: Do NOT check for ".Paginator" as this will cause pagination pages to be generated (like for 404 pages).
+    Instead check "use_pagination" which is defined by "site-paginators.html".
+*/ -}}
+{{- else if and .IsNode (.Store.Get "use_pagination") -}}
+  {{- /*
+    NOTE: If the current page is paged, we need to use the ".Paginator" to figure out the
+      url as ".Permalink" always points to page 1 (see: https://github.com/gohugoio/hugo/issues/4507).
+  */ -}}
+  {{- strings.TrimSuffix "/" site.BaseURL }}{{ strings.TrimSuffix "/" .Paginator.URL -}}
+{{- else -}}
+  {{- strings.TrimSuffix "/" .Permalink -}}
+{{- end -}}

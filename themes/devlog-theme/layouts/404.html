@@ -1,0 +1,11 @@
+{{- /* See: https://gohugo.io/templates/404/ */ -}}
+{{ define "main" }}
+<!-- NOTE: For details how to use this page, see: https://gohugo.io/templates/404/ -->
+<main class="error-404">
+  <h1 class="error-404-title">Oops!</h1>
+
+  <p class="error-404-subtitle">The link you followed may be broken, or the page may have been removed.</p>
+
+  <p><a href="{{ "/" | relURL }}">Go home <i class="fa-solid fa-arrow-right"></i></a></p>
+</main>
+{{ end }}

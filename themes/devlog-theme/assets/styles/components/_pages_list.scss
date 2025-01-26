@@ -1,0 +1,51 @@
+main.pages-list {
+  header {
+    h1 {
+      margin-bottom: 0.3em;
+
+      .list-type {
+        display: block;
+        margin-bottom: -0.6em;
+
+        color: lighten($text-color, 20%);
+        font-size: 0.4em;
+      }
+    }
+
+    .page-count {
+      @include right-lined;
+
+      margin-bottom: 2em;
+
+      & > span {
+        font-family: $heading-font;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+    }
+  }
+}
+
+// IMPORTANT: Exists both on a "pages list" as well as one the home page.
+//   Thus, do NOT qualify the "main" element here with a class.
+main ul.pages-list {
+  padding: 0;
+
+  & > li {
+    list-style: none;
+    padding: 0.4em 0;
+
+    &:not(:last-child) {
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.3);
+    }
+
+    & > .item-title {
+      font-family: $heading-font;
+      font-weight: bold;
+    }
+
+    & > .page-meta {
+      font-size: 0.7em;
+    }
+  }
+}

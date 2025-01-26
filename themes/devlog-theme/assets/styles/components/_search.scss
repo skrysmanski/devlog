@@ -1,0 +1,186 @@
+$search-overlay-width: 800px;
+
+#search-overlay-container {
+  display: none;
+
+  position: fixed;
+  left: 0;
+  @media (min-width: $search-overlay-width) {
+    left: calc((100% - #{$search-overlay-width}) / 2);
+  }
+  top: 40px;
+  z-index: $z-index-search-overlay;
+
+  width: 100%;
+  @media (min-width: $search-overlay-width) {
+    width: $search-overlay-width;
+  }
+
+  &.visible {
+    display: block;
+  }
+}
+
+#search-overlay {
+  background-color: white;
+  border-radius: 0.5em;
+
+  margin: 0 10px;
+  padding: 0.7em;
+}
+
+// Used for the results drawer when it's empty.
+.pagefind-ui__hidden {
+  display: none;
+}
+
+.pagefind-ui__form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr);
+
+  max-height: 70vh;
+
+  //
+  // The search terms input text box.
+  //
+  .pagefind-ui__search-input {
+    grid-row: 1;
+    grid-column: 1;
+    justify-self: stretch;
+
+    border-radius: $block-border-radius;
+    border: none;
+    outline: none;
+    // So big because of the search icon
+    padding-left: 2em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+
+    width: 100%;
+    // NOTE: This padding is automatically added to the search box for the clear button.
+    //   To avoid changes to the width of the search box when the first letter is typed,
+    //   we "pre-declare" this padding here.
+    //   See: https://github.com/CloudCannon/pagefind/issues/362
+    padding-right: 56px;
+
+    &:focus {
+      outline: none;
+    }
+
+    &::placeholder {
+      color: #a4a7b0;
+    }
+  }
+
+  //
+  // The search icon
+  //
+  .search-icon {
+    grid-row: 1;
+    grid-column: 1;
+    justify-self: start;
+    align-self: center;
+
+    margin-left: 0.5em;
+
+    color: lighten($link-color, 20%);
+  }
+
+  //
+  // The "Clear" search terms button.
+  //
+  .pagefind-ui__search-clear {
+    grid-row: 1;
+    grid-column: 1;
+    justify-self: end;
+    align-self: stretch;
+
+    padding-right: 0.5em;
+    padding-left: 0.5em; // for hover background
+
+    color: rgb(101, 109, 118);
+    background: none;
+    border-radius: $block-border-radius;
+    border: none;
+
+    cursor: pointer;
+
+    &:hover {
+      color: black;
+      background-color: #eee;
+    }
+
+    &.pagefind-ui__suppressed {
+      display: none;
+    }
+  }
+
+  //
+  // The result box (drawer). Contains the search results area (see below).
+  //
+  .pagefind-ui__drawer {
+    grid-row: 2;
+    grid-column: 1;
+    align-self: stretch;
+
+    margin-top: 1em;
+    padding: 0 0.6em;
+
+    overflow-y: auto;
+  }
+}
+
+//
+// The search results area
+//
+.pagefind-ui__results-area {
+  font-size: 0.8em;
+
+  //
+  // Text "X results for <search terms>"
+  //
+  .pagefind-ui__message {
+    margin-top: 0;
+    padding-bottom: 1em;
+    border-bottom: 1px solid #aaa;
+    font-weight: bold;
+  }
+
+  //
+  // The actual results
+  //
+  ol.pagefind-ui__results {
+    padding-left: 0;
+    list-style-type: none;
+
+    & > li {
+      border-bottom: 1px solid #ccc;
+
+      .pagefind-ui__result-title {
+        font-weight: bold;
+        font-size: 1.2em;
+
+        margin-bottom: 0.3em;
+      }
+
+      .pagefind-ui__result-excerpt {
+        margin-top: 0;
+        color: rgb(113, 119, 125);
+
+        &::before {
+          content: "… ";
+        }
+        &::after {
+          content: " …";
+        }
+
+        mark {
+          font-weight: bold;
+          background: $search-result-mark-background;
+          color: inherit;
+        }
+      }
+    }
+  }
+}

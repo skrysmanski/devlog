@@ -1,0 +1,138 @@
+//
+// Creates CSS-only tooltips.
+//
+// NOTE: These tooltips have no arrow. Past experience shows that it's quite hard to get the arrow
+//   perfectly aligned (i.e. with no visible gap). No solution I tried did work a 100%. Thus, we
+//   simply use no arrows.
+//
+$tooltip-gap-size: 4px;
+
+[data-tooltip-dir] {
+  // Make the tooltip relative to this element (via "position: absolute;" below).
+  position: relative;
+
+  // This is the tooltip itself.
+  &::after {
+    // Required for using the left/top/bottom/right properties below.
+    position: absolute;
+
+    // Show above everything else.
+    z-index: $z-index-tooltips;
+
+    // Use the "aria-label" attribute as content.
+    content: attr(aria-label);
+
+    background-color: #1f1f1f;
+    color: #fff;
+
+    // Reset font. Otherwise it'll inherit the font from the tool-tipped element.
+    font-family: $main-font;
+    font-weight: normal;
+    font-style: normal;
+
+    font-size: 0.75rem;
+    white-space: nowrap;
+    text-align: center;
+
+    padding: 0.5em 1em;
+    border-radius: 5px;
+
+    visibility: collapse;
+    // Additionally to "visibility", we use "opacity" for the open animation.
+    opacity: 0;
+
+    // Define timings for all animations.
+    transition: all 0.35s;
+  }
+
+  &:hover {
+    &::after {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}
+
+// Tooltip appears above the element
+[data-tooltip-dir="top"] {
+  &::after {
+    bottom: 100%; // move to top edge
+    left: 50%; // move left edge to center - use transform below to center tooltip again.
+
+    // NOTE: We use 0 as y to make the slide in animation happen.
+    // NOTE 2: While this positions the tooltip correctly visually(!), browsers will use
+    //   the non-transformed bounding box for the page's layout - which means that the
+    //   tooltip may create an overflow to the right/bottom (i.e. create a horizontal
+    //   scrollbar).
+    transform: translate(-50%, 0);
+  }
+
+  &:hover {
+    &::after {
+      // Slide-in animation
+      transform-origin: top;
+      transform: translate(-50%, -$tooltip-gap-size);
+    }
+  }
+}
+
+// Tooltip appears below the element
+[data-tooltip-dir="bottom"] {
+  &::after {
+    top: 100%; // move to bottom edge
+    left: 50%; // move left edge to center - use transform below to center tooltip again.
+
+    // NOTE: We use 0 as y to make the slide in animation happen.
+    // NOTE 2: See overflow note above.
+    transform: translate(-50%, 0);
+  }
+
+  &:hover {
+    &::after {
+      // Slide-in animation
+      transform-origin: bottom;
+      transform: translate(-50%, $tooltip-gap-size);
+    }
+  }
+}
+
+// Tooltip appears below the element and right aligned
+[data-tooltip-dir="bottom-right"] {
+  &::after {
+    top: 100%; // move to bottom edge
+    right: 0;
+
+    // NOTE: We use 0 as y to make the slide in animation happen.
+    // NOTE 2: See overflow note above.
+    transform: translate(0, 0);
+  }
+
+  &:hover {
+    &::after {
+      // Slide-in animation
+      transform-origin: bottom;
+      transform: translate(0, $tooltip-gap-size);
+    }
+  }
+}
+
+// Tooltip appears to the left of the element
+[data-tooltip-dir="left"] {
+  &::after {
+    right: 100%; // move to left edge
+    top: 50%; // move top edge to center - use transform below to center tooltip again.
+
+    // NOTE: We use 0 as y to make the slide in animation happen.
+    // NOTE 2: See overflow note above.
+    transform: translate(0, -50%);
+  }
+
+  &:hover {
+    &::after {
+      // Slide-in animation
+      transform-origin: left;
+      transform: translate(-$tooltip-gap-size, -50%);
+    }
+  }
+}
+

@@ -1,0 +1,72 @@
+<div class="page-meta">
+
+  <div class="primary-meta">
+
+    <span{{ if .IsSinglePage }} data-date="{{ .Page.Date.UTC.Format "2006-01-02T15:04:05Z" }}" data-date-target-attrib="aria-label" aria-label="{{ .Page.Date.UTC }}" data-tooltip-dir="top"{{ end }}>
+      <i class="fa-regular fa-calendar"></i>
+      <span class="hide-in-print" data-date="{{ .Page.Date.UTC.Format "2006-01-02T15:04:05Z" }}" data-date-type="date-ago">{{ .Page.Date.UTC.Format site.Params.dateFormat }}</span>
+      <span class="only-in-print">{{ .Page.Date.UTC.Format site.Params.dateFormat }}</span>
+    </span>
+
+    <span{{ if .IsSinglePage }} aria-label="{{ .Page.FuzzyWordCount }} words" data-tooltip-dir="top"{{ end }}>
+      <i class="fa-regular fa-clock"></i>
+      {{ .Page.ReadingTime }} min read
+    </span>
+
+    {{- range $taxonomyName, $taxonomy := site.Taxonomies }}
+    {{ with $.Page.GetTerms $taxonomyName }}
+    <span>
+      {{ range (sort .) -}}
+        {{ partial "term.html" ( dict "Term" . ) }}
+      {{- end -}}
+    </span>
+    {{- end -}}
+    {{- end }}
+
+  </div>
+
+  {{ $gitRepoUrl := .Page.Scratch.Get "git-repo-url" -}}
+  {{- $gitBranch := .Page.Scratch.Get "git-branch" -}}
+  {{- if and $gitRepoUrl $gitBranch .IsSinglePage -}}
+  <div class="secondary-meta">
+
+    {{ $parsedGitRepoUrl := urls.Parse $gitRepoUrl -}}
+
+    {{- if and (eq site.Params.discussions "github") (hasSuffix (lower $parsedGitRepoUrl.Hostname) "github.com") }}
+    <div class="discussion-meta hide-in-print">
+      <i class="fa-regular fa-comments"></i>
+      <a href="{{ $gitRepoUrl }}/discussions?discussions_q={{ with .Page.Slug }}{{ . }}{{ else }}{{ .Page.File.BaseFileName }}{{ end }}"
+         target="_blank"
+         aria-label="Discuss on GitHub"
+         data-tooltip-dir="top"
+         rel="noopener noreferrer">Discuss</a>
+    </div>
+    {{- end }}
+
+    {{ if hasSuffix (lower $parsedGitRepoUrl.Hostname) "github.com" }}
+    <div class="git-meta hide-in-print">
+      <nav class="popup-menu auto-close">
+        <!-- NOTE: This must be a label so that clicking it toggles the checkbox. -->
+        <label class="menu-header" for="git-meta-menu-state" aria-label="Page Tools" data-tooltip-dir="top"><i class="fa-solid fa-ellipsis-vertical"></i></label>
+        <input type="checkbox" class="menu-state" id="git-meta-menu-state" />
+
+        <ul class="menu-items">
+          <li>
+            <!-- IMPORTANT: For the "sha256" calculation below, this must be without(!) leading "/"!!! -->
+            {{- $relativePagePath := (print "content/" (path.Clean .Page.File.Path)) -}}
+            <a href="{{ $gitRepoUrl }}/blob/{{ $gitBranch }}/{{ $relativePagePath }}?plain=1" target="_blank" rel="noopener noreferrer">Source</a>
+          </li>
+          <li>
+            <a href="{{ $gitRepoUrl }}/commits/{{ $gitBranch }}/{{ $relativePagePath }}" target="_blank" rel="noopener noreferrer">Page History</a>
+          </li>
+          <li>
+            <a href="{{ $gitRepoUrl }}/commit/{{ .Page.GitInfo.Hash }}#diff-{{ sha256 $relativePagePath }}" target="_blank" rel="noopener noreferrer">Latest Commit</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    {{- end }}
+
+  </div>
+  {{ end }}
+</div>
