@@ -1,0 +1,46 @@
+a.term {
+  display: inline-flex;
+  align-items: center;
+
+  border-radius: 3px;
+
+  color: black;
+  background-color: lighten($tags-base-color, 20%);
+
+  border: 1px solid #ddd;
+
+  line-height: 0.95em;
+
+  text-decoration: none; // disable default underlining in links
+
+  & > .name {
+    padding: 0.25em 0.5em 0.25em 0.25em;
+
+    &.with-count {
+      padding-right: 0.3em;
+    }
+  }
+
+  .tag-icon {
+    font-size: 0.9em;
+
+    color: darken($tags-base-color, 40%);
+    background-color: $tags-base-color;
+
+    margin-left: 0.15em;
+    padding: 0.20em 0.25em;
+    border-radius: 3px;
+  }
+
+  & > .count {
+    font-size: 0.8em;
+
+    border-left: 1px solid #bbb;
+
+    text-align: center;
+    min-width: 1.4em;
+
+    margin: 0.15em;
+    padding: 0 0.4em 0 0.5em;
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "devlog-theme-assets",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.7.2",
+    "@highlightjs/cdn-assets": "^11.11.1",
+    "@types/highlightjs": "^9.12.6",
+    "jquery": "^3.7.1",
+    "modern-normalize": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.5.32"
+  }
+}

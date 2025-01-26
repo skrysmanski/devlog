@@ -1,0 +1,25 @@
+{{- /* https://gohugo.io/templates/render-hooks/#render-hooks-for-code-blocks */ -}}
+
+{{- /* To test changes to this file, use the "code-block-test.md" page. */ -}}
+
+{{- /* NOTE: This render hook is NOT executed for code blocks created with indentation (4 spaces) rather than ```. */ -}}
+
+{{- /* NOTE: We don't use Hugo's Chroma for highlighting but rather a JavaScript syntax highlighter; see: https://github.com/skrysmanski/devlog-theme/pull/6. */ -}}
+
+{{- $originalLang := .Type -}}
+
+{{- $originalOptions := dict -}}
+{{- if transform.CanHighlight $originalLang -}}
+  {{- $originalOptions = .Options -}}
+{{- else -}}
+  {{- $originalOptions = .Attributes -}}
+{{- end -}}
+
+{{- $showLineNumbers := ne (index $originalOptions "lineNos" | default (index $originalOptions "linenos") | default false) false -}}
+{{- $lineHighlights := index $originalOptions "hl_lines" | default "" -}}
+
+{{- /* Line Break Keeper Comment */}}
+<pre><code{{ if $showLineNumbers }} class="with-line-numbers"{{ end }}{{ with $originalLang }} data-lang="{{ . }}"{{ end }}{{ with $lineHighlights }} data-line-highlights="{{ . }}"{{ end }}>
+{{ .Inner }}
+</code></pre>
+

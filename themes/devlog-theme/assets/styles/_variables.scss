@@ -1,0 +1,66 @@
+//
+// Base colors
+//
+$text-color: rgb(81, 81, 81);
+$background-color: #fff;
+$heading-color: #313131;
+$link-color: #268bd2;
+
+
+//
+// Base sizes
+//
+
+// Width of the page's content (without any sidebars).
+$content-width: 800px;
+
+// Width of the TOC (including margins).
+$toc-sidebar-width: 400px;
+// Space between content and the TOC sidebar.
+$toc-sidebar-spacing: 100px;
+
+$small-screen-width: 740px;
+$small-screen-size-factor: 0.8;
+
+// IMPORTANT: Must be either in pixels or rem so that it's not dependent on the font size.
+//   Necessary for the copy code button.
+$block-border-radius: .375rem;
+
+
+//
+// Other base values
+//
+
+// NOTE: When changing this, also change the "theme-color" meta for the
+//   site (in baseof.html) and the "theme_color" value in the "site.webmanifest" file.
+$header-footer-background: #282a36;
+$header-footer-separator-line-height: 4px;
+$header-footer-separator-line-color: #268bd2;
+$header-height: 52px;
+$header-content-margin: 6px;
+$header-text-color: #fff;
+$header-avatar-border: 2px solid #fff;
+
+$separator-color: #dfdfdf;
+
+$heading-number-color: #878e94;
+$heading-background-target: #ffefce;
+
+$page-meta-background: #f6f6f6;
+$page-meta-padding: 1em 1.5em;
+
+$search-result-mark-background: lighten($link-color, 45%);
+
+$tags-base-color: lighten($link-color, 25%);
+
+$toc-separator-color: rgb(224, 224, 224);
+// If the screen is wider than this, the TOC appears as sidebar. If not, the TOC appears inline in the main content.
+$toc_as_sidebar_width_threshold: calc(#{$content-width} + #{$toc-sidebar-width});
+
+$z-index-popup-menu: 10;
+$z-index-backdrop-content: 20;
+$z-index-slide-in-toc: 25;
+$z-index-header: 30;
+$z-index-backdrop: 35;
+$z-index-search-overlay: 40;
+$z-index-tooltips: 100;

@@ -1,0 +1,31 @@
+#page-backdrop {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+
+  z-index: $z-index-backdrop;
+
+  background-color: rgba(0,0,0,0);
+  // NOTE: backdrop-filter doesn't work when "opacity" is used. So we need to make the
+  //   transparency via the background color.
+  backdrop-filter: blur(2px);
+  // For iOS; see: https://caniuse.com/css-backdrop-filter
+  -webkit-backdrop-filter: blur(2px);
+
+  // NOTE: I also tried a fade out animation (instead of just a fade in animation) but
+  //   it didn't look good - so I dropped the fade out animation again.
+  transition: background-color 0.2s;
+
+  visibility: hidden;
+
+  &.visible {
+    background-color: rgba(0,0,0,.7);
+    visibility: visible;
+  }
+
+  &[data-backdrop-layer=content] {
+    z-index: $z-index-backdrop-content;
+  }
+}

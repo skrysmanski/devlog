@@ -1,0 +1,217 @@
+{{- /* See: https://gohugo.io/templates/base/ */ -}}
+{{- partial "site-paginators.html" . -}}
+<!doctype html>
+<html lang="{{ .Language.LanguageCode }}">
+  <head>
+    <!-- This basically blocks loading anything (images, scripts, style sheets) from any other server - this
+         makes it easier to comply with Europe's data protection regulations (GDPR) - i.e. we can't accidentally
+         make a request to a server hosted in the US.
+
+         See:
+           * https://content-security-policy.com
+           * https://infosec.mozilla.org/guidelines/web_security#content-security-policy
+           * https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy
+
+         NOTES:
+           * This should be the first <meta> element in <head>.
+           * Violations will be printed by browsers to the dev console.
+           * Some directives don't fallback to default-src. See: https://content-security-policy.com/default-src/
+           * script-src 'wasm-unsafe-eval' - required for pagefind to work. See: https://pagefind.app/docs/hosting/#content-security-policy-csp
+           * script-src 'sha256-...' - required for the single inline <script> element at the end of this file. See: https://content-security-policy.com/hash/
+           * style-src 'unsafe-inline' - required for color shortcode.
+           * object-src 'none' - recommended as we don't need any browser plugins.
+           * base-uri 'none' - doesn't fallback to 'default-src'; recommended as we don't use <base href="...">. See: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+           * form-action 'self' - doesn't fallback to 'default-src'; recommended
+    -->
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src 'self'; script-src 'self' 'sha256-yEPkwJi3QZblic86++vurdOuNakfLKWmO5GLmfWrMa4=' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'none'; form-action 'self'"
+    />
+
+    <meta charset="utf-8" />
+
+    <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ partial "page-title.html" . }} // {{ site.Title }}{{ end }}</title>
+
+    {{/*
+      NOTE: We do NOT use 'hugo.Generator' here as this means, with every new Hugo version, every generated file changes
+        (because the version number is updated). This makes it easier to spot actual differences in generated files from
+        different Hugo versions.
+      NOTE 2: We still keep the generator meta tag here as the Hugo developers kindly asked for it in
+        https://gohugo.io/getting-started/configuration/#disablehugogeneratorinject - but we remove the version number.
+    */}}
+    <meta name="generator" content="Hugo">
+
+    <!-- NOTE: maximum-scale=1 is necessary to prevent the auto zoom feature on iOS when typing into
+           a text box (e.g. the search box).
+           Apparently, this breaks zooming on Android (but not on iOS) - but since we don't have many
+           pictures on this site, there should be rarely any need to zoom here - and this fix is easier
+           than ensuring a minimum text size of 16px on all input boxes (which is the other fix).
+           See: https://weblog.west-wind.com/posts/2023/Apr/17/Preventing-iOS-Safari-Textbox-Zooming
+    -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <!-- Sets the header color in Safari for iOS to the same color as the header.
+         NOTE: On iOS, only works on Safari (but not in Firefox or Chrome). There
+           seems to be no way to achieve this behavior in browsers other than Safari.
+    -->
+    <meta name="theme-color" content="#282a36" />
+
+    <meta name="author" content="{{ site.Params.author }}" />
+    <!-- See: https://blog.joinmastodon.org/2024/07/highlighting-journalism-on-mastodon/ -->
+    {{ if site.Params.social.mastodon_alt }}<meta name="fediverse:creator" content="{{ site.Params.social.mastodon_alt }}" />{{ end }}
+    {{ with site.Params.robots -}}
+    <meta name="robots" content="{{ . }}" />
+    {{- end }}
+
+    <!-- Specify canonical URL
+         See: https://ahrefs.com/blog/canonical-tags/
+    -->
+    <link rel="canonical" href="{{ partial "permalink-abs.html" . }}" />
+
+    <!--
+      FavIcon
+    -->
+    {{ partial "favicon" . }}
+
+    <!-- Enable OpenGraph support. -->
+    {{ partial "opengraph.html" . }}
+
+    <!--
+      CSS
+    -->
+    {{ partial "css-build.html" (dict "File" "styles/main.scss") }}
+    {{ partial "css-build.html" (dict "File" "styles/print.scss" "Media" "print") }}
+
+    <!-- Make Hugo "aware" of the fontawesome fonts. (See: https://gohugo.io/methods/resource/publish/) -->
+    {{- range (resources.Match "node_modules/@fortawesome/fontawesome-free/webfonts/*") -}}
+      {{- .Publish -}}
+    {{- end -}}
+
+    <!--
+      JavaScript
+
+      NOTE: We put jQuery in a separate <script> element so that we can use the minified version but still can keep
+        our own JavaScript/TypeScript code un-minified (for readability).
+    -->
+    {{ partial "js-static.html" "node_modules/jquery/dist/jquery.slim.min.js" }}
+
+    <!--
+      NOTE: List of supported languages: https://github.com/highlightjs/highlight.js/blob/main/SUPPORTED_LANGUAGES.md
+    -->
+    {{ partial "js-static.html" "node_modules/@highlightjs/cdn-assets/highlight.min.js" }}
+    {{ partial "js-static.html" "node_modules/@highlightjs/cdn-assets/languages/powershell.min.js" }}
+
+    {{ partial "js-build.html" "scripts/main.ts" }}
+
+    <!-- For static site search. -->
+    <!-- For meaning of "defer", see: https://www.w3schools.com/tags/att_script_defer.asp -->
+    <script src="/pagefind/pagefind-ui.js" defer></script>
+  </head>
+
+  <body>
+    {{ partial "git-info.html" . }}
+
+    {{- $isPrimaryContent := and .IsPage (in site.MainSections .Type) -}}
+
+    <!-- This collects all divs that aren't the "primary content" (i.e. header, content, footer).
+         This is to simplify the grid layout in _app.scss that makes sure the main content spans
+         the whole height.
+    -->
+    <div>
+      {{- /*
+        NOTE: We need this dedicated "top" link element for the scroll to top button - because
+          some pages (like the start page) don't have a main title we can scroll to (see "simplifyTopLinks()").
+      */ -}}
+      <div id="top"></div>
+
+      <div id="page-backdrop"></div>
+
+      <div id="search-overlay-container" class="hide-in-print">
+        <div id="search-overlay"></div>
+      </div>
+
+      <div class="back-to-top-wrapper">
+        <a href="#top"><i class="fa-solid fa-chevron-up"></i></a>
+      </div>
+    </div>
+
+    <header id="main-header" class="app-header">
+
+      <div class="main-header-content">
+
+        <div class="main-header-title">
+          <img class="app-header-avatar hide-in-print" src="{{ site.Params.avatar }}" alt="{{ site.Params.author }}" />
+
+          <h1 class="app-header-title"><a href="/">{{ site.Title }}</a></h1>
+        </div>
+
+        <!-- IMPORTANT: Use "bottom-right" for tooltips here to prevent a horizontal scrollbar on small screens (e.g. iPhone). -->
+        <div class="main-header-navigation">
+          <nav class="app-header-menu hide-in-print">
+            <button id="open-search-dialog-button" aria-label="Search site - keyboard shortcut: ." data-tooltip-dir="bottom-right"><i class="fa-solid fa-magnifying-glass"></i></button>
+            {{ range $name, $taxonomy := site.Taxonomies -}}
+            {{- with site.GetPage $name -}}
+            <a href="{{ partial "permalink-rel.html" . }}" aria-label="All {{ partial "auto-title.html" .Title }}" data-tooltip-dir="bottom-right"><i class="fa-solid fa-tags"></i></a>
+            {{- end -}}
+            {{- end }}
+            {{ range site.MainSections -}}
+            {{- with site.GetPage . -}}
+            <a href="{{ partial "permalink-rel.html" . }}" aria-label="All {{ partial "auto-title.html" .Title }}" data-tooltip-dir="bottom-right"><i class="fa-solid fa-file"></i></a>
+            {{- end -}}
+            {{- end }}
+          </nav>
+        </div>
+
+      </div>
+
+      {{ if $isPrimaryContent -}}
+      <div class="page-title-header-bar hide-in-print" aria-hidden="true">
+        <span class="page-title">{{ .Title }}</span>
+        <span class="toc-toggle-button"><i class="fa-solid fa-list-ul"></i></span>
+      </div>
+      {{- end }}
+
+      <!-- NOTE: We don't use a <progress> element here as it's very hard to style via CSS. -->
+      <div class="reading-progress-bar hide-in-print{{ if $isPrimaryContent }} enabled{{ end }}" aria-hidden="true">
+        <div class="progress"></div>
+      </div>
+
+    </header>
+
+    <!-- See CSS for reason we have this "main-container". -->
+    <div id="main-container">
+      <!-- Defines the "main" block. For an explanation of blocks, watch this video: https://gohugo.io/templates/base/ -->
+      {{ block "main" . }}
+        {{ .Content }}
+      {{ end }}
+    </div>
+
+    <footer id="main-footer">
+      <div class="copyright">
+        {{ with site.GetPage site.Params.footer.termsLinks -}}
+        <a href="{{ partial "permalink-rel.html" . }}">{{ site.Params.footer.copyrightPrefix }} &copy; {{ now.Format "2006" }} {{ site.Params.author }}</a>
+        {{- end }}
+      </div>
+
+      <div class="social-links hide-in-print">
+        {{ if site.Params.social.github }}<a href="https://github.com/{{ site.Params.social.github }}" rel="me" title="Find me on GitHub"><i class="fa-brands fa-github"></i></a>{{ end }}
+        <!-- NOTE: rel="me" is required for verification on Mastodon. -->
+        {{ if site.Params.social.mastodon }}<a href="{{ site.Params.social.mastodon }}" rel="me" title="Find me on Mastodon"><i class="fa-brands fa-mastodon"></i></a>{{ end }}
+      </div>
+    </footer>
+
+    <!--
+      IMPORTANT: This method must be called here - instead of in the "ready" event - to avoid "flickering" when changing the
+        HTML content (i.e. the user first sees the unchanged content and then, some milliseconds later, the updated content).
+
+        It seems, using an inline script tag is the only way to achieve this. See: https://stackoverflow.com/a/5642299/614177
+
+      IMPORTANT 2: The content of this script element is allowed via CSP (see above) via hashes (https://content-security-policy.com/hash/).
+        Whenever you change its content, you need to update the hash in the CSP above. You can calculate the hash via:
+
+          echo -n 'window.fixupHtmlBeforeShow()' | openssl sha256 -binary | openssl base64
+
+        Note that Hugo may change this code if run with "--minify" (e.g. remove trailing ;). Thus, it's recommended to let Hugo minify this script before
+        calculating the hash.
+    -->
+    <script>window.fixupHtmlBeforeShow()</script>
+</body>
+</html>

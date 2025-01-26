@@ -1,0 +1,48 @@
+{{- /*
+  Unfortunately, we can't use <figure> here as this creates invalid HTML - basically because
+  the image render hook can't/must not create block elements like <figure>. Thus, we must
+  ONLY USE INLINE ELEMENTS!
+  See: https://github.com/gohugoio/hugo/issues/6748
+
+  SIDE NOTE: Images may sometimes be used inline - so it would actually be bad to return
+    a block element in this case.
+
+  NOTE: This code doesn't differentiate between inline and block images (there doesn't seem to
+    be a way). So, this differentiation is done in JavaScript.
+*/}}
+<span class="figure">
+  {{- /*
+    By default, .Destination is simply the image name. And since we strip the trailing slash from
+    URLs, browser will use the wrong URL when fetching images (i.e. "../parent-folder/image.png" instead
+    of "../parent-folder/my-article/image.png"). So we make the url "absolute" here.
+  */}}
+  {{ $imageUrl := .Destination -}}
+  {{- $isExternal := strings.HasPrefix $imageUrl "http" -}}
+  {{- if not $isExternal -}}
+    {{- with .Page.Resources.GetMatch $imageUrl -}}
+      {{- if eq .MediaType.SubType "svg" -}}
+        {{- /* ".Width" and ".Height" are only available for rater images - but not for vector images like SVG. */ -}}
+        <img src="{{ .RelPermalink }}" />
+      {{- else -}}
+        {{- $imageFileBaseName := (urls.Parse .Permalink).Path | path.BaseName -}}
+        {{- /*
+          If the file name ends with "@2x", interpret it as 192 DPI (instead of the regular 96 DPI) and thus halve its size.
+          NOTE: At the time of writing, there's no way in Hugo to get the DPI value(s) from the image itself - and it also
+            doesn't look like this will be supported any time soon: https://discourse.gohugo.io/t/new-dpi-property-for-image-resources/48333
+        */ -}}
+        {{- if (hasSuffix $imageFileBaseName "@2x") -}}
+          <img src="{{ .RelPermalink }}" width="{{ div .Width 2 }}" height="{{ div .Height 2 }}" />
+        {{- else -}}
+          <img src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}" />
+        {{- end -}}
+      {{- end -}}
+    {{- else -}}
+      {{- warnf "Page '%v': Could not locate image '%v'." .Page.File.Path $imageUrl -}}
+    {{- end -}}
+  {{- else -}}
+    <img src="{{ $imageUrl | safeURL }}" />
+  {{- end -}}
+  {{- with .Text }}
+  <span class="figcaption">{{ . | safeHTML }}</span>
+  {{- end }}
+</span>

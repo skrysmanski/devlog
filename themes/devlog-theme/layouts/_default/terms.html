@@ -1,0 +1,43 @@
+{{- /* See: https://gohugo.io/templates/taxonomy-templates/ */ -}}
+{{ define "main" }}
+<main class="terms-list">
+  <header>
+    <h1>{{ partial "page-title.html" . }}</h1>
+  </header>
+
+  <!--
+    Group terms by their first letter. (Uses the term's actual title, if one is defined.)
+    Source: https://dongheenam.info/posts/grouping-a-list-by-first-letter-in-hugo/
+  -->
+  {{- $letters := split "ABCDEFGHIJKLMNOPQRSTUVWXYZ" "" -}}
+  <!-- NOTE: ".Pages" actually contains the terms, not the actual pages. -->
+  {{- $terms := .Pages.ByTitle -}}
+  {{- $terms_by_letters := dict -}}
+  {{- range $terms -}}
+    {{- $term := . -}}
+    {{- $first_letter := upper ( substr $term.Title 0 1 ) -}}
+    {{- if not (in $letters $first_letter) -}}
+      {{- $first_letter = "#" -}}
+    {{- end -}}
+    {{- $new_list := slice -}}
+    {{- with index $terms_by_letters $first_letter -}}
+      {{- $new_list = . | append $term -}}
+    {{- else -}}
+      {{- $new_list = slice $term -}}
+    {{- end -}}
+    {{- $terms_by_letters = merge $terms_by_letters (dict $first_letter $new_list) -}}
+  {{- end -}}
+
+  {{ range $grouping_letter, $terms_in_group := $terms_by_letters }}
+  <h2>{{ $grouping_letter }}</h2>
+  <ul class="terms-list">
+    {{- range $terms_in_group }}
+    <li>
+      {{ partial "term.html" ( dict "Term" . "WithTermCount" true ) }}
+    </li>
+    {{- end }}
+  </ul>
+  {{ end }}
+
+</main>
+{{ end }}

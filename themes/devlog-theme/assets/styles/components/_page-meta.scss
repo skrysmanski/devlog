@@ -1,0 +1,130 @@
+.page-meta {
+  font-size: 0.8em;
+
+  display: grid;
+
+  // First column: primary-meta
+  // Second column: secondary-meta
+  grid-template-columns: minmax(0, 1fr) auto;
+
+  column-gap: 1em;
+  align-items: start;
+
+  // Give meta data with tooltips a help mouse cursor.
+  div[aria-label] {
+    cursor: help;
+  }
+
+  .primary-meta {
+    display: flex;
+    flex-flow: row wrap;
+    column-gap: 1em;
+    row-gap: 0.5em;
+  }
+
+  .secondary-meta {
+    display: flex;
+    flex-direction: row;
+    column-gap: 0.3em;
+
+    .git-meta {
+      display: inline-block;
+      border-radius: 3px;
+      padding: 0 0.3em;
+
+      transition: background-color 0.35s box-shadow 0.35s;
+
+      &:hover {
+        background-color: lighten($page-meta-background, 20%);
+        box-shadow: 0 0 0.15em #777;
+      }
+
+      nav.popup-menu {
+        position: relative; // for "position: absolute" of ".menu-items".
+        display: inline-block;
+
+        .menu-header {
+          color: $text-color;
+          font-weight: bold;
+          padding: 0 0.4em;
+
+          cursor: pointer;
+
+          &::selection {
+            background-color: transparent; // don't show a selection if the user accidentally double clicks the button
+          }
+          &:hover {
+            color: black;
+          }
+
+          & * {
+            // Disable all mouse events for all child items. Allowing pointer events breaks the
+            // "click the button to close the menu" functionality.
+            pointer-events: none;
+          }
+        }
+
+        .menu-items {
+          position: absolute;
+          top: 2em;
+          right: calc(-0.3em - 1px);
+          z-index: $z-index-popup-menu;
+
+          border-radius: $block-border-radius;
+          background-color: #fff;
+          border: 1px solid #ddd;
+          box-shadow: 0 1px 6px rgba(43,43,43,0.1);
+
+          text-align: center;
+          margin: 0;
+          padding: 0;
+
+          display: none;
+          opacity: 0;
+          transition: opacity 0.35s;
+        }
+
+        .menu-items > li {
+          padding: 0.5em 1em;
+          list-style: none;
+          white-space: nowrap;
+
+          transition: background-color 0.35s;
+
+          &::selection {
+            background-color: transparent; // don't show a selection if the user accidentally double clicks the button
+          }
+          &:hover {
+            background-color: lighten($link-color, 45%);
+          }
+
+          // Adopt the menus border radius for the hover background.
+          &:first-child {
+            border-radius: $block-border-radius $block-border-radius 0 0;
+          }
+          &:last-child {
+            border-radius: 0 0 $block-border-radius $block-border-radius;
+          }
+        }
+
+        // This style simply hides the checkbox we use to tracker whether the context menu
+        // is open or not.
+        .menu-state {
+          position: absolute;
+          display: none;
+        }
+
+        .menu-state:checked + .menu-items {
+          display: block;
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+main.page > header .page-meta {
+  background-color: $page-meta-background;
+  padding: $page-meta-padding;
+  border-radius: $block-border-radius;
+}

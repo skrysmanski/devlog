@@ -1,0 +1,157 @@
+// For all themes, see: https://highlightjs.org/examples
+// IMPORTANT: Do NOT add ".css" to the end or else the file won't be inlined (and thus trigger a CSP violation - at least during dev)!!!
+@import '../../node_modules/@highlightjs/cdn-assets/styles/felipec';
+$code-block-background-color: #1e1e22;
+$highlight-background-color: #3d4148;
+
+pre {
+  // Required for "position: absolute" of the copy button and the language name.
+  position: relative;
+
+  margin: 1em 0;
+
+  font-size: 0.9em;
+  line-height: 1.4em;
+
+  border-radius: $block-border-radius;
+
+  // Set background color and text color.
+  @extend .hljs;
+
+  & > code {
+    // Required because "code" is usually an inline element - which can't have a "width" element.
+    display: block;
+    // IMPORTANT: Without this, "overflow: auto" won't cause any scrolling.
+    width: 100%;
+    // IMPORTANT: This must be defined here (rather than on the outer pre element) because otherwise:
+    // 1. it would hide the tooltip from the copy button.
+    // 2. the copy button would not stay in place when scrolling horizontally.
+    overflow: auto;
+    // NOTES:
+    // * The bottom padding is especially necessary when there is a horizontal scroll bar (which otherwise would
+    //   overlap the content).
+    // * The top padding is necessary/useful to prevent a long first line to intersect with the language name.
+    padding: 1.3em 0;
+
+    $horizontal-code-margin: 1.2em;
+
+    &:not(.with-lines) {
+      // This is for code blocks that have no dedicated line spans (i.e. because they don't use line numbers or line highlights).
+      padding-left: $horizontal-code-margin;
+    }
+
+    .line {
+      display: flex;
+      padding: 0 $horizontal-code-margin;
+
+      // Highlighted line
+      &.hl {
+        background-color: $highlight-background-color;
+      }
+    }
+
+    //
+    // Line numbers
+    //
+    &.with-line-numbers {
+      counter-reset: line-numbering;
+      & > .line {
+        // Reduce left padding.
+        padding-left: 0.5em;
+
+        &::before {
+          content: counter(line-numbering);
+          counter-increment: line-numbering;
+
+          // Required for lines that are wider/longer than the code block. Otherwise, the "cell"
+          // will shrink to its minimum.
+          // NOTE: The surrounding line requires "display: flex" so that line highlights span the
+          //   whole code block width (and not just the line's length).
+          flex-shrink: 0;
+
+          // Use the same text color as comments for line numbers.
+          @extend .hljs-comment;
+
+          margin-right: .8em;
+          width: 1.5em;
+          text-align: right;
+        }
+      }
+    }
+
+    //
+    // Displays the language of the code block.
+    //
+    &[data-lang]::before {
+      position: absolute;
+      top: 0.7em;
+      right: 0.7em;
+      // Show above code block.
+      z-index: 2;
+
+      content: attr(data-lang);
+      text-transform: uppercase;
+
+      font-size: 0.7em;
+      color: #ff7a18;
+
+      // Background for line highlighting or other code content that appears below the language name.
+      background-color: rgba($code-block-background-color, 0.7);
+      border-radius: $block-border-radius;
+      line-height: 1.4em;
+      padding: 0 0.3em;
+    }
+    // Use terminal icon for shell code instead of the name "shell".
+    &[data-lang="shell"]::before {
+      @extend %fa-icon;
+      @extend .fa-solid;
+      content: fa-content($fa-var-terminal);
+    }
+  }
+
+  .copy-code-button {
+    // The frame of reference here is the outer "pre" element because it has a position other than static.
+    // See: https://stackoverflow.com/a/46318225/614177
+    position: absolute;
+    top: 0.1em;
+    right: 0.2em;
+    // Show above code block and language text.
+    z-index: 3;
+
+    margin: 0;
+    padding: 4px 6px;
+
+    // The next 3 lines create a "fade out" animation.
+    // See also: https://stackoverflow.com/a/20910008/614177
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 0.35s, opacity 0.35s;
+
+    font-size: 18px;
+    font-weight: bold;
+    white-space: nowrap;
+
+    color: #ccc;
+    background-color: rgba($code-block-background-color, 0.8);
+    border-radius: $block-border-radius;
+
+    border: 0;
+
+    cursor: pointer;
+
+    &:hover,
+    &:focus,
+    &:active,
+    &:active:hover {
+      color: white;
+    }
+  }
+}
+
+pre:hover .copy-code-button {
+    // The next 3 lines create a "fade in" animation.
+    // See also: https://stackoverflow.com/a/20910008/614177
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.35s;
+}

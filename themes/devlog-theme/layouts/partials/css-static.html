@@ -1,0 +1,9 @@
+{{- $styles := resources.Get .File }}
+
+{{- if eq (printf "%v" (site.Params.enableAssetFingerprinting | default true)) "true" -}}
+  {{- $styles = $styles | fingerprint -}}
+{{- end -}}
+
+{{- with $styles -}}
+  <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" media="{{ $.Media | default "screen" }}" />
+{{- end -}}

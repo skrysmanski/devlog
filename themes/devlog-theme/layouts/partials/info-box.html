@@ -1,0 +1,14 @@
+
+<div class="info-box info-box-{{ .Type }}">
+  <div class="info-box-title">
+    <span class="info-box-icon"><i class="fa-solid fa-{{ .Icon }}"></i></span>{{ .Title }}
+  </div>
+  {{- /*
+    NOTE: We use ".Page.RenderString" instead of "markdownify" because "RenderString" provide access
+      to the ".Page" object for render hooks (e.g. for images) whereas markdownify" does not.
+      See also: https://gohugo.io/functions/transform/markdownify/ and https://github.com/gohugoio/hugo/issues/9692
+  */}}
+  <div class="info-box-content">
+    {{ .Inner | .Page.RenderString (dict "display" "block") | chomp }}
+  </div>
+</div>

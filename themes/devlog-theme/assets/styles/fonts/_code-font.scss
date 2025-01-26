@@ -1,0 +1,35 @@
+$code-font: "Cascadia Mono", monospace;
+
+$code-font-path : "../webfonts/cascadia-mono";
+
+@font-face {
+  font-family: 'Cascadia Mono';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''),
+       url('#{$code-font-path}/CascadiaMono-Regular.woff2') format('woff2'); /* Chrome 26+, Opera 23+, Firefox 39+ */
+}
+
+@font-face {
+  font-family: 'Cascadia Mono';
+  font-style: italic;
+  font-weight: 400;
+  src: local(''),
+       url('#{$code-font-path}/CascadiaMono-Italic.woff2') format('woff2'); /* Chrome 26+, Opera 23+, Firefox 39+ */
+}
+
+@font-face {
+  font-family: 'Cascadia Mono';
+  font-style: normal;
+  font-weight: 700;
+  src: local(''),
+       url('#{$code-font-path}/CascadiaMono-Bold.woff2') format('woff2'); /* Chrome 26+, Opera 23+, Firefox 39+ */
+}
+
+@font-face {
+  font-family: 'Cascadia Mono';
+  font-style: italic;
+  font-weight: 700;
+  src: local(''),
+       url('#{$code-font-path}/CascadiaMono-BoldItalic.woff2') format('woff2');
+}

@@ -1,0 +1,135 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  line-height: 1.75;
+  // When clicking links in the TOC, with this the browser scrolls to the
+  // location in a smooth way - instead of just jumping to the location.
+  // For a demo, see: https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior
+  scroll-behavior: smooth;
+}
+
+// NOTE: More styles are defined in "_app.scss".
+body {
+  margin: 0;
+
+  font-family: $main-font;
+  font-size: $main-font-size;
+  // Reduce font size if the screen is very narrow (i.e. on mobile).
+  @media (max-width: 400px) {
+    font-size: $main-font-size-small-screen;
+  }
+  color: $text-color;
+
+  // Makes long texts break properly - especially on mobile (i.e. small screens).
+  // See: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_text/Wrapping_breaking_text#breaking_long_words
+  overflow-wrap: break-word;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $heading-font;
+  color: $heading-color;
+}
+
+h1 {
+  font-size: 2.4rem;
+  @media (max-width: 500px) { // screen is small
+    font-size: 1.8rem;
+  }
+}
+
+a {
+  color: $link-color;
+
+  text-decoration: underline;
+  // NOTE: We make this transparent so that we can animate (via transition) the underline appearing on mouse over.
+  text-decoration-color: transparent;
+
+  transition: text-decoration-color 0.35s;
+
+  &:hover {
+    // NOTE: Use "inherit" here so that it still works if the link has a different color.
+    text-decoration-color: inherit;
+  }
+}
+
+dl > dt {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+code, pre {
+  font-family: $code-font;
+  font-size: 0.95em;
+}
+
+// Only style <code> that's not under a <pre> element.
+:not(pre) > code {
+  background-color: #f1f1f1;
+  padding: 0.05em 0.2em;
+  border-radius: 0.25rem;
+  border: 1px #e4e4e4 solid;
+
+  // Keep inline code together in one line, if possible.
+  // Especially useful in tables where column space is often small.
+  white-space: nowrap;
+  overflow-wrap: break-word;
+}
+
+a > code {
+  color: $link-color;
+}
+
+//
+// NOTE: We no longer overwrite the selection color but simply use the browser's default.
+//
+// Reason 1: Any color makes problems with code blocks with syntax highlighting (as the
+//  contrast often suffers for parts of the code because background color and text color
+//  are too similar).
+// Reason 2: Most professional developer websites (GitHub, StackOverflow, ...) also use the
+//  browser's default.
+// Reason 3: MDN even notes that one shouldn't overwrite the selection color just for aesthetic
+//  reasons: https://developer.mozilla.org/en-US/docs/Web/CSS/::selection#accessibility_concerns
+//
+// ::selection {
+//   background: $selection-color;
+// }
+
+abbr[aria-label] {
+  text-decoration: underline dotted;
+  cursor: help;
+}
+
+.center-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  // NOTE: The next two rules are required to avoid double margins (although
+  //   it's not really clear to me why this is necessary).
+  & > *:first-child {
+    margin-top: 0;
+  }
+  & > * {
+    margin-bottom: 0;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+//
+// Print
+//
+@media screen {
+  .only-in-print {
+    display: none;
+  }
+}
+@media print {
+  .hide-in-print {
+    display: none;
+  }
+}

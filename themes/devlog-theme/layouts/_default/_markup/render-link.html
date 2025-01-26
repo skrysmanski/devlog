@@ -1,0 +1,147 @@
+{{- /*
+  Converts local ".md" links into proper links (not supported out-of-the-box by Hugo).
+
+  Also adds 'target="_blank"' to external links.
+
+  Also fixes local links (i.e. to files other than images) that won't work out-of-the-box
+  because we trim trailing slashes from URLs and thus relative links become invalid otherwise
+  (i.e. the browser uses "../parent-folder/attach.zip" instead of "../parent-folder/my-article/attach.zip").
+
+  Source:
+  * https://github.com/bep/portable-hugo-links
+  * https://github.com/bep/portable-hugo-links/blob/master/layouts/_default/_markup/render-link.html
+*/ -}}
+
+{{- $link := .Destination -}}
+{{- $text := .Text -}}
+{{- $openInNewTab := false -}}
+{{- $cssClass := "" -}}
+{{- $resolveScope := "" -}} {{- /* This is primarily for debugging purposes to see which resolution was used to find the target page. */ -}}
+
+{{- if $link -}}
+  {{- $compactUriMatch := findRESubmatch `^([a-zA-Z0-9]+):(.+)$` $link -}}
+  {{- $compactUriPrefix := "" -}}
+
+  {{- if ne (len $compactUriMatch) 0 -}}
+    {{- /* Either a regular external link or a compact URI link. */ -}}
+    {{- $compactUriPrefix = index (index $compactUriMatch 0) 1 -}}
+    {{- $openInNewTab = true -}}
+    {{- $cssClass = "external" -}}
+
+    {{- if not (strings.HasPrefix $compactUriPrefix "http") -}}
+
+      {{- /*
+        It's an actual compact uri.
+        NOTE: This is based on the proposed CURIE draft (https://en.wikipedia.org/wiki/CURIE) which unfortunately
+          isn't supported by browsers (as of Dec 2023).
+      */ -}}
+      {{- $compactUris := site.Params.compactUris -}}
+      {{- $baseCompactUri := index $compactUris $compactUriPrefix -}}
+      {{- if $baseCompactUri -}}
+        {{- $link = printf "%s%s" $baseCompactUri (index (index $compactUriMatch 0) 2) -}}
+      {{- else -}}
+        {{- warnf "Page '%v': Compact URI prefix '%v' is not defined (for '%v')." .Page.File.Path $compactUriPrefix .Destination -}}
+      {{- end -}}
+
+    {{- end -}}
+
+  {{- else -}}
+    {{- /* Internal link that's not a compact URI. */ -}}
+
+    {{- with .Page.Resources.GetMatch .Destination -}}
+      {{- /* Not a page but a resource (e.g. image, attachment). */ -}}
+      {{- $link = .RelPermalink -}}
+      {{- $cssClass = printf "resource resource-%s" .ResourceType -}}
+
+      {{- if eq .ResourceType "text" -}}
+        {{- /* Make sure the browser doesn't "overwrite" the current page with the resource. */ -}}
+        {{- $openInNewTab = true -}}
+      {{- end -}}
+
+    {{- else -}}
+      {{- /* Regular page link */ -}}
+      {{- /* Parse URL to get URL without fragment (e.g. "#my-anchor"): $url.Path */ -}}
+      {{- $url := urls.Parse $link -}}
+
+      {{- /* Check if .Destination actually points to another page and isn't just a fragment (e.g. just "#my-anchor"). */ -}}
+      {{- if $url.Path -}}
+        {{- /* Not just a fragment. */ -}}
+        {{- $cssClass = "page" -}}
+        {{- $pathToResolve := $url.Path -}}
+
+        {{- /* Remove ".md" file extension as .GetPage seems to work better this way.
+               See: https://github.com/gohugoio/hugo/issues/12120 */ -}}
+        {{- if strings.HasSuffix (lower $pathToResolve) ".md" -}}
+          {{- $pathToResolve = substr $pathToResolve 0 -3 -}}
+        {{- end -}}
+
+        {{- /*
+          IMPORTANT: Do NOT use "site.GetPage" first(!) as this may result in a "page reference is ambiguous" error when there are
+            multiple pages with the same name and we can't suppress/catch this error here. Unlike "site.GetPage", ".Page.GetPage"
+            supports relative paths (i.e. it "first" checks if the page exists in the same folder). This is the first check
+            we want to do.
+        */ -}}
+        {{- $targetPage := .Page.GetPage $pathToResolve -}}
+        {{- $resolveScope = "page" -}}
+        {{- if and (not $targetPage) (strings.HasPrefix $pathToResolve "/") -}}
+          {{- /* Page not found. Try prepending source page's section (e.g. convert "/cpp/my-article.md" in "/articles/cpp/my-article.md"). */ -}}
+          {{- $targetPage = site.GetPage (printf "/%s%s" .Page.Section $pathToResolve) -}}
+          {{- $resolveScope = "section" -}}
+        {{- end -}}
+        {{- if not $targetPage -}}
+          {{- /* Page still not found. Try site wide search. */ -}}
+          {{- $targetPage = site.GetPage $pathToResolve -}}
+          {{- $resolveScope = "site" -}}
+        {{- end -}}
+
+        {{- with $targetPage -}}
+
+          {{- $fragment := "" -}}
+          {{- if $url.Fragment -}}
+            {{- /* Prefix fragment with # */ -}}
+            {{- $fragment = printf "#%s" $url.Fragment -}}
+            {{- if not (.Fragments.Identifiers.Contains $url.Fragment) -}}
+              {{- warnf "Page '%v': Could not locate target anchor '%v' in '%v' for link '%v'." $.Page.File.Path $fragment .File.Path $link -}}
+            {{- end -}}
+          {{- end -}}
+
+          {{- $link = printf "%s%s" (strings.TrimSuffix "/" .RelPermalink) $fragment -}}
+
+          {{- if not $text -}}
+            {{- /* Provide link text based on target. */ -}}
+            {{- /* NOTE: If the URL contains a fragment we could(!) extract the heading's title as text here.
+                     However, this often creates a worse title since headings are often named to make sense
+                     within an article but not to make sense on the whole site. Thus, we always use the
+                     target page's title - no matter whether a fragment is present or not.
+            */ -}}
+            {{- $text = .Title -}}
+          {{- end -}}
+
+        {{- else -}}
+          {{- warnf "Page '%v': Could not locate link target '%v'." .Page.File.Path .Destination -}}
+        {{- end -}}
+      {{- else -}}
+        {{- /* Just a fragment (e.g. just "#my-anchor"). */ -}}
+        {{- $cssClass = "anchor" -}}
+        {{- if not (.Page.Fragments.Identifiers.Contains $url.Fragment) -}}
+          {{- warnf "Page '%v': Could not locate target anchor '%v'." .Page.File.Path .Destination -}}
+        {{- else if not $text -}}
+          {{- /* Provide link text based on target. */ -}}
+          {{- $targetHeading := index .Page.Fragments.HeadingsMap $url.Fragment -}}
+          {{- $text = $targetHeading.Title -}}
+        {{- end -}}
+      {{- end -}}
+
+    {{- end -}}
+  {{- end -}}
+
+{{- else -}}
+  {{- warnf "Page '%v': Found empty link." .Page.File.Path -}}
+{{- end -}}
+
+{{- if not $text -}}
+  {{- /* Use destination as text if non is set. */ -}}
+  {{- $text = htmlEscape .Destination -}}
+{{- end -}}
+
+<a href="{{ $link | safeURL }}" class="{{ $cssClass }}"{{ with $resolveScope }} data-resolve-scope="{{ . }}"{{ end }}{{ with .Title }} title="{{ . }}"{{ end }}{{ if $openInNewTab }} target="_blank"{{ end }}>{{ $text | safeHTML }}</a>

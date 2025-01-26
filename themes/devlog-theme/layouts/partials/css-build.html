@@ -1,0 +1,12 @@
+{{- /*
+  NOTE: We do not minify the output here. Minifying it decreases its size from 173kb to 136kb but the output becomes unreadable.
+*/ -}}
+{{- $styles := resources.Get .File | toCSS (dict "enableSourceMap" true) }}
+
+{{- if eq (printf "%v" (site.Params.enableAssetFingerprinting | default true)) "true" -}}
+  {{- $styles = $styles | fingerprint -}}
+{{- end -}}
+
+{{- with $styles -}}
+  <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" media="{{ $.Media | default "screen" }}" />
+{{- end -}}

@@ -1,0 +1,34 @@
+{{- /* See: https://gohugo.io/templates/lists/ */ -}}
+{{- /* Also used for listing the pages in a single term from a taxonomy (topic/tag). */ -}}
+{{ define "main" }}
+<main class="pages-list">
+  <header>
+    {{ if eq .Kind "term" -}}
+    <h1>
+      <span class="list-type">{{ strings.FirstUpper .Data.Singular }}</span> {{- /* Term type (e.g. "topic") */ -}}
+      <span>{{ partial "term-name.html" .Title }}</span> {{- /* Name of the term (e.g. "Hugo") */ -}}
+    </h1>
+    {{- else -}}
+    <h1>{{ partial "page-title.html" . }}</h1>
+    {{- end }}
+
+    {{ with .Content }}
+    <p>{{ . }}</p>
+    {{ end }}
+
+    <div class="page-count">
+      {{ $pageCount := len .Pages -}}
+      <span>{{ if ne $pageCount 1 }}{{ $pageCount }} Articles{{ else }}1 Article{{ end }}</span>
+    </div>
+  </header>
+
+  <ul class="pages-list">
+    {{- /* This paginator is defined in "site-paginators.html". */ -}}
+    {{ range .Paginator.Pages }}
+    {{ partial "list-item.html" . }}
+    {{ end }}
+  </ul>
+
+  {{ partial "pagination.html" $ }}
+</main>
+{{ end }}

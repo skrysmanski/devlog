@@ -1,0 +1,12 @@
+@mixin right-lined {
+  background-image: linear-gradient(#ddd,#ddd);
+  background-size: 100% 1px;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  & > span {
+    display: inline-block;
+    padding-right: 0.6em;
+    background-color: $background-color;
+  }
+}

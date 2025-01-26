@@ -1,0 +1,6 @@
+<li>
+    <div class="item-title">
+      <a href="{{ partial "permalink-rel.html" . }}">{{ .LinkTitle | default .File.TranslationBaseName }}</a>
+    </div>
+    {{ partial "page-meta" (dict "Page" .) }}
+</li>

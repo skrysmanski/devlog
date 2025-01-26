@@ -1,0 +1,7 @@
+$fa-font-path : "../node_modules/@fortawesome/fontawesome-free/webfonts"; // published via baseof.html
+@import '../node_modules/@fortawesome/fontawesome-free/scss/fontawesome';
+@import '../node_modules/@fortawesome/fontawesome-free/scss/solid';
+// NOTE: This FontAwesome regular version is only a subset of the full regular set and thus is still free.
+//   See: https://github.com/FortAwesome/Font-Awesome/discussions/19410
+@import '../node_modules/@fortawesome/fontawesome-free/scss/regular';
+@import '../node_modules/@fortawesome/fontawesome-free/scss/brands';

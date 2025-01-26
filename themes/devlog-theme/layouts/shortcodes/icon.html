@@ -1,0 +1,5 @@
+{{- if len .Params | eq 2 -}}
+<i class="fa-{{ .Get 1 }} fa-{{ .Get 0 }}"></i>
+{{- else -}}
+<i class="fa-solid fa-{{ .Get 0 }}"></i>
+{{- end -}}

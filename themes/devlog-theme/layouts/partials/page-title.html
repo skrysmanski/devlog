@@ -1,0 +1,9 @@
+{{- if .IsHome -}}
+  {{ site.Title }}
+{{- else if eq .Kind "term" -}}
+  {{ strings.FirstUpper .Data.Singular }}: {{ partial "term-name.html" .Title }}
+{{- else if or (.IsSection) (eq .Kind "taxonomy") -}}
+  All {{ partial "auto-title.html" .Title }}
+{{- else -}}
+  {{ .Title }}
+{{- end -}}
