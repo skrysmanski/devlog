@@ -1,5 +1,6 @@
 ---
 title: Terms & Privacy Policy
+description: Licensing information and privacy policy of manski.net
 ---
 
 This is a personal site, all opinions are my own.
