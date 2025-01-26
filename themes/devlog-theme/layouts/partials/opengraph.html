@@ -5,7 +5,7 @@
 
   NOTE: This is a customized version of: https://github.com/gohugoio/hugo/blob/master/tpl/tplimpl/embedded/templates/opengraph.html
 
-  TIP: The easiest way to test this is to paste a page link into the WhatsApp desktop app.
+  TIP: The easiest way to test this is to paste a page link into the WhatsApp desktop app - or to use https://opengraph.dev.
 -->
 <meta property="og:title" content="{{ partial "page-title.html" . }}" />
 <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ if .IsPage }}{{ .Summary }}{{ else }}{{ site.Params.description }}{{ end }}{{ end }}" />
