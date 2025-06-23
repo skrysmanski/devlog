@@ -40,13 +40,17 @@ permissions:
   contents: read
 
 env:
+  #
   # The Hugo version to use: https://github.com/gohugoio/hugo/releases
+  #
   # NOTE: It sometimes happens that new Hugo versions break the site. So I've decided to always
   #   "pin" the Hugo version (instead of using the latest version). This way, the Hugo version
   #   can be updated with a pull request where I can test the new version.
+  #
   # IMPORTANT: Always USE A PULL REQUEST TO UPDATE THE HUGO VERSION to be able to fix all problems
   #   before pushing the result to production!!!
-  HUGO_VERSION: 0.142.0
+  #
+  HUGO_VERSION: 0.147.9
 
   # Set "DEPLOY_STATE" to "production" if this workflow was triggered by a push to the main branch.
   # Set "DEPLOY_STATE" to "preview" in any other case (i.e. pull requests).

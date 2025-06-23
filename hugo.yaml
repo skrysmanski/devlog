@@ -141,7 +141,7 @@ markup:
     endLevel: 4
 
 # For GDPR reasons, disable all external services by default.
-# See: https://gohugo.io/about/hugo-and-gdpr/
+# See: https://gohugo.io/configuration/privacy/
 privacy:
   disqus:
     disable: true
@@ -149,7 +149,7 @@ privacy:
     disable: true
   instagram:
     disable: true
-  twitter:
+  x:
     disable: true
   vimeo:
     disable: true
