@@ -1,3 +1,0 @@
-Files in this folder are Markdown render hooks:
-
-  https://gohugo.io/templates/render-hooks/

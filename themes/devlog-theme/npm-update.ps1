@@ -1,9 +1,9 @@
 #!/usr/bin/env pwsh
 
-Push-Location './_utils'
+Push-Location "$PSScriptRoot/_utils"
 & npm update --save
 Pop-Location
 
-Push-Location './assets'
+Push-Location "$PSScriptRoot/assets"
 & npm update --save
 Pop-Location
