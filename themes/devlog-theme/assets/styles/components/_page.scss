@@ -225,8 +225,8 @@ main.page > article {
     }
   }
 
-  // Hide figure separator if the figure is the last element in an info box.
-  .info-box-content > p:last-child > .figure.standalone::after {
+  // Hide figure separator if the figure is the last element in an alert box.
+  .alert-content > p:last-child > .figure.standalone::after {
     border: none;
     margin: 0;
   }

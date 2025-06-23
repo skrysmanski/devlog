@@ -1,4 +1,4 @@
-.info-box {
+.alert {
   padding: 18px;
   line-height: 24px;
   margin-bottom: 24px;
@@ -7,17 +7,17 @@
   border-width: 1px 1px 1px 5px;
   border-radius: $block-border-radius;
 
-  .info-box-icon {
+  .alert-icon {
     margin-right: 8px;
   }
 
-  .info-box-title {
+  .alert-title {
     border-radius: 4px 4px 0 0;
     font-weight: 700;
     margin-bottom: 18px;
   }
 
-  .info-box-content {
+  .alert-content {
     & > p:first-child {
       margin-top: 0;
     }
@@ -30,14 +30,14 @@
 /*
  * Warning
  */
-.info-box-warning {
+.alert-warning {
   $highlight: rgb(250, 153, 56);
   $background: #fec;
 
   background: $background;
   border-color: $highlight;
 
-  .info-box-icon {
+  .alert-icon {
     color: $highlight;
   }
 
@@ -49,14 +49,14 @@
 /*
  * Note
  */
-.info-box-note {
+.alert-note {
   $highlight: #6be;
   $background: #e7f2fa;
 
   background: $background;
   border-color: $highlight;
 
-  .info-box-icon {
+  .alert-icon {
     color: $highlight;
   }
 
@@ -68,14 +68,14 @@
 /*
  * Tip
  */
-.info-box-tip {
+.alert-tip {
   $highlight: #5a5;
   $background: #efe;
 
   background: $background;
   border-color: $highlight;
 
-  .info-box-icon {
+  .alert-icon {
     color: $highlight;
   }
 
