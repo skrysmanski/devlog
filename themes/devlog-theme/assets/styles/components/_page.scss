@@ -205,6 +205,7 @@ main.page > article {
 
     & > img {
       max-width: 100%;
+      height: auto; // required so that scaled down images retain their aspect ratio
     }
     .figcaption {
       display: block;
