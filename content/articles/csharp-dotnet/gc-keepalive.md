@@ -54,9 +54,8 @@ void MyMethod()
 
 The garbage collector *may* collect `obj` just after the runtime has retrieved `obj.Value` (line 15), i.e. before `SomeOtherMethod()` is even called.
 
-```note
-The exact line where `obj` will be marked for collection is up to the JIT compiler. The behavior describe above seems to be called "lookahead optimization".
-```
+> [!NOTE]
+> The exact line where `obj` will be marked for collection is up to the JIT compiler. The behavior describe above seems to be called "lookahead optimization".
 
 Usually this optimization not a problem. It becomes a problem, however, if `SomeClass` has a finalizer:
 

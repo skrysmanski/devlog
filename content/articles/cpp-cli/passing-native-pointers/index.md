@@ -248,9 +248,8 @@ void ExternalTestClass::doSomething() {
 
 Of course, this also allows you to actually do something (e.g. call methods) with the `nativeClass` pointer.
 
-```tip
-If you only want to store a pointer to a native class (i.e. don't do anything with it), you don't need to link against the native type's `.lib` file.
-```
+> [!TIP]
+> If you only want to store a pointer to a native class (i.e. don't do anything with it), you don't need to link against the native type's `.lib` file.
 
 ### Native Types From C++/CLI Projects
 

@@ -74,9 +74,8 @@ $ vagrant up
 
 This will start a virtual machine running Ubuntu 12.04 (Precise Pangolin).
 
-```note
-If you're using Hyper-V instead of VirtualBox, you have to call `vagrant up --provider=hyperv` instead of just `vagrant up`. Alternatively, you may want to configure Hyper-V as the default provider for Vagrant. See [this article](https://www.vagrantup.com/docs/providers/basic_usage.html) on how to do this.
-```
+> [!NOTE]
+> If you're using Hyper-V instead of VirtualBox, you have to call `vagrant up --provider=hyperv` instead of just `vagrant up`. Alternatively, you may want to configure Hyper-V as the default provider for Vagrant. See [this article](https://www.vagrantup.com/docs/providers/basic_usage.html) on how to do this.
 
 To ssh into the VM, call:
 
@@ -141,9 +140,8 @@ During my (limited) tests they worked flawlessly and so they're my recommendatio
 
 <https://atlas.hashicorp.com/bento>
 
-```note
-Unfortunately, the bento boxes don't work with Hyper-V. So if you're using Hyper-V with Vagrant, you have to find a different box.
-```
+> [!NOTE]
+> Unfortunately, the bento boxes don't work with Hyper-V. So if you're using Hyper-V with Vagrant, you have to find a different box.
 
 ## Updating a VM after Vagrantfile Has Changed
 
@@ -154,9 +152,8 @@ To "synchronize" the VM with its `Vagrantfile`, you can either:
 1. call `vagrant reload` or
 1. call `vagrant destroy -f` followed by `vagrant up`
 
-```note
-If you're using provisioning (see below) and changed the provisioning data, you need to call `vagrant reload --provision` in the first case.
-```
+> [!NOTE]
+> If you're using provisioning (see below) and changed the provisioning data, you need to call `vagrant reload --provision` in the first case.
 
 To make things simpler, I recommend you're using **the second option for this tutorial**.
 
@@ -256,9 +253,8 @@ SHELL
 
 This will call `apt-get install -y avahi-daemon libnss-mdns` on every VM.
 
-```note
-By default, provisioning is only done the first `vagrant up`. See [here](https://www.vagrantup.com/docs/provisioning/) for more details.
-```
+> [!NOTE]
+> By default, provisioning is only done the first `vagrant up`. See [here](https://www.vagrantup.com/docs/provisioning/) for more details.
 
 Last, we need to connect the VMs through a [private network](https://www.vagrantup.com/docs/networking/private_network.html).
 

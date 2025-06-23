@@ -13,9 +13,8 @@ I recently stumbled over [R](http://www.r-project.org/), a programming language 
 
 This post is about how to display (draw) a mathematical function with R.
 
-```tip
-There's a very nice and interactive [tutorial for R](http:*www.codeschool.com/courses/try-r) available over at [codeschool.com](http:*www.codeschool.com/). It's free and takes about 3 - 4 hours to complete.
-```
+> [!TIP]
+> There's a very nice and interactive [tutorial for R](http:*www.codeschool.com/courses/try-r) available over at [codeschool.com](http:*www.codeschool.com/). It's free and takes about 3 - 4 hours to complete.
 
 <!--more-->
 

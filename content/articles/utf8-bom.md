@@ -14,9 +14,8 @@ When it comes to text file encoding, it usually boils down to two options:
 
 There's lots of discussion about this. This document explains the decisions about when to use BOM and when to not use it.
 
-```note
-This document is only about *file* encoding. It does not apply to anything else - especially *not* to encoding in network traffic (like HTTP).
-```
+> [!NOTE]
+> This document is only about *file* encoding. It does not apply to anything else - especially *not* to encoding in network traffic (like HTTP).
 
 ## Summary
 

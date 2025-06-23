@@ -90,9 +90,8 @@ The following table lists which base counter type can be used with which parent 
 | Composite    | yes (`AverageBase`)
 | Monotonicity | increasing, ~~decreasing~~, remain static
 
-```note
-The difference to `RawFraction` is that `RawFraction` would be displayed as the average since the creation/last reset of the counter, while `AverageCount64` would be displayed as average during the last time frame (usually a second).
-```
+> [!NOTE]
+> The difference to `RawFraction` is that `RawFraction` would be displayed as the average since the creation/last reset of the counter, while `AverageCount64` would be displayed as average during the last time frame (usually a second).
 
 |              |
 | ------------ | -----
@@ -112,9 +111,8 @@ The difference to `RawFraction` is that `RawFraction` would be displayed as the 
 | Composite    | no
 | Monotonicity | increasing, decreasing, remain static
 
-```note
-I found the information about `CountPerTimeInterval` somewhere on the internet. However, in my test I couldn't get it working properly. The values of this counter would display as extremely small in Performance Monitor; something like `10.5E-06` - although it should be something like `10.5`. Also Performance Monitor doesn't seem capable of displaying negative values. They are necessary however when the queue handles requests faster than new requests get placed into it.
-```
+> [!NOTE]
+> I found the information about `CountPerTimeInterval` somewhere on the internet. However, in my test I couldn't get it working properly. The values of this counter would display as extremely small in Performance Monitor; something like `10.5E-06` - although it should be something like `10.5`. Also Performance Monitor doesn't seem capable of displaying negative values. They are necessary however when the queue handles requests faster than new requests get placed into it.
 
 |              |
 | ------------ | -----
@@ -187,9 +185,8 @@ I found the information about `CountPerTimeInterval` somewhere on the internet. 
 | Composite    | no
 | Monotonicity | increasing, decreasing, remain static
 
-```note
-Performance Monitor can't display negative values.
-```
+> [!NOTE]
+> Performance Monitor can't display negative values.
 
 |              |
 | ------------ | -----
@@ -200,9 +197,8 @@ Performance Monitor can't display negative values.
 | Composite    | no
 | Monotonicity | ~~increasing~~, ~~decreasing~~, ~~remain static~~
 
-```note
-I have no clue what start time is chosen for the counter. It's certainly not the time the counter was created. In my example, where I created the counter just a couple of seconds ago, it already had a value of about 27 hours (was even longer than my system up time).
-```
+> [!NOTE]
+> I have no clue what start time is chosen for the counter. It's certainly not the time the counter was created. In my example, where I created the counter just a couple of seconds ago, it already had a value of about 27 hours (was even longer than my system up time).
 
 ## Example Code
 

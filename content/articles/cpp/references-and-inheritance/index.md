@@ -144,18 +144,16 @@ Now the compiler will give you a warning:
 * Visual C++: *warning C4172: returning address of local variable or temporary*
 * g++: *warning: returning reference to temporary [enabled by default]*
 
-```warn
-**Important:** Don't be as stupid as I was and try to "fix" the warning by using my initial implementation of `getReference()`. This warning is there for a reason and the reason is not that the compiler is too dumb to figure out what to do.
-```
+> [!WARNING]
+> **Important:** Don't be as stupid as I was and try to "fix" the warning by using my initial implementation of `getReference()`. This warning is there for a reason and the reason is not that the compiler is too dumb to figure out what to do.
 
 The compiler is telling you here that you're returning a reference to a local variable. This is always a bad thing. The questions now are:
 
 * Why is this a bad thing?
 * Where does the local variable or temporary (variable) come from?
 
-```note
-You won't get this warning if you change the data type of `g_somePointer` back to `BaseClass*`. So, under some conditions the current implementation of `getReference()` is actually valid.
-```
+> [!NOTE]
+> You won't get this warning if you change the data type of `g_somePointer` back to `BaseClass*`. So, under some conditions the current implementation of `getReference()` is actually valid.
 
 ### Why is this a bad thing? (Stack Frames)
 
@@ -215,9 +213,8 @@ BaseClass2* basePtr = ptr;
 
 Because of this address change the compiler can't just use `g_somePointer` for `temporary`. It needs to cast the instance first and then store it in some variable (here: `localPointer`). It than creates the reference to this local variable, which is bad as explained in the previous section.
 
-```note
-Adding the local variable `someString` to `getReferenceWrapper()` broke the code above because `std::string` is a class that has a destructor. The destructor is "just" a method (function) which is *automatically* called when the object (`someString`) goes out of scope. As I explained in the previous section, calling a function overwrites the call stack above the current function's stack frame (i.e. the green part in the image above), thereby overwriting the memory section containing the address to the base class of `g_somePointer` (to which our reference pointed).
-```
+> [!NOTE]
+> Adding the local variable `someString` to `getReferenceWrapper()` broke the code above because `std::string` is a class that has a destructor. The destructor is "just" a method (function) which is *automatically* called when the object (`someString`) goes out of scope. As I explained in the previous section, calling a function overwrites the call stack above the current function's stack frame (i.e. the green part in the image above), thereby overwriting the memory section containing the address to the base class of `g_somePointer` (to which our reference pointed).
 
 ## Working Example
 

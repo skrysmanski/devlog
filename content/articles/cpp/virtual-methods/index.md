@@ -58,9 +58,8 @@ From sub class: in sub class
 
 This means that the sub class' implementation of `test()` was executed (and not `TestBaseClass`' implementation) - just as expected.
 
-```note
-In Java all methods are automatically `virtual`. In contrast to C# or C++ you can't create "non-virtual" methods in Java.
-```
+> [!NOTE]
+> In Java all methods are automatically `virtual`. In contrast to C# or C++ you can't create "non-virtual" methods in Java.
 
 ## The C++ Problem
 

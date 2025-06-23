@@ -26,9 +26,8 @@ In particular, the disk on which you want to install Windows has *no influence* 
 
 So, the only way to influence the location of the boot manager is to change to boot order in the BIOS.
 
-```note
-New devices are usually added to the end of the boot order list. So if you have multiple hard drives and replace one (e.g. because the old one was broken or too small), the new drive may end up at the *end* of the list - and not at the position where the replaced drive was before; thus messing up the boot order.
-```
+> [!NOTE]
+> New devices are usually added to the end of the boot order list. So if you have multiple hard drives and replace one (e.g. because the old one was broken or too small), the new drive may end up at the *end* of the list - and not at the position where the replaced drive was before; thus messing up the boot order.
 
 ## Determining the Boot Manager Partition
 

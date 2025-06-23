@@ -14,8 +14,7 @@ The following workflow step prints the values of all variables available in the 
         run: echo "$GITHUB_CONTEXT"
 ```
 
-```tip
-For easier browsing of this huge JSON structure, open job's raw log and copy the JSON to a text editor that supports JSON code folding:
-
-![View raw build logs](view-raw-logs@2x.png)
-```
+> [!TIP]
+> For easier browsing of this huge JSON structure, open job's raw log and copy the JSON to a text editor that supports JSON code folding:
+>
+> ![View raw build logs](view-raw-logs@2x.png)

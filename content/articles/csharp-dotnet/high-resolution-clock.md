@@ -120,9 +120,8 @@ Using the same test code as above but using `HighResolutionDateTime.UtcNow` as i
 
 So, on my laptop the resolution increased by a factor of 40000.
 
-```note
-The resolution can never be better/smaller than 0.0001 ms because this is the highest **precision** supported by `DateTime` (see above).
-```
+> [!NOTE]
+> The resolution can never be better/smaller than 0.0001 ms because this is the highest **precision** supported by `DateTime` (see above).
 
 ## Accuracy
 

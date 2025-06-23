@@ -291,9 +291,8 @@ public class Document {
 }
 ```
 
-```note
-The implementations of `Accept()` seem to be identical for all child classes of `DocumentPart`. However, we can't move the code into the base class because `IVisitor` doesn't have an method `Visit(DocumentPart)` but only for the concrete implementations. (We could solve this through reflection, though, but would lose compile-time checking.)
-```
+> [!NOTE]
+> The implementations of `Accept()` seem to be identical for all child classes of `DocumentPart`. However, we can't move the code into the base class because `IVisitor` doesn't have an method `Visit(DocumentPart)` but only for the concrete implementations. (We could solve this through reflection, though, but would lose compile-time checking.)
 
 ### Putting It All Together
 
@@ -366,9 +365,8 @@ Console.WriteLine(ship.GetShipType());
 
 This will print "ApolloSpacecraft". The actual method implementation to be called is chosen **at runtime** based solely on the actual type of `ship`. So, only the type of a *single* object is used to select the method, hence the name *single* dispatch.
 
-```note
-"Single dispatch" is one form of "dynamic dispatch", i.e. the method is chosen at runtime. If the method is chosen at compile time (true for all non-virtual methods), it's called "static dispatch".
-```
+> [!NOTE]
+> "Single dispatch" is one form of "dynamic dispatch", i.e. the method is chosen at runtime. If the method is chosen at compile time (true for all non-virtual methods), it's called "static dispatch".
 
 ### Double Dispatch
 
