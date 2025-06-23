@@ -29,14 +29,12 @@ So, for now, the pragmatic approach is to **define line endings for C# files as 
 end_of_line = crlf
 ```
 
-{{< tip >}}
-To prevent users from accidentally checking in mixed line endings, you should also enforce line endings via `.gitattributes`:
-
-```.gitattributes
-*.cs text eol=crlf
-```
-
-{{< /tip >}}
+> [!TIP]
+> To prevent users from accidentally checking in mixed line endings, you should also enforce line endings via `.gitattributes`:
+>
+> ```.gitattributes
+> *.cs text eol=crlf
+> ```
 
 ## Bugs
 

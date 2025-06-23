@@ -34,9 +34,8 @@ The following serializers will be compared:
 
 I wrote a small framework to do most of the tests in this article.
 
-```note
-Unfortunately, the code got lost when BitBucket nuked its Mercurial projects.
-```
+> [!NOTE]
+> Unfortunately, the code got lost when BitBucket nuked its Mercurial projects.
 
 You may also want to have a look at it when some feature isn't clear to you.
 

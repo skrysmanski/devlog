@@ -12,9 +12,8 @@ aliases:
 
 P/Invoke is a way of calling C/C++ functions from a .NET program. It's very easy to use. This article will cover the basics of using P/Invoke.
 
-```note
-This tutorial will focus on Windows and thus use Visual Studio. If you're developing on another platform or with another IDE, adopting the things in this article should be easy enough.
-```
+> [!NOTE]
+> This tutorial will focus on Windows and thus use Visual Studio. If you're developing on another platform or with another IDE, adopting the things in this article should be easy enough.
 
 <!--more-->
 

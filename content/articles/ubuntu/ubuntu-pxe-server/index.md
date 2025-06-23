@@ -57,9 +57,8 @@ Furthermore, you need a working DHCP server (e.g. one provided by a hard router)
 
 The last thing you need is to know the network you're on. My network is `192.168.178.XXX` - so I'll use this in this article. This information is only needed once in a configuration file (see below).
 
-```warn
-During the course of this article your Ubuntu machine may temporarily lose the ability to do DNS lookups. This is caused by `dnsmasq`. If this happens to you and you need to download anything or access the web, just (temporarily) stop `dnsmasq`.
-```
+> [!WARNING]
+> During the course of this article your Ubuntu machine may temporarily lose the ability to do DNS lookups. This is caused by `dnsmasq`. If this happens to you and you need to download anything or access the web, just (temporarily) stop `dnsmasq`.
 
 ## Step by Step: From Start to Finish
 

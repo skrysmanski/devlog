@@ -101,9 +101,8 @@ function LongNumericString {
 }
 ```
 
-```note
-The keyword `return` is completely optional. The expression `return $strBld.ToString()` is equivalent to `$strBld.ToString()`, and even to `$strBld.ToString(); return`.
-```
+> [!NOTE]
+> The keyword `return` is completely optional. The expression `return $strBld.ToString()` is equivalent to `$strBld.ToString()`, and even to `$strBld.ToString(); return`.
 
 ## Function Return Values = Function Output
 

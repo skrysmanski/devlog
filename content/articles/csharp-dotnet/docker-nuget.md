@@ -78,9 +78,8 @@ If you run into any troubles, go and checkout the [example code](#example-code).
 
 So far, so good. Now lets execute this program in a Docker container.
 
-```tip
-If you haven't installed Docker yet, you can download it [here](https://www.docker.com/products/docker#/windows).
-```
+> [!TIP]
+> If you haven't installed Docker yet, you can download it [here](https://www.docker.com/products/docker#/windows).
 
 For this, we'll use the following `Dockerfile`:
 

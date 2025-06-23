@@ -44,6 +44,5 @@ int Compare(int a, int b) {
 
 That's it.
 
-```note
-Care should be taken if `a` and/or `b` can come close to `int.MaxValue` or `int.MinValue`. In this case the results may not be what one wants (like if `a = int.MinValue` and `b = 1` then the result will be `int.MaxValue` which is wrong).
-```
+> [!NOTE]
+> Care should be taken if `a` and/or `b` can come close to `int.MaxValue` or `int.MinValue`. In this case the results may not be what one wants (like if `a = int.MinValue` and `b = 1` then the result will be `int.MaxValue` which is wrong).
