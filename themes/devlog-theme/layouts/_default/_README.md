@@ -1,10 +1,15 @@
+# Notes on this folder
+
 This folder contains the HTML template for the site:
 
 * baseof.html : The base template used by all pages
 * single.html : The template used for single pages
 * list.html : The template used for list page (i.e. a list of pages)
 * terms.html : The template used when browsing a single term (e.g. a single tag)
-* index.hmtl : The home/start page
+* index.html : The home/start page
+* `_markup` : Markdown render hooks - <https://gohugo.io/templates/render-hooks/>
+
+Note that the names in this folder are fixed and can't be changed arbitrarily. See: <https://gohugo.io/templates/lookup-order/>
 
 Additional useful links:
 
