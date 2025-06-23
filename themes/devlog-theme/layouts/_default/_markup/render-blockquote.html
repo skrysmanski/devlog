@@ -1,0 +1,30 @@
+{{- /*
+  Adds support for rendering blockquotes as alerts.
+
+  See also: https://gohugo.io/render-hooks/blockquotes/#alerts
+
+  NOTE: While this variant is not as elegant as custom containers (https://github.com/xoofx/markdig/blob/master/src/Markdig.Tests/Specs/CustomContainerSpecs.md; not supported
+    by Hugo anyway) because you need to prefix every line with a "> ", this style is supported by GitHub and others. This is also why we prefer this variant over the previously
+    used variants (shortcodes and code blocks). It's also better than code blocks because Markdown editors allow for syntax highlighting within the alerts.
+*/ -}}
+{{ if eq .Type "alert" }}
+  {{- /*
+    NOTE: While Hugo would allow us to use any text as ".AlertType", we use the exact values that are supported by GitHub. Because of this,
+      we support "WARNING" but not "WARN".
+   */ -}}
+  {{- if eq .AlertType "note" }}
+    {{ partial "alert.html" ( dict "Type" "note" "Title" "Note" "Icon" "circle-exclamation" "Text" .Text ) }}
+  {{- else if eq .AlertType "tip" }}
+    {{ partial "alert.html" ( dict "Type" "tip" "Title" "Tip" "Icon" "circle-check" "Text" .Text ) }}
+  {{- else if eq .AlertType "warning" }}
+    {{ partial "alert.html" ( dict "Type" "warning" "Title" "Warning" "Icon" "triangle-exclamation" "Text" .Text ) }}
+  {{ else }}
+    <blockquote>
+      {{ .Text }}
+    </blockquote>
+  {{- end }}
+{{ else }}
+  <blockquote>
+    {{ .Text }}
+  </blockquote>
+{{ end }}
