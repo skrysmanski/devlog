@@ -1,16 +1,36 @@
 ---
 title: DevContainers
+description: A collection of notes on DevContainers
 topics:
 - containers
 - docker
 - vscode
 ---
 
-For now, this page is just a quick collection of notes on DevContainers (especially the VSCode integration).
+A collection of notes on DevContainers (especially the VSCode integration).
 
-## VSCode DevContainers
+## Basic
 
-Usually, you have two files in the `.devcontainer` folder:
+To use DevContainers, you need to create a file named `.devcontainer/devcontainers.json` in your project. For contents, see below.
+
+> [!NOTE]
+> You can't set the name of the devcontainer as Docker sees/displays it.
+
+## Links
+
+* [DevContainers Quick Start](https://code.visualstudio.com/docs/devcontainers/tutorial)
+* [devcontainer.json reference](https://aka.ms/devcontainer.json)
+* [Pre-Built DevContainer Images](https://github.com/devcontainers/images/tree/main/src)
+
+## Minimal Example
+
+```json
+{
+    "image": "mcr.microsoft.com/devcontainers/base:ubuntu"
+}
+```
+
+## Extended Example with Dockerfile
 
 ### devcontainers.json
 
