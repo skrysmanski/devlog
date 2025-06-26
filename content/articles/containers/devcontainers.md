@@ -56,6 +56,12 @@ Notes and tips:
         "dockerfile": "Dockerfile"
     },
 
+    "runArgs": [
+        // Specify DNS search domain (so that machine names can be unqualified - e.g. "my-server" instead
+        // of "my-server.fritz.box").
+        "--dns-search=fritz.box"
+    ],
+
     // Container Features
     // NOTE: Features may only be available for certain distros (often, only Debian/Ubuntu is supported but not Alpine).
     // All available features: https://containers.dev/features
@@ -102,8 +108,13 @@ Notes and tips:
     // Use 'postCreateCommand' to run commands after the container is created.
     //"postCreateCommand": "yarn install --prod",
 
-    // Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
-    "remoteUser": "vscode"
+    // Use non-root user. More info: https://aka.ms/vscode-remote/containers/non-root.
+    "remoteUser": "vscode",
+
+    // Mount the workspace in a predictable location (because - by default - the workspace would be mounted
+    // under the folder name the user chose for the workspace - e.g. "/workspaces/ansible-workbench").
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+    "workspaceFolder": "/workspace"
 }
 ```
 
