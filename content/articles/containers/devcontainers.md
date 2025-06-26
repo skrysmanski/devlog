@@ -51,7 +51,9 @@ Notes and tips:
 // Format of this file: https://aka.ms/devcontainer.json
 //
 {
+    // This name appears in the lower left corner in VSCode when running inside this DevContainer.
     "name": "Hugo",
+
     "build": {
         "dockerfile": "Dockerfile"
     },
