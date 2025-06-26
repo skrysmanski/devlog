@@ -9,12 +9,14 @@ topics:
 
 A collection of notes on DevContainers (especially the VSCode integration).
 
-## Basic
+## Basics
 
 To use DevContainers, you need to create a file named `.devcontainer/devcontainers.json` in your project. For contents, see below.
 
-> [!NOTE]
-> You can't set the name of the devcontainer as Docker sees/displays it.
+Notes and tips:
+
+* To open a terminal inside the DevContainer, call "Terminal: Create New Terminal" from the VSCode command palette.
+* On Windows, this requires Docker to run as "Linux containers" (not "Windows containers") - and ideally in [WSL](articles/windows/wsl.md).
 
 ## Links
 
@@ -25,23 +27,28 @@ To use DevContainers, you need to create a file named `.devcontainer/devcontaine
 ## Minimal Example
 
 ```json
+//
+// General notes on DevContainers: https://manski.net/articles/containers/devcontainers
+//
+// Format of this file: https://aka.ms/devcontainer.json
+//
 {
     "image": "mcr.microsoft.com/devcontainers/base:ubuntu"
 }
 ```
+
+> [!NOTE]
+> You can't set the name of the devcontainer as Docker sees/displays it.
 
 ## Extended Example with Dockerfile
 
 ### devcontainers.json
 
 ```json
-// For format details, see: https://aka.ms/devcontainer.json
-// For getting started: https://code.visualstudio.com/docs/devcontainers/tutorial
 //
-// NOTES and TIPS:
+// General notes on DevContainers: https://manski.net/articles/containers/devcontainers
 //
-// * To open a terminal inside the devcontainer, call "Terminal: Create New Terminal" from the VSCode command palette.
-// * On Windows, this requires Docker to run as "Linux containers" (not "Windows containers").
+// Format of this file: https://aka.ms/devcontainer.json
 //
 {
     "name": "Hugo",
