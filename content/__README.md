@@ -2,7 +2,9 @@
 
 This directory contains all files that Hugo will convert into HTML.
 
-Reference: <https://gohugo.io/content-management/>
+Content Organization: <https://gohugo.io/content-management/organization/>
+
+Full Reference: <https://gohugo.io/content-management/>
 
 ## Articles
 
