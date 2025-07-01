@@ -77,8 +77,8 @@
     {{ partial "opengraph.html" . }}
 
     <!--
-      CSS
-    -->
+     ! CSS
+     !-->
     {{ partial "css-build.html" (dict "File" "styles/main.scss") }}
     {{ partial "css-build.html" (dict "File" "styles/print.scss" "Media" "print") }}
 
@@ -88,9 +88,10 @@
     {{- end -}}
 
     <!--
-      JavaScript
-
-      NOTE: We put jQuery in a separate <script> element so that we can use the minified version but still can keep
+     ! JavaScript
+     !-->
+    <!--
+      NOTE: We put jQuery in a separate <script /> element so that we can use the minified version but still can keep
         our own JavaScript/TypeScript code un-minified (for readability).
     -->
     {{ partial "js-static.html" "node_modules/jquery/dist/jquery.slim.min.js" }}
