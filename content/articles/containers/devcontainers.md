@@ -122,7 +122,7 @@ Notes and tips:
 
 ### Dockerfile
 
-```Dockfile
+```Dockerfile
 # See: https://hugomods.com/docs/docker/
 # Image is Alpine based and contains both NodeJS and Git.
 FROM hugomods/hugo
