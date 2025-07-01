@@ -102,7 +102,7 @@ pre {
       padding: 0 0.3em;
     }
     // Use terminal icon for shell code instead of the name "shell".
-    &[data-lang="shell"]::before {
+    &[data-lang="shell"]::before, &[data-lang="sh"]::before {
       @extend %fa-icon;
       @extend .fa-solid;
       content: fa-content($fa-var-terminal);
