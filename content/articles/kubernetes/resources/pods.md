@@ -24,9 +24,10 @@ TODO: init containers and sidecar containers
 List all existing pods:
 
 ```sh
-kubectl get pods # for the current namespace
-kubectl get pods -n <namespace> # for a different namespace
-kubectl get pods -A # for all namespaces
+kubectl get pods                 # for the current namespace
+kubectl get pods -o wide         # also show nodes where pods run on
+kubectl get pods -n <namespace>  # for a different namespace
+kubectl get pods -A              # for all namespaces
 ```
 
 See pod logs:
@@ -42,19 +43,124 @@ kubectl exec -it <pod_name> -c <container_name> -- bash
 kubectl debug -it <pod_name> --image=<debug_image> -- bash
 ```
 
+Forward ports from container to localhost:
+
+```sh
+kubectl port-forward <container_name> <port>  # same port in container and host
+kubectl port-forward <container_name> <container_port>:<localhost_port>
+```
+
+> [!TIP]
+> This port forwarding works even if `kubectl` is executed from within a DevContainer.
+
 ## Resource YAML
 
-Minimal example:
+Apply via `kubectl apply -f <filename>`.
+
+Helpful links:
+
+* [Which defaults you should override](https://github.com/BretFisher/podspec)
+
+### Minimal Example
 
 ```yaml
 apiVersion: v1
 kind: Pod
 metadata:
-  name: nginx # pod name
+  name: nginx  # pod name
 spec:
   containers:
-  - name: nginx # container name
-    image: nginx:1.14.2
+    - name: nginx  # container name
+      image: nginx:1.29.0
 ```
 
-Apply via `kubectl apply -f <filename>`.
+> [!NOTE]
+> Where the container images are pulled (=downloaded) from depends on the [container runtime](https://kubernetes.io/docs/setup/production-environment/container-runtimes/) used by Kubernetes. K3s and most other Kubernetes distributions use [containerd](https://containerd.io/) (by default) - which pulls images from [Docker Hub](https://hub.docker.com/) (by default).
+
+### Extended Example
+
+The extended example is based on: <https://github.com/BretFisher/podspec>
+
+```yaml
+apiVersion: v1
+kind: Pod
+
+metadata:
+  name: nginx
+  namespace: my-namespace  # which namespace to put this pod into
+
+spec:
+  containers:
+    - name: nginx
+      image: nginxinc/nginx-unprivileged:1.29.0
+
+      ports:  # Ports used by this container; this is mainly for documentation purposes
+        - containerPort: 8080  # Is 8080 instead of 80 because pod runs as non-root
+          protocol: TCP
+
+      readinessProbe:  # Tells Kubernetes when the container is ready
+        httpGet:
+          path: /
+          port: 8080
+
+      resources:
+        requests:
+          memory: "25Mi"  # Scheduler finds a node where 25MB RAM is available
+          cpu: 0.25       # Scheduler finds a node where 0.25 CPU cores are available
+        limits:
+          memory: "50Mi"  # If the container more than 50MB RAM, it may get killed
+          cpu: 2          # The container can use up to 2 CPU cores
+
+      # per-container security context
+      # lock down privileges inside the container
+      securityContext:
+        allowPrivilegeEscalation: false  # prevent sudo, etc.
+        privileged: false                # prevent acting like host root
+
+  terminationGracePeriodSeconds: 600 # default is 30, but you may need more time
+
+  # per-pod security context
+  # enable seccomp and force non-root user
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+
+    # Run containers as non-root
+    runAsNonRoot: true
+    runAsUser: 1001
+    runAsGroup: 1001
+```
+
+## Resource Requests And Limits
+
+For both requests and limits, you can specify `memory` and/or `cpu`.
+
+### Resource Requests
+
+**Resource requests** tell the pod scheduler the minimum resources a container requires. The scheduler will only put the pod on a node where these resources are free. (For this, it sums up all requests of all containers in the pod.)
+
+The scheduler won't put a pod on a node where the pods resource requests exceed the available resources. The available resources are reduced by the resource request amount of each pod scheduled on that node.
+
+To see the resource capacity (max resource amount) and the allocated resources (used resource amount), use:
+
+```sh
+# Look for "Capacity" and "Allocated resources"
+kubectl describe node <node_name>
+```
+
+> [!NOTE]
+> When scheduling a new pod, the **scheduler *only* looks at resource *requests* - *not* at the *actual usage***. This is primarily important for `memory` because the amount of requested memory may not be available on a node (if the actual memory usage of the pods running on this node far exceed their requested memory).
+
+### Resource Limits
+
+**Resource limits** are enforced by the Linux kernel and specify which resource limits must not be exceeded by the container.
+
+A container can't exceed its cpu limit - the kernel prevents that by throttling the process(es) in the container.
+
+If a container exceeds its memory limit, the kernel may kill it - if there is memory pressure on the node.
+
+### Official documentation
+
+* [Resource Management for Pods and Containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/)
+* [CPU resource units](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu)
+* [Memory resource units](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-memory)
