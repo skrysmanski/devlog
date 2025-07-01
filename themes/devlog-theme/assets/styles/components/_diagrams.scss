@@ -1,0 +1,8 @@
+div.mermaid {
+  margin: 1em 0;
+
+  // Hide the diagram's source code while it hasn't been rendered yet.
+   &:not([data-processed]) {
+    display: none;
+  }
+}

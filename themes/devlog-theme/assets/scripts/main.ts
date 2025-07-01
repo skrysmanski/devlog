@@ -10,6 +10,9 @@ import { initAnchorManagementModule } from "./anchor-management.module.js";
 import { renderOldContentNote } from "./old-page-note.module.js";
 import { enhanceAllCodeBlocks } from "./code-syntax-highlighting.module.js";
 
+import type { Mermaid } from "../node_modules/mermaid/dist/mermaid";
+declare const mermaid : Mermaid;
+
 //
 // Adds the "standalone" class to all images that are don't have any surrounding text.
 //
@@ -83,8 +86,17 @@ function fixupHtmlBeforeShow() {
     enhanceAllCodeBlocks();
 }
 
+function renderMermaidDiagrams() {
+    // See: https://mermaid.js.org/config/schema-docs/config.html
+    mermaid.initialize({
+        startOnLoad: true,
+        logLevel: "warn",
+    });
+}
+
 // Execute when DOM is loaded. https://api.jquery.com/ready/
 $(onPageIsLoaded);
 
-// Export fixupHtmlBeforeShow() so that it can be called from a script tag.
+// Export methods so that they can be called from a script tag.
 (<any>window).fixupHtmlBeforeShow = fixupHtmlBeforeShow;
+(<any>window).renderMermaidDiagrams = renderMermaidDiagrams;
