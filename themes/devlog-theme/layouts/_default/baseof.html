@@ -80,7 +80,7 @@
     {{ partial "css-build.html" (dict "File" "styles/main.scss") }}
     {{ partial "css-build.html" (dict "File" "styles/print.scss" "Media" "print") }}
 
-    <!-- Make Hugo "aware" of the fontawesome fonts. (See: https://gohugo.io/methods/resource/publish/) -->
+    {{- /* Make Hugo "aware" of the fontawesome fonts. (See: https://gohugo.io/methods/resource/publish/) */ -}}
     {{- range (resources.Match "node_modules/@fortawesome/fontawesome-free/webfonts/*") -}}
       {{- .Publish -}}
     {{- end -}}
