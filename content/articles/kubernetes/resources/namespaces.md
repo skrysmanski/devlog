@@ -1,5 +1,5 @@
 ---
-title: "Kubernetes Resource: Namespaces"
+title: Namespaces - Kubernetes Resources
 description: Overview over Kubernetes namespaces
 date: 2025-06-27
 topics:

@@ -1,5 +1,5 @@
 ---
-title: "Kubernetes Resource: Pods"
+title: Pods - Kubernetes Resources
 description: Overview over Kubernetes pods
 date: 2025-06-27
 topics:
@@ -87,7 +87,7 @@ kind: Pod
 
 metadata:
   name: nginx
-  namespace: my-namespace  # which namespace to put this pod into
+  namespace: my-namespace  # Which namespace to put this pod into
 
 spec:
   containers:
@@ -111,17 +111,16 @@ spec:
           memory: "50Mi"  # If the container more than 50MB RAM, it may get killed
           cpu: 2          # The container can use up to 2 CPU cores
 
-      # per-container security context
-      # lock down privileges inside the container
+      # Per-container security context
       securityContext:
         allowPrivilegeEscalation: false  # prevent sudo, etc.
         privileged: false                # prevent acting like host root
 
   terminationGracePeriodSeconds: 600 # default is 30, but you may need more time
 
-  # per-pod security context
-  # enable seccomp and force non-root user
+  # Per-pod security context
   securityContext:
+    # Restrict system calls for containers. RuntimeDefault is the recommended option.
     seccompProfile:
       type: RuntimeDefault
 
