@@ -27,7 +27,7 @@
     -->
     <meta http-equiv="Content-Security-Policy"
           content="default-src 'self';
-                   script-src 'self' 'sha256-yEPkwJi3QZblic86++vurdOuNakfLKWmO5GLmfWrMa4=' 'wasm-unsafe-eval';
+                   script-src 'self' 'sha256-yEPkwJi3QZblic86++vurdOuNakfLKWmO5GLmfWrMa4=' 'sha256-5AmHqUHvd8BCBeC+wT4xt83qEUMhjs5gQRg3g5NtC10=' 'wasm-unsafe-eval';
                    style-src 'self' 'unsafe-inline';
                    object-src 'none';
                    base-uri 'none';
@@ -206,19 +206,30 @@
     </footer>
 
     <!--
-      IMPORTANT: This method must be called here - instead of in the "ready" event - to avoid "flickering" when changing the
-        HTML content (i.e. the user first sees the unchanged content and then, some milliseconds later, the updated content).
-
-        It seems, using an inline script tag is the only way to achieve this. See: https://stackoverflow.com/a/5642299/614177
-
-      IMPORTANT 2: The content of this script element is allowed via CSP (see above) via hashes (https://content-security-policy.com/hash/).
-        Whenever you change its content, you need to update the hash in the CSP above. You can calculate the hash via:
+      IMPORTANT: The content of the following script elements need to be allowed via CSP (see above) via hashes (https://content-security-policy.com/hash/).
+        Whenever you change their contents, you need to update the hash in the CSP above. You can calculate the hash via:
 
           echo -n 'window.fixupHtmlBeforeShow()' | openssl sha256 -binary | openssl base64
+          echo -n 'window.renderMermaidDiagrams()' | openssl sha256 -binary | openssl base64
 
         Note that Hugo may change this code if run with "--minify" (e.g. remove trailing ;). Thus, it's recommended to let Hugo minify this script before
         calculating the hash.
     -->
+    <!--
+      IMPORTANT: This method must be called here - instead of in the "ready" event - to avoid "flickering" when changing the
+        HTML content (i.e. the user first sees the unchanged content and then, some milliseconds later, the updated content).
+
+        It seems, using an inline script tag is the only way to achieve this. See: https://stackoverflow.com/a/5642299/614177
+    -->
     <script>window.fixupHtmlBeforeShow()</script>
+
+{{- if .Store.Get "hasMermaid" }}
+    <!--
+      NOTE: Must be called after the HTML of all diagrams has been placed in the DOM. So we call it at the end of the page.
+        Also, only now is "hasMermaid" set. So we have to put it here for Hugo, too.
+    -->
+    {{ partial "js-static.html" "node_modules/mermaid/dist/mermaid.min.js" }}
+    <script>window.renderMermaidDiagrams()</script>
+{{- end }}
 </body>
 </html>

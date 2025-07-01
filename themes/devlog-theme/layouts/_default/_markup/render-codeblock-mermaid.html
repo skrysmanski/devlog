@@ -1,0 +1,8 @@
+{{- /*
+  NOTE: We don't use <pre> here as there are some JavaScript scripts that expects <pre> to be code - and
+    that break Mermaid rendering. So we use <div> instead.
+*/ -}}
+<div class="mermaid">
+  {{ .Inner | htmlEscape | safeHTML }}
+</div>
+{{ .Page.Store.Set "hasMermaid" true }}
