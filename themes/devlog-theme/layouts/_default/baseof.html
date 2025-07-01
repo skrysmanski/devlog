@@ -35,8 +35,8 @@
 
     {{/*
       NOTE: We do NOT use 'hugo.Generator' here as this means, with every new Hugo version, every generated file changes
-        (because the version number is updated). This makes it easier to spot actual differences in generated files from
-        different Hugo versions.
+        (because the version number is updated) - and this creates a lot of unnecessary upload traffic when building
+        the site.
       NOTE 2: We still keep the generator meta tag here as the Hugo developers kindly asked for it in
         https://gohugo.io/getting-started/configuration/#disablehugogeneratorinject - but we remove the version number.
     */}}
