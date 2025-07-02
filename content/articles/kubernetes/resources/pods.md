@@ -15,9 +15,18 @@ Pods are often cited as the "smallest deployable unit" in Kubernetes - meaning, 
 > [!NOTE]
 > Except for educational purposes, you will never create pods directly - instead you will use [deployments](deployments.md).
 
+**Official documentation:** <https://kubernetes.io/docs/concepts/workloads/pods/>
+
 ## Containers
 
-TODO: init containers and sidecar containers
+In its simplest form, a pod contains just one container.
+
+It is, however, possible to have *multiple* containers within a single pod. These containers will then all run on the same machine.
+
+Often, additionally to the primary container, the following "helper" containers are used:
+
+* [Init Containers](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/): They run before the primary container is started.
+* [Sidecar Containers](https://kubernetes.io/docs/concepts/workloads/pods/sidecar-containers/): They run alongside the primary container.
 
 ## Commands
 

@@ -16,6 +16,8 @@ All Kubernetes resources lives within a namespace.
 > [!NOTE]
 > Namespace are ***not* a security/isolation mechanism**; i.e. containers of one namespace can communicate with containers in other namespaces without problems.
 
+**Official documentation:** <https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/>
+
 ## Commands
 
 List all existing namespaces:
