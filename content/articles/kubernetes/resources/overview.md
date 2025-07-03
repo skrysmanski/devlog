@@ -64,3 +64,5 @@ Kubernetes provides the following built-in resources (ordered from basic to adva
    1. [Namespaces](namespaces.md)
 * **Execution**
    1. [Pods](pods.md)
+   1. [ReplicaSets](replica-sets.md)
+   1. [Deployments](deployments.md)

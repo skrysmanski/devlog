@@ -12,6 +12,12 @@ A pod can contain one or more [containers](https://kubernetes.io/docs/concepts/c
 
 Pods are often cited as the "smallest deployable unit" in Kubernetes - meaning, if you need to deploy a container, you need to "wrap" it in a pod.
 
+**Concept Hierarchy:**
+
+1. **Pods**
+1. [ReplicaSets](replica-sets.md)
+1. [Deployments](deployments.md)
+
 > [!NOTE]
 > Except for educational purposes, you will never create pods directly - instead you will use [deployments](deployments.md).
 
@@ -28,6 +34,57 @@ Often, additionally to the primary container, the following "helper" containers 
 * [Init Containers](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/): They run before the primary container is started.
 * [Sidecar Containers](https://kubernetes.io/docs/concepts/workloads/pods/sidecar-containers/): They run alongside the primary container.
 
+As a distinction, the "regular" containers are called "app containers". Also, you can have multiple app containers in a pod.
+
+### Containers and Processes
+
+It's normally best practice to have **one process per container**. However, it's technically possible to have multiple processes within the same container.
+
+As far as Kubernetes (or Docker) is concerned, it only monitors the main process - which is the process with PID 1.
+
+To see which process is the main process of a certain container, run:
+
+```sh
+kubectl exec -it <pod> -c <container> -- readlink /proc/1/exe
+```
+
+### Pods and Container Crashes
+
+If the main process of a container crashes or exits, Kubernetes will (usually; see below) restart the container. It will **only restart *this* container**. If there are multiple containers within the pod, the other containers will remain unchanged.
+
+To see the crash count of a pod (look for the column `RESTARTS`):
+
+```sh
+kubectl get pod <pod_name>
+```
+
+To see the status and start times of all containers in a pod, use (look for the `Containers:` section):
+
+```sh
+kubectl describe pod <pod_name>
+```
+
+Whether Kubernetes actually restarts the container, depends on the pod's `restartPolicy`:
+
+| Policy      | Exit Code 0 | Exit Code non-zero | Crash      |
+| ----------- | ----------- | ------------------ | ---------- |
+| `Always`    | Restart     | Restart            | Restart    |
+| `OnFailure` | No restart  | Restart            | Restart    |
+| `Never`     | No restart  | No restart         | No restart |
+
+If no `restartPolicy` has been defined, Kubernetes will use `Always`.
+
+> [!NOTE]
+> The pod's `restartPolicy` only applies to app containers and init containers. Sidecar containers always have `Always` as restart policy.
+
+To see the `restartPolicy` of a pod:
+
+```sh
+kubectl get pod <pod_name> -o yaml | grep restartPolicy
+```
+
+**Official documentation:** <https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy>
+
 ## Commands
 
 List all existing pods:
@@ -37,6 +94,12 @@ kubectl get pods                 # for the current namespace
 kubectl get pods -o wide         # also show nodes where pods run on
 kubectl get pods -n <namespace>  # for a different namespace
 kubectl get pods -A              # for all namespaces
+```
+
+List containers inside a pod:
+
+```sh
+kubectl get pod <pod_name> -o jsonpath="{range .spec.containers[*]}{.name}{'\n'}{end}"
 ```
 
 See pod logs:
@@ -60,7 +123,7 @@ kubectl port-forward <container_name> <container_port>:<localhost_port>
 ```
 
 > [!TIP]
-> This port forwarding works even if `kubectl` is executed from within a DevContainer.
+> This port forwarding works even if `kubectl` is executed from within a [DevContainer](devcontainers.md).
 
 ## Resource YAML
 
@@ -68,7 +131,7 @@ Apply via `kubectl apply -f <filename>`.
 
 Helpful links:
 
-* [Which defaults you should override](https://github.com/BretFisher/podspec)
+* [Which defaults should be overridden?](https://github.com/BretFisher/podspec)
 
 ### Minimal Example
 
