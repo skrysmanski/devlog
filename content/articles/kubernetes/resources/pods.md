@@ -21,11 +21,19 @@ Pods are often cited as the "smallest deployable unit" in Kubernetes - meaning, 
 > [!NOTE]
 > Except for educational purposes, you will never create pods directly - instead you will use [deployments](deployments.md).
 
+**Internal DNS name**: `<pod-ip-address>.<namespace>.pod.cluster.local` (not really useful because you need the pod's ip)
+
 **Official documentation:** <https://kubernetes.io/docs/concepts/workloads/pods/>
+
+## The Word "Pod"
+
+For those whose primary language isn't English, the word "pod" may be confusing.
+
+The word "pod" in this context means "a group of fish" - or "a group of whales" - extending Docker's whale analogy where a whale is a container.
 
 ## Containers
 
-In its simplest form, a pod contains just one container.
+In its simplest/most common form, a pod contains just one container.
 
 It is, however, possible to have *multiple* containers within a single pod. These containers will then all run on the same machine.
 
@@ -35,6 +43,16 @@ Often, additionally to the primary container, the following "helper" containers 
 * [Sidecar Containers](https://kubernetes.io/docs/concepts/workloads/pods/sidecar-containers/): They run alongside the primary container.
 
 As a distinction, the "regular" containers are called "app containers". Also, you can have multiple app containers in a pod.
+
+### Multiple Containers or Multiple Pods?
+
+To decide whether all your application containers should be in the same pod or in different pods, ask yourself:
+
+> Will these two containers still work properly if they're running on *different* machines?
+
+If the answer is yes, put them in different pods.
+
+If the answer is no, put them in the same pod.
 
 ### Containers and Processes
 
@@ -235,3 +253,13 @@ If a container exceeds its memory limit, the kernel may kill it - if there is me
 * [Resource Management for Pods and Containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/)
 * [CPU resource units](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu)
 * [Memory resource units](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-memory)
+
+## Diagnosing ImagePullBackOff and ErrImagePull
+
+To figure out what the problem is when a pod has the status `ImagePullBackOff` or `ErrImagePull`, use:
+
+```sh
+kubectl describe pod <pod-name>
+```
+
+In the **Events:** section you can see what's happening.
