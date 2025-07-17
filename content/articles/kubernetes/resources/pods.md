@@ -20,6 +20,8 @@ Pods are often cited as the "smallest deployable unit" in Kubernetes - meaning, 
 
 > [!NOTE]
 > Except for educational purposes, you will never create pods directly - instead you will use [deployments](deployments.md).
+>
+> However, you still need to understand what pods are and how they work because pods are used by deployments.
 
 **Internal DNS name**: `<pod-ip-address>.<namespace>.pod.cluster.local` (not really useful because you need the pod's ip)
 

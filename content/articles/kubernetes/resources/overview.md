@@ -56,6 +56,11 @@ kubectl get namespaces
 kubectl get pods
 ```
 
+> [!NOTE]
+> Resource **names must be unique** (within their [namespace](namespaces.md)). See [Object Names and IDs](https://kubernetes.io/docs/concepts/overview/working-with-objects/names/) for more details.
+>
+> This is also how `kubectl apply -f` and `kubectl delete -f` determine which resource to create/alter/delete.
+
 ## Built-in Resources
 
 Kubernetes provides the following built-in resources (ordered from basic to advanced):

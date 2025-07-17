@@ -16,6 +16,8 @@ topics:
 
 > [!NOTE]
 > Except for educational purposes, you will never create ReplicaSets directly - instead you will use [deployments](deployments.md).
+>
+> However, you still need to understand what ReplicaSets are and how they work because ReplicaSets are used by deployments.
 
 **Internal DNS name**: none
 
@@ -60,12 +62,51 @@ spec:
           image: nginx:1.29.0
 ```
 
+The number of replicas is specified in line 6.
+
 Notice how the `spec:` sections of both definitions are identical.
 
 The ReplicaSet controller in Kubernetes looks for pods that matches the ReplicaSet's `selector`. This is why to have to specify a label for the pod (line 13) and a matching selector for the ReplicaSet (lines 8 and 9).
 
 > [!NOTE]
+> If you specify more replicas that you have nodes in your cluster, multiple pods will be scheduled on the same node.
+
+> [!NOTE]
 > Even though, semantically, the ReplicaSet's `selector` *should not* be needed (as it will obviously match the pod defined below), it is required. (You get an error if you don't specify it.)
+
+## Commands
+
+List all existing ReplicaSets:
+
+```sh
+kubectl get replicasets        # for the current namespace
+kubectl get rs                 # same; abbreviated name
+kubectl get rs -n <namespace>  # for a different namespace
+kubectl get rs -A              # for all namespaces
+```
+
+This will print something like:
+
+```
+NAME    DESIRED   CURRENT   READY   AGE
+nginx   3         3         3       7m51s
+```
+
+The pods of a ReplicaSet get a random "hash" appended to their name (to avoid naming conflicts):
+
+```sh
+> kubectl get pods
+NAME          READY   STATUS    RESTARTS   AGE
+nginx-lbgp6   1/1     Running   0          11m
+nginx-v7v28   1/1     Running   0          11m
+nginx-wrs89   1/1     Running   0          11m
+```
+
+Note that there's is no simple command to get the pods of a ReplicaSet - but since names are unique in Kubernetes and pods inherit their name from the name of the ReplicaSet, you can use this command:
+
+```sh
+kubectl get pods | grep '^my-replicaset-'
+```
 
 ## One Replica vs. Pod
 
