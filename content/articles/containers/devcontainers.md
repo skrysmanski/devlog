@@ -130,6 +130,9 @@ FROM hugomods/hugo
 # Add Git LFS (not installed by default).
 RUN apk add --no-cache git-lfs
 
+# Change default editor to nano.
+ENV EDITOR=nano
+
 EXPOSE 1313
 ```
 
