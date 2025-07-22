@@ -11,6 +11,8 @@
   {{- /*
     NOTE: While Hugo would allow us to use any text as ".AlertType", we use the exact values that are supported by GitHub. Because of this,
       we support "WARNING" but not "WARN".
+
+      See: https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts
    */ -}}
   {{- if eq .AlertType "note" }}
     {{ partial "alert.html" ( dict "Type" "note" "Title" "Note" "Icon" "circle-exclamation" "Text" .Text ) }}
