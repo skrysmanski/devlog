@@ -1,6 +1,6 @@
 #!/usr/bin/env pwsh
 
-$rootDir = [IO.Path]::GetFullPath("$PSScriptRoot/../..")
+$rootDir = [IO.Path]::GetFullPath("$PSScriptRoot")
 Write-Host "Using Hugo files from: $rootDir"
 
 $pageFindDir = "$rootDir/static/pagefind"
@@ -15,7 +15,7 @@ if (-Not $?) {
     Write-Error 'hugo publish failed'
 }
 
-Push-Location './_utils'
+Push-Location "$PSScriptRoot/themes/devlog-theme/_utils"
 # See: https://pagefind.app/docs/running-pagefind/
 & npx pagefind --site $tempOutputDir.Replace('\', '/') --output-path $pageFindDir.Replace('\', '/')
 Pop-Location
