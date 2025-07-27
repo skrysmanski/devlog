@@ -15,11 +15,11 @@
       See: https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts
    */ -}}
   {{- if eq .AlertType "note" }}
-    {{ partial "alert.html" ( dict "Type" "note" "Title" "Note" "Icon" "circle-exclamation" "Text" .Text ) }}
+    {{ partial "alert.html" ( dict "Type" "note" "Icon" "circle-info" "Text" .Text ) }}
   {{- else if eq .AlertType "tip" }}
-    {{ partial "alert.html" ( dict "Type" "tip" "Title" "Tip" "Icon" "circle-check" "Text" .Text ) }}
+    {{ partial "alert.html" ( dict "Type" "tip" "Icon" "circle-check" "Text" .Text ) }}
   {{- else if eq .AlertType "warning" }}
-    {{ partial "alert.html" ( dict "Type" "warning" "Title" "Warning" "Icon" "triangle-exclamation" "Text" .Text ) }}
+    {{ partial "alert.html" ( dict "Type" "warning" "Icon" "triangle-exclamation" "Text" .Text ) }}
   {{ else }}
     <blockquote>
       {{ .Text }}

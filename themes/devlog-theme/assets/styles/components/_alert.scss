@@ -1,23 +1,26 @@
 .alert {
+  display: flex;
+
+  font-size: 90%;
+
   padding: 18px;
-  line-height: 24px;
   margin-bottom: 24px;
 
   border-style: solid;
-  border-width: 1px 1px 1px 5px;
+  border-width: 1px 1px 1px 3px;
   border-radius: $block-border-radius;
 
   .alert-icon {
-    margin-right: 8px;
-  }
+    flex-grow: 0;     // the item will NOT grow to fill extra space
+    flex-shrink: 0;   // the item will NOT shrink if space is tight
+    flex-basis: auto; // the item's size is based on its content or width/height properties
 
-  .alert-title {
-    border-radius: 4px 4px 0 0;
-    font-weight: 700;
-    margin-bottom: 18px;
+    margin-right: 14px;
   }
 
   .alert-content {
+    flex: 1; // file the remaining space
+
     & > p:first-child {
       margin-top: 0;
     }
@@ -27,59 +30,33 @@
   }
 }
 
+@mixin alert-level($icon, $border, $background) {
+  background: $background;
+  border-color: $border;
+
+  .alert-icon {
+    color: $icon;
+  }
+}
+
 /*
  * Warning
  */
 .alert-warning {
-  $highlight: rgb(250, 153, 56);
-  $background: #fec;
-
-  background: $background;
-  border-color: $highlight;
-
-  .alert-icon {
-    color: $highlight;
-  }
-
-  code {
-    border-color: $highlight;
-  }
+  @include alert-level(rgb(250, 153, 56), #fdeac6, #fffdf5);
 }
 
 /*
  * Note
  */
 .alert-note {
-  $highlight: #6be;
-  $background: #e7f2fa;
-
-  background: $background;
-  border-color: $highlight;
-
-  .alert-icon {
-    color: $highlight;
-  }
-
-  code {
-    border-color: $highlight;
-  }
+  @include alert-level(#1eabea, #c9ebfb, #f7fcff);
 }
 
 /*
  * Tip
  */
 .alert-tip {
-  $highlight: #5a5;
-  $background: #efe;
-
-  background: $background;
-  border-color: $highlight;
-
-  .alert-icon {
-    color: $highlight;
-  }
-
-  code {
-    border-color: $highlight;
-  }
+  $base-color: #5a5;
+  @include alert-level($base-color, lighten($base-color, 30%), lighten($base-color, 47%));
 }
