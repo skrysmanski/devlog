@@ -3,7 +3,7 @@
 }
 
 html {
-  line-height: 1.75;
+  line-height: $line-height;
   // When clicking links in the TOC, with this the browser scrolls to the
   // location in a smooth way - instead of just jumping to the location.
   // For a demo, see: https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior
