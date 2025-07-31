@@ -19,7 +19,7 @@ enableGitInfo: true
 
 # https://gohugo.io/getting-started/configuration/#disablekinds
 # We don't need static RSS files to be generated.
-disableKinds: [ 'RSS' ]
+disableKinds: [ 'rss' ]
 
 # Don't auto capitalize ".Term.Title" as this breaks our topic name cleanup code
 # (which assumes all lower case topic names if no explicit title has been provided).
