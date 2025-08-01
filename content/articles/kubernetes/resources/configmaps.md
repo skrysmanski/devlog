@@ -69,7 +69,7 @@ If needed, you can also mix both styles inside the same ConfigMap (see [an examp
 > [!NOTE]
 > **Kubernetes does not parse the values** inside a ConfigMap. It especially doesn't interpret the values of file-like keys. It only handles/interprets the keys. (This becomes clear when we look at how ConfigMaps are used in Pods below.)
 
-## Using ConfigMaps
+## Using ConfigMaps {#using}
 
 There are three ways to consume a ConfigMap:
 
@@ -248,7 +248,7 @@ kubectl get cm -n <namespace>  # for a different namespace
 kubectl get cm -A              # for all namespaces
 ```
 
-To see the actual values of a ConfigMap:
+To see the keys and their values of a ConfigMap:
 
 ```sh
 kubectl get configmap <config-map-name> -o yaml
