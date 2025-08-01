@@ -61,3 +61,6 @@ You can read more on this topic in the [official documentation](https://github.c
 
 > [!NOTE]
 > The `.metadata.resourceVersion` field is *not* updated by the instances that issue the write requests - it's readonly. It's only update by the Kubernetes object store (e.g. etcd).
+
+> [!TIP]
+> If you're interested, you can see the `.metadata.resourceVersion` value via: `kubectl get <resource-type> <resource-name> -o yaml`

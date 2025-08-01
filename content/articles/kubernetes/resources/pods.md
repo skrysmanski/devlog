@@ -121,20 +121,20 @@ kubectl get pods -A              # for all namespaces
 List containers inside a Pod:
 
 ```sh
-kubectl get pod <pod_name> -o jsonpath="{range .spec.containers[*]}{.name}{'\n'}{end}"
+kubectl get pod <pod-name> -o jsonpath="{range .spec.containers[*]}{.name}{'\n'}{end}"
 ```
 
 See Pod logs:
 
 ```sh
-k logs <pod_name>
+k logs <pod-name>
 ```
 
 Exec into a Pod/container:
 
 ```sh
-kubectl exec -it <pod_name> -c <container_name> -- bash
-kubectl debug -it <pod_name> --image=<debug_image> -- bash
+kubectl exec -it <pod-name> -c <container-name> -- bash
+kubectl debug -it <pod-name> --image=<debug-image> -- bash
 ```
 
 ### Forwarding Ports from Pods
@@ -142,8 +142,8 @@ kubectl debug -it <pod_name> --image=<debug_image> -- bash
 You can forward ports from a single Pod to your local machine which these commands:
 
 ```sh
-kubectl port-forward <container_name> <port>  # same port in container and host
-kubectl port-forward <container_name> <localhost_port>:<container_port>
+kubectl port-forward <container-name> <port>  # same port in container and host
+kubectl port-forward <container-name> <localhost-port>:<container-port>
 ```
 
 This port forwarding works even if `kubectl` is executed from within a [DevContainer](devcontainers.md).
@@ -242,7 +242,7 @@ To see the resource capacity (max resource amount) and the allocated resources (
 
 ```sh
 # Look for "Capacity" and "Allocated resources"
-kubectl describe node <node_name>
+kubectl describe node <node-name>
 ```
 
 > [!NOTE]

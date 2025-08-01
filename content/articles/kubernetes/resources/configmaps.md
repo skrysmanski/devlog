@@ -125,6 +125,9 @@ spec:
 > [!NOTE]
 > If you change the ConfigMap while the consuming Pod is running, **changes will *not* propagate into the Pod**. You need to restart the Pod to get the updated values.
 
+> [!TIP]
+> To see all environment variables, execute `printenv` inside the container.
+
 ### As Files {#using-volume}
 
 For this, you first define a volume with the config map as source (lines 14-17) and then map this volume into the container (lines 9-12):
@@ -233,3 +236,28 @@ spec:
         - configMapRef:
             name: configmap-example
 ```
+
+## Commands
+
+List all existing ConfigMaps:
+
+```sh
+kubectl get configmaps         # for the current namespace
+kubectl get cm                 # same; abbreviated name
+kubectl get cm -n <namespace>  # for a different namespace
+kubectl get cm -A              # for all namespaces
+```
+
+To see the actual values of a ConfigMap:
+
+```sh
+kubectl get configmap <config-map-name> -o yaml
+```
+
+## The "kube-root-ca.crt" ConfigMap
+
+Kubernetes automatically creates a ConfigMap named `kube-root-ca.crt` in every [Namespace](namespaces.md).
+
+This ConfigMap contains a single key - `ca.crt` - that contains the TLS root certificate used by Kubernetes to secure all communication with its API server.
+
+It's intended to be file mounted by Pods that need to communicate with the Kubernetes API server (for example custom resource controllers).

@@ -20,22 +20,28 @@ spec:
 Resources are then created or updated with [`kubectl`](../kubectl.md):
 
 ```sh
-kubectl apply -f <resource_file>
+kubectl apply -f <resource-file>
 ```
 
 Resources can also be deleted this way:
 
 ```sh
-kubectl delete -f <resource_file>
+kubectl delete -f <resource-file>
 ```
 
 > [!TIP]
 > Resources can be created both via a yaml file (using `kubectl apply`) and via the command line (using `kubectl create`). It is, however, recommended to use yaml files so that they can be versioned in Git.
 
+To get the YAML definition of an existing resource:
+
+```sh
+kubectl get <resource-type> <resource-name> -o yaml
+```
+
 Kubernetes has a built-in way to show all supported fields for a resource:
 
 ```sh
-kubectl explain <resource_type>
+kubectl explain <resource-type>
 ```
 
 For example:
@@ -48,7 +54,7 @@ kubectl explain namespaces.metadata
 Each resource type can be queried on the commandline via:
 
 ```sh
-kubectl get <resource_type>
+kubectl get <resource-type>
 ```
 
 For example:
@@ -146,7 +152,7 @@ kind      group
 You also get this information - including the api version(s) - via:
 
 ```sh
-kubectl explain <crd_name>
+kubectl explain <crd-name>
 ```
 
 For example:
